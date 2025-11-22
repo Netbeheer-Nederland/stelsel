@@ -5,7 +5,7 @@
         {%- set element = schemaview.get_element(name) -%}
         {%- if element.class_uri -%}
             {%- if element.annotations.external_registry -%}
-                [{{name}}]({{gen.uri(element) | replace('//modellen.netbeheernederland.nl/', '//netbeheer-nederland.github.io/')}}) ({{element.annotations.external_registry.value}})
+                [{{name}}]({{gen.uri(element)}}) ({{element.annotations.external_registry.value}})
             {%- else -%}
                 [{{name}}](#{{element.class_uri|replace(schema.default_prefix ~ ':', '')}})
             {%- endif -%}

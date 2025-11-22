@@ -1,0 +1,139 @@
+id: https://modellen.netbeheernederland.nl/stelsel/registers/aangeslotenenregister/v1
+name: aangeslotenenregister
+title: Aangeslotenenregister
+description: Het aangeslotenenregister bevat informatie over (natuurlijke en niet-natuurlijke) personen die de beschikking hebben gekregen over een elektriciteits- of gasaansluiting van een Nederlandse netbeheerder.
+comments:
+  - De entiteiten in dit register hebben een tijdlijn registratie en effectuering. De tijdlijn effectuering is gelijk aan de tijdlijn registratie met een naar beneden afgerond tijdstip; voor elektriciteit naar 0:00 en voor gas naar 6:00 (zie artikel 2.1.8 van de Informatiecode elektriciteit en gas).
+version: 1.0-draft
+prefixes:
+  linkml: https://w3id.org/linkml/
+  begrip: https://begrippen.netbeheernederland.nl/energiesysteembeheer/nl/page/
+  this: https://modellen.netbeheernederland.nl/stelsel/registers/aangeslotenenregister#
+  aansluitingenregister: https://modellen.netbeheernederland.nl/stelsel/registers/aansluitingenregister#
+  energiewet: https://wetten.overheid.nl/jci1.3:c:BWBR0050714&
+  hr: http://opendata.stelselcatalogus.nl/hr/id/begrip/
+  kvk: https://www.kvk.nl/
+default_prefix: this
+
+classes:
+  Aangeslotene:
+    class_uri: Aangeslotene
+    exact_mappings:
+      - begrip:aangeslotene
+    annotations:
+      tijdlijn_registratie: true
+      tijdlijn_effectuering: true
+    comments:
+      - Omdat netbeheerders aangeslotenen niet altijd uniek kunnen identificeren, wordt in dit register informatie over de aangeslotene per aansluiting vastgelegd. Hierdoor kan één aangeslotene meerdere keren voorkomen in dit register.
+      - Persoonsgegevens zijn zo veel mogelijk overeenkomstig NEN 1888.
+    attributes:
+      e-mailadres:
+        description: uniek adres voor digitaal, elektronisch postverkeer
+      geboortedatum:
+        description: datum van geboorte van een persoon
+        comments:
+          - "Validatie: leeg bij 'onderneming of overige zakelijke eindafnemer'."
+        range: date
+      naam:
+        description: statutaire naam van de niet-natuurlijke persoon of achternaam zonder tussenvoegsel van de natuurlijke persoon
+        required: true
+      roepnaam:
+        description: naam waarmee iemand wil worden aangesproken
+        comments:
+          - "Validatie: leeg bij 'onderneming of overige zakelijke eindafnemer'."
+      telefoonnummer:
+        description: uniek nummer dat toegekend wordt om een aansluiting op het publieke telefoonnet te identificeren, bestaande uit het plusteken, een landnummer, een netnummer en een abonneenummer
+      type:
+        description: categorie waartoe de aangeslotene behoort
+        range: Type aangeslotene
+      voorvoegsel:
+        description: verzameling van een of meer voorzetsels en/of lidwoorden die aan het significante deel van de achternaam vooraf gaat en daarmee gezamelijk de achternaam vormt
+        comments:
+          - "Validatie: leeg bij 'onderneming of overige zakelijke eindafnemer'."
+      voorletters:
+        description: verzameling letters die wordt gevormd door de eerste letter van alle in volgorde voorkomende voornamen
+        comments:
+          - "Validatie: leeg bij 'onderneming of overige zakelijke eindafnemer'."
+          - NEN 1888 onderscheidt voorletters-n van voorletters-1. Bijvoorbeeld Theo Adriaan wordt afgekort als Th.Adr. (voorletters-n) en als TA (voorletters-1, zonder puntjes). Dit register hanteert voorletters-1.
+      # relaties
+      houder van:
+        range: Aansluiting
+        comments:
+          - Een aangeslotene kan over meer dan één aansluiting beschikken. Dit register legt informatie over de aangeslotene per aansluiting vast.
+        required: true
+        multivalued: false
+        annotations:
+          inverse_cardinality: 0..1
+      rol van:
+        comments:
+          - "Validatie: afwezig bij huishoudelijk eindafnemer."
+        see_also:
+          - kvk:over-het-handelsregister/de-nummers-van-het-handelsregister/
+        range: Onderneming of maatschappelijke activiteit
+        required: false
+        multivalued: false
+        annotations:
+          inverse_cardinality: "*"
+    unique_keys:
+      primary_key:
+        unique_key_slots:
+        - houder van
+  Correspondentieadres:
+    class_uri: Correspondentieadres
+    broad_mappings:
+      - begrip:aangeslotene
+    annotations:
+      tijdlijn_registratie: true
+      tijdlijn_effectuering: true
+    description: postadres waar een aangeslotene zijn correspondentie wil ontvangen anders dan het aansluitadres
+    comments:
+      - Adresgegevens zijn zo veel mogelijk overeenkomstig NEN 5825.
+    attributes:
+      huisnummer:
+        description: aan een verblijfsobject, standplaats of ligplaats toegekend nummer, een antwoordnummer of een postbusnummer
+        required: true
+        range: integer
+      huisnummertoevoeging:
+        description: aan een verblijfsobject, standplaats of ligplaats toegekende nadere toevoeging aan een huisnummer inclusief huisletter
+      landcode:
+        description: identificatie van een land met twee letters conform ISO 3166-1
+        required: true
+      postcode:
+        description: reeks tekens die in een postadres wordt opgenomen om het automatisch sorteren van de post gemakkelijker te maken
+        required: true
+      straatnaam:
+        description: naam om openbare ruimten zoals straten, lanen, wegen en stegen mee aan te duiden, of 'antwoordnummer' of 'postbus'
+        required: true
+      woonplaatsnaam:
+        description: aanduiding van een gebied met bewoning zoals een stad of dorp
+        required: true
+      # relaties
+      van:
+        range: Aangeslotene
+        required: true
+        multivalued: false
+        annotations:
+          inverse_cardinality: 0..1
+    unique_keys:
+      primary_key:
+        unique_key_slots:
+        - van
+  # extern
+  Aansluiting:
+    class_uri: aansluitingenregister:Aansluiting
+    annotations:
+      external_registry: Aansluitingenregister
+  Onderneming of maatschappelijke activiteit:
+    class_uri: hr:maatschappelijke_activiteit
+    annotations:
+      external_registry: Handelsregister
+
+enums:
+  Type aangeslotene:
+    permissible_values:
+      huishoudelijk eindafnemer:
+        description: eindafnemer die elektriciteit of gas koopt of wil kopen voor eigen huishoudelijk gebruik
+        source: energiewet:g=2025-02-22
+      onderneming of overige zakelijke eindafnemer:
+        description:  eindafnemer die elektriciteit of gas koopt of wil kopen anders dan voor eigen huishoudelijk gebruik
+        source: energiewet:g=2025-02-22

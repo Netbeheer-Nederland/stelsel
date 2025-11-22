@@ -1,0 +1,1081 @@
+id: https://modellen.netbeheernederland.nl/stelsel/registers/aansluitingenregister
+name: aansluitingenregister
+title: Aansluitingenregister
+# conventie: versienummer eindigt op '-draft' zolang het model niet klaar is
+# Versienummer in pad op GitHub heeft gewoon de waarde van de beoogde versie, zonder '-draft'.
+version: 1.2-draft
+description: Het aansluitingenregister bevat alle elektriciteits- en gasaansluitingen in Nederland.
+comments:
+  - Het aansluitingenregister wordt gezamenlijk beheerd door de netbeheerders en bevat zowel fysieke als administratieve gegevens over aansluitingen. Het register is essentieel voor de werking van de energiemarkt omdat het de basis vormt voor processen zoals leverancierswisselingen, verhuizingen en facturatie.
+  - De verplichting tot het bijhouden van het aansluitingenregister is vastgelegd in de Informatiecode elektriciteit en gas, vastgesteld door de Autoriteit Consument en Markt (ACM).
+see_also:
+  - youtube:z7eVPSKf8l8
+  - iceg:hoofdstuk=2&paragraaf=2.1&g=2025-01-01
+prefixes:
+  linkml: https://w3id.org/linkml/
+  begrip: https://begrippen.netbeheernederland.nl/energiesysteembeheer/nl/page/
+  # conventie: gebruik 'this' als lokale prefix, voor de dingen die door dit LinkML-bestand gedefinieerd worden
+  # conventie: 'this' niet als default_prefix zodat we zelf full control houden over URI's
+  this: https://modellen.netbeheernederland.nl/stelsel/registers/aansluitingenregister#
+  marktpartijenregister: https://modellen.netbeheernederland.nl/stelsel/registers/marktpartijenregister#
+  tarievenregister: https://modellen.netbeheernederland.nl/stelsel/registers/tarievenregister#
+  nen: https://www.nen.nl/
+  wetten: "https://wetten.overheid.nl/jci1.3:c:"
+  energiewet: https://wetten.overheid.nl/jci1.3:c:BWBR0050714&
+  mce: https://wetten.overheid.nl/jci1.3:c:BWBR0037946&
+  nce: https://wetten.overheid.nl/jci1.3:c:BWBR0037940&
+  iceg: https://wetten.overheid.nl/jci1.3:c:BWBR0037934&
+  acg: https://wetten.overheid.nl/jci1.3:c:BWBR0037931&
+  tce: https://wetten.overheid.nl/jci1.3:c:BWBR0037951&
+  tcg: https://wetten.overheid.nl/jci1.3:c:BWBR0037948&
+  bce: https://wetten.overheid.nl/jci1.3:c:BWBR0037938&
+  bcg: https://wetten.overheid.nl/jci1.3:c:BWBR0037923&
+  rakveg: https://wetten.overheid.nl/jci1.3:c:BWBR0030164&
+  adamstelsel: https://www.amsterdam.nl/stelselpedia/
+  iso: https://www.iso.org/
+  youtube: https://www.youtube.com/watch?v=
+  bgt: http://opendata.stelselcatalogus.nl/bgt/id/begrip/
+  bag: http://opendata.stelselcatalogus.nl/bag/id/begrip/
+  brk: http://opendata.stelselcatalogus.nl/brk/id/begrip/
+default_prefix: this
+
+classes:
+  Any:
+    class_uri: linkml:Any
+  Aansluiting:
+    # conventie: altijd expliciet class_uri. Toegestane karakters vanwege hergebruik als HTML-ankers zijn A-Z, a-z, 0-9, -, _, . en :. Hoofdletters behouden. Spaties vervangen door -.
+    class_uri: this:Aansluiting
+    # conventie: altijd óf `description` (= definitie) óf `exact_mappings` aanwezig
+    # conventie: elke class verwijst naar een NBNL-begrip, en daarmee indirect naar een NBility-bedrijfsobject voor eigenaarschap van definitie en data
+    exact_mappings:
+      - begrip:aansluiting
+    annotations:
+      # conventie: NEN 3610 tijdlijnen als `tijdlijn_geldigheid`, `tijdlijn_registratie` en `levensduur`
+      tijdlijn_geldigheid: true
+      tijdlijn_registratie: true
+      tijdlijn_effectuering: true
+    comments:
+      - Een koppeling met een gesloten distributiesysteem wordt in dit register beschouwd als aansluiting als de beheerder geen gebruik maakt van het elektronische berichtenverkeer ten behoeve van het faciliteren van derdentoegang (zie artikel 2.4, vierde lid van de Netcode elektriciteit).
+    slots:
+      - EAN-code
+      - energiedrager
+    slot_usage:
+      EAN-code:
+        annotations:
+          # conventie: markering van persoonsgegevens
+          personal_data: true
+    attributes:
+      gecontracteerde transportcapaciteit:
+        exact_mappings:
+          - begrip:gecontracteerde-transportcapaciteit
+        see_also:
+          - tce:hoofdstuk=3&paragraaf=3.7&artikel=3.7.4&g=2022-05-18
+          - tcg:hoofdstuk=2&paragraaf=2.6&artikel=2.33&g=2023-05-02
+      technische grootte:
+        description: aanduiding van het formaat van de aansluiting op basis van de gewenste aansluitcapaciteiten van de overdrachtspunten
+        comments:
+          - De historische aanduiding 'artikel-1-lid-2-of-3-aansluiting' is nu afleidbaar uit de combinatie van 'grootte' en 'marktsegment'.
+          # conventie: validatieregels in `comments`, beginnend met 'Validatie:'
+          - "Validatie: als de gewenste aansluitcapaciteit van een van de overdrachtspunten 'groot' is of een geheel getal dan 'groot' anders 'klein'."
+        range: Technische grootte
+        required: true
+      marktsegment:
+        description: aanduiding van de categorie waartoe de aansluiting behoort, te weten kleinverbruikaansluiting of grootverbruikaansluiting
+        see_also:
+          - iceg:hoofdstuk=2&paragraaf=2.1&artikel=2.1.3&g=2022-05-18
+          - bce:hoofdstuk=1&artikel=1.1&g=2022-11-25
+        comments:
+          - Een aansluiting met een kleine capaciteit kan onder voorwaarden worden beschouwd als grootverbruikaansluiting, bijvoorbeeld als het een aansluiting betreft op een gesloten distributiesysteem of een aansluiting zoals bedoeld in artikel 1, lid 2 of 3 van de Elektriciteitswet 1998.
+        range: Marktsegment
+        required: true
+      uitsluitend elektriciteitsproductie-eenheden:
+        description: geeft aan of achter een aansluiting zich uitsluitend elektriciteitsproductie-eenheden bevinden en geen ander verbruik dan het eigen verbruik van de desbetreffende elektriciteitsproductie-eenheden
+        see_also:
+          - tce:hoofdstuk=3&paragraaf=3.7&artikel=3.7.13.b&g=2022-05-18
+        comments:
+          - Ook wel bekend als 'zuivere teruglevering'.
+        range: boolean
+        required: true
+      unieke EAN-code bij MLOEA:
+        description: EAN-code die ongelijk is aan die van een allocatiepunt
+        comments:
+          - MLOEA staat voor meerdere leveranciers op een aansluiting. Het is een configuratie waarbij een aansluiting meer dan één allocatiepunt heeft. Omdat de aansluiting en het primaire allocatiepunt (PAP) dezelfde EAN-code delen, helpt de unieke EAN-code expliciet te maken dat het om de aansluiting gaat. Deze EAN-code staat ook wel bekend als virtueel allocatiepunt (VAP) of overdrachtspunt MLOEA (OPM), terwijl het geen allocatiepunt of overdrachtspunt betreft. Als in het berichtenverkeer tussen netbeheerder en meetverantwoordelijke voortaan expliciet wordt gemaakt welk entiteittype men bedoeld (aansluiting of allocatiepunt), dan is de unieke EAN-code niet meer nodig.
+      weekmax:
+        description: geeft aan of de kWmax per week gemeten moet worden
+        see_also:
+          - tce:hoofdstuk=3&paragraaf=3.7&artikel=3.7.5a&g=2022-05-18
+        range: boolean
+      # relaties
+      beheerd door:
+        description: geeft aan welke netbeheerder de aansluiting beheert
+        range: Marktpartijsubregistratie
+        required: true
+        multivalued: false
+        annotations:
+          inverse_cardinality: "*"
+      deel van:
+        comments:
+        - "Validatie: deze relatie is verplicht als een van de allocatiepunten 'in bedrijf' is."
+        - "Validatie: aansluiting en netgebied hebben dezelfde beheerder."
+        range: Netgebied
+        # conventie: multipliciteiten op relaties altijd expliciet
+        required: false
+        multivalued: false
+        annotations:
+          # conventie: omgekeerde multipliciteit als `inverse_cardinality` (opties: *, 0..1, 1..*, 1)
+          inverse_cardinality: "*"
+    unique_keys:
+      # conventie: natuurlijke sleutel / business key heet altijd `identificatie`
+      identificatie:
+        unique_key_slots:
+          - EAN-code
+  Aansluitlocatie:
+    class_uri: this:Aansluitlocatie
+    exact_mappings:
+      - begrip:aansluitlocatie
+    annotations:
+      tijdlijn_geldigheid: true
+      tijdlijn_registratie: true
+      tijdlijn_effectuering: true
+    comments:
+      - Adresgegevens zijn zo veel mogelijk overeenkomstig NEN 5825.
+    see_also:
+      - iceg:hoofdstuk=2&paragraaf=2.1&artikel=2.1.3&g=2023-06-28
+    attributes:
+      huisnummer:
+        description: aan een verblijfsobject, standplaats of ligplaats toegekend nummer, een antwoordnummer of een postbusnummer
+        # conventie: `source` bevat de bron waarop de term of definitie is gebaseerd
+        source: nen:nen-5825-2002-nl-83617
+        required: true
+        range: integer
+        annotations:
+          personal_data: true
+      huisnummertoevoeging:
+        description: aan een verblijfsobject, standplaats of ligplaats toegekende nadere toevoeging aan een huisnummer inclusief huisletter
+        source: nen:nen-5825-2002-nl-83617
+        annotations:
+          personal_data: true
+      landcode:
+        description: identificatie van een land met twee letters conform ISO 3166-1
+        source: iso:iso-3166-country-codes.html
+        required: true
+      locatienummer:
+        description: identificatie van een aansluitlocatie
+        required: true
+        annotations:
+          personal_data: true
+      locatieomschrijving:
+        description: omschrijving van de ligging van een aansluitlocatie, eventueel ten opzichte van een nabijgelegen adres
+        annotations:
+          personal_data: true
+      postcode:
+        description: reeks tekens die in een postadres wordt opgenomen om het automatisch sorteren van de post gemakkelijker te maken
+        source: nen:nen-5825-2002-nl-83617
+        required: true
+      soort:
+        description: aanduiding van een verzameling aansluitlocaties die een gemeenschappelijk karakter hebben
+        comments: Mogelijke waarden afstemmen op de geobasisregistraties. Zie bijvoorbeeld https://docs.geostandaarden.nl/disgeo/emso/.
+      straatnaam:
+        description: naam om openbare ruimten zoals straten, lanen, wegen en stegen mee aan te duiden, of 'antwoordnummer' of 'postbus'
+        source: nen:nen-5825-2002-nl-83617
+        required: true
+      toegangsinstructie:
+        description: beschrijving van wat je moet doen om een locatie binnen te kunnen of mogen gaan
+        annotations:
+          personal_data: true
+      verdieping toegang:
+        description: aanduiding op welke verdieping de toegangsdeur van de aansluitlocatie zich bevindt
+        source: adamstelsel:bag-index/catalogus-bag/objectklasse-vbo/kenmerk-bouwlaag/
+        comments:
+          - Dit gegeven helpt bij het snel lokaliseren van storingen in hoogbouw.
+          - De begande grond geldt als 0. Als de toegang meer dan 1,5 m onder het maaiveld ligt, wordt als verdieping -1 aangemerkt.
+        range: integer
+      woonplaatsnaam:
+        description: aanduiding van een gebied met bewoning zoals een stad of dorp
+        source: nen:nen-5825-2002-nl-83617
+        required: true
+      x-coördinaat:
+        description: oost-westpositie van een punt in het Rijksdriehoeksstelsel (RD)
+        # conventie voor 'range' bij getallen:
+        # string: niet-rekenkundige nummers (codes)
+        # integer: telbare dingen (aantallen)
+        # float: fysiek meetbare, continue waarden (afstand, vermogen)
+        # decimal: door mensen exact afgesproken waarden (geld, contractuele percentages)
+        range: float
+        unit:
+          ucum_code: m
+        annotations:
+          personal_data: true
+      y-coördinaat:
+        description: noord-zuidpositie van een punt in het Rijksdriehoeksstelsel (RD)
+        range: float
+        unit:
+          ucum_code: m
+        annotations:
+          personal_data: true
+      # relaties
+      in zelfde onroerende zaak als:
+        comments:
+          - "Verwijzen naar de basisregistraties kan met het patroon beschreven in NEN 3610: met 'domein' en 'identificatie', waar het domein in dit geval kan zijn: NL.IMBAG.Verblijfsobject NL.IMBAG.Standplaats, NL.IMBAG.Ligplaats, NL.IMBAG.Pand, NL.IMBAG.Nummeraanduiding, NL.IMKAD.KadastraalObject of NL.IMGeo."
+        range: Any
+        exactly_one_of:
+          - range: Verblijfsobject
+          - range: Standplaats
+          - range: Ligplaats
+          - range: Pand
+          - range: Grootschalig topografisch object
+          - range: Perceel
+        required: false
+        multivalued: false
+        annotations:
+          inverse_cardinality: "*"
+          personal_data: true
+      in nabijheid van:
+        range: Nummeraanduiding
+        required: false
+        multivalued: false
+        annotations:
+          inverse_cardinality: "*"
+          personal_data: true
+    unique_keys:
+      identificatie:
+        unique_key_slots:
+          - locatienummer
+  Aftakking:
+    class_uri: this:Aftakking
+    broad_mappings:
+      - begrip:netcomponent
+    annotations:
+      tijdlijn_geldigheid: true
+      tijdlijn_registratie: true
+      tijdlijn_effectuering: true
+    description: splitsing van de wikkeling van een transformator
+    source: mce:bijlage=3&g=2023-04-01
+    see_also:
+      - mce:hoofdstuk=4&paragraaf=4.3&sub-paragraaf=4.3.2&artikel=4.3.2.4&g=2022-10-25
+    attributes:
+      in gebruik:
+        description: geeft aan of de aftakking wordt gebruikt
+        range: boolean
+      nominale waarde:
+        description: hoeveelheid spanning of stroom waarvoor de aftakking is ontworpen, en die in combinatie met de waarde van de aftakking aan de andere zijde de overzetverhouding vormt
+        range: float
+        comments:
+          - "Eenheid: volt (V) of ampère (A)."
+      zijde:
+        description: aanduiding aan welke kant van de transformator de aftakking zich bevindt
+        range: Transformatorzijde
+      # relaties
+      deel van:
+        range: Meettransformator
+        required: true
+        multivalued: false
+        annotations:
+          inverse_cardinality: "1..*"
+    unique_keys:
+      identificatie:
+        unique_key_slots:
+          - deel van
+          - zijde
+          - nominale waarde
+  Allocatiepunt:
+    class_uri: this:Allocatiepunt
+    exact_mappings:
+      - begrip:allocatiepunt
+    annotations:
+      tijdlijn_geldigheid: true
+      tijdlijn_registratie: true
+      tijdlijn_effectuering: true
+    slots:
+      - EAN-code
+    slot_usage:
+      EAN-code:
+        comments:
+          - "Validatie: bij primair allocatiepunt gelijk aan EAN-code aansluiting, bij secundair ongelijk."
+        see_also:
+          - nce:hoofdstuk=2&paragraaf=2.1&artikel=2.4&g=2022-11-25
+        annotations:
+          personal_data: true
+    attributes:
+      allocatiemethode:
+        # TODO: definitie
+        range: Allocatiemethode
+        see_also:
+          - iceg:hoofdstuk=2&paragraaf=2.1&artikel=2.1.3&g=2022-05-18
+          - nce:hoofdstuk=10&paragraaf=10.4&artikel=10.17&g=2023-06-10
+      profielcategorie:
+        description: groep allocatiepunten waarvoor een reeks profielfracties wordt vastgesteld
+        comments:
+          - Ook bekend als 'afnamecategorie'.
+          - Voorbeelden van mogelijke waarden zijn E1A, E1B, E1C, E2A, E2B, E4A, G1A, G2A, G2C, GGV, GIN, GIS, GKV, GMN en GXX.
+        see_also:
+          - iceg:hoofdstuk=2&paragraaf=2.1&artikel=2.1.3&g=2022-05-18
+          - bce:hoofdstuk=1&artikel=1.1&g=2022-11-25
+          - bcg:hoofdstuk=1&artikel=1.1&g=2021-06-01
+        annotations:
+          personal_data: true
+    unique_keys:
+      identificatie:
+        unique_key_slots:
+          - EAN-code
+  Allocatiepunt bij aansluiting:
+    class_uri: this:Allocatiepunt-bij-aansluiting
+    is_a: Allocatiepunt
+    description: allocatiepunt toegekend aan een aansluiting
+    attributes:
+      administratieve status van meetinrichting:
+        description: geeft weer of de aangeslotene de mogelijkheid om de meter op afstand uit te lezen administratief heeft laten uitzetten
+        see_also:
+          - iceg:hoofdstuk=2&paragraaf=2.1&artikel=2.1.4&g=2022-12-20
+        range: Aan of uit
+        annotations:
+          personal_data: true
+      blokkade:
+        description: geeft weer of het allocatiepunt en de bijbehorende aansluiting is geblokkeerd voor de automatische verwerking van mutatieprocessen als bedoeld in Hoofdstuk 4 van de Informatiecode elektriciteit en gas
+        see_also:
+          - iceg:hoofdstuk=4&g=2023-03-18
+          - iceg:hoofdstuk=2&paragraaf=2.12&g=2023-03-18
+          - iceg:hoofdstuk=1&paragraaf=1.1&artikel=1.1.14&g=2023-03-18
+        range: Blokkade
+        annotations:
+          personal_data: true
+      fysieke status:
+        description: toestand van door de netbeheerder en eventuele meetverantwoordelijke beheerde onderdelen die samen energie-uitwisseling op het allocatiepunt mogelijk maken
+        comments:
+          - "Validatie: bij een bemeten kleinverbruikaansluiting zonder meter is geen overgang mogelijk naar 'in bedrijf'."
+        see_also:
+          - iceg:hoofdstuk=2&paragraaf=2.1&artikel=2.1.3&g=2022-05-18
+        range: Fysieke status allocatiepunt
+        annotations:
+          personal_data: true
+      maand verbruiksbepaling:
+        description: maand waarin de verbruiksbepaling plaatsvindt
+        range: integer
+        comments:
+          - Waarde in het bereik 1-12 conform ISO 8601.
+          - "Validatie: in geval van een aansluiting waarbij eenmaal per jaar het verbruik wordt bepaald."
+      reden uit bedrijf:
+        description: verklaring van het uit bedrijf zijn van één of meer onderdelen zodat energie-uitwisseling op het allocatiepunt onmogelijk is
+        see_also:
+          - rakveg:paragraaf=1&artikel=1a&g=2023-04-01
+        range: Reden uit bedrijf
+        annotations:
+          personal_data: true
+      type:
+        description: geeft weer of het allocatiepunt primair of secundair is
+        source: bce:hoofdstuk=1&artikel=1.1&g=2022-11-25
+        range: Type allocatiepunt bij aansluiting
+      wijze uit bedrijf:
+        description: manier waarop één of meer onderdelen uit bedrijf zijn genomen zodat energie-uitwisseling op het allocatiepunt onmogelijk is
+        range: Wijze uit bedrijf
+        annotations:
+          personal_data: true
+      wijze van bemeting:
+        description: manier waarop het allocatiepunt is bedoeld om te worden bemeten
+        see_also:
+          - iceg:hoofdstuk=2&paragraaf=2.1&artikel=2.1.3&g=2022-05-18
+        range: Wijze van bemeting
+        annotations:
+          personal_data: true
+      # relaties
+      toegekend aan:
+        range: Aansluiting
+        required: true
+        multivalued: false
+        annotations:
+          inverse_cardinality: 1..*
+  Allocatiepunt bij netgebied:
+    class_uri: this:Allocatiepunt-bij-netgebied
+    description: allocatiepunt toegekend aan een netgebied
+    is_a: Allocatiepunt
+    attributes:
+      type:
+        description: geeft weer bij welke vorm van netverlies het allocatiepunt hoort
+        comments:
+          - "Validatie: per netgebied en type is er maximaal één allocatiepunt."
+        range: Type allocatiepunt bij netgebied
+      # relaties
+      toegekend aan:
+        range: Netgebied
+        required: true
+        multivalued: false
+        annotations:
+          inverse_cardinality: "1..*"
+  Groep van strengen van lichtmasten:
+    class_uri: this:Groep-van-strengen-van-lichtmasten
+    broad_mappings:
+      - begrip:aansluitlocatie
+    annotations:
+      tijdlijn_geldigheid: true
+      tijdlijn_registratie: true
+      tijdlijn_effectuering: true
+    description: verzameling van strengen van lichtmasten waarvan de aansluitingen eventueel ongeïdentificeerde overdrachtspunten bevatten
+    comments:
+      - Voorheen werden zogenaame 'virtuele aansluitingen' geregistreerd (DIM). Dit register staat alleen de registratie van echte aansluitingen toe. De mooiste manier om een streng van lichtmasten te registreren, is als één aansluiting met één primair allocatiepunt en een overdrachtspunt per lichtmast. Is het aantal strengen bekend maar niet de verdeling van lichtmasten over die strengen, dan als één aansluiting/allocatiepunt/overdrachtspunt per streng, met al deze aansluitingen gegroepeerd in een groep van strengen van lichtmasten. Is het ook het aantal strengen niet bekend, dan als één aansluiting/allocatiepunt/overdrachtspunt. Al deze varianten leiden tot eenzelfde nettarief, volgens de afleidingsregels in het tarievenregister.
+    see_also:
+      - tce:hoofdstuk=3&paragraaf=3.3&artikel=3.3.3&g=2022-05-18
+    attributes:
+      totaal aantal overdrachtspunten:
+        description: som van het aantal overdrachtspunten van alle strengen in de groep, zowel de in dit register geïdentificeerde als niet-geïdentificeerde overdrachtspunten
+        comments:
+          - Gemeenten weten het aantal lichtmasten niet altijd per streng (of 'voedingspunt') op te geven.
+        range: integer
+      # relaties
+      in rekening te brengen bij:
+        range: Aansluiting
+        required: true
+        multivalued: false
+        annotations:
+          inverse_cardinality: "0..1"
+    unique_keys:
+      identificatie:
+        unique_key_slots:
+          - in rekening te brengen bij
+  Meettransformator:
+    class_uri: this:Meettransformator
+    broad_mappings:
+      - begrip:netcomponent
+    annotations:
+      tijdlijn_geldigheid: true
+      tijdlijn_registratie: true
+      tijdlijn_effectuering: true
+    description: elektrisch apparaat dat wordt toegepast voor het verlagen van spanning of stroom zodat deze gemeten kan worden
+    see_also:
+      - mce:hoofdstuk=4&paragraaf=4.3&sub-paragraaf=4.3.2&artikel=4.3.2.4&g=2022-10-25
+    attributes:
+      fabrikant:
+        description: bedrijf dat industrieel goederen vervaardigt
+      meetbereik bovengrens:
+        description: maximale belasting waarbij de meettransformator de maximaal toelaatbare meetfout behorend bij de nauwkeurigheidsklasse niet overschrijdt
+        range: float
+        # conventie: eenheden
+        unit:
+          ucum_code: V.A
+      meetbereik ondergrens:
+        description: minimale belasting waarbij de meettransformator de maximaal toelaatbare meetfout behorend bij de nauwkeurigheidsklasse niet overschrijdt
+        range: float
+        unit:
+          ucum_code: V.A
+      nauwkeurigheidsklasse:
+        description: gestandaardiseerde cijfercode waarmee men de maximaal toelaatbare meetfout van meetapparatuur definieert
+        range: Nauwkeurigheidsklasse
+      nominaal vermogen:
+        description: maximaal vermogen bij continu gebruik waarbij een maximaal rendement wordt behaald
+        range: float
+        unit:
+          ucum_code: V.A
+      serienummer:
+        description: code die door de fabrikant aan een exemplaar uit een reeks producten wordt gegeven
+      soort schakeling:
+        description: aanduiding van een verzameling schakelingen die een gemeenschappelijk karakter hebben
+        range: Soort schakeling
+      typeaanduiding:
+        description: naam die door een fabrikant aan een reeks producten met vergelijkbare eigenschappen wordt gegeven
+      # relaties
+      deel van:
+        range: Primair deel elektriciteitsmeetinrichting
+        required: true
+        multivalued: false
+        annotations:
+          inverse_cardinality: "*"
+    unique_keys:
+      identificatie:
+        unique_key_slots:
+          - deel van
+          - serienummer
+  Netgebied:
+    class_uri: this:Netgebied
+    exact_mappings:
+      - begrip:netgebied
+    annotations:
+      tijdlijn_geldigheid: true
+      tijdlijn_registratie: true
+      tijdlijn_effectuering: true
+    see_also:
+      - iceg:hoofdstuk=2&paragraaf=2.1&artikel=2.1.3&g=2022-05-18
+    slots:
+      - EAN-code
+    attributes:
+      energiedrager:
+        exact_mappings:
+          - begrip:energiedrager
+        range: Energiedrager
+      naam:
+        description: woord of combinatie van woorden waarmee een netgebied wordt aangeduid
+      # relaties
+      beheerd door:
+        range: Marktpartijsubregistratie
+        required: true
+        multivalued: false
+        annotations:
+          inverse_cardinality: "*"
+    unique_keys:
+      identificatie:
+        unique_key_slots:
+          - EAN-code
+  Netkoppeling:
+    class_uri: this:Netkoppeling
+    broad_mappings:
+      - begrip:aansluiting
+    annotations:
+      tijdlijn_geldigheid: true
+      tijdlijn_registratie: true
+      tijdlijn_effectuering: true
+    description: recht op het gebruik van één of meer verbindingen tussen twee energienetten of tussen een energienet en een interconnector
+    source: bcg:hoofdstuk=1&artikel=1.1&g=2021-06-01
+    comments:
+      - "Een koppeling met een gesloten distributiesysteem wordt in dit register beschouwd als netkoppeling als de beheerder gebruik maakt van het elektronische berichtenverkeer ten behoeve van het faciliteren van derdentoegang (zie artikel 2.4, vierde lid van de Netcode elektriciteit)."
+    slots:
+      - EAN-code
+    attributes:
+      # relaties
+      deel van:
+        range: Netgebied
+        comments:
+          - De beheerder van het netgebied waartoe de netkoppeling behoort, is de beheerder van de netkoppeling.
+        required: true
+        multivalued: false
+        annotations:
+          inverse_cardinality: "*"
+      koppeling met:
+        range: Netgebied
+        comments:
+          - Deze relatie is optioneel voor het geval er geen sprake is van een gekoppeld netgebied, zoals bij een koppeling met een interconnector.
+        required: false
+        multivalued: false
+        annotations:
+          inverse_cardinality: "*"
+    unique_keys:
+      identificatie:
+        unique_key_slots:
+          - EAN-code
+  Overdrachtspunt:
+    class_uri: this:Overdrachtspunt
+    annotations:
+      tijdlijn_geldigheid: true
+      tijdlijn_registratie: true
+      tijdlijn_effectuering: true
+    exact_mappings:
+      - begrip:overdrachtspunt
+    slots:
+      - EAN-code
+    slot_usage:
+      EAN-code:
+        comments:
+          - Voor een goede informatiehuishouding is het essentieel dat de identificatie van een fysiek object niet verandert zolang dat fysieke object bestaat. De EAN-code van een overdrachtspunt mag dus nooit wijzigen, in tegenstelling tot de EAN-code van een aansluiting of allocatiepunt.
+        see_also:
+          - nce:hoofdstuk=2&paragraaf=2.1&artikel=2.4&g=2022-11-25
+    attributes:
+      aansluitcapaciteit:
+        exact_mappings:
+          - begrip:aansluitcapaciteit
+        comments:
+          - "Bij een klein overdrachtspunt voor elektriciteit aangeduid als het aantal fasen vermenigvuldigd met de nominale waarde van de overstroombeveiliging per fase. Bijvoorbeeld 3x25 (eenheid: A) of klein (indien onbekend)."
+          - "Bij een klein overdrachtspunt voor gas aangeduid met de code G4, G6, G10, G16, G25 of klein (indien onbekend)."
+          - "Bij een groot overdrachtspunt voor elektriciteit een geheel getal (eenheid: kVA) of groot (indien onbekend)."
+          - "Bij een groot overdrachtspunt voor gas een geheel getal (eenheid: m3(n)/uur) of groot (indien onbekend)."
+        range: Any
+        any_of:
+          - range: Niet-numerieke aansluitcapaciteit
+          - range: float
+        annotations:
+          personal_data: true
+      aansluitspanning of leveringsdruk:
+        description: nominale spanning of druk op het overdrachtspunt
+        comments:
+          - "Eenheid: volt (V) of bar."
+        see_also:
+          - nce:hoofdstuk=13&paragraaf=13.1&artikel=13.1&g=2023-06-10
+          - iceg:hoofdstuk=2&paragraaf=2.11&artikel=2.11.4&g=2023-06-28
+          - iceg:hoofdstuk=2&paragraaf=2.11&artikel=2.11.5&g=2023-06-28
+        range: float
+      energierichting:
+        description: richting waarin energie kan stromen over het overdrachtspunt
+        broad_mappings:
+          - begrip:energierichting
+        comments:
+          - "Voor elektriciteit geldt over het algemeen: combinatie. Voor gas geldt over het algemeen: indien profielcategorie GIS of GIN dan invoeding anders afname."
+          - "De betekenis van het historische 'leveringsrichting' was net iets anders: de richting waarin de energie niet mogelijk maar daadwerkelijk stroomt. Energieleveranciers wisten dan wat ze konden verwachten. Dat gegeven is echter afleidbaar uit het energie-uitwisselingsregister en eventueel installatieregister."
+        see_also:
+          - iceg:hoofdstuk=2&paragraaf=2.1&artikel=2.1.3&g=2023-04-01
+        range: Energierichting
+      leveringsdruk gegarandeerd:
+        description: geeft aan of door een aangeslotene een vaste druk is aangevraagd op het overdrachtspunt
+        comments:
+          - Bij een vaste druk bevat de aansluitverbinding een drukregelaar.
+        see_also:
+          - iceg:hoofdstuk=2&paragraaf=2.11&artikel=2.11.5&g=2023-06-28
+        range: boolean
+      waarde hoofdzekering:
+        description: maximale stroomsterkte die de algemene veiligheid op de aansluitverbinding toelaat.
+        comments:
+          - In geval van een door de netbeheerder geplaatste LS-hoofdzekering.
+        see_also:
+          - iceg:hoofdstuk=2&paragraaf=2.11&artikel=2.11.4&g=2023-06-28
+        range: float
+        unit:
+          ucum_code: A
+      # relaties
+      deel van:
+        # conventie: onderstaand patroon voor OF-bogen (werkt als beide relaties dezelfde naam hebben)
+        range: Any
+        exactly_one_of:
+          - range: Aansluiting
+          - range: Netkoppeling
+        required: true
+        multivalued: false
+        annotations:
+          inverse_cardinality: 1..*
+      in:
+        range: Aansluitlocatie
+        required: true
+        multivalued: false
+        annotations:
+          inverse_cardinality: 1..*
+    unique_keys:
+      identificatie:
+        unique_key_slots:
+          - EAN-code
+  Primair deel elektriciteitsmeetinrichting:
+    class_uri: this:Primair-deel-elektriciteitsmeetinrichting
+    is_a: Primair deel meetinrichting
+    description: eventueel aanwezige spannings- en stroommeettransformatoren met inbegrip van de aansluitklemmen waarop het secundaire deel van de meetinrichting is aangesloten
+    source: bce:hoofdstuk=1&artikel=1.1&g=2022-11-25
+    attributes:
+      aantal meetkabels:
+        description: totale hoeveelheid kabels waaruit de primaire bekabeling van de meetcircuits bestaan, waarbij een kabel een samenstel is van een of meer geïsoleerde elektrische leidingen met een gezamenlijke mantel
+        range: integer
+      trafocorrectiefactor:
+        description: factor waarmee vermenigvuldigd moet worden om de meetwaarde te corrigeren voor energieverlies in de MS/LS-transformator, indien deze zich bevindt tussen het overdrachtspunt en het meetpunt
+        source: mce:hoofdstuk=4&paragraaf=4.3&sub-paragraaf=4.3.1&artikel=4.3.1.3&g=2022-10-25
+        range: float
+      soort meetzekering:
+        description: aanduiding van een verzameling meetzekeringen die een gemeenschappelijk karakter hebben
+        source: mce:hoofdstuk=4&paragraaf=4.3&sub-paragraaf=4.3.2&artikel=4.3.2.4&g=2022-10-25
+        comments:
+          -  In afwijking van de Meetcode elektriciteit spreken we niet van 'smeltveiligheid' om ook zekeringen die niet smelten in te sluiten.
+        range: Soort meetzekering
+      toegang vereist:
+        description: geeft weer of essentiële onderdelen van de meetinrichting zijn geplaatst in een aan de netbeheerder ter beschikking staande ruimte die niet vrij toegankelijk is voor de meetverantwoordelijke
+        source: mce:hoofdstuk=4&paragraaf=4.3&sub-paragraaf=4.3.1&artikel=4.3.1.1&g=2023-04-01
+        range: boolean
+      waarde meetzekering:
+        description: waarde van de meetzekering in de spanningsmeetcircuits
+        source: mce:hoofdstuk=4&paragraaf=4.3&sub-paragraaf=4.3.2&artikel=4.3.2.4&g=2022-10-25
+        comments:
+          -  In afwijking van de Meetcode elektriciteit spreken we niet van 'smeltveiligheid' om ook zekeringen die niet smelten in te sluiten.
+        range: float
+        unit:
+          ucum_code: A
+  Primair deel gas- of waterstofmeetinrichting:
+    # conventie: niet per se dubbele -- in uri
+    class_uri: this:Primair-deel-gas-of-waterstofmeetinrichting
+    is_a: Primair deel meetinrichting
+    description: hulpmiddelen bij een gasaansluiting waarop het secundaire deel van de meetinrichting is aangesloten
+    see_also:
+      - iceg:hoofdstuk=2&paragraaf=2.11&artikel=2.11.5&g=2023-06-28
+    attributes:
+      flensafstand:
+        description: afstand tussen de flenzen waartussen het secundaire gedeelte van de meetinrichting kan worden geplaatst
+        comments:
+          - Ook bekend als inbouwmaat.
+        range: float
+        unit:
+          ucum_code: mm
+      flensdrukklasse:
+        description: maximale druk die de flenzen, waartussen het secundaire gedeelte van de meetinrichting geplaatst kan worden, kunnen weerstaan bij een bepaalde temperatuur
+        range: Flensdrukklasse
+      flensmaat:
+        description: aanduiding van de ruimtelijke maten van de flenzen waartussen het secundaire gedeelte van de meetinrichting kan worden geplaatst
+        range: Flensmaat
+      geregelde meetdruk:
+        description: spanning van het gas of de waterstof, indien deze speciaal ten behoeve van het secundaire gedeelte van de meetinrichting wordt geregeld
+        range: float
+        unit:
+          ucum_code: mbar
+      meetdruk geregeld:
+        description: aanduiding of de druk speciaal ten behoeve van het secundair gedeelte van de meetinrichting wordt geregeld
+        range: boolean
+      schroefdraaddiameter:
+        description: doorsnede van het schroefdraad waarop het secundaire gedeelte van de meetinrichting kan worden geplaatst
+        comments:
+          - Het secundaire gedeelte van de meetinrichting wordt óf op een schroefdraad óf tussen twee flenzen geplaatst.
+        range: float
+        unit:
+          ucum_code: "[in_i]"
+  Primair deel meetinrichting:
+    class_uri: this:Primair-deel-meetinrichting
+    broad_mappings:
+      - begrip:netcomponent
+    annotations:
+      tijdlijn_geldigheid: true
+      tijdlijn_registratie: true
+      tijdlijn_effectuering: true
+    description: hulpmiddelen bij een aansluiting waarop het secundaire deel van de meetinrichting is aangesloten
+    comments:
+      - De naam 'primair deel meetinrichting' kan verwarrend zijn omdat het volgens de Energiewet om hulpmiddelen bij de aansluiting gaat (beheerd door de netbeheerder), niet om een deel van de meetinrichting (beheerd door de meetverantwoordelijke, ook wel het 'secundaire deel' genoemd).
+    attributes:
+      identificatie:
+        description: per overdrachtspunt unieke identificatie van het primair gedeelte van de meetinrichting
+        comments:
+          - Indien van toepassing, gelijk aan de aanduiding van het veld of de meetstraat.
+        see_also:
+          - mce:hoofdstuk=4&paragraaf=4.3&sub-paragraaf=4.3.2&artikel=4.3.2.8&g=2023-04-01
+          - iceg:hoofdstuk=2&paragraaf=2.11&artikel=2.11.5&g=2023-06-28
+      fysieke status:
+        description: aanduiding van de toestand met betrekking tot het daadwerkelijk aanwezig zijn van het primair gedeelte van de meetinrichting
+        see_also:
+          - iceg:hoofdstuk=2&paragraaf=2.11&artikel=2.11.4&g=2023-06-28
+          - iceg:hoofdstuk=2&paragraaf=2.11&artikel=2.11.5&g=2023-06-28
+        range: Fysieke status primair deel meetinrichting
+      # relaties
+      bij:
+        range: Overdrachtspunt
+        required: true
+        multivalued: false
+        annotations:
+          inverse_cardinality: "*"
+    unique_keys:
+      identificatie:
+        unique_key_slots:
+          - bij
+          - identificatie
+  Primaire meetkabel:
+    class_uri: this:Primaire-meetkabel
+    broad_mappings:
+      - begrip:netcomponent
+    annotations:
+      tijdlijn_geldigheid: true
+      tijdlijn_registratie: true
+    description: kabel tussen meettransformator en aansluitklemmen
+    source: iceg:hoofdstuk=2&paragraaf=2.11&artikel=2.11.4&g=2023-06-28
+    attributes:
+      aantal aders:
+        description: hoeveelheid elektrisch geleidende draden
+        range: integer
+      aderdoorsnede:
+        description: oppervlakte van een elektrisch geleidende draad bij een doorsnijding loodrecht op de lengterichting
+        range: float
+        unit:
+          ucum_code: mm2
+      lengte:
+        description: afmeting van de grootste kant van de kabel
+        range: float
+        unit:
+          ucum_code: m
+      # relaties
+      verbonden met:
+        range: Meettransformator
+        required: true
+        multivalued: false
+        annotations:
+          inverse_cardinality: "1"
+    unique_keys:
+      identificatie:
+        unique_key_slots:
+          - verbonden met
+  Spanningsmeettransformator:
+    class_uri: this:Spanningsmeettransformator
+    is_a: Meettransformator
+    description: elektrisch apparaat dat wordt toegepast voor het verlagen van spanning zodat deze gemeten kan worden
+    source: mce:hoofdstuk=4&paragraaf=4.3&sub-paragraaf=4.3.2&artikel=4.3.2.4&g=2023-04-01
+    attributes:
+      thermisch grensvermogen:
+        description: maximaal complex vermogen dat de transformator permanent kan leveren zonder de in de normen vastgelegde temperatuurlimieten te overschrijden
+        comments:
+          - Ook wel bekend als rated thermal limiting output (Sth).
+        range: float
+        unit:
+          ucum_code: V.A
+  Stroommeettransformator:
+    class_uri: this:Stroommeettransformator
+    is_a: Meettransformator
+    description: elektrisch apparaat dat wordt toegepast voor het verlagen van stroom zodat deze gemeten kan worden
+    source: mce:hoofdstuk=4&paragraaf=4.3&sub-paragraaf=4.3.2&artikel=4.3.2.4&g=2023-04-01
+    attributes:
+      overbelastbaarheid:
+        description: maximale continue belasting van de meettransformator die geen schade veroorzaakt, uitgedrukt als factor van de nominale belasting - 100%
+        range: float
+        unit:
+          ucum_code: "%"
+      overstroomfactor:
+        description: verhouding van de primaire kortsluitstroom en de primaire nominale stroom van de stroomtransformator
+        comments:
+          - Ook bekend als factor of security (FS) en instrumentsveiligheidsfactor.
+        range: float
+  Tarieftoepassing:
+    class_uri: this:Tarieftoepassing
+    broad_mappings:
+      - begrip:aansluiting
+    annotations:
+      tijdlijn_geldigheid: true
+      tijdlijn_registratie: true
+      tijdlijn_effectuering: true
+    description: tariefregel die voor een aansluiting vastlegt welke tariefcomponent geldt en hoe vaak deze in rekening wordt gebracht
+    comments:
+      - De afleidingsregels staan in het tarievenregister.
+      - De methode in artikel 8.1.6 van de Informatiecode elektriciteit en gas houdt geen rekening met de grote variatie in het aantal overdrachtspunten zoals bij strengen van lichtmasten (artikel 3.3.3 van de Tarievencode elektriciteit). Dit register doet dat wel door niet naar het totaaltarief maar de tariefcomponenten te linken.
+    attributes:
+      aantal:
+        description: getal waarmee het bedrag van de tariefcomponent vermenigvuldigd moet worden
+        comments:
+          - De afleidingsregels staan in het tarievenregister.
+        range: integer
+      # relaties
+      van:
+        range: Aansluiting
+        required: true
+        multivalued: false
+        annotations:
+          inverse_cardinality: "*"
+      op:
+        range: Tariefcomponent
+        required: true
+        multivalued: false
+        annotations:
+          inverse_cardinality: "*"
+    unique_keys:
+      identificatie:
+        unique_key_slots:
+          - van
+          - op
+
+  # conventie: onderstaand patroon voor entiteiten in andere registers
+  Grootschalig topografisch object:
+    class_uri: bgt:imgeo_object
+    annotations:
+      external_registry: Basisregistratie Grootschalige Topografie
+  Ligplaats:
+    class_uri: bag:ligplaats
+    annotations:
+      external_registry: Basisregistratie Adressen en Gebouwen
+  Marktpartijsubregistratie:
+    class_uri: marktpartijenregister:Marktpartijsubregistratie
+    annotations:
+      external_registry: Marktpartijenregister
+  Nummeraanduiding:
+    class_uri: bag:nummeraanduiding
+    annotations:
+      external_registry: Basisregistratie Adressen en Gebouwen
+  Pand:
+    class_uri: bag:pand
+    annotations:
+      external_registry: Basisregistratie Adressen en Gebouwen
+  Perceel:
+    class_uri: brk:perceel
+    annotations:
+      external_registry: Basisregistratie Kadaster
+  Standplaats:
+    class_uri: bag:standplaats
+    annotations:
+      external_registry: Basisregistratie Adressen en Gebouwen
+  Tariefcomponent:
+    class_uri: tarievenregister:Tariefcomponent
+    annotations:
+      external_registry: Tarievenregister
+  Verblijfsobject:
+    class_uri: bag:verblijfsobject
+    annotations:
+      external_registry: Basisregistratie Adressen en Gebouwen
+
+slots:
+  EAN-code:
+    description: unieke cijfercombinatie volgens de Europese Artikelnummer-standaard
+    required: true
+    see_also:
+      - iceg:hoofdstuk=2&paragraaf=2.1&artikel=2.1.3&g=2022-05-18
+  energiedrager:
+    exact_mappings:
+      - begrip:energiedrager
+    range: Energiedrager
+    see_also:
+      - iceg:hoofdstuk=2&paragraaf=2.1&artikel=2.1.3&g=2022-05-18
+
+enums:
+  Aan of uit:
+    permissible_values:
+      aan:
+      uit:
+  Niet-numerieke aansluitcapaciteit:
+    permissible_values:
+      1x6:
+      1x10:
+      1x25:
+      1x35:
+      1x50:
+      1x63:
+      1x80:
+      3x25:
+      3x35:
+      3x50:
+      3x63:
+      3x80:
+      G4:
+      G6:
+      G10:
+      G16:
+      G25:
+      groot:      
+      klein:
+  Allocatiemethode:
+    permissible_values:
+      PRF:
+        description: profielallocatie
+      SMA:
+        description: slimme-meterallocatie
+      TMT:
+        description: telemetrie
+  Blokkade:
+    permissible_values:
+      aangeslotene:
+        description: de aangeslotene heeft om de blokkade verzocht
+        see_also:
+          - iceg:hoofdstuk=2&paragraaf=2.12&artikel=2.12.1&g=2023-03-18
+      geen:
+        description: er is geen blokkade
+      leveringszekerheid:
+        description: er is een blokkade vanwege het Besluit leveringszekerheid Elektriciteitswet 1998 of het Besluit leveringszekerheid Gaswet
+      tijdelijk opgeheven:
+        description: de door aangeslotene verzochte blokkade is door een daartoe gemandateerde leverancier tijdelijk opgeheven
+        see_also:
+          - iceg:hoofdstuk=2&paragraaf=2.12&artikel=2.12.3&g=2023-03-18
+  Energiedrager:
+    permissible_values:
+      elektriciteit:
+      gas:
+      waterstof:
+  Energierichting:
+    permissible_values:
+      afname:
+        meaning: begrip:afname
+      combinatie:
+        description: afname en invoeding
+      invoeding:
+        meaning: begrip:invoeding
+  Flensdrukklasse:
+    permissible_values:
+      onbekend:
+      PN6:
+      PN10:
+      PN12:
+      PN16:
+  Flensmaat:
+    permissible_values:
+      onbekend:
+      DN10:
+      DN15:
+      DN20:
+      DN25:
+      DN32:
+      DN40:
+      DN50:
+      DN65:
+      DN80:
+      DN100:
+      DN125:
+      DN150:
+      DN200:
+      DN250:
+      DN300:
+      DN350:
+      DN400:
+      DN500:
+      DN600:
+  Fysieke status allocatiepunt:
+    permissible_values:
+      in aanleg:
+      in bedrijf:
+      uit bedrijf:
+  Fysieke status primair deel meetinrichting:
+    permissible_values:
+      in aanleg:
+      in bedrijf:
+  Technische grootte:
+    permissible_values:
+      grote aansluiting:
+        meaning: begrip:grote-aansluiting
+      kleine aansluiting:
+        meaning: begrip:kleine-aansluiting
+  Marktsegment:
+    permissible_values:
+      grootverbruikaansluiting:
+        meaning: begrip:grootverbruikaansluiting
+      kleinverbruikaansluiting:
+        meaning: begrip:kleinverbruikaansluiting
+  Nauwkeurigheidsklasse:
+    permissible_values:
+      onbekend:
+      0,1:
+      0,2S:
+      0,2:
+      0,3:
+      0,5S:
+      0,5:
+      "1":
+      "2":
+      "3":
+      "5":
+  Reden uit bedrijf:
+    permissible_values:
+      fraude:
+      leegstand:
+      klantverzoek:
+      anders:
+      veiligheid:
+      wanbetaling:
+  Soort meetzekering:
+    permissible_values:
+      onbekend:
+      diazed:
+      mespatroon:
+      automaat:
+      glaszekering:
+      buiszekering:
+      anders:
+  Soort schakeling:
+    permissible_values:
+      onbekend:
+      drieleider:
+      vierleider:
+      YY secundair geaard:
+      Yyd:
+      dzY:
+  Transformatorzijde:
+    permissible_values:
+      primair:
+        description: zijde met de hoogste nominale spanning of stroom
+      secundair:
+        description: zijde met de laagste nominale spanning of stroom
+  Type allocatiepunt bij aansluiting:
+    permissible_values:
+      PAP:
+        description: primair allocatiepunt
+      SAP:
+        description: secundair allocatiepunt
+  Type allocatiepunt bij netgebied:
+    permissible_values:
+      NVB:
+        description: netverlies door transportonafhankelijk netverbruik
+      TVB:
+        description: netverlies door transportverbruik
+      OVB:
+        description: netverlies door onbetaald verbruik
+      NVL:
+        description: netverlies elektriciteit
+      GMN:
+        description: netverlies gas
+        see_also:
+          - acg:hoofdstuk=4&paragraaf=4.3&artikel=4.3.1.12&g=2023-03-18
+  Wijze uit bedrijf:
+    permissible_values:
+      binnen:
+      buiten:
+  Wijze van bemeting:
+    permissible_values:
+      onbemeten:
+      jaarlijks:
+      maandelijks:
+      telemetrie:
+      niet continu:
+      anders bemeten:
+      onbekend:

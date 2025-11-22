@@ -1,0 +1,347 @@
+{%- set newline = '{::nomarkdown}<hr style="visibility:hidden;height:0;margin:1em 0 0 0"/>{:/}' -%}
+
+{%- macro link(name, local=false) -%}
+    {%- if local -%}
+        {%- set element = schemaview.get_element(name) -%}
+        {%- if element.class_uri -%}
+            {%- if element.annotations.external_registry -%}
+                [{{name}}]({{gen.uri(element)}}) ({{element.annotations.external_registry.value}})
+            {%- else -%}
+                [{{name}}](#{{element.class_uri|replace(schema.default_prefix ~ ':', '')}})
+            {%- endif -%}
+        {%- else -%}
+            [{{name}}](#{{id_safe(name)}})
+        {%- endif -%}
+    {%- else -%}
+        [{{name}}]({{schemaview.expand_curie(name)}})
+    {%- endif -%}
+{%- endmacro -%}
+
+{% macro md_to_html(md_string) -%}
+    {%- if md_string.startswith('[') and '](' in md_string and md_string.endswith(')') -%}
+        {%- set parts = md_string.split('](', 1) -%}
+        {%- set label = parts[0][1:] -%}
+        {%- set url = parts[1][:-1] -%}        
+        <a href="{{url}}">{{label|e}}</a>
+    {%- else -%}
+        {{md_string|e}}
+    {%- endif -%}
+{%- endmacro %}
+
+{%- macro key_symbol(class, slot) -%}
+    {%- for key in class.unique_keys -%}
+        {%- if slot.name in class.unique_keys[key].unique_key_slots -%}
+            <span title="Maakt deel uit van de identificatie">🔑</span>&nbsp;
+        {%- endif -%}
+    {%- endfor -%}
+{%- endmacro -%}
+
+{%- macro privacy_symbol(slot) -%}
+    {%- if slot.annotations.personal_data -%}
+        &nbsp;<span title="Persoonsgegeven">👤</span>
+    {%- endif -%}
+{%- endmacro -%}
+
+{%- macro id_safe(v) -%}
+    {%- set allowed = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_:.' -%}
+    local: {#- prefix moet botsingen met URI-gebaseerde HTML-ankers voorkomen -#}
+    {%- for c in v|lower -%}
+        {%- if c in allowed -%}
+            {{c}}
+        {%- else -%}
+            -
+        {%- endif -%}
+    {%- endfor -%}
+{%- endmacro -%}
+
+{%- macro anchor(element) -%}
+    {%- if element.class_uri -%}
+        <span id="{{element.class_uri|replace(schema.default_prefix ~ ':', '')}}"><span>
+    {%- else -%}
+        <span id="{{id_safe(element.name)}}"><span>
+    {%- endif -%}
+{%- endmacro -%}
+
+{%- macro range(name) -%}
+    {%- set base_types = {
+        'string': 'tekst',
+        'integer': 'geheel getal',
+        'boolean': 'waar of onwaar',
+        'float': 'reëel getal',
+        'double': 'reëel getal',
+        'decimal': 'decimaal getal',
+        'time': 'tijd van de dag',
+        'date': 'datum',
+        'datetime': 'datum en tijd',
+        'date_or_datetime': 'datum en eventueel tijd',
+        'uriorcurie': 'URI of CURIE',
+        'curie': 'CURIE',
+        'uri': 'URI',
+        'ncname': 'prefixnaam' } -%}
+    {%- if name in base_types -%}
+        {{base_types[name]}}
+    {%- else -%}
+        {{link(name, true)}}
+    {%- endif -%}
+{%- endmacro -%}
+
+{%- macro compute_range(slot) -%}
+    {%- if slot.any_of or slot.exactly_one_of -%}
+        {%- for subslot_range in schemaview.slot_range_as_union(slot) | reject('eq', slot.range) -%}
+            {%- if slot.exactly_one_of -%}
+                {%- if not loop.first -%}
+                    &nbsp;
+                {%- endif -%}
+                óf {{range(subslot_range)}}
+            {%- else -%}
+                {{range(subslot_range)}}
+                {%- if not loop.last -%}
+                    &nbsp;en/of&nbsp;
+                {%- endif -%}
+            {%- endif -%}
+        {%- endfor -%}
+    {%- else -%}
+        {{range(slot.range)}}
+    {%- endif -%}
+    {%- if slot.unit.ucum_code -%}
+        &nbsp;({{slot.unit.ucum_code}})
+    {%- endif -%}
+{%- endmacro -%}
+
+{%- macro mappings_line(element, type, label) -%}
+    {%- set mappings = schemaview.get_mappings(element.name).get(type, []) -%}
+    {%- if mappings -%}
+        {%- set linked = [] -%}
+        {%- for m in mappings -%}
+            {%- set _ = linked.append(link(m)) -%}
+        {%- endfor -%}
+        {%- if type == 'exact' -%}
+            {{- '_' ~ linked | join(', ') ~ '_' -}}
+        {%- else -%}
+            {{- label ~ ': ' ~ linked | join(', ') -}}
+        {%- endif -%}
+    {%- endif -%}
+{%- endmacro -%}
+
+{% macro omschrijving(element) -%}
+    {%- set parts = namespace(items=[]) -%}
+
+    {# description #}
+    {%- if element.description -%}
+        {# source #}
+        {%- if element.source -%}
+            {%- set _ = parts.items.append('_' ~ element.description ~ '_' ~ ' (zie ' ~ link(element.source) ~ ')') -%}
+        {%- else -%}
+            {%- set _ = parts.items.append('_' ~ element.description ~ '_') -%}
+        {%- endif -%}
+    {%- endif -%}
+
+    {# meaning #}
+    {%- if element.meaning -%}
+        {%- set _ = parts.items.append('_' ~ link(element.meaning) ~ '_') -%}
+    {%- endif -%}
+
+    {# exact_mappings #}
+    {%- set exact_mappings = mappings_line(element, 'exact', 'Exact overeenkomstig') -%}
+    {%- if exact_mappings -%}
+        {%- set _ = parts.items.append(exact_mappings) -%}
+    {%- endif -%}
+
+    {# close_mappings #}
+    {%- set close_mappings = mappings_line(element, 'close', 'Vrijwel overeenkomstig') -%}
+    {%- if close_mappings -%}
+        {%- set _ = parts.items.append(element, close_mappings) -%}
+    {%- endif -%}
+
+    {# related_mappings #}
+    {%- set related_mappings = mappings_line(element, 'related', 'Gerelateerd') -%}
+    {%- if related_mappings -%}
+        {%- set _ = parts.items.append(related_mappings) -%}
+    {%- endif -%}
+
+    {# narrow_mappings #}
+    {%- set narrow_mappings = mappings_line(element, 'narrow', 'Nauwer') -%}
+    {%- if narrow_mappings -%}
+        {%- set _ = parts.items.append(narrow_mappings) -%}
+    {%- endif -%}
+
+    {# broad_mappings #}
+    {%- set broad_mappings = mappings_line(element, 'broad', 'Breder') -%}
+    {%- if broad_mappings -%}
+        {%- set _ = parts.items.append(broad_mappings) -%}
+    {%- endif -%}
+
+    {# specialization #}
+    {%- if element.is_a -%}
+        {%- set _ = parts.items.append('Specialisatie van ' ~ link(element.is_a, true)) -%}
+    {%- endif -%}
+
+    {# comments #}
+    {%- if element.comments -%}
+        {%- set _ = parts.items.append(element.comments | join(newline)) -%}
+    {%- endif -%}
+
+    {# tijdlijnen #}
+    {%- set tijdlijn_annotaties = [] -%}
+    {%- for a in element.annotations -%}
+        {%- if a.startswith('tijdlijn_') and element.annotations[a].value|string|lower == "true" -%}
+            {%- set _ = tijdlijn_annotaties.append(a|replace('tijdlijn_', '')) -%}
+        {%- elif a == 'levensduur' and element.annotations[a].value|string|lower == "true" -%}
+            {%- if element.annotations.levensduur_begin and element.annotations.levensduur_einde -%}
+                {%- set _ = tijdlijn_annotaties.append(a ~ ' (' ~ element.annotations.levensduur_begin.value ~ ', ' ~ element.annotations.levensduur_einde.value ~ ')') -%}
+            {%- else -%}
+                {%- set _ = tijdlijn_annotaties.append(a) -%}
+            {%- endif -%}
+        {%- endif -%}
+    {%- endfor -%}
+    {%- if tijdlijn_annotaties -%}
+        {%- set _ = parts.items.append('Tijdlijnen: ' ~ tijdlijn_annotaties|join(', ')) -%}
+    {%- endif -%}
+
+    {# see_also #}
+    {%- if element.see_also -%}
+        {%- set list_items = [] -%}
+        {%- for s in element.see_also -%}
+            {%- set _ = list_items.append('<li>' ~ md_to_html(link(s)) ~ '</li>') -%}
+        {%- endfor -%}
+        {%- set details_block = '{::nomarkdown}<details><summary class="text-delta">Zie ook</summary><ol>' ~ (list_items | join('')) ~ '</ol></details>{:/}' -%}
+        {%- set _ = parts.items.append(details_block) -%}
+    {%- endif -%}
+
+    {{parts.items | join(newline)}}
+{%- endmacro -%}
+
+---
+title: "v{{schema.version}}"
+parent: "{{schema.title}}"
+---
+
+# {{schema.title}}
+{{ '{: .no_toc }' }}
+
+{{omschrijving(schema)}}
+
+---
+
+## Entiteiten
+{{ '{: .no_toc .text-delta }' }}
+1. TOC
+{{ '{:toc}' }}
+
+---
+
+![Diagram]({{schema.name}}.drawio.svg)
+
+---
+
+{% for class in gen.all_class_objects() | sort(attribute=sort_by) %}
+{% if class.name != 'Any' and not class.annotations.external_registry %}
+
+{{anchor(class)}}
+## {{class.name}}
+
+{{omschrijving(class)}}
+
+{% set properties = [] %}
+{% set relationships = [] %}
+{% for slot in gen.get_direct_slots(class) | sort(attribute=sort_by) -%}
+    {%- set effective_ranges = [] -%}
+    {%- set sub_expressions = (slot.any_of or []) + (slot.all_of or []) + (slot.exactly_one_of or []) -%}
+    {%- if sub_expressions -%}
+        {%- for sub in sub_expressions -%}
+            {%- for r in schemaview.slot_range_as_union(sub) -%}
+                {%- if r not in effective_ranges -%}
+                    {%- set _ = effective_ranges.append(r) -%}
+                {%- endif -%}
+            {%- endfor -%}
+        {%- endfor -%}
+    {%- else -%}
+        {%- set effective_ranges = schemaview.slot_range_as_union(slot) -%}
+    {%- endif -%}
+    {%- set some_are_classes = effective_ranges | select('in', schemaview.all_classes()) | list | length > 0 -%}
+    {%- if some_are_classes -%}
+        {%- set _ = relationships.append(slot) -%}
+    {%- else -%}
+        {%- set _ = properties.append(slot) -%}
+    {%- endif -%}
+{%- endfor %}
+
+{% if properties %}
+### Eigenschappen
+{{ '{: .no_toc .text-delta }' }}
+
+| :--- | :--- |
+| Eigenschap | Omschrijving |
+{% for slot in properties -%}
+| <span class="fw-500">{{slot.name}}</span><br/><span class="fw-300">{{key_symbol(class, slot)}}{{compute_range(slot)}} [{{gen.cardinality(slot)}}]{{privacy_symbol(slot)}}</span> | {{omschrijving(slot)}} |
+{% endfor %}
+{% endif %}
+
+{% if relationships %}
+### Relaties
+{{ '{: .no_toc .text-delta }' }}
+
+| {{class.name}} is ... | Omschrijving |
+| :---  | :--- |
+{% for slot in relationships -%}
+| {{key_symbol(class, slot)}}{{slot.name}} {{compute_range(slot)}} [{% if slot.annotations.inverse_cardinality %}{{slot.annotations.inverse_cardinality.value}}{% endif %} → {{gen.cardinality(slot)}}]{{privacy_symbol(slot)}} | {{omschrijving(slot)}} |
+{% endfor %}
+{% endif %}
+
+{% endif %}
+{% endfor %}
+
+{% for t in gen.all_type_objects() | sort(attribute=sort_by) -%}
+{% if loop.first %}
+## Waardesoorten
+{{ '{: .no_toc }' }}
+
+| Waardesoort | Omschrijving | Gebaseerd op | Patroon |
+| :--- | :--- | :--- | :--- |
+{% endif -%}
+| {{anchor(t)}}{{t.name}} | {{omschrijving(t)}} | {% if t.typeof %}{{link(t.typeof, true)}}{% else %}{{range(t.base)}}{% endif %} | {% if t.pattern %}`{{t.pattern}}`{% endif %} |
+{% endfor %}
+
+{% for e in gen.all_enum_objects() | sort(attribute=sort_by) %}
+{% if loop.first %}
+## Waardelijsten
+{{ '{: .no_toc }' }}
+{% endif %}
+
+{{anchor(e)}}
+### {{e.name}}
+{{ '{: .no_toc }' }}
+
+{{omschrijving(e)}}
+
+| Waarde | Omschrijving |
+| :--- | :--- |
+{% if e.permissible_values -%}
+{% for pv in e.permissible_values.values() | sort(attribute='text') -%}
+| {{pv.text}} | {{omschrijving(pv)}} |
+{% endfor -%}
+{% else -%}
+| {{e.name}} | _dynamisch_ |
+{% endif -%}
+
+{% endfor %}
+
+## Reacties
+{{ '{: .no_toc }' }}
+
+<script src="https://giscus.app/client.js"
+        data-repo="Netbeheer-Nederland/stelsel"
+        data-repo-id="R_kgDOQa00Cg"
+        data-category="Announcements"
+        data-category-id="DIC_kwDOQa00Cs4CyFBc"
+        data-mapping="pathname"
+        data-strict="1"
+        data-reactions-enabled="0"
+        data-emit-metadata="0"
+        data-input-position="bottom"
+        data-theme="light"
+        data-lang="nl"
+        data-loading="lazy"
+        crossorigin="anonymous"
+        async>
+</script>

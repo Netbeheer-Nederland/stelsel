@@ -1,0 +1,299 @@
+id: https://modellen.netbeheernederland.nl/stelsel/registers/meetcomponentenregister
+name: meetcomponentenregister
+title: Meetcomponentenregister
+description: Register met gegevens over meters en meetgateways die worden beheerd door Nederlandse netbeheerders.
+comments:
+  - Het Meetcomponentenregister bevat informatie over fysieke apparaten met meetgerelateerde functionaliteit, zoals energiehoeveelheidsmeters en communicatiegateways, die zijn bedoeld voor gebruik bij kleinverbruikaansluitingen. Deze componenten worden ingezet voor het registreren van gegevens over energie-uitwisseling of het overbrengen daarvan via mobiele communicatie.
+  - "Binnen het meetdomein nemen wij ook meetgateways op in het meetcomponentenregister, ondanks hun telecomkarakter. De reden is dat deze gateways een essentiële schakel vormen in de keten van meetdata: zij transporteren juridisch en financieel bindende meetwaarden richting marktpartijen en zijn functioneel gekoppeld aan specifieke meters of meternetwerken. Net als meters ontvangen zij een unieke codering en vallen zij onder specifieke eisen ten aanzien van beschikbaarheid, beveiliging en controleerbaarheid. Om de meetverantwoordelijkheid sluitend en auditbaar te organiseren, hanteren wij daarom eerst een onderscheid binnen de netbeheerder tussen zuiver netbeheer en meterbeheer (op kleinverbruikaansluitingen), en pas daarna een functionele uitsplitsing (zoals meten, communiceren, synchroniseren). Vanuit die logica maken gateways integraal deel uit van het meetcomponentenregister."
+  - Een streng van lichtmasten ([artikel 3.3.3 van de Tarievencode elektriciteit](https://wetten.overheid.nl/jci1.3:c:BWBR0037951&hoofdstuk=3&paragraaf=3.3&artikel=3.3.3&g=2025-04-26)) kan worden beschouwd als een aansluiting met één (primair) allocatiepunt en veel overdrachtspunten. Indien bemeting voor verrekening in deze situatie niet is toegestaan, dan beschouwen we de meter niet als meter (ten behoeve van de verrekening) maar als sensor in het net, dat buiten het bereik van dit register valt.
+version: 1.0-draft
+prefixes:
+  linkml: https://w3id.org/linkml/
+  begrip: https://begrippen.netbeheernederland.nl/energiesysteembeheer/nl/page/
+  this: https://modellen.netbeheernederland.nl/stelsel/registers/meetcomponentenregister#
+  aansluitingenregister: https://modellen.netbeheernederland.nl/stelsel/registers/aansluitingenregister#
+  installatieregister: https://modellen.netbeheernederland.nl/stelsel/registers/installatieregister#
+  marktpartijenregister: https://modellen.netbeheernederland.nl/stelsel/registers/marktpartijenregister#
+  meetcomponentstandaardenregister: https://modellen.netbeheernederland.nl/stelsel/registers/meetcomponentstandaardenregister#
+  nbnlpub: https://www.netbeheernederland.nl/publicatie/
+  wetten: "https://wetten.overheid.nl/jci1.3:c:"
+  energiewet: https://wetten.overheid.nl/jci1.3:c:BWBR0050714&
+  iceg: https://wetten.overheid.nl/jci1.3:c:BWBR0037934&
+default_prefix: this
+
+classes:
+  Any:
+    class_uri: linkml:Any
+  Gatewayadapter:
+    class_uri: this:Gatewayadapter
+    description: apparaat bedoeld om een meetgateway te voorzien van voeding en gebruikersinterface
+    broad_mappings:
+      - begrip:netcomponent
+    attributes:
+      identificatie:
+        description: unieke aanduiding waarmee een instantie van een object binnen een gegeven context ondubbelzinnig herkenbaar is
+        required: true
+      # relaties:
+      ondersteuning voor:
+        description: voorziet de meetgateway van voeding en/of display
+        range: Meetgateway
+        required: true
+        multivalued: false
+        annotations:
+          inverse_cardinality: 0..1
+    unique_keys:
+      identificatie:
+        unique_key_slots:
+        - identificatie
+  Meetcomponent:
+    class_uri: this:Meetcomponent
+    description: apparaat dat energie-uitwisseling meet of deze meting op afstand uitleesbaar maakt
+    broad_mappings:
+      - begrip:netcomponent
+    annotations:
+      tijdlijn_geldigheid: true
+      tijdlijn_registratie: true
+    attributes:
+      afkeurjaar:
+        description: kalenderjaar waarin is vastgesteld dat het apparaat ongeschikt is voor verder gebruik
+        range: integer
+      bouwjaar:
+        description: jaar waarin de meter voor het eerst is geproduceerd, zoals vermeld op het apparaat of geregistreerd in een daartoe bestemd systeem
+        range: integer
+        comments:
+          - Verplicht indien niet gereviseerd.
+      dossierreden:
+        description: oorzaak van het niet tijdig verwijderen van een afgekeurde meter
+        range: Dossierreden
+      generatie:
+        description: classificatie op basis van technische mogelijkheden
+        range: integer
+      lokaal communicatieprofiel:
+        description: wijze van gegevensuitwisseling tussen meetcomponenten binnen dezelfde locatie
+        range: Lokaal communicatieprofiel
+      serienummer:
+        description: unieke code die door de fabrikant aan een exemplaar uit een reeks producten gegeven wordt
+        required: true
+      revisiejaar:
+        description: jaar waarin de meter gereviseerd is voor hergebruik, zoals vermeld op het apparaat of geregistreerd in een daartoe bestemd systeem
+        range: integer
+        comments:
+          - Verplicht indien gereviseerd.
+      typeaanduiding:
+        description: naam die door een fabrikant aan een reeks producten met vergelijkbare eigenschappen wordt gegeven
+      # relaties:
+      beheerd door:
+        description: identificeert de marktpartij (netbeheerder) die verantwoordelijk is voor het beheer, via diens registratie in marktcommunicatie
+        range: Marktpartijregistratie
+        annotations:
+          inverse_cardinality: "*"
+      communicatiemiddel voor:
+        comments:
+          - In een standaardsituatie met een elektriciteitsmeter, gasmeter en gateway, is de gateway het communicatiemiddel voor beide aansluitingen. In een situatie zonder gateway is de elektriciteitsmeter het communicatiemiddel voor beide aansluitingen.
+          - Deze relatie is veel-op-veel, bijvoorbeeld voor de situatie waarin er in één meterkast twee zelfstandig communicerende elektriciteitsmeters zijn en een gasmeter die wordt uitgelezen via een van de elektriciteitsmeters.
+        range: Aansluiting
+        required: false
+        multivalued: true
+        annotations:
+          inverse_cardinality: "*"
+  Meetgateway:
+    class_uri: this:Meetgateway
+    description: apparaat bedoeld om meters op afstand uitleesbaar te maken, zonder zelf energie-uitwisseling te meten
+    is_a: Meetcomponent
+    attributes:
+      gatewaynummer:
+        description: identificatie van de meetgateway, bestaande uit een combinatie van gatewaycode, serienummer en de laatste twee cijfers van het bouwjaar
+        required: true
+      # relaties:
+      ingedeeld naar:
+        range: Gatewaycodering
+        required: true
+        multivalued: false
+        annotations:
+          inverse_cardinality: "*"
+    unique_keys:
+      identificatie:
+        unique_key_slots:
+        - gatewaynummer
+  Meter:
+    class_uri: this:Meter
+    is_a: Meetcomponent
+    exact_mappings:
+      - begrip:meter
+    comments:
+      - Dit register ondersteunt geen controlemeters. Een controlemeter is een meter die naast een andere meter is geplaatst om daarvan de meterstanden op nauwkeurigheid te conroleren, vaak op verzoek van de aangeslotene.
+    see_also:
+      - iceg:hoofdstuk=2&paragraaf=2.1&artikel=2.1.4&g=2025-01-01
+      - nbnlpub:reglement-meterparkbeheer-v62
+    attributes:
+      afkeurjaar:
+        description: kalenderjaar waarin is vastgesteld dat de meter niet langer geschikt is voor gebruik
+        range: integer
+      correctiefactor voor indirecte meting:
+        description: factor waarmee het getal van de telwerken vermenigvuldigd moet worden om de meetwaarde te corrigeren voor een meting via meettransformatoren
+        comments:
+          - Alleen van toepassing op elektriciteitsmeters.
+          - Als de meter zelf corrigeert, is de waarde `1`.
+        range: float
+      deelpopulatiecodering:
+        description: aanvullende codering die, samen met de metercode, een subset van meters met gedeelde kenmerken aanduidt die binnen het meterpark apart worden behandeld
+        range: Cijfer
+      # vraag: (hoe) annoteren dat meternummer afleidbaar is?
+      meternummer:
+        description: identificatie van de meter, bestaande uit een combinatie van metercode, serienummer en de laatste twee cijfers van het bouwjaar
+        comments:
+          - In de praktijk wordt het serienummer soms ook het (korte) meternummer genoemd.
+          - "Validatie: meternummer is een combinatie van metercode, serienummer en de laatste twee cijfers van het bouwjaar."
+        required: true
+      reden technisch niet op afstand uitleesbaar:
+        description: verklaring voor het technisch niet op afstand uitleesbaar zijn van de meter
+        range: Reden technisch niet op afstand uitleesbaar
+      technisch op afstand uitleesbaar:
+        description: kenmerk dat weergeeft of de meter gelet op externe factoren van technische aard al dan niet op afstand uitleesbaar is
+        comments:
+          - De uitleesbaarheid van de meter heeft invloed op marktprocessen zoals allocatie.
+        range: boolean
+      verzegeldatum:
+        description: datum waarop het apparaat voor het laatst metrologisch is verzegeld ter waarborging van de meetintegriteit
+        range: date
+      zegelcategorie:
+        description: classificatie van de fabriekszegelstatus
+        range: Zegelcategorie
+      # relaties:
+      ingedeeld naar:
+        range: Metercodering
+        required: true
+        multivalued: false
+        annotations:
+          inverse_cardinality: "*"
+      meetmiddel voor:
+        range: Any
+        exactly_one_of:
+          - range: Allocatiepunt bij aansluiting
+          - range: GCvO-installatie
+        comments:
+          - Alhoewel een GCvO-installatie of allocatiepunt in principe bemeten kan worden door meerdere meters, maakt dit model de aanname dat dat niet het geval kan zijn bij kleinverbruikaansluitingen.
+        required: false
+        multivalued: false
+        annotations:
+          inverse_cardinality: 0..1
+      ondersteuning voor:
+        description: voorziet de meetgateway van voeding en/of display
+        range: Meetgateway
+        required: false
+        multivalued: false
+        annotations:
+          inverse_cardinality: 0..1
+    unique_keys:
+      identificatie:
+        unique_key_slots:
+        - meternummer
+  Telwerk met cijferaanduiding:
+    class_uri: this:Telwerk-met-cijferaanduiding
+    broad_mappings:
+      - begripp:telwerk
+    description: onderdeel van een meter dat een hoeveelheid energie registreert, met een aanduiding die niet rechtstreeks verwijst naar de betekenis of functie van het telwerk
+    comments:
+      - Niet van toepassing op meters die telwerken aanduiden met OBIS-codes.
+    attributes:
+      aanduiding:
+        description: zichtbaar cijfer of vaste afleespositie waarmee dit telwerk op de meter wordt aangeduid, zonder inherente betekenis over wat er wordt gemeten
+        required: true
+        range: Cijfer
+      # relaties:
+      deel van:
+        range: Meter
+        required: true
+        multivalued: false
+        annotations:
+          inverse_cardinality: "*"
+      gedefinieerd volgens:
+        range: Telwerkdefinitie
+        required: true
+        multivalued: false
+        annotations:
+          inverse_cardinality: "*"
+    unique_keys:
+      identificatie:
+        unique_key_slots:
+        - aanduiding
+        - deel van
+  # extern:
+  Aansluiting:
+    class_uri: aansluitingenregister:Aansluiting
+    annotations:
+      external_registry: Aansluitingenregister
+  Allocatiepunt bij aansluiting:
+    class_uri: aansluitingenregister:Allocatiepunt-bij-aansluiting
+    annotations:
+      external_registry: Aansluitingenregister
+  Gatewaycodering:
+    class_uri: meetcomponentstandaardenregister:Gatewaycodering
+    annotations:
+      external_registry: Meetcomponentstandaardenregister
+  GCvO-installatie:
+    class_uri: installatieregister:GCvO-installatie
+    annotations:
+      external_registry: Installatieregister
+  Marktpartijregistratie:
+    class_uri: marktpartijenregister:Marktpartijregistratie
+    annotations:
+      external_registry: Marktpartijenregister
+  Metercodering:
+    class_uri: meetcomponentstandaardenregister:Metercodering
+    annotations:
+      external_registry: Meetcomponentstandaardenregister
+  Telwerkdefinitie:
+    class_uri: meetcomponentstandaardenregister:Telwerkdefinitie
+    annotations:
+      external_registry: Meetcomponentstandaardenregister
+
+enums:
+  Dossierreden:
+    permissible_values:
+      1:
+        description: Geen contact met klant mogelijk
+      2:
+        description: Klant werkt niet mee
+      3:
+        description: Installatie moet worden vervangen/aangepast
+      4:
+        description: Sloop of verbouw aansluiting/pand
+      5:
+        description: Meter kan niet worden vervangen
+      6:
+        description: Administratieve onduidelijkheid
+  Lokaal communicatieprofiel:
+    permissible_values:
+      ethernet:
+      M-bus:
+      wM-bus:
+      Wi-SUN:
+  Reden technisch niet op afstand uitleesbaar:
+    permissible_values:
+      39.1:
+        description: geen fysieke toegang
+      39.2:
+        description: aansluiting langdurig spanningsloos of niet in gebruik
+      39.3:
+        description: uitlezing geblokkeerd i.v.m. incident meter of telecom
+      39.4:
+        description: geen telecomdekking door inpandige situatie
+      39.5:
+        description: geen telecomdekking aanwezig
+      39.6:
+        description: gasmeter hangt te ver van elektrameter of er hangt een losse gasmeter
+  Zegelcategorie:
+    permissible_values:
+      oorspronkelijke fabriekszegel:
+        description: de zegel, inclusief als zegel bedoelde sealing, is sinds fabricage niet verbroken
+      verbroken zegel:
+        description: de zegel is verbroken, zonder dat een revisie heeft plaatsgevonden
+      gereviseerd:
+        description: de zegel is vervangen na een formele revisie
+
+types:
+  Cijfer:
+    description: enkel karakter dat een numeriek symbool weergeeft
+    base: str
+    pattern: "^[0-9]$"

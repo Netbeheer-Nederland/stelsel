@@ -1,0 +1,167 @@
+id: https://modellen.netbeheernederland.nl/stelsel/registers/meetcomponentenregister
+name: meetcomponentstandaardenregister
+title: Meetcomponentstandaardenregister
+description: Register met vastgestelde standaarden, richtlijnen en definities voor de configuratie, interpretatie en toepassing van meters en meetgateways in Nederlandse energienetten.
+comments:
+  - Dit register kan eventueel nog worden uitgebreid met meetcomponentconfiguratiebeleid met betrekking tot bijvoorbeeld firmwareversies en mobiele-netwerktechnologieën.
+version: 1.0-draft
+prefixes:
+  this: https://modellen.netbeheernederland.nl/stelsel/registers/meetcomponentenregister#
+  linkml: https://w3id.org/linkml/
+  begrip: https://begrippen.netbeheernederland.nl/energiesysteembeheer/nl/page/
+  nbnlpub: https://www.netbeheernederland.nl/publicatie/
+  wetten: "https://wetten.overheid.nl/jci1.3:c:"
+  iceg: https://wetten.overheid.nl/jci1.3:c:BWBR0037934&
+  bce: https://wetten.overheid.nl/jci1.3:c:BWBR0037938&
+default_prefix: this
+
+classes:
+  Gatewaycodering:
+    class_uri: this:Gatewaycodering
+    broad_mappings:
+      - begrip:technische-bedrijfsstandaard
+    description: categorisering van meetgateways met gelijke functionele en technische kenmerken, afkomstig van dezelfde fabrikant
+    slots:
+      - fabrikant
+    attributes:
+      gatewaycode:
+        description: unieke code die een type meetgateway identificeert op basis van gedeelde technische eigenschappen en fabrikant
+        required: true
+      mobiele-netwerktechnologie:
+        description: technologie voor draadloze communicatie via publieke of private mobiele netwerken volgens gestandaardiseerde telecomprotocollen
+        range: Mobiele-netwerktechnologie
+        required: true
+        multivalued: true
+    unique_keys:
+      identificatie:
+        unique_key_slots:
+          - gatewaycode
+  Metercodering:
+    class_uri: this:Metercodering
+    broad_mappings:
+      - begrip:technische-bedrijfsstandaard
+    description: categorisering van energiehoeveelheidsmeters met dezelfde (metrologische) kenmerken en van dezelfde fabrikant
+    source: nbnlpub:reglement-meterparkbeheer-v62
+    see_also:
+      - iceg:hoofdstuk=2&paragraaf=2.1&artikel=2.1.4&g=2025-01-01
+    slots:
+      - fabrikant
+    attributes:
+      aantal fasen:
+        description: hoeveelheid elektrische fasen waarvoor de meter technisch geschikt is
+        range: Aantal fasen
+        multivalued: true
+      energiedrager:
+        exact_mappings:
+          - begrip:energiedrager
+        range: Energiedrager
+        required: true
+        multivalued: true
+      G-waarde:
+        description: classificatie van een gasmeter op basis van de nominale debietcapaciteit, uitgedrukt als G-waarde conform internationale normen (zoals EN 1359).
+        range: G-waarde
+        multivalued: true
+      luchtdrukgecorrigeerd:
+        description: aanduiding of de metingen door de meter worden gecorrigeerd voor luchtdruk
+        range: boolean
+        required: true
+      metercode:
+        description: unieke code die een type energiehoeveelheidsmeter aanduidt op basis van metrologische eigenschappen en fabrikant
+        required: true
+      op afstand uitleesbaar:
+        description: kenmerk dat weergeeft of de meter voldoet aan het Besluit op afstand uitleesbare meetinrichtingen
+        range: boolean
+        required: true
+      temperatuurgecorrigeerd:
+        description: aanduiding of de metingen door de meter worden gecorrigeerd voor temperatuur
+        range: boolean
+        required: true
+    unique_keys:
+      identificatie:
+        unique_key_slots:
+          - metercode
+  Telwerkdefinitie:
+    class_uri: this:Telwerkdefinitie
+    broad_mappings:
+      - begrip:technische-bedrijfsstandaard
+    description: beschrijving van een cumulatieve energiehoeveelheidsmeting ten behoeve van verrekening
+    see_also:
+      - iceg:hoofdstuk=2&paragraaf=2.1&artikel=2.1.4&g=2025-01-01
+      - bce:g=2025-05-08
+    attributes:
+      aantal posities voor de komma:
+        description: maximaal aantal posities in het decimale talstelsel dat het telwerk kan bevatten
+        range: integer
+      energierichting:
+        exact_mappings:
+          - begrip:energierichting
+        range: Energierichting
+      meeteenheid:
+        description: maat waarin natuurkundige grootheden numeriek kunnen worden uitgedrukt
+        range: Meeteenheid
+      OBIS-code:
+        description: gestandaardiseerde aanduiding van telwerkbetekenis conform IEC 62056
+      tariefzone:
+        description: aanduiding die aangeeft tijdens welke tariefperiode het telwerk de energie-uitwisseling registreert
+        range: Tariefzone
+    unique_keys:
+      identificatie:
+        unique_key_slots:
+          - OBIS-code
+
+slots:
+  fabrikant:
+    description: bedrijf dat industrieel goederen vervaardigt
+
+enums:
+  Aantal fasen:
+    permissible_values:
+      1:
+      3:
+  Energiedrager:
+    permissible_values:
+      elektriciteit:
+      gas:
+      waterstof:
+  Energierichting:
+    permissible_values:
+      afname:
+        meaning: begrip:afnmame
+      invoeding:
+        meaning: begrip:invoeding
+  G-waarde:
+    permissible_values:
+      G2:
+      G4:
+      G6:
+      G10:
+      G16:
+      G25:
+      G40:
+      G65:
+      G100:
+      G160:
+      G250:
+      G400:
+      G650:
+      G1000:
+      G1600:
+      G2500:
+  Mobiele-netwerktechnologie:
+    permissible_values:
+      GPRS:
+      CDMA:
+      LTE (450 MHz):
+      LTE (commercieel):
+      LTE-M (multiband):
+        description: commerciële frequenties en 450 MHz
+      LTE-M (single band):
+  Tariefzone:
+    permissible_values:
+      normaal:
+      laag:
+      totaal:
+  Meeteenheid:
+    permissible_values:
+      kWh:
+      m3:

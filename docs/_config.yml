@@ -1,0 +1,22 @@
+title: Stelsel van energieregisters
+theme: just-the-docs
+baseurl: /stelsel
+
+collections:
+  registers:
+    output: true
+
+just_the_docs:
+  collections:
+    registers:
+      name: Registers
+
+defaults:
+  - scope:
+      path: ""
+    values:
+      layout: default
+
+color_scheme: nbnl
+logo: "/assets/images/logo.svg"
+fav_icon: "/assets/images/favicon.png"

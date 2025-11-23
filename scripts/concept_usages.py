@@ -76,12 +76,9 @@ for file_path in files:
                 usages[full_uri] = []
             
             usages[full_uri].append({
-                "model_title": model_title,
-                "model_id": model_id,
-                "model_name": model_name,
-                "element_type": "Class",
-                "element_name": class_name,
-                "mapping": mapping, # begrip:aangeslotene
+                "model": model_title,
+                "element": class_name,
+                "type": "entiteit",
                 "url": class_uri
             })
 

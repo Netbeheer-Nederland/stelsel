@@ -91,9 +91,9 @@ for file_path in files:
         mappings = []
         mappings.extend(slot_def.get('exact_mappings', []))
         mappings.extend(slot_def.get('close_mappings', []))
-        mappings.extend(class_def.get('related_mappings', []))
-        mappings.extend(class_def.get('narrow_mappings', []))
-        mappings.extend(class_def.get('broad_mappings', []))
+        mappings.extend(slot_def.get('related_mappings', []))
+        mappings.extend(slot_def.get('narrow_mappings', []))
+        mappings.extend(slot_def.get('broad_mappings', []))
         
         for m in mappings:
             full_map_uri = expand_curie(m, prefixes)
@@ -106,10 +106,10 @@ for file_path in files:
         # 3a. Mappings op de Enum zelf (de lijst als geheel)
         mappings = []
         mappings.extend(enum_def.get('exact_mappings', []))
-        mappings.extend(slot_def.get('close_mappings', []))
-        mappings.extend(class_def.get('related_mappings', []))
-        mappings.extend(class_def.get('narrow_mappings', []))
-        mappings.extend(class_def.get('broad_mappings', []))
+        mappings.extend(enum_def.get('close_mappings', []))
+        mappings.extend(enum_def.get('related_mappings', []))
+        mappings.extend(enum_def.get('narrow_mappings', []))
+        mappings.extend(enum_def.get('broad_mappings', []))
         
         for m in mappings:
             full_map_uri = expand_curie(m, prefixes)

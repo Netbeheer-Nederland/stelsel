@@ -76,10 +76,10 @@ for file_path in files:
                 usages[full_uri] = []
             
             usages[full_uri].append({
-                "model": model_title,
-                "element": class_name,
-                "type": "entiteit",
-                "url": class_uri
+                "model_name": model_title,
+                "element_name": class_name,
+                "element_type": "entiteit",
+                "element_uri": class_uri
             })
 
     # Hier zou je hetzelfde kunnen doen voor 'enums' en 'slots' (attributes)

@@ -42,6 +42,6 @@ for model_dir in sorted(os.listdir(BASE_INPUT_MODELS)):
     with open(model_index_path, "w", encoding="utf-8") as f:
         f.write("---\n")
         f.write(f'title: "{model_name}"\n')
+        f.write(f'redirect: "{version}"\n')
         f.write("---\n\n")
         f.write(f"# {model_name}\n")
-        f.write(f"<script>window.location.href = window.location.protocol + '//' + window.location.host + window.location.pathname.substring(0, window.location.pathname.lastIndexOf('/') + 1) + '{version}/index.html' + window.location.hash</script>")

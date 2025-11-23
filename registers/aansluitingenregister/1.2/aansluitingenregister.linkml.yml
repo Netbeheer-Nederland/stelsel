@@ -13,7 +13,7 @@ see_also:
   - iceg:hoofdstuk=2&paragraaf=2.1&g=2025-01-01
 prefixes:
   linkml: https://w3id.org/linkml/
-  begrip: https://begrippen.netbeheernederland.nl/energiesysteembeheer/nl/page/
+  begrip: https://modellen.netbeheernederland.nl/begrippen/
   # conventie: gebruik 'this' als lokale prefix, voor de dingen die door dit LinkML-bestand gedefinieerd worden
   # conventie: 'this' niet als default_prefix zodat we zelf full control houden over URI's
   this: https://modellen.netbeheernederland.nl/stelsel/registers/aansluitingenregister#

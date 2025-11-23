@@ -4,8 +4,8 @@ import glob
 import os
 
 # CONFIG
-MODELS_DIR = "/registers"
-OUTPUT_FILE = "/docs/_registers/concept_usages.json"
+MODELS_DIR = "registers"
+OUTPUT_FILE = "docs/_registers/concept_usages.json"
 
 # --- Helper functies ---
 

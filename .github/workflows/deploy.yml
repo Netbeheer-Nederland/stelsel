@@ -61,6 +61,9 @@ jobs:
       - name: Create model landing pages
         run: python scripts/generate_model_landing_pages.py
 
+      - name: Create index of used concepts
+        run: python scripts/concept_usages.py
+
       - name: Setup GitHub Pages
         uses: actions/configure-pages@v5
 

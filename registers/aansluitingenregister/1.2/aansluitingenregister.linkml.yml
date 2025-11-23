@@ -495,11 +495,8 @@ classes:
       - iceg:hoofdstuk=2&paragraaf=2.1&artikel=2.1.3&g=2022-05-18
     slots:
       - EAN-code
+      - energiedrager
     attributes:
-      energiedrager:
-        exact_mappings:
-          - begrip:energiedrager
-        range: Energiedrager
       naam:
         description: woord of combinatie van woorden waarmee een netgebied wordt aangeduid
       # relaties

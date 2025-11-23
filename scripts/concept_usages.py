@@ -136,3 +136,8 @@ for file_path in files:
                     "waarde", 
                     enum_uri
                 )
+
+with open(OUTPUT_FILE, 'w') as f:
+    json.dump(usages, f, indent=2)
+
+print(f"Index gegenereerd: {len(usages)} begrippen gevonden in modellen.")

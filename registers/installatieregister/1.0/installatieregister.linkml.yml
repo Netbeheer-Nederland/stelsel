@@ -1,4 +1,4 @@
-id: https://modellen.netbeheernederland.nl/stelsel/registers/installatieregister
+id: https://netbeheer-nederland.github.io/stelsel/registers/installatieregister
 name: installatieregister
 title: Installatieregister
 version: 1.0-draft
@@ -8,8 +8,8 @@ see_also:
 prefixes:
   linkml: https://w3id.org/linkml/
   begrip: https://netbeheer-nederland.github.io/begrippen#
-  this: https://modellen.netbeheernederland.nl/stelsel/registers/installatieregister#
-  aansluitingenregister: https://modellen.netbeheernederland.nl/stelsel/registers/aansluitingenregister#
+  this: https://netbeheer-nederland.github.io/stelsel/registers/installatieregister#
+  aansluitingenregister: https://netbeheer-nederland.github.io/stelsel/registers/aansluitingenregister#
   celex: "https://eur-lex.europa.eu/legal-content/NL/TXT/?uri=CELEX:"
   nce: https://wetten.overheid.nl/jci1.3:c:BWBR0037940&
   iceg: https://wetten.overheid.nl/jci1.3:c:BWBR0037934&

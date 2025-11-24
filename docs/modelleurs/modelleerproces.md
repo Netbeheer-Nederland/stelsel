@@ -3,9 +3,6 @@ title: Proces
 parent: Modelleurs
 ---
 
-{: .note }
-Kijk gerust rond! Aan deze website wordt momenteel nog gewerkt.
-
 # Modelleren en reviewproces
 
 Werkwijze en kwaliteitsborging in het modelleerteam. WRSPM.

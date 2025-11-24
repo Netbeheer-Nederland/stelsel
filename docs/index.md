@@ -3,9 +3,6 @@ title: Startpagina
 nav_order: 1
 ---
 
-{: .note }
-Kijk gerust rond! Aan deze website wordt momenteel nog gewerkt.
-
 # Stelsel van energieregisters
 
 Een efficiënte en betrouwbare energiemarkt is cruciaal voor Nederland. Om deze markt optimaal te faciliteren, hebben netbeheerders de wettelijke taak om kerngegevens over het energienet te registreren en te delen. Dit vraagt om een eenduidige en gestandaardiseerde aanpak, zodat alle partijen met dezelfde informatie werken.

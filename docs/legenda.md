@@ -3,9 +3,6 @@ title: Legenda
 nav_order: 4
 ---
 
-{: .note }
-Kijk gerust rond! Aan deze website wordt momenteel nog gewerkt.
-
 # Legenda
 {: .no_toc }
 

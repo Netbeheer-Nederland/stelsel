@@ -4,9 +4,6 @@ parent: Modelleurs
 nav_order: 1
 ---
 
-{: .note }
-Kijk gerust rond! Aan deze website wordt momenteel nog gewerkt.
-
 # Aan de slag
 
 ## Installatie

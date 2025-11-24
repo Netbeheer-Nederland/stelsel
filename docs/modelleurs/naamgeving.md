@@ -3,9 +3,6 @@ title: Naamgeving
 parent: Modelleurs
 ---
 
-{: .note }
-Kijk gerust rond! Aan deze website wordt momenteel nog gewerkt.
-
 # Naamgeving
 
 Over het algemeen geldt: we gebruiken de Nederlandse spellingsregels en vermijden Engels taalgebruik. Dus geen PascalCase of snake_case, maar gewoon spaties, leestekens en bijzondere karakters.

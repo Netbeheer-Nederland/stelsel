@@ -3,9 +3,6 @@ title: Wet- en regelgeving
 parent: Modelleurs
 ---
 
-{: .note }
-Kijk gerust rond! Aan deze website wordt momenteel nog gewerkt.
-
 # Wet- en regelgeving
 
 Bij het modelleren van gegevens over de energiemarkt is domeinkennis onmisbaar. De energiemarkt is sterk gereguleerd: wetten, codes en beleidsregels bepalen niet alleen hoe de markt functioneert, maar geven ook richting aan hoe we de werkelijkheid beschrijven.

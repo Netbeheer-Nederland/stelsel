@@ -31,8 +31,6 @@ classes:
         description: uniek adres voor digitaal, elektronisch postverkeer
       geboortedatum:
         description: datum van geboorte van een persoon
-        comments:
-          - "Validatie: leeg bij 'onderneming of overige zakelijke eindafnemer'."
         range: date
       naam:
         description: statutaire naam van de niet-natuurlijke persoon of achternaam zonder tussenvoegsel van de natuurlijke persoon
@@ -46,6 +44,8 @@ classes:
       type:
         description: categorie waartoe de aangeslotene behoort
         range: Type aangeslotene
+        comments:
+          - "Validatie: als er een geboortedatum is dan 'huishoudelijk eindafnemer', als er een relatie is naar een Onderneming of maatschappelijke activiteit dan 'onderneming of overige zakelijke eindafnemer', anders leeg."
       voorvoegsel:
         description: verzameling van een of meer voorzetsels en/of lidwoorden die aan het significante deel van de achternaam vooraf gaat en daarmee gezamelijk de achternaam vormt
         comments:
@@ -65,8 +65,6 @@ classes:
         annotations:
           inverse_cardinality: 0..1
       rol van:
-        comments:
-          - "Validatie: afwezig bij huishoudelijk eindafnemer."
         see_also:
           - kvk:over-het-handelsregister/de-nummers-van-het-handelsregister/
         range: Onderneming of maatschappelijke activiteit
@@ -126,7 +124,7 @@ classes:
   Onderneming of maatschappelijke activiteit:
     class_uri: hr:maatschappelijke_activiteit
     annotations:
-      external_registry: Handelsregister
+      external_registry: Basisregistratie Handelsregister
 
 enums:
   Type aangeslotene:

@@ -74,7 +74,7 @@ classes:
       technische grootte:
         description: aanduiding van het formaat van de aansluiting op basis van de gewenste aansluitcapaciteiten van de overdrachtspunten
         comments:
-          - De historische aanduiding 'artikel-1-lid-2-of-3-aansluiting' is nu afleidbaar uit de combinatie van 'grootte' en 'marktsegment'.
+          - De historische aanduiding 'artikel-1-lid-2-of-3-aansluiting' is nu afleidbaar uit de combinatie van 'technische grootte' en 'marktsegment'.
           # conventie: validatieregels in `comments`, beginnend met 'Validatie:'
           - "Validatie: als de gewenste aansluitcapaciteit van een van de overdrachtspunten 'groot' is of een geheel getal dan 'groot' anders 'klein'."
         range: Technische grootte

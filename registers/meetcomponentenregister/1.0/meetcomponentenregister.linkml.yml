@@ -9,7 +9,7 @@ comments:
 version: 1.0-draft
 prefixes:
   linkml: https://w3id.org/linkml/
-  begrip: https://modellen.netbeheernederland.nl/begrippen#
+  begrip: https://netbeheer-nederland.github.io/begrippen#
   this: https://modellen.netbeheernederland.nl/stelsel/registers/meetcomponentenregister#
   aansluitingenregister: https://modellen.netbeheernederland.nl/stelsel/registers/aansluitingenregister#
   installatieregister: https://modellen.netbeheernederland.nl/stelsel/registers/installatieregister#

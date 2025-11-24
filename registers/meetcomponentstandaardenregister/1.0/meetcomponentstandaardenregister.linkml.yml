@@ -8,7 +8,7 @@ version: 1.0-draft
 prefixes:
   this: https://modellen.netbeheernederland.nl/stelsel/registers/meetcomponentenregister#
   linkml: https://w3id.org/linkml/
-  begrip: https://modellen.netbeheernederland.nl/begrippen#
+  begrip: https://netbeheer-nederland.github.io/begrippen#
   nbnlpub: https://www.netbeheernederland.nl/publicatie/
   wetten: "https://wetten.overheid.nl/jci1.3:c:"
   iceg: https://wetten.overheid.nl/jci1.3:c:BWBR0037934&

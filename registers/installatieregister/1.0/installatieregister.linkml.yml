@@ -7,7 +7,7 @@ see_also:
   - nce:hoofdstuk=13&paragraaf=13.1&g=2025-09-01
 prefixes:
   linkml: https://w3id.org/linkml/
-  begrip: https://modellen.netbeheernederland.nl/begrippen#
+  begrip: https://netbeheer-nederland.github.io/begrippen#
   this: https://modellen.netbeheernederland.nl/stelsel/registers/installatieregister#
   aansluitingenregister: https://modellen.netbeheernederland.nl/stelsel/registers/aansluitingenregister#
   celex: "https://eur-lex.europa.eu/legal-content/NL/TXT/?uri=CELEX:"

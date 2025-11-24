@@ -3,6 +3,9 @@ title: Verwante methoden
 parent: Modelleurs
 ---
 
+{: .note }
+Kijk gerust rond! Aan deze website wordt momenteel nog gewerkt.
+
 # Verwante methoden
 
 Conceptueel informatiemodelleren richt zich op het gestructureerd beschrijven van betekenisvolle objecten, relaties en regels uit de werkelijkheid. Deze modellen vormen geen blauwdruk van de data zelf, maar van de concepten waarover informatie wordt (of kan worden) vastgelegd.

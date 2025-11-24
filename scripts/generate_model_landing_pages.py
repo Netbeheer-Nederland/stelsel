@@ -44,4 +44,6 @@ for model_dir in sorted(os.listdir(BASE_INPUT_MODELS)):
         f.write(f'title: "{model_name}"\n')
         f.write(f'redirect: "{version}"\n')
         f.write("---\n\n")
-        f.write(f"# {model_name}\n")
+        f.write("{: .note }\n")
+        f.write("Kijk gerust rond! Aan deze website wordt momenteel nog gewerkt.\n\n")
+        f.write(f"# {model_name}\n\n")

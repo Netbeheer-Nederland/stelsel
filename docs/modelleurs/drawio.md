@@ -4,6 +4,9 @@ parent: Modelleurs
 nav_order: 2
 ---
 
+{: .note }
+Kijk gerust rond! Aan deze website wordt momenteel nog gewerkt.
+
 # Modelleren in draw.io
 
 Voor het tekenen van conceptuele informatiemodellen gebruiken we [draw.io](https://www.drawio.com/). Deze tool is gekozen omdat ze vrij beschikbaar is, makkelijk in gebruik, en goed samenwerkt met versiebeheer via GitHub. Draw.io ondersteunt de notatiestijl die wij hanteren voor conceptuele informatiemodellen: entiteit-relatienotatie in Barker-stijl.

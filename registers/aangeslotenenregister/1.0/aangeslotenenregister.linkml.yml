@@ -1,4 +1,4 @@
-id: https://netbeheer-nederland.github.io/stelsel/registers/aangeslotenenregister
+id: https://modellen.netbeheernederland.nl/stelsel/registers/aangeslotenenregister
 name: aangeslotenenregister
 title: Aangeslotenenregister
 description: Het aangeslotenenregister bevat informatie over (natuurlijke en niet-natuurlijke) personen die de beschikking hebben gekregen over een elektriciteits- of gasaansluiting van een Nederlandse netbeheerder.
@@ -7,9 +7,9 @@ comments:
 version: 1.0-draft
 prefixes:
   linkml: https://w3id.org/linkml/
-  begrip: https://netbeheer-nederland.github.io/begrippen#
-  this: https://netbeheer-nederland.github.io/stelsel/registers/aangeslotenenregister#
-  aansluitingenregister: https://netbeheer-nederland.github.io/stelsel/registers/aansluitingenregister#
+  begrip: https://modellen.netbeheernederland.nl/begrippen#
+  this: https://modellen.netbeheernederland.nl/stelsel/registers/aangeslotenenregister#
+  aansluitingenregister: https://modellen.netbeheernederland.nl/stelsel/registers/aansluitingenregister#
   energiewet: https://wetten.overheid.nl/jci1.3:c:BWBR0050714&
   hr: http://opendata.stelselcatalogus.nl/hr/id/begrip/
   kvk: https://www.kvk.nl/

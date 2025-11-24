@@ -1,4 +1,4 @@
-id: https://netbeheer-nederland.github.io/stelsel/registers/voorbeeldregister # kebab-case
+id: https://modellen.netbeheernederland.nl/stelsel/registers/voorbeeldregister # kebab-case
 name: voorbeeldregister # kebab-case
 title: Voorbeeldregister # natuurlijke schrijfwijze
 version: 1.0-draft # geen 'draft' in de mapnaam
@@ -9,10 +9,10 @@ see_also: # verwijzing naar gerelateerde externe informatie (voor context of het
   - iceg:hoofdstuk=2&paragraaf=2.1&z=2025-01-01&g=2025-01-01 # verwijs naar regelgeving met Juriconnect
 prefixes:
   linkml: https://w3id.org/linkml/
-  begrip: https://netbeheer-nederland.github.io/begrippen#
-  this: https://netbeheer-nederland.github.io/stelsel/registers/voorbeeldregister#
+  begrip: https://modellen.netbeheernederland.nl/begrippen#
+  this: https://modellen.netbeheernederland.nl/stelsel/registers/voorbeeldregister#
   # gebruik altijd prefixes om URL's korter te maken, ook in de gebruikersinterface, bijvoorbeeld:
-  aansluitingenregister: https://netbeheer-nederland.github.io/stelsel/registers/aansluitingenregister#
+  aansluitingenregister: https://modellen.netbeheernederland.nl/stelsel/registers/aansluitingenregister#
   iceg: https://wetten.overheid.nl/jci1.3:c:BWBR0037934& # gebruik Juriconnect bij verwijzing naar regelgeving
 default_prefix: this
 

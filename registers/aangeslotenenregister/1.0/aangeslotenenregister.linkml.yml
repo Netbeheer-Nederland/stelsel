@@ -46,8 +46,6 @@ classes:
       type:
         description: categorie waartoe de aangeslotene behoort
         range: Type aangeslotene
-        comments:
-          - "Validatie: als er een geboortedatum is dan 'huishoudelijk eindafnemer', als er een relatie is naar een Onderneming of maatschappelijke activiteit dan 'geen huishoudelijk eindafnemer', anders leeg."
       voorvoegsel:
         description: verzameling van een of meer voorzetsels en/of lidwoorden die aan het significante deel van de achternaam vooraf gaat en daarmee gezamelijk de achternaam vormt
         comments:

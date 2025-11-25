@@ -113,7 +113,7 @@ classes:
           inverse_cardinality: "*" # de omgekeerde multipliciteit (opties: "*", 0..1, 1..*, 1)
       # voorbeeld van een OF-boog:
       bedoeld voor:
-        range: linkml:Any # omdat we de range pas later bepalen:
+        range: Any # omdat we de range pas later bepalen:
         exactly_one_of: # bij een en/of-boog gebruiken we any_of
           - range: Modelleur
           - range: Bezoeker
@@ -136,18 +136,28 @@ classes:
     exact_mappings:
       - begrip:bezoeker
 
-  # verwijzen naar klassen in andere registers:
+  # verwijzingen naar externe entiteiten:
   Aansluiting:
     class_uri: aansluitingenregister:aansluiting
     annotations:
       external_registry: Aansluitingenregister
+  Any: # speciaal geval voor gebruik in OF-bogen
+    class_uri: linkml:Any
 
 slots: # eigenschappen voor gebruik in meer dan 1 klasse
   EAN-code:
     description: unieke cijfercombinatie volgens de Europese Artikelnummer-standaard
     required: true
+    range: EAN-18
     see_also:
       - iceg:hoofdstuk=2&paragraaf=2.1&artikel=2.1.3&g=2022-05-18 # laat zichdatum (z=...) weg voor en kortere link
+
+# waardesoorten:
+types:
+  EAN-18:
+    description: reeks van achttien cijfers
+    base: string
+    pattern: "^[0-9]{18}$" # een reguliere expressie
 
 # waardelijsten:
 enums:

@@ -199,7 +199,7 @@ classes:
       levensduur_begin: moment van inbedrijfname
       levensduur_einde: moment van uitbedrijfname
     description: productie-installatie of een op grond van de criteria uit artikel 24 van de Regeling garanties van oorsprong en certificaten van oorsprong afgebakend deel daarvan, die of dat op grond van artikel 16, eerste lid, onderdeel h, van de Elektriciteitswet 1998, of artikel 10, vijfde lid, onderdeel c, van de Gaswet, wordt aangemerkt als een installatie voor de productie van energie als bedoeld in artikel 73, eerste lid van de Elektriciteitswet 1998, of artikel 66i, eerste lid van de Gaswet
-    source: bgeg=2025-05-08
+    source: bce:=2025-05-08
     see_also:
       - rgcvo:g=2025-04-01
     slots:
@@ -451,7 +451,7 @@ enums:
       Hz:
   Energiebron:
     see_also:
-      - bge:g=2025-05-08
+      - bce:g=2025-05-08
     permissible_values:
       zon:
       wind:

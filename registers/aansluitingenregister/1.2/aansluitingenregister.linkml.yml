@@ -1,8 +1,6 @@
 id: https://modellen.netbeheernederland.nl/stelsel/registers/aansluitingenregister
 name: aansluitingenregister
 title: Aansluitingenregister
-# conventie: versienummer eindigt op '-draft' zolang het model niet klaar is
-# Versienummer in pad op GitHub heeft gewoon de waarde van de beoogde versie, zonder '-draft'.
 version: 1.2-draft
 description: Het aansluitingenregister bevat alle elektriciteits- en gasaansluitingen in Nederland.
 comments:
@@ -14,8 +12,6 @@ see_also:
 prefixes:
   linkml: https://w3id.org/linkml/
   begrip: https://modellen.netbeheernederland.nl/begrippen#
-  # conventie: gebruik 'this' als lokale prefix, voor de dingen die door dit LinkML-bestand gedefinieerd worden
-  # conventie: 'this' niet als default_prefix zodat we zelf full control houden over URI's
   this: https://modellen.netbeheernederland.nl/stelsel/registers/aansluitingenregister#
   marktpartijenregister: https://modellen.netbeheernederland.nl/stelsel/registers/marktpartijenregister#
   tarievenregister: https://modellen.netbeheernederland.nl/stelsel/registers/tarievenregister#
@@ -40,17 +36,11 @@ prefixes:
 default_prefix: this
 
 classes:
-  Any:
-    class_uri: linkml:Any
   Aansluiting:
-    # conventie: altijd expliciet class_uri. Toegestane karakters vanwege hergebruik als HTML-ankers zijn A-Z, a-z, 0-9, -, _, . en :. Hoofdletters behouden. Spaties vervangen door -.
     class_uri: this:Aansluiting
-    # conventie: altijd óf `description` (= definitie) óf `exact_mappings` aanwezig
-    # conventie: elke class verwijst naar een NBNL-begrip, en daarmee indirect naar een NBility-bedrijfsobject voor eigenaarschap van definitie en data
     exact_mappings:
       - begrip:aansluiting
     annotations:
-      # conventie: NEN 3610 tijdlijnen als `tijdlijn_geldigheid`, `tijdlijn_registratie` en `levensduur`
       tijdlijn_geldigheid: true
       tijdlijn_registratie: true
       tijdlijn_effectuering: true
@@ -62,7 +52,6 @@ classes:
     slot_usage:
       EAN-code:
         annotations:
-          # conventie: markering van persoonsgegevens
           personal_data: true
     attributes:
       gecontracteerde transportcapaciteit:
@@ -75,7 +64,6 @@ classes:
         description: aanduiding van het formaat van de aansluiting op basis van de gewenste aansluitcapaciteiten van de overdrachtspunten
         comments:
           - De historische aanduiding 'artikel-1-lid-2-of-3-aansluiting' is nu afleidbaar uit de combinatie van 'technische grootte' en 'marktsegment'.
-          # conventie: validatieregels in `comments`, beginnend met 'Validatie:'
           - "Validatie: als de gewenste aansluitcapaciteit van een van de overdrachtspunten 'groot' is of een geheel getal dan 'groot' anders 'klein'."
         range: Technische grootte
         required: true
@@ -118,14 +106,11 @@ classes:
         - "Validatie: deze relatie is verplicht als een van de allocatiepunten 'in bedrijf' is."
         - "Validatie: aansluiting en netgebied hebben dezelfde beheerder."
         range: Netgebied
-        # conventie: multipliciteiten op relaties altijd expliciet
         required: false
         multivalued: false
         annotations:
-          # conventie: omgekeerde multipliciteit als `inverse_cardinality` (opties: *, 0..1, 1..*, 1)
           inverse_cardinality: "*"
     unique_keys:
-      # conventie: natuurlijke sleutel / business key heet altijd `identificatie`
       identificatie:
         unique_key_slots:
           - EAN-code
@@ -144,7 +129,6 @@ classes:
     attributes:
       huisnummer:
         description: aan een verblijfsobject, standplaats of ligplaats toegekend nummer, een antwoordnummer of een postbusnummer
-        # conventie: `source` bevat de bron waarop de term of definitie is gebaseerd
         source: nen:nen-5825-2002-nl-83617
         required: true
         range: integer
@@ -196,11 +180,6 @@ classes:
         required: true
       x-coördinaat:
         description: oost-westpositie van een punt in het Rijksdriehoeksstelsel (RD)
-        # conventie voor 'range' bij getallen:
-        # string: niet-rekenkundige nummers (codes)
-        # integer: telbare dingen (aantallen)
-        # float: fysiek meetbare, continue waarden (afstand, vermogen)
-        # decimal: door mensen exact afgesproken waarden (geld, contractuele percentages)
         range: float
         unit:
           ucum_code: m
@@ -448,7 +427,6 @@ classes:
       meetbereik bovengrens:
         description: maximale belasting waarbij de meettransformator de maximaal toelaatbare meetfout behorend bij de nauwkeurigheidsklasse niet overschrijdt
         range: float
-        # conventie: eenheden
         unit:
           ucum_code: V.A
       meetbereik ondergrens:
@@ -614,7 +592,6 @@ classes:
           ucum_code: A
       # relaties
       deel van:
-        # conventie: onderstaand patroon voor OF-bogen (werkt als beide relaties dezelfde naam hebben)
         range: Any
         exactly_one_of:
           - range: Aansluiting
@@ -665,7 +642,6 @@ classes:
         unit:
           ucum_code: A
   Primair deel gas- of waterstofmeetinrichting:
-    # conventie: niet per se dubbele -- in uri
     class_uri: this:Primair-deel-gas-of-waterstofmeetinrichting
     is_a: Primair deel meetinrichting
     description: hulpmiddelen bij een gasaansluiting waarop het secundaire deel van de meetinrichting is aangesloten
@@ -837,7 +813,9 @@ classes:
           - van
           - op
 
-  # conventie: onderstaand patroon voor entiteiten in andere registers
+  # Exnterne entiteiten
+  Any:
+    class_uri: linkml:Any
   Grootschalig topografisch object:
     class_uri: bgt:imgeo_object
     annotations:

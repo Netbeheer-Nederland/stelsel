@@ -22,8 +22,6 @@ prefixes:
 default_prefix: this
 
 classes:
-  Any:
-    class_uri: linkml:Any
   Gatewayadapter:
     class_uri: this:Gatewayadapter
     description: apparaat bedoeld om een meetgateway te voorzien van voeding en gebruikersinterface
@@ -219,6 +217,8 @@ classes:
         - aanduiding
         - deel van
   # extern:
+  Any:
+    class_uri: linkml:Any
   Aansluiting:
     class_uri: aansluitingenregister:Aansluiting
     annotations:
@@ -295,5 +295,5 @@ enums:
 types:
   Cijfer:
     description: enkel karakter dat een numeriek symbool weergeeft
-    base: str
+    base: string
     pattern: "^[0-9]$"

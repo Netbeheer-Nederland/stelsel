@@ -270,8 +270,8 @@ parent: "{{schema.title}}"
 ### Eigenschappen
 {{ '{: .no_toc .text-delta }' }}
 
-| :--- | :--- |
 | Eigenschap | Omschrijving |
+| :--- | :--- |
 {% for slot in properties -%}
 | <span class="fw-500">{{slot.name}}</span><br/><span class="fw-300">{{key_symbol(class, slot)}}{{compute_range(slot)}} [{{gen.cardinality(slot)}}]{{privacy_symbol(slot)}}</span> | {{omschrijving(slot)}} |
 {% endfor %}

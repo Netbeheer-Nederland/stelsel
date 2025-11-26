@@ -9,7 +9,7 @@ comments:
 version: 1.0-draft
 prefixes:
   linkml: https://w3id.org/linkml/
-  begrip: https://begrippen.netbeheernederland.nl/id/
+  begrip: https://modellen.netbeheernederland.nl/energiesysteembeheer/term/
   this: https://modellen.netbeheernederland.nl/stelsel/registers/meetcomponentenregister#
   aansluitingenregister: https://modellen.netbeheernederland.nl/stelsel/registers/aansluitingenregister#
   installatieregister: https://modellen.netbeheernederland.nl/stelsel/registers/installatieregister#

@@ -9,7 +9,7 @@ see_also: # verwijzing naar gerelateerde externe informatie (voor context of het
   - iceg:hoofdstuk=2&paragraaf=2.1&z=2025-01-01&g=2025-01-01 # verwijs naar regelgeving met Juriconnect
 prefixes:
   linkml: https://w3id.org/linkml/
-  begrip: https://begrippen.netbeheernederland.nl/term/
+  begrip: https://begrippen.netbeheernederland.nl/id/
   this: https://modellen.netbeheernederland.nl/stelsel/registers/voorbeeldregister#
   # gebruik altijd prefixes om URL's korter te maken, ook in de gebruikersinterface, bijvoorbeeld:
   aansluitingenregister: https://modellen.netbeheernederland.nl/stelsel/registers/aansluitingenregister#

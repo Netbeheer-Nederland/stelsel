@@ -1,7 +1,7 @@
 id: https://modellen.netbeheernederland.nl/stelsel/registers/aansluitingenregister
 name: aansluitingenregister
 title: Aansluitingenregister
-version: 1.2-draft
+version: "1.2"
 description: Het aansluitingenregister bevat alle elektriciteits- en gasaansluitingen in Nederland.
 comments:
   - Het aansluitingenregister wordt gezamenlijk beheerd door de netbeheerders en bevat zowel fysieke als administratieve gegevens over aansluitingen. Het register is essentieel voor de werking van de energiemarkt omdat het de basis vormt voor processen zoals leverancierswisselingen, verhuizingen en facturatie.

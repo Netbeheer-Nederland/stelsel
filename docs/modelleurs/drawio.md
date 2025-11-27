@@ -16,7 +16,7 @@ Voor de notatie van onze diagrammen gebruiken we, net als [Salesforce](https://a
 
 De links in bovenstaande paragraaf leggen de notatiestijl gedetailleerd uit. Het diagram hieronder toont welke stijlkeuzen we hebben gemaakt in draw.io.
 
-![Aansluitingenregister]({{ site.baseurl }}/registers/aansluitingenregister/1.2/aansluitingenregister.drawio.svg)
+![Aansluitingenregister]({{ site.baseurl }}/registers/aansluitingenregister/1.3/aansluitingenregister.drawio.svg)
 
 Enkele elementen lichten we eruit. Voor bijna elk punt is het achterliggende principe: visuele rust en duidelijkheid!
 

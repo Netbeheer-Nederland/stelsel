@@ -13,7 +13,7 @@
             [{{name}}](#{{id_safe(name)}})
         {%- endif -%}
     {%- else -%}
-        [{{name}}]({{schemaview.expand_curie(name) | replace('https://begrippen.netbeheernederland.nl/id/', 'https://github.io/netbeheer-nederland/energiesysteembeheer/doc/')}})
+        [{{name}}]({{schemaview.expand_curie(name) | replace('https://begrippen.netbeheernederland.nl/id/', 'https://netbeheer-nederland.github.io/energiesysteembeheer/doc/')}})
     {%- endif -%}
 {%- endmacro -%}
 

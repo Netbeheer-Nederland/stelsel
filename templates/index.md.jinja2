@@ -10,10 +10,10 @@
                 [{{name}}](#{{element.class_uri|replace(schema.default_prefix ~ ':', '')}})
             {%- endif -%}
         {%- else -%}
-            [{{name}}](#{{id_safe(name) | replace('https://begrippen.netbeheernederland.nl/id/', 'https://github.io/netbeheer-nederland/energiesysteembeheer/doc/')}})
+            [{{name}}](#{{id_safe(name)}})
         {%- endif -%}
     {%- else -%}
-        [{{name}}]({{schemaview.expand_curie(name)}})
+        [{{name}}]({{schemaview.expand_curie(name) | replace('https://begrippen.netbeheernederland.nl/id/', 'https://github.io/netbeheer-nederland/energiesysteembeheer/doc/')}})
     {%- endif -%}
 {%- endmacro -%}
 

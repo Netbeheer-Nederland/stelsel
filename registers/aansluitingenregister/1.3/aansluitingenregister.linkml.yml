@@ -37,7 +37,7 @@ default_prefix: this
 
 classes:
   Aansluiting:
-    class_uri: this:Aansluiting
+    class_uri: Aansluiting
     exact_mappings:
       - begrip:aansluiting
     annotations:
@@ -115,7 +115,7 @@ classes:
         unique_key_slots:
           - EAN-code
   Aansluitlocatie:
-    class_uri: this:Aansluitlocatie
+    class_uri: Aansluitlocatie
     exact_mappings:
       - begrip:aansluitlocatie
     annotations:
@@ -221,7 +221,7 @@ classes:
         unique_key_slots:
           - locatienummer
   Aftakking:
-    class_uri: this:Aftakking
+    class_uri: Aftakking
     broad_mappings:
       - begrip:netcomponent
     annotations:
@@ -258,7 +258,7 @@ classes:
           - zijde
           - nominale waarde
   Allocatiepunt:
-    class_uri: this:Allocatiepunt
+    class_uri: Allocatiepunt
     exact_mappings:
       - begrip:allocatiepunt
     annotations:
@@ -298,7 +298,7 @@ classes:
         unique_key_slots:
           - EAN-code
   Allocatiepunt bij aansluiting:
-    class_uri: this:Allocatiepunt-bij-aansluiting
+    class_uri: Allocatiepunt-bij-aansluiting
     is_a: Allocatiepunt
     description: allocatiepunt toegekend aan een aansluiting
     attributes:
@@ -364,7 +364,7 @@ classes:
         annotations:
           inverse_cardinality: 1..*
   Allocatiepunt bij netgebied:
-    class_uri: this:Allocatiepunt-bij-netgebied
+    class_uri: Allocatiepunt-bij-netgebied
     description: allocatiepunt toegekend aan een netgebied
     is_a: Allocatiepunt
     attributes:
@@ -381,7 +381,7 @@ classes:
         annotations:
           inverse_cardinality: "1..*"
   Groep van strengen van lichtmasten:
-    class_uri: this:Groep-van-strengen-van-lichtmasten
+    class_uri: Groep-van-strengen-van-lichtmasten
     broad_mappings:
       - begrip:aansluitlocatie
     annotations:
@@ -411,7 +411,7 @@ classes:
         unique_key_slots:
           - in rekening te brengen bij
   Meettransformator:
-    class_uri: this:Meettransformator
+    class_uri: Meettransformator
     broad_mappings:
       - begrip:netcomponent
     annotations:
@@ -462,7 +462,7 @@ classes:
           - deel van
           - serienummer
   Netgebied:
-    class_uri: this:Netgebied
+    class_uri: Netgebied
     exact_mappings:
       - begrip:netgebied
     annotations:
@@ -489,7 +489,7 @@ classes:
         unique_key_slots:
           - EAN-code
   Netkoppeling:
-    class_uri: this:Netkoppeling
+    class_uri: Netkoppeling
     broad_mappings:
       - begrip:aansluiting
     annotations:
@@ -525,7 +525,7 @@ classes:
         unique_key_slots:
           - EAN-code
   Overdrachtspunt:
-    class_uri: this:Overdrachtspunt
+    class_uri: Overdrachtspunt
     annotations:
       tijdlijn_geldigheid: true
       tijdlijn_registratie: true
@@ -611,7 +611,7 @@ classes:
         unique_key_slots:
           - EAN-code
   Primair deel elektriciteitsmeetinrichting:
-    class_uri: this:Primair-deel-elektriciteitsmeetinrichting
+    class_uri: Primair-deel-elektriciteitsmeetinrichting
     is_a: Primair deel meetinrichting
     description: eventueel aanwezige spannings- en stroommeettransformatoren met inbegrip van de aansluitklemmen waarop het secundaire deel van de meetinrichting is aangesloten
     source: bce:hoofdstuk=1&artikel=1.1&g=2022-11-25
@@ -642,7 +642,7 @@ classes:
         unit:
           ucum_code: A
   Primair deel gas- of waterstofmeetinrichting:
-    class_uri: this:Primair-deel-gas-of-waterstofmeetinrichting
+    class_uri: Primair-deel-gas-of-waterstofmeetinrichting
     is_a: Primair deel meetinrichting
     description: hulpmiddelen bij een gasaansluiting waarop het secundaire deel van de meetinrichting is aangesloten
     see_also:
@@ -677,7 +677,7 @@ classes:
         unit:
           ucum_code: "[in_i]"
   Primair deel meetinrichting:
-    class_uri: this:Primair-deel-meetinrichting
+    class_uri: Primair-deel-meetinrichting
     broad_mappings:
       - begrip:netcomponent
     annotations:
@@ -714,7 +714,7 @@ classes:
           - bij
           - identificatie
   Primaire meetkabel:
-    class_uri: this:Primaire-meetkabel
+    class_uri: Primaire-meetkabel
     broad_mappings:
       - begrip:netcomponent
     annotations:
@@ -748,7 +748,7 @@ classes:
         unique_key_slots:
           - verbonden met
   Spanningsmeettransformator:
-    class_uri: this:Spanningsmeettransformator
+    class_uri: Spanningsmeettransformator
     is_a: Meettransformator
     description: elektrisch apparaat dat wordt toegepast voor het verlagen van spanning zodat deze gemeten kan worden
     source: mce:hoofdstuk=4&paragraaf=4.3&sub-paragraaf=4.3.2&artikel=4.3.2.4&g=2023-04-01
@@ -761,7 +761,7 @@ classes:
         unit:
           ucum_code: V.A
   Stroommeettransformator:
-    class_uri: this:Stroommeettransformator
+    class_uri: Stroommeettransformator
     is_a: Meettransformator
     description: elektrisch apparaat dat wordt toegepast voor het verlagen van stroom zodat deze gemeten kan worden
     source: mce:hoofdstuk=4&paragraaf=4.3&sub-paragraaf=4.3.2&artikel=4.3.2.4&g=2023-04-01
@@ -777,7 +777,7 @@ classes:
           - Ook bekend als factor of security (FS) en instrumentsveiligheidsfactor.
         range: float
   Tarieftoepassing:
-    class_uri: this:Tarieftoepassing
+    class_uri: Tarieftoepassing
     broad_mappings:
       - begrip:aansluiting
     annotations:

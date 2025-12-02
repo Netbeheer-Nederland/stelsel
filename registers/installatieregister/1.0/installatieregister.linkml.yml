@@ -20,7 +20,7 @@ default_prefix: this
 
 classes:
   Beveiligingsinstelling:
-    class_uri: this:Beveiligingsinstelling
+    class_uri: Beveiligingsinstelling
     broad_mappings:
       - begrip:installatie
     annotations:
@@ -57,7 +57,7 @@ classes:
           - bij
           - onregelmatigheid
   Conformiteitscertificaat:
-    class_uri: this:Conformiteitscertificaat
+    class_uri: Conformiteitscertificaat
     broad_mappings:
       - begrip:installatie
     annotations:
@@ -73,7 +73,7 @@ classes:
           - fabrikant
           - typeaanduiding
   Elektriciteitsinstallatie-eenheid:
-    class_uri: this:Elektriciteitsinstallatie-eenheid
+    class_uri: Elektriciteitsinstallatie-eenheid
     broad_mappings:
       - begrip:installatie
     annotations:
@@ -137,14 +137,14 @@ classes:
         unique_key_slots:
           - EAN-code
   Elektriciteitslaadeenheid:
-    class_uri: this:Elektriciteitslaadeenheid
+    class_uri: Elektriciteitslaadeenheid
     is_a: Elektriciteitsinstallatie-eenheid
     exact_mappings:
       - begrip:elektriciteitslaadeenheid
     comments:
       - ⚠ Het is nog niet duidelijk hoe laadpunten gegroepeerd moeten worden in laadeenheden. Dit heeft namelijk direct effect op het type (A, B, C, D) en daarmee de aansluitvoorwaarden en verplichtingen die gelden voor de aangeslotene. Niet elke laadlocatie bestaat uit laadpalen, denk aan bogen, muren, etc.
   Elektriciteitsopslageenheid:
-    class_uri: this:Elektriciteitsopslageenheid
+    class_uri: Elektriciteitsopslageenheid
     is_a: Elektriciteitsinstallatie-eenheid
     exact_mappings:
       - begrip:elektriciteitsopslageenheid
@@ -160,7 +160,7 @@ classes:
         range: Energieherkomst
         required: true
   Elektriciteitsproductie-eenheid:
-    class_uri: this:Elektriciteitsproductie-eenheid
+    class_uri: Elektriciteitsproductie-eenheid
     is_a: Elektriciteitsinstallatie-eenheid
     exact_mappings:
       - begrip:elektriciteitsproductie-eenheid
@@ -190,7 +190,7 @@ classes:
         unit:
           ucum_code: m
   GCvO-installatie:
-    class_uri: this:GCvO-installatie
+    class_uri: GCvO-installatie
     broad_mappings:
       - begrip:installatie
     annotations:
@@ -230,7 +230,7 @@ classes:
         unique_key_slots:
           - EAN-code
   Groep van omvormers:
-    class_uri: this:Groep-van-omvormers
+    class_uri: Groep-van-omvormers
     broad_mappings:
       - begrip:installatie
     annotations:
@@ -250,7 +250,7 @@ classes:
         annotations:
           inverse_cardinality: "*"
   Groep van opwekkingseenheden:
-    class_uri: this:Groep-van-opwekkingseenheden
+    class_uri: Groep-van-opwekkingseenheden
     broad_mappings:
       - begrip:installatie
     annotations:
@@ -286,7 +286,7 @@ classes:
         annotations:
           inverse_cardinality: "*"
   Groep van windturbines:
-    class_uri: this:Groep-van-windturbines
+    class_uri: Groep-van-windturbines
     is_a: Groep van opwekkingseenheden
     description: verzameling van één of meer windturbines binnen één elektriciteitsproductie-eenheid die identieke kenmerken delen
     attributes:
@@ -307,7 +307,7 @@ classes:
         unit:
           ucum_code: kg.m2
   Groep van zonnepanelen:
-    class_uri: this:Groep-van-zonnepanelen
+    class_uri: Groep-van-zonnepanelen
     is_a: Groep van opwekkingseenheden
     description: verzameling van één of meer zonnepanelen binnen één elektriciteitsproductie-eenheid die identieke kenmerken delen
     attributes:
@@ -324,7 +324,7 @@ classes:
         unit:
           ucum_code: deg
   Soort transformator:
-    class_uri: this:Soort-transformator
+    class_uri: Soort-transformator
     broad_mappings:
       - begrip:installatie
     annotations:
@@ -395,7 +395,7 @@ classes:
         annotations:
           inverse_cardinality: "*"
   Transformatoropstelling:
-    class_uri: this:Transformatoropstelling
+    class_uri: Transformatoropstelling
     broad_mappings:
       - begrip:installatie
     annotations:

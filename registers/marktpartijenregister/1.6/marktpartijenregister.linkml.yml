@@ -1,0 +1,454 @@
+id: https://modellen.netbeheernederland.nl/stelsel/registers/marktpartijenregister
+name: marktpartijenregister
+title: Marktpartijenregister
+version: "1.6"
+description: Het marktpartijenregister bevat alle toewijzingen van bedrijfs-EAN-codes aan ondernemingen ten behoeve van het elektronische berichtenverkeer.
+see_also:
+  - iceg:hoofdstuk=2&paragraaf=2.7&artikel=2.7.2&g=2025-01-01
+  - iceg:hoofdstuk=2&paragraaf=2.8&artikel=2.8.2&g=2025-01-01
+prefixes:
+  linkml: https://w3id.org/linkml/
+  begrip: https://begrippen.netbeheernederland.nl/id/
+  this: https://modellen.netbeheernederland.nl/stelsel/registers/marktpartijenregister#
+  energiewet: https://wetten.overheid.nl/jci1.3:c:BWBR0050714&
+  iceg: https://wetten.overheid.nl/jci1.3:c:BWBR0037934&
+default_prefix: this
+
+classes:
+  Activiteitencategorie:
+    class_uri: Activiteitencategorie
+    related_mappings:
+      - begrip:marktpartij
+    description: groepering van activiteiten op de energiemarkt, uitgedrukt als een combinatie van marktrol, productsoort, marktsegment en of er een erkenning is vereist
+    slots:
+      - energiedrager
+    attributes:
+      dienst:
+        description: nadere aanduiding van de soort activiteit die wordt aangeboden
+        required: true
+        range: Dienst
+      marktrol:
+        description: standaardverzameling van rechten en/of plichten die een marktpartijregistratie kan hebben
+        required: true
+        range: Marktrol
+      marktsegment:
+        description: aanduiding van de categorie waartoe een aansluiting behoort, te weten klein- of grootverbruikaansluiting
+      vereist marktrolbeschikking:
+        description: geeft aan of het een activiteitencategorie betreft die een marktrolbeschikking vereist
+        comments:
+          - Voor grootverbruikaansluitingen en sommige kleinverbruikaansluitingen is bijvoorbeeld geen leveringsvergunning vereist.
+        required: true
+        range: boolean
+      # relaties:
+      toegestaan in:
+        range: Soort marktrolbeschikking
+        required: false
+        multivalued: false
+        annotations:
+          inverse_cardinality: 1..*
+    unique_keys:
+      identificatie:
+        unique_key_slots:
+          - dienst
+          - energiedrager
+          - marktrol
+          - marktsegment
+          - vereist marktrolbeschikking
+  Contactpersoon:
+    class_uri: Contactpersoon
+    broad_mappings:
+      - begrip:marktpartij
+    description: persoon die namens een marktpartijregistratie verantwoordelijk is voor een of meer onderwerpen
+    attributes:
+      achternaam:
+        description: naam die van geslacht op geslacht en indien gewenst door het huwelijk overgedragen wordt, inclusief een eventueel voorvoegsel
+        required: true
+        annotations:
+          personal_data: true
+      e-mailadres:
+        description: uniek adres voor digitaal, elektronisch postverkeer
+        required: true
+        annotations:
+          personal_data: true
+      nummer:
+        description: identificatie van de contactpersoon
+        required: true
+        annotations:
+          personal_data: true
+      roepnaam:
+        description: gebruikelijke aanspreeknaam
+        required: true
+        annotations:
+          personal_data: true
+      telefoonnummer:
+        description: uniek nummer dat wordt toegekend wordt om een aansluiting op het publieke telefoonnet te identificeren
+        required: true
+        annotations:
+          personal_data: true
+    unique_keys:
+      identificatie:
+        unique_key_slots:
+          - nummer
+  Contactgroep:
+    class_uri: Contactgroep
+    related_mappings:
+      - begrip:marktpartij
+    attributes:
+      naam:
+        description: identificatie van de contactgroep
+        comments:
+          - Bijvoorbeeld 'algemeen', 'afdracht', 'ATO-bewijsvoering', 'periodieke netwerktarieven' of 'algemene voorwaarden'.
+        required: true
+      marktrol:
+        description: marktrol die een marktpartijregistratie moet hebben om een contactlidmaatschap te mogen hebben voor deze contactgroep
+        range: Marktrol
+        required: true
+        multivalued: true
+      verplicht:
+        description: geeft aan of bij marktpartijregistraties met de betreffende marktrollen een lidmaatschap van deze contactgroep aanwezig moet zijn
+        range: boolean
+        required: true
+    unique_keys:
+      identificatie:
+        unique_key_slots:
+          - naam
+  Contactlidmaatschap:
+    class_uri: Contactlidmaatschap
+    broad_mappings:
+      - begrip:marktpartij
+    attributes:
+      # relaties:
+      bij:
+        range: Contactgroep
+        required: true
+        multivalued: false
+        annotations:
+          inverse_cardinality: "*"
+      namens:
+        range: Marktpartijsubregistratie
+        required: true
+        multivalued: false
+        annotations:
+          inverse_cardinality: 1..*
+      van:
+        range: Contactpersoon
+        required: true
+        multivalued: false
+        annotations:
+          inverse_cardinality: 1..*
+    unique_keys:
+      identificatie:
+        unique_key_slots:
+          - bij
+          - namens
+          - van
+  Factuurcontact:
+    class_uri: Factuurcontact
+    broad_mappings:
+      - begrip:marktpartij
+    description: contactgegevens die van toepassing zijn ten behoeve van het versturen van een factuur
+    comments:
+      - De overige adresgegevens bevinden zich in de registers van ondernemingen, zoals het Handelsregister.
+    see_also:
+      - iceg:hoofdstuk=5&paragraaf=5.6&sub-paragraaf=5.6.2&g=2025-01-01
+    attributes:
+      adresregel t.a.v.:
+        description: toevoeging aan een adres die aangeeft voor wie de post specifiek bedoeld is binnen een organisatie of op een adres
+        annotations:
+          personal_data: true
+      e-mailadres:
+        description: uniek adres voor digitaal, elektronisch postverkeer
+        annotations:
+          personal_data: true
+      onderwerp:
+        description: korte omschrijving van de reden of het doel van de factuur
+        required: true
+      # relaties:
+      van:
+        range: Marktpartijregistratie
+        required: true
+        multivalued: false
+        annotations:
+          inverse_cardinality: "*"
+    unique_keys:
+      identificatie:
+        unique_key_slots:
+          - onderwerp
+          - van
+  Marktpartijregistratie:
+    class_uri: Marktpartijregistratie
+    broad_mappings:
+      - begrip:marktpartij
+    description: toewijzing van een bedrijfs-EAN-code aan een onderneming
+    annotations:
+      tijdlijn_geldigheid: true
+      tijdlijn_registratie: true
+      levensduur: true
+    attributes:
+      bedrijfs-EAN-code:
+        description: identificatie van een onderneming in het berichtenverkeer
+        required: true
+      laatste validatie van contactpersoonsgegevens:
+        description:  moment waarop de dan actuele gegevens over contactpersonen bij de marktpartijregistratie voor het laatst zijn gecontroleerd op juistheid en actualiteit
+        range: date
+      laatste validatie van marktpartijgegevens:
+        description: moment waarop de dan actuele gegevens over de marktpartijregistratie, exclusief de contactpersoonsgegevens, voor het laatst zijn gecontroleerd op juistheid en actualiteit
+        range: date
+      marktrol:
+        description: rol die een onderneming kan vervullen op de energiemarkt
+        range: Marktrol
+        required: true
+      status:
+        description: toestand waarin de marktpartijregistratie zich bevindt
+        range: Status
+        required: true
+      # relaties:
+      plaatsvervangende leverancier bij:
+        range: Marktpartijregistratie
+        required: false
+        multivalued: true
+        annotations:
+          inverse_cardinality: 0..1
+      voor:
+        range: Onderneming
+        required: true
+        multivalued: false
+        annotations:
+          inverse_cardinality: "*"
+    unique_keys:
+      identificatie:
+        unique_key_slots:
+          - bedrijfs-EAN-code
+  Marktpartijsubregistratie:
+    class_uri: Marktpartijsubregistratie
+    broad_mappings:
+      - begrip:marktpartij
+    description: onderverdeling van een marktpartijregistratie, waardoor gegevens voor die eenheid apart kunnen worden gegroepeerd
+    annotations:
+      levensduur: true
+    see_also:
+      - iceg:hoofdstuk=8&paragraaf=8.2&artikel=8.2.1&g=2025-01-01
+    attributes:
+      naam:
+        description: aanduiding van een subregistratie
+      bedrijfs-EAN-code:
+        description: identificatie van een onderneming in het berichtenverkeer
+        comments:
+          - Bij de eerste subregistratie gelijk aan de bedrijfs-EAN-code van de Marktpartijregistratie.
+      IBAN:
+        description: betaalrekeningnummer
+        comments:
+          - "Ingeval van een leverancier: het IBAN voor afdrachten aan en eventuele bijstortingen van netbeheerders."
+      identificatie:
+        description: reeks karakters om de subregistratie uniek te identificeren
+      VAT-nummer:
+        description: omzetbelastingnummer
+      # relaties:
+      actor in:
+        range: Activiteitencategorie
+        required: false
+        multivalued: true
+        annotations:
+          inverse_cardinality: "*"
+      bij:
+        range: Marktpartijregistratie
+        required: true
+        multivalued: false
+        annotations:
+          inverse_cardinality: 1..*
+    unique_keys:
+      identificatie:
+        unique_key_slots:
+          - identificatie
+          - naam
+  Marktrolbeschikking:
+    class_uri: Marktrolbeschikking
+    broad_mappings:
+      - begrip:marktpartij
+    annotations:
+      levensduur: true
+    description: officiële toestemming (ontheffing, vergunning of erkenning) aan een onderneming voor een bepaalde categorie van activiteiten op de Nederlandse energiemarkt
+    attributes:
+      referentie:
+        description: bijvoorbeeld een ACM-besluitnummer
+      # relaties:
+      ingedeeld naar:
+        range: Soort marktrolbeschikking
+        required: true
+        multivalued: false
+        annotations:
+          inverse_cardinality: "*"
+      voor:
+        range: Onderneming
+        required: true
+        multivalued: false
+        annotations:
+          inverse_cardinality: "*"
+    unique_keys:
+      identificatie:
+        unique_key_slots:
+          - ingedeeld naar
+          - voor
+  Preferentie:
+    class_uri: Preferentie
+    broad_mappings:
+      - begrip:marktpartij
+    description: voorrang die is verleend door een programmaverantwoordelijke aan een leverancier of andersom en die van toepassing is tijdens een leveringszekerheidsprocedure
+    annotations:
+      tijdlijn_geldigheid: true
+      tijdlijn_registratie: true
+    slots:
+      - energiedrager
+    slot_usage:
+      energiedrager:
+        required: true
+    attributes:
+      # relaties:
+      verleend aan:
+        range: Marktpartijregistratie
+        required: true
+        multivalued: false
+        annotations:
+          inverse_cardinality: "*"
+      verleend door:
+        range: Marktpartijregistratie
+        required: true
+        multivalued: false
+        annotations:
+          inverse_cardinality: 0..1
+    unique_keys:
+      identificatie:
+        unique_key_slots:
+          - verleend aan
+          - verleend door
+  Soort marktrolbeschikking:
+    class_uri: Soort-marktrolbeschikking
+    related_mappings:
+      - begrip:marktpartij
+    description: aanduiding van een verzameling marktrolbeschikkingen die een gemeenschappelijk karakter hebben
+    attributes:
+      naam:
+        description: woord of combinatie van woorden waarmee de soort marktrolbeschikking wordt aangeduid
+        range: Naam marktrolbeschikking
+        required: true
+      bevoegd gezag:
+        description: instantie die wettelijk bevoegd is om de soort marktrolbeschikking toe te kennen
+        range: Bevoegd gezag
+        required: true
+    unique_keys:
+      identificatie:
+        unique_key_slots:
+          - naam
+
+  # externe entiteiten:
+  Onderneming:
+    annotations:
+      external_registry: Registers van ondernemingen 
+
+slots:
+  energiedrager:
+    exact_mappings:
+      - begrip:energiedrager
+    range: Energiedrager
+
+enums:
+  Bevoegd gezag:
+    permissible_values:
+      ACM:
+        description: Autoriteit Consument en Markt
+      GTS:
+        description: Gasunie Transport Services
+      TenneT:
+  Dienst:
+    permissible_values:
+      (terug)levering:
+      balanceringsverantwoordelijkheid:
+      gesloten-systeembeheer:
+      meterbeheer:
+      bieding redispatch:
+      capaciteitsbeperking: # wordt capaciteitssturing
+      FCR:
+      aFRR:
+      noodvermogen:
+      MARI-product:
+  Energiedrager:
+    permissible_values:
+      elektriciteit:
+      gas:
+  Marktrol:
+    permissible_values:
+      BSP:
+        description: aanbieder van balanceringsdiensten
+      CSP:
+        description: congestiebeheersdienstverlener
+      EDSN:
+        description: Energie Data Services Nederland
+      GDS:
+        description: eigenaar van een gesloten distributiesysteem
+      EPV:
+        description: energieprijsvergelijker
+      LNB:
+        description: landelijke netbeheerder
+      LV:
+        description: leverancier
+      MV:
+        description: meetverantwoordelijke
+      ODA:
+        description: overige diensten aanbieder
+      PV:
+        description: balanceringsverantwoordelijke (voorheen programmaverantwoordelijke)
+      RNB:
+        description: regionale netbeheerder
+  Marktsegment:
+    permissible_values:
+      grootverbruikaansluiting:
+        meaning: begrip:grootverbruikaansluiting
+      kleinverbruikaansluiting:
+        meaning: begrip:kleinverbruikaansluiting
+  Naam marktrolbeschikking:
+    permissible_values:
+      Leveringsvergunning elektriciteit:
+        comments:
+          - "Bevoegd gezag: ACM."
+      Leveringsvergunning gas:
+        comments:
+          - "Bevoegd gezag: ACM."
+      BRP-erkenning:
+        comments:
+          - "Bevoegd gezag: TenneT."
+      Licentie B:
+        comments:
+          - "Bevoegd gezag: GTS."
+      Ontheffing GDS-eigenaar elektriciteit:
+        comments:
+          - "Bevoegd gezag: ACM."
+      Ontheffing GDS-eigenaar gas:
+        comments:
+          - "Bevoegd gezag: ACM."
+      MV-erkenning elektriciteit:
+        comments:
+          - "Bevoegd gezag: TenneT."
+      MV-erkenning gas:
+        comments:
+          - "Bevoegd gezag: TenneT."
+      CSP-erkenning:
+        comments:
+          - "Bevoegd gezag: TenneT."
+      BSP-erkenning voor FCR:
+        comments:
+          - "Bevoegd gezag: TenneT."
+      BSP-erkenning voor aFRR:
+        comments:
+          - "Bevoegd gezag: TenneT."
+      BSP-erkenning voor Noodvermogen:
+        comments:
+          - "Bevoegd gezag: TenneT."
+      BSP-erkenning voor MARI-product:
+        comments:
+          - "Bevoegd gezag: TenneT."
+  Status:
+    permissible_values:
+      actief:
+      beëindigd:
+      geblokkeerd:
+      inactief:

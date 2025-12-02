@@ -35,7 +35,7 @@ classes:
 
   # minimaal voorbeeld van een class (entiteitsoort):
   Minimaal voorbeeld:
-    class_uri: this:Minimaal-voorbeeld
+    class_uri: Minimaal-voorbeeld
     is_a: Voorbeeld # bij specialisatie is een mapping niet vereist (want verankerd via de bovenliggende klasse)
     description: exemplaar dat duidelijk maakt wat men minimaal moet specificeren
     attributes:
@@ -46,7 +46,7 @@ classes:
 
   # maximaal voorbeeld van een class (entiteitsoort):
   Maximaal voorbeeld:
-    class_uri: this:Maximaal-voorbeeld
+    class_uri: Maximaal-voorbeeld
     is_a: Voorbeeld
     description: examplaar dat duidelijk maakt wat men allemaal kan specificeren
     comments: # bij elk element (schema, class, attribute, slot, enums, ...) kun je commentaar toevoegen.
@@ -128,11 +128,11 @@ classes:
 
   # ter ondersteuning van de voorbeelden hierboven:
   Modelleur:
-    class_uri: this:Modelleur
+    class_uri: Modelleur
     exact_mappings:
       - begrip:modelleur
   Bezoeker:
-    class_uri: this:Bezoeker
+    class_uri: Bezoeker
     exact_mappings:
       - begrip:bezoeker
 

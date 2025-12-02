@@ -17,7 +17,7 @@ default_prefix: this
 
 classes:
   Gatewaycodering:
-    class_uri: this:Gatewaycodering
+    class_uri: Gatewaycodering
     broad_mappings:
       - begrip:technische-bedrijfsstandaard
     description: categorisering van meetgateways met gelijke functionele en technische kenmerken, afkomstig van dezelfde fabrikant
@@ -37,7 +37,7 @@ classes:
         unique_key_slots:
           - gatewaycode
   Metercodering:
-    class_uri: this:Metercodering
+    class_uri: Metercodering
     broad_mappings:
       - begrip:technische-bedrijfsstandaard
     description: categorisering van energiehoeveelheidsmeters met dezelfde (metrologische) kenmerken en van dezelfde fabrikant
@@ -81,7 +81,7 @@ classes:
         unique_key_slots:
           - metercode
   Telwerkdefinitie:
-    class_uri: this:Telwerkdefinitie
+    class_uri: Telwerkdefinitie
     broad_mappings:
       - begrip:technische-bedrijfsstandaard
     description: beschrijving van een cumulatieve energiehoeveelheidsmeting ten behoeve van verrekening

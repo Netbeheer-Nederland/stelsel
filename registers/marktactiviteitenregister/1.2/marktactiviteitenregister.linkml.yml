@@ -85,7 +85,7 @@ classes:
           - dienst
           - op
   Melding leveringsovereenkomst:
-    class_uri: Melding leveringsovereenkomst
+    class_uri: Melding-leveringsovereenkomst
     related_mappings:
       - begrip:marktactiviteit
     description: bericht van een leverancier dat hij een leveringsovereenkomst heeft afgesloten

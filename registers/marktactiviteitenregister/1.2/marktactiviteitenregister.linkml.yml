@@ -116,7 +116,8 @@ classes:
     class_uri: linkml:Any
   Marktpartijsubregistratie:
     class_uri: marktpartijenregister:Marktpartijsubregistratie
-    external_registry: Marktpartijenregister
+    annotations:
+      external_registry: Marktpartijenregister
 
 enums:
   Dienst:

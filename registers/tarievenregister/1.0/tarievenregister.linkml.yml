@@ -31,7 +31,7 @@ classes:
     class_uri: Tariefcomponent
     related_mappings:
       - begrip:klantproduct
-    description: periodieke vergoeding voor een dienst van een netbeheerder aan een kleinverbuiker
+    description: deel van een periodieke vergoeding voor een aansluiting
     comments:
       - De combinatie van netbeheerder, afnemerscategorie en soort is uniek.
     annotations:
@@ -63,7 +63,7 @@ classes:
     class_uri: Totaaltarief
     related_mappings:
       - begrip:klantproduct
-    description: door een aangeslotene periodiek verschuldigde totaalbedrag aan een netbeheerder
+    description: totale periodieke verdoeding voor een aansluiting
     comments:
       - Het totaaltarief wordt aangemaakt bij de eerste uitvraag van unieke combinatie van netbeheerder, afnemerscategorie en aantallen.
       - De combinatie van netbeheerder, afnemerscategorie en soort is uniek.

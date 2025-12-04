@@ -1,0 +1,188 @@
+id: https://modellen.netbeheernederland.nl/stelsel/registers/tarievenregister
+name: tarievenregister
+title: Tarievenregister
+version: "1.0"
+description: Het tarievenregister bevat de periodieke tarieven voor kleinverbruikaansluitingen, welke via energieleveranciers in rekening worden gebracht bij aangeslotenen.
+comments:
+  - "Alle bedragen zijn met acht decimalen achter de komma (eenheid: euro's per dag excl. btw)."
+  - Uitgangspunt is dat het tarievenregister het algoritme bevat dat de tarieftoepassing op verzoek van het aansluitingenregister bepaalt. Het aansluitingenregister slaat het resultaat op (als Tarieftoepassing) zodat dit algoritme alleen bij het schrijven, en niet bij het lezen, van de aansluiting hoeft te worden uitgevoerd. En zolang leveranciers niet zelf het totaalbedrag berekenen, slaat ook het tarievenregister dit resultaat op (als Totaaltarief).
+  - "Afleidingsregel voor aantal PAV: als groep van strengen van lichtmasten te verrekenen is bij deze aansluiting dan het totaal aantal overdrachtspunten; anders als deze aansluiting ten behoeve is van een groep van strengen van lichtmasten dan 0; anders het aantal overdrachtspunten."
+  - "Afleidingsregel voor aantal TAVT: als uitsluitend elektriciteitsproductie-eenheden dan 0; anders als groep van strengen van lichtmasten te verrekenen is bij deze aansluiting dan het totaal aantal overdrachtspunten; anders als deze aansluiting ten behoeve is van een groep van strengen van lichtmasten dan 0; anders het aantal overdrachtspunten."
+  - "Afleidingsregel voor aantal TAVT: als groep van strengen van lichtmasten te verrekenen is bij deze aansluiting dan het totaal aantal overdrachtspunten; anders als deze aansluiting ten behoeve is van een groep van strengen van lichtmasten dan 0; anders als gewenste aansluitcapaciteit ≤ 1x6A dan het aantal overdrachtspunten; anders 1."
+  - "Afleidingsregel voor aantal MT: aantal allocatiepunten waar wijze van bemeting ≠ onbemeten."
+see_also:
+  - iceg:hoofdstuk=8&paragraaf=8.1&artikel=8.1.6&g=2025-01-01
+  - tce:g=2025-12-01
+  - tcg:g=2025-04-04
+  - rmt:g=2014-08-01
+prefixes:
+  linkml: https://w3id.org/linkml/
+  begrip: https://begrippen.netbeheernederland.nl/id/
+  this: https://modellen.netbeheernederland.nl/stelsel/registers/voorbeeldregister#
+  marktpartijenregister: https://modellen.netbeheernederland.nl/stelsel/registers/marktpartijenregister#
+  iceg: https://wetten.overheid.nl/jci1.3:c:BWBR0037934&
+  tce: https://wetten.overheid.nl/jci1.3:c:BWBR0037951&
+  tcg: https://wetten.overheid.nl/jci1.3:c:BWBR0037948&
+  rmt: https://wetten.overheid.nl/jci1.3:c:BWBR0028965&
+default_prefix: this
+
+classes:
+  Tariefcomponent:
+    class_uri: Tariefcomponent
+    related_mappings:
+      - begrip:klantproduct
+    description: periodieke vergoeding voor een dienst van een netbeheerder aan een kleinverbuiker
+    comments:
+      - De combinatie van netbeheerder, afnemerscategorie en soort is uniek.
+    annotations:
+      tijdlijn_geldigheid: true
+      tijdlijn_registratie: true
+    slots:
+      - afnemerscategorie
+      - EAN-code
+    attributes:
+      bedrag:
+        description: hoeveelheid geld die verschuldigd is
+        range: decimal
+        required: true
+      soort:
+        description: categorie waartoe de tariefcomponent behoort
+        range: Soort tariefcomponent
+      # relaties:
+      vastgesteld door:
+        range: Marktpartijsubregistratie
+        required: true
+        multivalued: false
+        annotations:
+          inverse_cardinality: "*"
+    unique_keys:
+      identificatie:
+        unique_key_slots:
+          - EAN-code
+  Totaaltarief:
+    class_uri: Totaaltarief
+    related_mappings:
+      - begrip:klantproduct
+    description: door een aangeslotene periodiek verschuldigde totaalbedrag aan een netbeheerder
+    comments:
+      - Het totaaltarief wordt aangemaakt bij de eerste uitvraag van unieke combinatie van netbeheerder, afnemerscategorie en aantallen.
+      - De combinatie van netbeheerder, afnemerscategorie en soort is uniek.
+    annotations:
+      tijdlijn_geldigheid: true
+      tijdlijn_registratie: true
+    slots:
+      - afnemerscategorie
+      - EAN-code
+    attributes:
+      aantal PAV:
+        description: getal waarmee het bedrag van de periodieke aansluitvergoeding vermenigvuldigd moet worden
+        range: integer
+        required: true
+      aantal TAVT:
+        description: getal waarmee het bedrag van het transportafhankelijk transporttarief dan wel verbruikerstarief vermenigvuldigd moet worden
+        range: integer
+        required: true
+      aantal TOVT:
+        description: getal waarmee het bedrag van het transportonafhankelijk transporttarief dan wel verbruikerstarief vermenigvuldigd moet worden
+        range: integer
+        required: true
+      aantal MT:
+        description: getal waarmee het bedrag van het meettarief vermenigvuldigd moet worden
+        range: integer
+        required: true
+      subtotaal PAV:
+        description: totaalbedrag van de periodieke aansluitvergoeding na vermenigvuldiging met het aantal
+        comments:
+          - "Validatie: gelijk aan aantal PAV * bedrag van tariefcomponent waar soort = PAV."
+        range: decimal
+      subtotaal TOVT:
+        description: totaalbedrag van het transportonafhankelijk transporttarief dan wel verbruikerstarief na vermenigvuldiging met het aantal
+        comments:
+          - "Validatie: gelijk aan aantal TOVT * bedrag van tariefcomponent waar soort = TOVT."
+        range: decimal
+      subtotaal MT:
+        description: totaalbedrag van het meettarief na vermenigvuldiging met het aantal
+        comments:
+          - "Validatie: gelijk aan aantal MT * bedrag van tariefcomponent waar soort = MT."
+        range: decimal
+      totaalbedrag:
+        description: som van alle bedragen van onderliggende tariefcomponenten, na vermenigvuldiging met het aantal
+        range: decimal
+      # relaties:
+      vastgesteld door:
+        range: Marktpartijsubregistratie
+        required: true
+        multivalued: false
+        annotations:
+          inverse_cardinality: "*"
+    unique_keys:
+      identificatie:
+        unique_key_slots:
+          - EAN-code
+
+  # externe entiteiten:
+  Marktpartijsubregistratie:
+    class_uri: marktpartijenregister:Marktpartijsubregistratie
+    annotations:
+      external_registry: Marktpartijenregister
+
+slots:
+  afnemerscategorie:
+    description: waartoe een kleinverbruikaansluiting behoort op basis van de aansluitcapaciteit en eventueel het standaardjaarverbruik
+    range: Afnemerscategorie
+    required: true
+  EAN-code:
+    description: unieke cijfercombinatie volgens de Europese Artikelnummer-standaard
+    range: EAN-18
+    required: true
+
+enums:
+  Afnemerscategorie:
+    permissible_values:
+      "10111":
+        description: t/m 1x6A geschakeld
+      "10112":
+        description: t/m 1x10A
+      "10211":
+        description: ">1x10A en t/m 3x25A"
+      "10311":
+        description: "> 3x25A t/m 3x35A (3x40A met schakelautomaat)"
+      "10411":
+        description: "> 3x35A t/m 3x50A"
+      "10511":
+        description: "> 3x50A t/m 3x63A"
+      "10611":
+        description: "> 3x63A t/m 3x80A"
+      "20111":
+        description: t/m G6 en t/m 500 m3 standaardjaarverbruik
+      "20211":
+        description: t/m G6 en t/m 4.000 m3 standaardjaarverbruik
+      "20311":
+        description: t/m G6 en > 4.000 m3 standaardjaarverbruik
+      "20411":
+        description: G10
+      "20511":
+        description: G16
+      "20611":
+        description: G25
+  Soort tariefcomponent:
+    permissible_values:
+      PAV:
+        description: periodieke aansluitvergoeding
+        see_also:
+          - tce:hoofdstuk=2&paragraaf=2.3&sub-paragraaf=2.3.5&g=2025-12-01
+          - tcg:hoofdstuk=2&paragraaf=2.2&artikel=2.8&g=2025-04-04
+      TAVT:
+        description: transportafhankelijk transporttarief dan wel verbruikerstarief
+        see_also:
+          - tce:hoofdstuk=3&paragraaf=3.7&g=2025-12-01
+          - tcg:hoofdstuk=2&paragraaf=2.4&g=2025-04-04
+      TOVT:
+        description: transportonafhankelijk transporttarief dan wel verbruikerstarief
+        see_also:
+          - tce:hoofdstuk=3&paragraaf=3.8&g=2025-12-01
+          - tcg:hoofdstuk=2&paragraaf=2.4&g=2025-04-04
+      MT:
+        description: meettarief
+        see_also:
+          - rmt:g=2014-08-01

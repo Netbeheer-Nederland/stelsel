@@ -265,9 +265,9 @@ enums:
       2.8.2:
   Wijze van bemeting:
     permissible_values:
-    MDN:
-      description: maandelijks
-    JRL:
-      description: jaarlijks
-    TMT:
-      description: telemetrie
+      MDN:
+        description: maandelijks
+      JRL:
+        description: jaarlijks
+      TMT:
+        description: telemetrie

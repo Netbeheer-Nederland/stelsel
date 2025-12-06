@@ -156,7 +156,7 @@ classes:
         comments:
           - Bij een handopgenomen meetinrichting zoals zichtbaar op de meter zelf. Bij een meetinrichting die op afstand uitleesbaar is door middel van de OBIS-code.
         range: Any
-        any_of:
+        exactly_one_of:
           - range: Cijfer
           - range: OBIS-code
         required: true

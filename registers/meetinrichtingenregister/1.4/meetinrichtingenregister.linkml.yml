@@ -54,7 +54,7 @@ classes:
         required: true
         multivalued: false
         annotations:
-          inverse_cardinality: "0..1"
+          inverse_cardinality: 0..1
   Kleinverbruikmeetinrichting:
     class_uri: Kleinverbruikmeetinrichting
     exact_mappings:
@@ -117,7 +117,7 @@ classes:
         required: true
         multivalued: false
         annotations:
-          inverse_cardinality: "0..1"
+          inverse_cardinality: 0..1
     unique_keys:
       identificatie:
         unique_key_slots:
@@ -156,9 +156,9 @@ classes:
         comments:
           - Bij een handopgenomen meetinrichting zoals zichtbaar op de meter zelf. Bij een meetinrichting die op afstand uitleesbaar is door middel van de OBIS-code.
         range: Any
-        exactly_one_of:
-          - Cijfer
-          - OBIS-code
+        any_of:
+          - range: Cijfer
+          - range: OBIS-code
         required: true
       vermenigvuldigingsfactor:
         description: samenstel van alle specifiek voor de meetinrichting van toepassing zijnde correctiefactoren, met uitzondering van de volumeherleidingsfactor, die nodig zijn om uit de tellerstanden de daadwerkelijke hoeveelheid met het net uitgewisselde energie te kunnen vaststellen of om tot een normaalvolume te komen

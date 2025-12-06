@@ -1,0 +1,273 @@
+id: https://modellen.netbeheernederland.nl/stelsel/registers/meetinrichtingenregister
+name: meetinrichtingenregister
+title: Meetinrichtingenregister
+version: 1.4-draft
+description: Het meetinrichtingenregister bevat gegevens over meetapparatuur bij gas- en elektriciteitsaansluitingen in Nederland, ten behoeve van marktprocessen.
+comments:
+  - De gegevens over kleinverbruikmeetinrichtingen zijn afgeleid van het meetcomponentenregister.
+prefixes:
+  linkml: https://w3id.org/linkml/
+  begrip: https://begrippen.netbeheernederland.nl/id/
+  this: https://modellen.netbeheernederland.nl/stelsel/registers/voorbeeldregister#
+  aansluitingenregister: https://modellen.netbeheernederland.nl/stelsel/registers/aansluitingenregister#
+  installatieregister: https://modellen.netbeheernederland.nl/stelsel/registers/installatieregister#
+  boaum: https://wetten.overheid.nl/jci1.3:c:BWBR0030605&
+  iceg: https://wetten.overheid.nl/jci1.3:c:BWBR0037934&
+default_prefix: this
+
+classes:
+  Grootverbruikmeetinrichting:
+    class_uri: Grootverbruikmeetinrichting
+    description: Meetinrichting bij een grootverbruikaansluiting
+    broad_mappings:
+      - begrip:meetinrichting
+    see_also:
+      - iceg:hoofdstuk=4&paragraaf=4.7&sub-paragraaf=4.7.2&g=2025-01-01
+    annotations:
+      tijdlijn_registratie: true
+    attributes:
+      capaciteit:
+        description: hoeveelheid energie die per tijdseenheid maximaal kan worden getransporteerd door de meetinrichting
+        range: Capaciteit
+      meternummer:
+        description: identificatie van de meetinrichting
+        required: true
+      moment van ingebruikname:
+        description: tijdstip waarop de meetinrichting begint met het registreren van energie-uitwisseling
+        range: datetime
+        required: true
+      moment van buitengebruikstelling:
+        description: tijdstip waarop de meetinrichting stopt met het registreren van energie-utwisseling
+        range: datetime
+      wijze van bemeting:
+        description: tijdsinterval tussen metingen
+        comments:
+          - Het aansluitingenregister specificeert de wijze van bemeting zoals overeengekomen tussen aangeslotene en netbeheerder. Het meetinrichtingenregister specificeert een eventueel hogere frequentie van bemeting.
+        range: Wijze van bemeting
+        required: true
+      # relaties:
+      bij:
+        range: Any
+        exactly_one_of:
+          - range: Overdrachtspunt
+          - range: Primair deel meetinrichting
+        required: true
+        multivalued: false
+        annotations:
+          inverse_cardinality: "0..1"
+  Kleinverbruikmeetinrichting:
+    class_uri: Kleinverbruikmeetinrichting
+    exact_mappings:
+      - begrip:kleinverbruikmeetinrichting
+    annotations:
+      tijdlijn_effectuering: true
+    attributes:
+      aantal telwerken:
+        description: hoeveelheid telwerken waarin daadwerkelijk de gemeten hoeveelheid energie wordt vastgelegd en waarvan de stand wordt uitgelezen ten behoeve van de marktprocessen
+        comments:
+          - "Validatie: gelijk aan het aantal instanties van Telwerk bij deze meetinrichting."
+        range: integer
+        required: true
+      correctiefactor voor hoogteligging:
+        description: factor waarmee het getal van de telwerken vermenigvuldigd moet worden om de meetwaarde te corrigeren voor hoogteligging
+        comments:
+          - Bij een niet-temperatuurgecorrigeerde gasmeetinrichting geldt de waarde uit de Meetcode gas (B1.3.5.1) op basis van postcode en nha.nl, anders 1.
+        range: float
+        required: true
+      correctiefactor voor indirecte meting:
+        description: factor waarmee het getal van de telwerken vermenigvuldigd moet worden om de meetwaarde te corrigeren voor een meting via meettransformatoren
+        comments:
+          - De waarde is afkomstig uit het Meetcomponentenregister.
+        range: float
+        required: true
+      correctiefactor voor leveringsdruk:
+        description: factor waarmee het getal van de telwerken vermenigvuldigd moet worden om de meetwaarde te corrigeren voor leveringsdruk (afleveringsdruk + atmosferische druk)
+        comments:
+          - Bij een niet-temperatuurgecorrigeerde gasmeetinrichting geldt de waarde uit de Meetcode gas (B.1.3.5.3), anders 1.
+        range: float
+        required: true
+      meternummer:
+        description: identificatie van de meetinrichting
+        required: true
+      op afstand uitleesbaar:
+        description: geeft weer of de meetinrichting voldoet aan het Besluit op afstand uitleesbare meetinrichtingen
+        comments:
+          - Ook wel bekend als 'slim'.
+        see_also:
+          - boaum:g=2020-10-25
+        range: boolean
+        required: true
+      reden technisch niet op afstand uitleesbaar:
+        description: verklaring voor het technisch niet op afstand uitleesbaar zijn van de meetinrichting
+        range: Reden technisch niet op afstand uitleesbaar
+      technisch op afstand uitleesbaar:
+        description: geeft weer of de meetinrichting gelet op externe factoren van technische aard al dan niet op afstand uitleesbaar is
+        comments:
+          - "Validatie: afwezig bij een niet op afstand uitleesbare meetinrichting."
+        range: boolean
+      temperatuurgecorrigeerd:
+        description: geeft weer of de metingen door de meetinrichting worden gecorrigeerd voor temperatuur
+        range: boolean
+      # telwerk:
+      bij:
+        range: Any
+        exactly_one_of:
+          - range: GCvO-installatie
+          - range: Allocatiepunt bij aansluiting
+        required: true
+        multivalued: false
+        annotations:
+          inverse_cardinality: "0..1"
+    unique_keys:
+      identificatie:
+        unique_key_slots:
+          - meternummer
+          - bij
+  Telwerk:
+    class_uri: Telwerk
+    exact_mappings:
+      - begrip:telwerk
+    annotations:
+      tijdlijn_effectuering: true
+    attributes:
+      aantal posities voor de komma:
+        description: maximaal aantal posities in het decimale talstelsel dat het telwerk kan bevatten
+        range: integer
+        required: true
+      energierichting:
+        exact_mappings:
+          - begrip:energierichting
+        range: Energierichting
+        required: true
+      meeteenheid:
+        description: maat waarin natuurkundige grootheden numeriek kunnen worden uitgedrukt
+        comments:
+          - "Validatie: bij elektriciteit kWh; bij gas of waterstof EN vermenigvuldigingsfactor = 1 EN temperatuurgecorrigeerd = ja dan m3(n), anders m3."
+        range: Meeteenheid
+        required: true
+      tariefzone:
+        description: geeft weer tijdens welke tariefperiode(n) het telwerk de energie-uitwisseling registreert
+        comments:
+          - Bij een zogenaamde Amsterdamse meter meet het totaaltelwerk tijdens normaal- en laaguren, en het laagtelwerk alleen tijdens laaguren.
+        range: tariefzone
+        required: true
+      telwerkindicatie:
+        description: identificatie van de onderscheiden telwerken op een meetinrichting
+        comments:
+          - Bij een handopgenomen meetinrichting zoals zichtbaar op de meter zelf. Bij een meetinrichting die op afstand uitleesbaar is door middel van de OBIS-code.
+        range: Any
+        exactly_one_of:
+          - Cijfer
+          - OBIS-code
+        required: true
+      vermenigvuldigingsfactor:
+        description: samenstel van alle specifiek voor de meetinrichting van toepassing zijnde correctiefactoren, met uitzondering van de volumeherleidingsfactor, die nodig zijn om uit de tellerstanden de daadwerkelijke hoeveelheid met het net uitgewisselde energie te kunnen vaststellen of om tot een normaalvolume te komen
+        comments:
+          - "Validatie: product van de correctiefactoren voor hoogteligging, leveringsdruk en indirecte meting."
+        range: float
+        required: true
+      # relaties:
+      deel van:
+        range: Kleinverbruikmeetinrichting
+        required: true
+        multivalued: false
+        annotations:
+          inverse_cardinality: 1..*
+    unique_keys:
+      identificatie:
+        unique_key_slots:
+          - telwerkindicatie
+          - deel van
+
+  # externe entiteiten:
+  Aansluiting:
+    class_uri: aansluitingenregister:Aansluiting
+    annotations:
+      external_registry: Aansluitingenregister
+  Allocatiepunt bij aansluiting:
+    class_uri: aansluitingenregister:Allocatiepunt-bij-aansluiting
+    annotations:
+      external_registry: Aansluitingenregister
+  Any:
+    class_uri: linkml:Any
+  GCvO-installatie:
+    class_uri: installatieregister:GCvO-installatie
+    annotations:
+      external_registry: Installatieregister
+  Overdrachtspunt:
+    class_uri: aansluitingenregister:Overdrachtspunt
+    annotations:
+      external_registry: Aansluitingenregister
+  Primair deel meetinrichting:
+    class_uri: aansluitingenregister:Primair-deel-meetinrichting
+    annotations:
+      external_registry: Aansluitingenregister
+
+types:
+  Cijfer:
+    description: enkel karakter dat een numeriek symbool weergeeft
+    base: string
+    pattern: "^[0-9]$"
+
+enums:
+  Capaciteit:
+    permissible_values:
+      G4:
+      G6:
+      G10:
+      G16:
+      G25:
+      G40:
+      G65:
+      G100:
+      G160:
+      G250:
+      G400:
+      G650:
+      G1000:
+      G1600:
+      G2500:
+  Energierichting:
+    permissible_values:
+      afname:
+        meaning: begrip:afname
+      invoeding:
+        meaning: begrip:invoeding
+  Meeteenheid:
+    permissible_values:
+      kWh:
+      m3:
+      m3(n):
+  Reden technisch niet op afstand uitleesbaar:
+    permissible_values:
+      "39.1":
+        description: geen fysieke toegang
+      "39.2":
+        description: aansluiting langdurig spanningsloos of niet in gebruik
+      "39.3":
+        description: uitlezing geblokkeerd i.v.m. incident meter of telecom
+      "39.4":
+        description: geen telecomdekking door inpandige situatie
+      "39.5":
+        description: geen telecomdekking aanwezig
+      "39.6":
+        description: gasmeter hangt te ver van elektrameter of er hangt een losse gasmeter
+  Tariefzone:
+    permissible_values:
+      normaal:
+      laag:
+      totaal:
+  OBIS-code:
+    permissible_values:
+      1.8.1:
+      1.8.2:
+      2.8.1:
+      2.8.2:
+  Wijze van bemeting:
+    permissible_values:
+    MDN:
+      description: maandelijks
+    JRL:
+      description: jaarlijks
+    TMT:
+      description: telemetrie

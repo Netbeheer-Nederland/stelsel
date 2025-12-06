@@ -248,20 +248,26 @@ classes:
     annotations:
       external_registry: Meetcomponentstandaardenregister
 
+types:
+  Cijfer:
+    description: enkel karakter dat een numeriek symbool weergeeft
+    base: string
+    pattern: "^[0-9]$"
+
 enums:
   Dossierreden:
     permissible_values:
-      1:
+      "1":
         description: Geen contact met klant mogelijk
-      2:
+      "2":
         description: Klant werkt niet mee
-      3:
+      "3":
         description: Installatie moet worden vervangen/aangepast
-      4:
+      "4":
         description: Sloop of verbouw aansluiting/pand
-      5:
+      "5":
         description: Meter kan niet worden vervangen
-      6:
+      "6":
         description: Administratieve onduidelijkheid
   Lokaal communicatieprofiel:
     permissible_values:
@@ -271,17 +277,17 @@ enums:
       Wi-SUN:
   Reden technisch niet op afstand uitleesbaar:
     permissible_values:
-      39.1:
+      "39.1":
         description: geen fysieke toegang
-      39.2:
+      "39.2":
         description: aansluiting langdurig spanningsloos of niet in gebruik
-      39.3:
+      "39.3":
         description: uitlezing geblokkeerd i.v.m. incident meter of telecom
-      39.4:
+      "39.4":
         description: geen telecomdekking door inpandige situatie
-      39.5:
+      "39.5":
         description: geen telecomdekking aanwezig
-      39.6:
+      "39.6":
         description: gasmeter hangt te ver van elektrameter of er hangt een losse gasmeter
   Zegelcategorie:
     permissible_values:
@@ -291,9 +297,3 @@ enums:
         description: de zegel is verbroken, zonder dat een revisie heeft plaatsgevonden
       gereviseerd:
         description: de zegel is vervangen na een formele revisie
-
-types:
-  Cijfer:
-    description: enkel karakter dat een numeriek symbool weergeeft
-    base: string
-    pattern: "^[0-9]$"

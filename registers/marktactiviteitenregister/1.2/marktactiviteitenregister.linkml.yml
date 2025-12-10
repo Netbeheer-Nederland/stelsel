@@ -8,7 +8,7 @@ comments:
 prefixes:
   linkml: https://w3id.org/linkml/
   begrip: https://begrippen.netbeheernederland.nl/id/
-  this: https://modellen.netbeheernederland.nl/stelsel/registers/voorbeeldregister#
+  this: https://modellen.netbeheernederland.nl/stelsel/registers/marktactiviteitenregister#
   aansluitingenregister: https://modellen.netbeheernederland.nl/stelsel/registers/aansluitingenregister#
   marktpartijenregister: https://modellen.netbeheernederland.nl/stelsel/registers/marktpartijenregister#
   energiewet: https://wetten.overheid.nl/jci1.3:c:BWBR0050714&

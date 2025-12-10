@@ -22,7 +22,7 @@ default_prefix: this
 
 classes:
   Actuele temperatuurcoëfficiënt:
-    class_uri: Actuele temperatuurcoëfficiënt
+    class_uri: Actuele-temperatuurcoefficiënt
     related_mappings:
       - begrip:energie-uitwisseling
     description: etmaalgemiddelde effectieve temperatuur, berekend op basis van de gemiddelde temperatuur en windsnelheid, die wordt gebruikt voor gasallocatieprocessen
@@ -35,7 +35,7 @@ classes:
         unique_key_slots:
           - beginmoment
   Calorische omrekenfactor:
-    class_uri: Calorische omrekenfactor
+    class_uri: Calorische-omrekenfactor
     related_mappings:
       - begrip:energie-uitwisseling
     description: maandgemiddelde correctiefactor die de hoeveelheid verbruikt gas (in m3) omzet naar energie (in kWh), op basis van de calorische waarde van het gas in een specifiek netgebied
@@ -57,7 +57,7 @@ classes:
           - beginmoment
           - per
   Dynamische profielfactie elektriciteit:
-    class_uri: Dynamische profielfactie elektriciteit
+    class_uri: Dynamische-profielfactie-elektriciteit
     is_a: Profielfractie
     description: per netgebied vastgestelde quotiënt van uitgewisselde elektriciteit in een onbalansverrekeningsperiode en uitgewisselde elektriciteit in het bijbehorende kalenderjaar
     slots:
@@ -84,7 +84,7 @@ classes:
           - profielalcategorie
           - vastgesteld afnametype
   Gewogen gemiddelde calorische waarde:
-    class_uri: Gewogen gemiddelde calorische waarde
+    class_uri: Gewogen-gemiddelde-calorische-waarde
     related_mappings:
       - begrip:energie-uitwisseling
     description: per netgebied gewogen gemiddelde hoeveelheid energie die vrijkomt bij verbranding per eenheid van volume
@@ -145,7 +145,7 @@ classes:
           - interval
           - op
   Opgewekt volume:
-    class_uri: Opgewekt volume
+    class_uri: Opgewekt-volume
     broad_mappings:
       - begrip:energie-uitwisseling
     description: door een GCvO-installatie ontstane energie
@@ -180,7 +180,7 @@ classes:
       - begrip:energie-uitwisseling
     description: relatief deel van uitgewisseld volume in een kalenderjaar
   Profielfractie gas:
-    class_uri: Profielfractie gas
+    class_uri: Profielfractie-gas
     is_a: Profielfractie
     description: quotiënt van uitgewisseld gas in een uur en uitgewisseld gas in het bijbehorende kalenderjaar, niet gecorrigeerd voor temperatuur
     see_also:
@@ -255,7 +255,7 @@ classes:
           - energierichting
           - op
   Standaard profielfactie elektriciteit:
-    class_uri: Standaard profielfactie elektriciteit
+    class_uri: Standaard-profielfactie-elektriciteit
     is_a: Profielfractie
     description: verwachte energie-uitwisseling op een allocatiepunt bij gestandaardiseerde condities en op basis van een genormaliseerd jaar
     see_also:
@@ -364,7 +364,7 @@ classes:
           - tariefzone
           - telwerkindicatie
   Temperatuur gecorrigeerde profielfactie gas:
-    class_uri: Temperatuur gecorrigeerde profielfactie gas
+    class_uri: Temperatuur-gecorrigeerde-profielfactie-gas
     is_a: Profielfractie
     description: quotiënt van uitgewisseld gas in een uur en uitgewisseld gas in het bijbehorende kalenderjaar, gecorrigeerd voor temperatuur
     see_also:
@@ -380,7 +380,7 @@ classes:
           - beginmoment
           - profielalcategorie
   Uitgewisseld volume:
-    class_uri: Uitgewisseld volume
+    class_uri: Uitgewisseld-volume
     narrow_mappings:
       - begrip:energie-uitwisseling
     description: hoeveelheid energie dat is getransporteerd via een bepaald punt
@@ -433,7 +433,7 @@ classes:
           - op
           - tariefperiode
   Verwachte opwekking:
-    class_uri: Verwachte opwekking
+    class_uri: Verwachte-opwekking
     related_mappings:
       - begrip:energie-uitwisseling
     description: verwachting van VertiCer omtrent opgewekte volumes
@@ -469,6 +469,10 @@ classes:
       external_registry: Aansluitingenregister
   Any:
     class_uri: linkml:Any
+  Marktpartijsubregistratie:
+    class_uri: marktpartijenregister:Marktpartijsubregistratie
+    annotations:
+      external_registry: Marktpartijenregister
   Netgebied:
     class_uri: aansluitingenregister:Netgebied
     annotations:

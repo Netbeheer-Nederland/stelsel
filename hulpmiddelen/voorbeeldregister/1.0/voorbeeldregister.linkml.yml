@@ -138,7 +138,7 @@ classes:
 
   # verwijzingen naar externe entiteiten:
   Aansluiting:
-    class_uri: aansluitingenregister:aansluiting
+    class_uri: aansluitingenregister:Aansluiting
     annotations:
       external_registry: Aansluitingenregister
   Any: # speciaal geval voor gebruik in OF-bogen

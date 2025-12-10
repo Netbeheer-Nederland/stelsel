@@ -1,0 +1,607 @@
+id: https://modellen.netbeheernederland.nl/stelsel/registers/energie-uitwisselingsregister
+name: energie-uitwisselingsregister
+title: Energie-uitwisselingsregister
+version: 1.4-draft
+description: Het energie-uitwisselingsregister bevat de uitgewisselde energie zoals vastgesteld door een energieleverancier, meetverantwoordelijke of netbeheerder.
+see_also:
+  - iceg:g=2025-01-01
+  - bce:g=2025-12-01
+  - bcg:g=2021-06-01
+prefixes:
+  linkml: https://w3id.org/linkml/
+  begrip: https://begrippen.netbeheernederland.nl/id/
+  this: https://modellen.netbeheernederland.nl/stelsel/registers/energie-uitwisselingsregister#
+  aansluitingenregister: https://modellen.netbeheernederland.nl/stelsel/registers/aansluitingenregister#
+  marktpartijenregister: https://modellen.netbeheernederland.nl/stelsel/registers/marktpartijenregister#
+  bce: https://wetten.overheid.nl/jci1.3:c:BWBR0037938&
+  bcg: https://wetten.overheid.nl/jci1.3:c:BWBR0037923&
+  iceg: https://wetten.overheid.nl/jci1.3:c:BWBR0037934&
+  mcg: https://wetten.overheid.nl/jci1.3:c:BWBR0037925&
+  nce: https://wetten.overheid.nl/jci1.3:c:BWBR0037940&
+default_prefix: this
+
+classes:
+  Actuele temperatuurcoëfficiënt:
+    class_uri: Actuele temperatuurcoëfficiënt
+    related_mappings:
+      - begrip:energie-uitwisseling
+    description: etmaalgemiddelde effectieve temperatuur, berekend op basis van de gemiddelde temperatuur en windsnelheid, die wordt gebruikt voor gasallocatieprocessen
+    slots:
+      - beginmoment
+      - eindmoment
+      - waarde
+    unique_keys:
+      identificatie:
+        unique_key_slots:
+          - beginmoment
+  Calorische omrekenfactor:
+    class_uri: Calorische omrekenfactor
+    related_mappings:
+      - begrip:energie-uitwisseling
+    description: maandgemiddelde correctiefactor die de hoeveelheid verbruikt gas (in m3) omzet naar energie (in kWh), op basis van de calorische waarde van het gas in een specifiek netgebied
+    slots:
+      - beginmoment
+      - eindmoment
+      - waarde
+    attributes:
+      # relaties:
+      per:
+        range: Netgebied
+        required: true
+        multivalued: false
+        annotations:
+          inverse_cardinality: "*"
+    unique_keys:
+      identificatie:
+        unique_key_slots:
+          - beginmoment
+          - per
+  Dynamische profielfactie elektriciteit:
+    class_uri: Dynamische profielfactie elektriciteit
+    is_a: Profielfractie
+    description: per netgebied vastgestelde quotiënt van uitgewisselde elektriciteit in een onbalansverrekeningsperiode en uitgewisselde elektriciteit in het bijbehorende kalenderjaar
+    slots:
+      - beginmoment
+      - eindmoment
+      - energierichting
+      - profielcategorie
+      - vastgesteld afnametype
+      - waarde
+    attributes:
+      # relaties:
+      per:
+        range: Netgebied
+        required: true
+        multivalued: false
+        annotations:
+          inverse_cardinality: "*"
+    unique_keys:
+      identificatie:
+        unique_key_slots:
+          - beginmoment
+          - energierichting
+          - per
+          - profielalcategorie
+          - vastgesteld afnametype
+  Gewogen gemiddelde calorische waarde:
+    class_uri: Gewogen gemiddelde calorische waarde
+    related_mappings:
+      - begrip:energie-uitwisseling
+    description: per netgebied gewogen gemiddelde hoeveelheid energie die vrijkomt bij verbranding per eenheid van volume
+    slots:
+      - beginmoment
+      - eindmoment
+      - waarde
+    attributes:
+      # relaties:
+      per:
+        range: Netgebied
+        required: true
+        multivalued: false
+        annotations:
+          inverse_cardinality: "*"
+    unique_keys:
+      identificatie:
+        unique_key_slots:
+          - beginmoment
+          - per
+  kWmax:
+    class_uri: kWmax
+    broad_mappings:
+      - begrip:energie-uitwisseling
+    description: werkelijk voorgekomen maximale belasting van het net door een aangeslotene op een netaansluiting
+    slots:
+      - beginmoment
+      - eindmoment
+      - eenheid
+      - energierichting
+      - waarde
+    attributes:
+      interval:
+        description: voorgenomen tijdsduur tussen beginmoment en eindmoment
+        comments:
+          - Tijdsduuraanduiding conform ISO 8601 zoals PT15M, P1M of P1W.
+        range: string
+        required: true
+      # relaties:
+      op:
+        range: Overdrachtspunt
+        required: true
+        multivalued: false
+        annotations:
+          inverse_cardinality: "*"
+      vastgesteld door:
+        range: Marktpartijsubregistratie
+        required: true
+        multivalued: false
+        annotations:
+          inverse_cardinality: "*"
+    unique_keys:
+      identificatie:
+        unique_key_slots:
+          - beginmoment
+          - eenheid
+          - energierichting
+          - interval
+          - op
+  Opgewekt volume:
+    class_uri: Opgewekt volume
+    broad_mappings:
+      - begrip:energie-uitwisseling
+    description: door een GCvO-installatie ontstane energie
+    slots:
+      - beginmoment
+      - eindmoment
+      - netlevering
+      - waarde
+    attributes:
+      # relaties:
+      met:
+        range: GCvO-installatie
+        required: true
+        multivalued: false
+        annotations:
+          inverse_cardinality: "*"
+      vastgesteld door:
+        range: Marktpartijsubregistratie
+        required: true
+        multivalued: false
+        annotations:
+          inverse_cardinality: "*"
+    unique_keys:
+      identificatie:
+        unique_key_slots:
+          - beginmoment
+          - met
+          - netlevering
+  Profielfractie:
+    class_uri: Profielfractie
+    related_mappings:
+      - begrip:energie-uitwisseling
+    description: relatief deel van uitgewisseld volume in een kalenderjaar
+  Profielfractie gas:
+    class_uri: Profielfractie gas
+    is_a: Profielfractie
+    description: quotiënt van uitgewisseld gas in een uur en uitgewisseld gas in het bijbehorende kalenderjaar, niet gecorrigeerd voor temperatuur
+    see_also:
+      - iceg:bijlage=3&g=2025-01-01
+    slots:
+      - beginmoment
+      - eindmoment
+      - profielalcategorie
+    attributes:
+      regressiecoëfficiënt:
+        description: fractie van een (jaar)verbruik dat het temperatuurafhankelijke verbruik per graad Celsius van het desbetreffende uur weergeeft
+        comments:
+          - In graden Celcius per uur, met 8 decimalen.
+        range: decimal
+        required: true
+      stooktemperatuur:
+        description: temperatuur waarboven geen temperatuurafhankelijk verbruik is
+        comments:
+          - In graden Celcius per uur, met 4 decimalen.
+        range: decimal
+        required: true
+      temperatuuronafhankelijke deel:
+        description: fractie van een (jaar)verbruik dat het temperatuuronafhankelijke verbruik van het desbetreffende uur weergeeft
+        comments:
+          - Getal met 8 decimalen.
+        range: decimal
+        required: true
+    unique_keys:
+      identificatie:
+        unique_key_slots:
+          - beginmoment
+          - profielalcategorie
+  Restvolume:
+    class_uri: Restvolume
+    broad_mappings:
+      - begrip:energie-uitwisseling
+    description: geconstateerde verschil tussen de op afstand bepaalde standen en de ter plaatse uit- of afgelezen standen door de meetverantwoordelijke
+    comments:
+      - Niet te verwarren met restantvolume.
+    see_also:
+      - mcg:hoofdstuk=5&paragraaf=5.2&artikel=5.2.3&g=2025-05-08
+    slots:
+      - beginmoment
+      - eenheid
+      - eindmoment
+      - energierichting
+      - waarde
+    attributes:
+      # relaties:
+      op:
+        range: Any
+        exactly_one_of:
+          - Allocatiepunt bij aansluiting
+          - Overdrachtspunt
+        required: true
+        multivalued: false
+        annotations:
+          inverse_cardinality: "*"
+        comments:
+          - De relatie naar Overdrachtspunt geldt alleen bij netkoppelingen.
+      vastgesteld door:
+        range: Marktpartijsubregistratie
+        required: true
+        multivalued: false
+        annotations:
+          inverse_cardinality: "*"
+    unique_keys:
+      identificatie:
+        unique_key_slots:
+          - beginmoment
+          - eenheid
+          - energierichting
+          - op
+  Standaard profielfactie elektriciteit:
+    class_uri: Standaard profielfactie elektriciteit
+    is_a: Profielfractie
+    description: verwachte energie-uitwisseling op een allocatiepunt bij gestandaardiseerde condities en op basis van een genormaliseerd jaar
+    see_also:
+      - iceg:bijlage=1&g=2025-01-01
+    slots:
+      - beginmoment
+      - eindmoment
+      - energierichting
+      - profielalcategorie
+      - vastgesteld afnametype
+      - waarde
+    unique_keys:
+      identificatie:
+        unique_key_slots:
+          - beginmoment
+          - energierichting
+          - profielalcategorie
+          - vastgesteld afnametype
+  Standaardjaarvolume:
+    class_uri: Standaardjaarvolume
+    related_mappings:
+      - begrip:energie-uitwisseling
+    comments:
+      - Ook wel bekend als standaardjaarafname elektriciteit (SJA), standaardjaarinvoeding elektriciteit (SJI) en standaardjaarverbruik gas (SJV).
+    annotations:
+      tijdlijn_geldigheid: true
+    see_also:
+      - iceg:hoofdstuk=2&paragraaf=2.1&artikel=2.1.3&g=2025-01-01
+    slots:
+      - energierichting
+      - tariefperiode
+      - waarde
+    attributes:
+      # relaties:
+      op:
+        range: Allocatiepunt bij aansluiting
+        required: true
+        multivalued: false
+        annotations:
+          inverse_cardinality: "*"
+    unique_keys:
+      identificatie:
+        unique_key_slots:
+          - energierichting
+          - op
+          - tariefperiode
+  Tellerstand:
+    class_uri: Tellerstand
+    broad_mappings:
+      - broad_mappings:energie-uitwisseling
+    description: cumulatieve energie-uitwisseling
+    slots:
+      - energierichting
+      - eenheid
+      - herkomstindicatie
+      - waarde
+    attributes:
+      moment:
+        description: tijdstip
+        range: datetime
+        required: true
+      meternummer:
+        description: identificatie van de meetinrichting van het telwerk
+      tariefzone:
+        description: geeft weer tijdens welke tariefperiode(n) het telwerk de energie-uitwisseling registreert
+        range: Tariefzone
+        required: true
+      telwerkindicatie:
+        description: identificatie van de onderscheiden telwerken op een meetinrichting
+        comments:
+          - Bij een handopgenomen meetinrichting zoals zichtbaar op de meter zelf. Bij een meetinrichting die op afstand uitleesbaar is door middel van de OBIS-code.
+        range: Any
+        exactly_one_of:
+          - range: Cijfer
+          - range: OBIS-code
+        required: true
+      vermenigvuldigingsfactor:
+        description: getal waarmee vermenigvuldigd moet worden om de daadwerkelijke hoeveelheid met het net uitgewisselde energie te kunnen vaststellen of om tot een normaalvolume te komen
+        range: float
+        required: true
+      # relaties:
+      op:
+        range: Any
+        exactly_one_of:
+          - Allocatiepunt bij aansluiting
+          - Overdrachtspunt
+        required: true
+        multivalued: false
+        annotations:
+          inverse_cardinality: "*"
+        comments:
+          - De relatie naar Overdrachtspunt geldt alleen bij netkoppelingen.
+      vastgesteld door:
+        range: Marktpartijsubregistratie
+        required: true
+        multivalued: false
+        annotations:
+          inverse_cardinality: "*"
+    unique_keys:
+      identificatie:
+        unique_key_slots:
+          - eenheid
+          - energierichting
+          - moment
+          - op
+          - tariefzone
+          - telwerkindicatie
+  Temperatuur gecorrigeerde profielfactie gas:
+    class_uri: Temperatuur gecorrigeerde profielfactie gas
+    is_a: Profielfractie
+    description: quotiënt van uitgewisseld gas in een uur en uitgewisseld gas in het bijbehorende kalenderjaar, gecorrigeerd voor temperatuur
+    see_also:
+      - iceg:hoofdstuk=2&paragraaf=2.4&artikel=2.4.2&g=2025-01-01
+    slots:
+      - beginmoment
+      - eindmoment
+      - profielalcategorie
+      - waarde
+    unique_keys:
+      identificatie:
+        unique_key_slots:
+          - beginmoment
+          - profielalcategorie
+  Uitgewisseld volume:
+    class_uri: Uitgewisseld volume
+    narrow_mappings:
+      - begrip:energie-uitwisseling
+    description: hoeveelheid energie dat is getransporteerd via een bepaald punt
+    slots:
+      - beginmoment
+      - eindmoment
+      - eenheid
+      - energierichting
+      - herkomstindicatie
+      - tariefperiode
+      - waarde
+    attributes:
+      gereconcilieerd:
+        description: geeft aan of het volume reeds is gereconcilieerd
+        see_also:
+          - nce:bijlage=2&g=2025-12-01
+        range: boolean
+        required: true
+      reparatiemethodiek:
+        description: wijze waarop de waarde is gecorrigeerd of berekend
+        range: Reparatiemethodiek
+      validatiestatus:
+        description: resultaat van de validatie van de waarde
+        range: Validatiestatus
+      # relaties:
+      op:
+        range: Any
+        exactly_one_of:
+          - Allocatiepunt bij aansluiting
+          - GCvO-installatie
+          - Overdrachtspunt
+        required: true
+        multivalued: false
+        annotations:
+          inverse_cardinality: "*"
+        comments:
+          - Uit het uitgewisselde volume met een GCvO-installatie wordt het daardoor opgewekte volume berekend. Dit betreft de uitgewisselde energie op de plaats waar de GCvO-installatie met de rest van de elektrische installatie is verbonden en wordt bemeten door een productiemeetinrichting.
+      vastgesteld door:
+        range: Marktpartijsubregistratie
+        required: true
+        multivalued: false
+        annotations:
+          inverse_cardinality: "*"
+    unique_keys:
+      identificatie:
+        unique_key_slots:
+          - beginmoment
+          - eenheid
+          - energierichting
+          - op
+          - tariefperiode
+  Verwachte opwekking:
+    class_uri: Verwachte opwekking
+    related_mappings:
+      - begrip:energie-uitwisseling
+    description: verwachting van VertiCer omtrent opgewekte volumes
+    slots:
+      - beginmoment
+      - eindmoment
+    attributes:
+      netlevering:
+        description: geeft weer of invoeding in het energienet wordt verwacht
+        range: boolean
+        required: true
+      niet-netlevering:
+        description: geeft weer of opwekking wordt verwacht, ongeacht eventuele invoeding in het energienet
+        range: boolean
+        required: true
+      # relaties:
+      met:
+        range: GCvO-installatie
+        required: true
+        multivalued: false
+        annotations:
+          inverse_cardinality: "*"
+    unique_keys:
+      identificatie:
+        unique_key_slots:
+          - beginmoment
+          - met
+
+  # externe entiteiten:
+  Allocatiepunt bij aansluiting:
+    class_uri: aansluitingenregister:Allocatiepunt-bij-aansluiting
+    annotations:
+      external_registry: Aansluitingenregister
+  Any:
+    class_uri: linkml:Any
+  Netgebied:
+    class_uri: aansluitingenregister:Netgebied
+    annotations:
+      external_registry: Aansluitingenregister
+  Overdrachtspunt:
+    class_uri: aansluitingenregister:Overdrachtspunt
+    annotations:
+      external_registry: Aansluitingenregister
+
+slots:
+  beginmoment:
+    description: eerste tijdstip waarop iets geldt
+    range: datetime
+    required: true
+  eenheid:
+    description: maat waarin natuurkundige grootheden numeriek kunnen worden uitgedrukt
+    range: Eenheid
+    required: true
+  eindmoment:
+    description: eerste tijdstip waarop iets niet meer geldt
+    range: datetime
+    required: true
+  energierichting:
+    exact_mappings:
+      - begrip:energierichting
+    range: Energierichting
+    required: true
+  herkomstindicatie:
+    description: oorsprong van een waarde
+    range: Herkomstindicatie
+    required: true
+  netlevering:
+    description: geeft aan of het volume is ingevoed op het energienet
+    range: boolean
+    required: true
+  profielalcategorie:
+    description: categorie van allocatiepunten op basis van objectief vast te stellen kenmerken en waarbij voor elk van deze categorieën een eigen, voor de desbetreffende categorie kenmerkende reeks profielfracties wordt vastgesteld
+    range: Profielcategorie
+    required: true
+  tariefperiode:
+    description: aaneengesloten periode van normaaluren of laaguren
+    range: Tariefperiode
+    required: true
+  vastgesteld afnametype:
+    description: bepaling of op een allocatiepunt sprake is van afname met invoeding of afname zonder invoeding
+    range: Vastgesteld afnametype
+    required: true
+  waarde:
+    description: hoeveelheid eenheden
+    range: float
+    required: true
+
+types:
+  Cijfer:
+    description: enkel karakter dat een numeriek symbool weergeeft
+    base: string
+    pattern: "^[0-9]$"
+
+enums:
+  Eenheid: # TODO
+    permissible_values:
+      kvar:
+      kvarh:
+      kW:
+      kWh:
+      m3:
+      m3(n):
+      m3(n;35;17):
+      MJ/m3(n):
+  Energierichting:
+    permissible_values:
+      afname:
+        meaning: begrip:afname
+      invoeding:
+        meaning: begrip:invoeding
+  Herkomstindicatie:
+    permissible_values:
+      berekend:
+      fysieke opname:
+      gemeten door MV:
+      "gemeten door MV: update":
+      klantstand:
+      overeengekomen:
+      P4-stand:
+  OBIS-code:
+    permissible_values:
+      1.8.1:
+      1.8.2:
+      2.8.1:
+      2.8.2:
+  Profielcategorie:
+    permissible_values:
+      E1A:
+      E1B:
+      E1C:
+      E2A:
+      E2B:
+      E4A:
+      G1A:
+      G2A:
+      G2C:
+      GGV:
+      GIN:
+      GIS:
+      GXX:
+  Reparatiemethodiek:
+    permissible_values:
+      controlemeter:
+      correctie factorfout:
+      correctie inbouwfout:
+      interpolatie bij meterwissel:
+      nuldata bij spanningloos:
+      correctie o.b.v. meterstanden:
+      extra informatie:
+      reclamatie PV:
+      reclamatie NB:
+      geschat:
+  Tariefperiode:
+    laaguren:
+      meaning: begrip:laaguren
+    normaaluren:
+      meaning: begrip:normaaluren
+  Tariefzone:
+    laag:
+    normaal:
+    totaal:
+  Validatiestatus:
+    permissible_values:
+      handmatig goedgekeurd:
+      niet valide:
+      valide:
+  Vastgesteld afnametype:
+    permissible_values:
+      afname met invoeding:
+      afname zonder invoeding:
+      niet van toepassing:

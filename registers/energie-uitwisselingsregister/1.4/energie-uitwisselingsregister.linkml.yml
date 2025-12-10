@@ -513,7 +513,7 @@ slots:
     description: geeft aan of het volume is ingevoed op het energienet
     range: boolean
     required: true
-  profielalcategorie:
+  profielcategorie:
     description: categorie van allocatiepunten op basis van objectief vast te stellen kenmerken en waarbij voor elk van deze categorieën een eigen, voor de desbetreffende categorie kenmerkende reeks profielfracties wordt vastgesteld
     range: Profielcategorie
     required: true

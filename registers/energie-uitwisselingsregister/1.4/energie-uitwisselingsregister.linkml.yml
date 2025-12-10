@@ -22,7 +22,7 @@ default_prefix: this
 
 classes:
   Actuele temperatuurcoëfficiënt:
-    class_uri: Actuele-temperatuurcoefficiënt
+    class_uri: Actuele-temperatuurcoefficient
     related_mappings:
       - begrip:energie-uitwisseling
     description: etmaalgemiddelde effectieve temperatuur, berekend op basis van de gemiddelde temperatuur en windsnelheid, die wordt gebruikt voor gasallocatieprocessen

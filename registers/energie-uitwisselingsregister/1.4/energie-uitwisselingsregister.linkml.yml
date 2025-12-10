@@ -82,7 +82,7 @@ classes:
           - beginmoment
           - energierichting
           - per
-          - profielalcategorie
+          - profielcategorie
           - vastgesteld afnametype
   Gewogen gemiddelde calorische waarde:
     class_uri: Gewogen-gemiddelde-calorische-waarde
@@ -189,7 +189,7 @@ classes:
     slots:
       - beginmoment
       - eindmoment
-      - profielalcategorie
+      - profielcategorie
     attributes:
       regressiecoëfficiënt:
         description: fractie van een (jaar)verbruik dat het temperatuurafhankelijke verbruik per graad Celsius van het desbetreffende uur weergeeft
@@ -213,7 +213,7 @@ classes:
       identificatie:
         unique_key_slots:
           - beginmoment
-          - profielalcategorie
+          - profielcategorie
   Restvolume:
     class_uri: Restvolume
     broad_mappings:
@@ -265,7 +265,7 @@ classes:
       - beginmoment
       - eindmoment
       - energierichting
-      - profielalcategorie
+      - profielcategorie
       - vastgesteld afnametype
       - waarde
     unique_keys:
@@ -273,7 +273,7 @@ classes:
         unique_key_slots:
           - beginmoment
           - energierichting
-          - profielalcategorie
+          - profielcategorie
           - vastgesteld afnametype
   Standaardjaarvolume:
     class_uri: Standaardjaarvolume
@@ -373,13 +373,13 @@ classes:
     slots:
       - beginmoment
       - eindmoment
-      - profielalcategorie
+      - profielcategorie
       - waarde
     unique_keys:
       identificatie:
         unique_key_slots:
           - beginmoment
-          - profielalcategorie
+          - profielcategorie
   Uitgewisseld volume:
     class_uri: Uitgewisseld-volume
     narrow_mappings:

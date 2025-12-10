@@ -587,14 +587,16 @@ enums:
       reclamatie NB:
       geschat:
   Tariefperiode:
-    laaguren:
-      meaning: begrip:laaguren
-    normaaluren:
-      meaning: begrip:normaaluren
+    permissible_values:
+      laaguren:
+        meaning: begrip:laaguren
+      normaaluren:
+        meaning: begrip:normaaluren
   Tariefzone:
-    laag:
-    normaal:
-    totaal:
+    permissible_values:
+      laag:
+      normaal:
+      totaal:
   Validatiestatus:
     permissible_values:
       handmatig goedgekeurd:

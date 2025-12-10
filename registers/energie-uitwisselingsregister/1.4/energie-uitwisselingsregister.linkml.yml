@@ -12,6 +12,7 @@ prefixes:
   begrip: https://begrippen.netbeheernederland.nl/id/
   this: https://modellen.netbeheernederland.nl/stelsel/registers/energie-uitwisselingsregister#
   aansluitingenregister: https://modellen.netbeheernederland.nl/stelsel/registers/aansluitingenregister#
+  installatieregister: https://modellen.netbeheernederland.nl/stelsel/registers/installatieregister#
   marktpartijenregister: https://modellen.netbeheernederland.nl/stelsel/registers/marktpartijenregister#
   bce: https://wetten.overheid.nl/jci1.3:c:BWBR0037938&
   bcg: https://wetten.overheid.nl/jci1.3:c:BWBR0037923&
@@ -233,8 +234,8 @@ classes:
       op:
         range: Any
         exactly_one_of:
-          - Allocatiepunt bij aansluiting
-          - Overdrachtspunt
+          - range: Allocatiepunt bij aansluiting
+          - range: Overdrachtspunt
         required: true
         multivalued: false
         annotations:
@@ -305,7 +306,7 @@ classes:
   Tellerstand:
     class_uri: Tellerstand
     broad_mappings:
-      - broad_mappings:energie-uitwisseling
+      - begrip:energie-uitwisseling
     description: cumulatieve energie-uitwisseling
     slots:
       - energierichting
@@ -340,8 +341,8 @@ classes:
       op:
         range: Any
         exactly_one_of:
-          - Allocatiepunt bij aansluiting
-          - Overdrachtspunt
+          - range: Allocatiepunt bij aansluiting
+          - range: Overdrachtspunt
         required: true
         multivalued: false
         annotations:
@@ -409,9 +410,9 @@ classes:
       op:
         range: Any
         exactly_one_of:
-          - Allocatiepunt bij aansluiting
-          - GCvO-installatie
-          - Overdrachtspunt
+          - range: Allocatiepunt bij aansluiting
+          - range: GCvO-installatie
+          - range: Overdrachtspunt
         required: true
         multivalued: false
         annotations:
@@ -469,6 +470,10 @@ classes:
       external_registry: Aansluitingenregister
   Any:
     class_uri: linkml:Any
+  GCvO-installatie:
+    class_uri: installatieregister:GCvO-installatie
+    annotations:
+      external_registry: Installatieregister
   Marktpartijsubregistratie:
     class_uri: marktpartijenregister:Marktpartijsubregistratie
     annotations:

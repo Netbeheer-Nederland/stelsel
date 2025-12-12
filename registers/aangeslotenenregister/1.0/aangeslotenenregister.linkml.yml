@@ -25,7 +25,7 @@ classes:
       tijdlijn_effectuering: true
     comments:
       - Omdat netbeheerders aangeslotenen niet altijd uniek kunnen identificeren, wordt in dit register informatie over de aangeslotene per aansluiting vastgelegd. Hierdoor kan één aangeslotene meerdere keren voorkomen in dit register.
-      - Persoonsgegevens zijn zo veel mogelijk overeenkomstig NEN 1888.
+      - Persoonsgegevens zijn zo veel mogelijk overeenkomstig NEN 1888. 
     attributes:
       e-mailadres:
         description: uniek adres voor digitaal, elektronisch postverkeer

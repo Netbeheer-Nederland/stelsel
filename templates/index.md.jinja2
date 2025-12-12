@@ -181,6 +181,11 @@
         {%- set _ = parts.items.append(element.comments | join(newline)) -%}
     {%- endif -%}
 
+    {# deprecated #}
+    {%- if element.deprecated -%}
+        {%- set _ = parts.items.append('Gaat vervallen: ' ~ element.deprecated) -%}
+    {%- endif -%}
+
     {# tijdlijnen #}
     {%- set tijdlijn_annotaties = [] -%}
     {%- for a in element.annotations -%}

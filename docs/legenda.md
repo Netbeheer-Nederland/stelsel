@@ -35,6 +35,8 @@ Hieruit kun je aflezen dat aansluitingen van elkaar worden onderscheiden middels
 
 Als een eigenschap begint met `/` dan is deze afleidbaar uit een ander gegeven in het model. In dit geval is de `grootte` van de aansluiting afleidbaar uit de `aansluitcapaciteit` van het gerelateerde `Overdrachtspunt` (niet afgebeeld).
 
+Een doorgestreepte eigenschap, zoals `weekmax`, zal in een toekomstige versie vervallen.
+
 Een eigenschap die eindigt met `[n]` kan meerdere waarden bevatten.
 
 ## Relaties

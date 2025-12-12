@@ -6,7 +6,7 @@ description: Het aansluitingenregister bevat alle elektriciteits- en gasaansluit
 comments:
   - Het aansluitingenregister wordt gezamenlijk beheerd door de netbeheerders en bevat zowel fysieke als administratieve gegevens over aansluitingen. Het register is essentieel voor de werking van de energiemarkt omdat het de basis vormt voor processen zoals leverancierswisselingen, verhuizingen en facturatie.
   - De verplichting tot het bijhouden van het aansluitingenregister is vastgelegd in de Informatiecode elektriciteit en gas, vastgesteld door de Autoriteit Consument en Markt (ACM).
-  - "Wijzigingen sinds versie 1.3: (1) 'administratieve status van meetinrichting' is verplicht geworden (standaard 'aan')."
+  - "Wijzigingen: (1) `administratieve status van meetinrichting` is verplicht, omdat er semantisch geen verschil bestaat tussen `aan` en leeg. (2) `soort` toegevoegd aan `Aansluiting` omdat deze eigenschap nog in gebruik is. (3) `levensduur` toegevoegd aan `Aansluiting` en `Allocatiepunt` zodat beëindigingen expliciet zijn en betrouwbaar marktprocessen triggeren."
 see_also:
   - youtube:z7eVPSKf8l8
   - iceg:hoofdstuk=2&paragraaf=2.1&g=2025-01-01
@@ -41,6 +41,7 @@ classes:
     exact_mappings:
       - begrip:aansluiting
     annotations:
+      levensduur: true
       tijdlijn_geldigheid: true
       tijdlijn_registratie: true
       tijdlijn_effectuering: true
@@ -76,6 +77,9 @@ classes:
           - Een aansluiting met een kleine capaciteit kan onder voorwaarden worden beschouwd als grootverbruikaansluiting, bijvoorbeeld als het een aansluiting betreft op een gesloten distributiesysteem of een aansluiting zoals bedoeld in artikel 1, lid 2 of 3 van de Elektriciteitswet 1998.
         range: Marktsegment
         required: true
+      soort:
+        description: classificatie gebaseerd op het aangesloten object en het overeengekomen gebruik
+        deprecated: Deze eigenschap combineert meerdere dimensies (betreffende de aansluitlocatie, elektriciteitsproductie-eenheden, netkoppelingen en netverlies) en zal daarom in de toekomst buiten gebruik gesteld gaan worden.
       uitsluitend elektriciteitsproductie-eenheden:
         description: geeft aan of achter een aansluiting zich uitsluitend elektriciteitsproductie-eenheden bevinden en geen ander verbruik dan het eigen verbruik van de desbetreffende elektriciteitsproductie-eenheden
         see_also:
@@ -87,7 +91,8 @@ classes:
       unieke EAN-code bij MLOEA:
         description: EAN-code die ongelijk is aan die van een allocatiepunt
         comments:
-          - MLOEA staat voor meerdere leveranciers op een aansluiting. Het is een configuratie waarbij een aansluiting meer dan één allocatiepunt heeft. Omdat de aansluiting en het primaire allocatiepunt (PAP) dezelfde EAN-code delen, helpt de unieke EAN-code expliciet te maken dat het om de aansluiting gaat. Deze EAN-code staat ook wel bekend als virtueel allocatiepunt (VAP) of overdrachtspunt MLOEA (OPM), terwijl het geen allocatiepunt of overdrachtspunt betreft. Als in het berichtenverkeer tussen netbeheerder en meetverantwoordelijke voortaan expliciet wordt gemaakt welk entiteittype men bedoeld (aansluiting of allocatiepunt), dan is de unieke EAN-code niet meer nodig.
+          - MLOEA staat voor meerdere leveranciers op een aansluiting. Het is een configuratie waarbij een aansluiting meer dan één allocatiepunt heeft. Omdat de aansluiting en het primaire allocatiepunt (PAP) dezelfde EAN-code delen, helpt de unieke EAN-code expliciet te maken dat het om de aansluiting gaat. Deze EAN-code staat ook wel bekend als virtueel allocatiepunt (VAP) of overdrachtspunt MLOEA (OPM), terwijl het geen allocatiepunt of overdrachtspunt betreft.
+        deprecated: Als in het berichtenverkeer tussen netbeheerder en meetverantwoordelijke voortaan expliciet wordt gemaakt welk entiteittype men bedoeld (aansluiting of allocatiepunt), dan is de unieke EAN-code niet meer nodig.
       weekmax:
         description: geeft aan of de kWmax per week gemeten moet worden
         see_also:
@@ -262,6 +267,7 @@ classes:
     exact_mappings:
       - begrip:allocatiepunt
     annotations:
+      levensduur: true
       tijdlijn_geldigheid: true
       tijdlijn_registratie: true
       tijdlijn_effectuering: true

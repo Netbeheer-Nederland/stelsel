@@ -28,7 +28,7 @@ for s, p, o in g.triples((None, SKOS.prefLabel, None)):
 
 os.makedirs(OUTPUT_DIR, exist_ok=True)
 
-with open(os.path.join(OUTPUT_FILE, OUTPUT_FILE), "w", encoding="utf-8") as f:
+with open(OUTPUT_FILE, "w", encoding="utf-8") as f:
     json.dump(lookup, f, ensure_ascii=False, indent=2)
 
 print(f"Generated: {OUTPUT_FILE} with {len(lookup)} concepts.")

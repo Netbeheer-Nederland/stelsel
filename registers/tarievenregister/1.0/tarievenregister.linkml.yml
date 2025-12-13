@@ -30,7 +30,7 @@ classes:
   Tariefcomponent:
     class_uri: Tariefcomponent
     related_mappings:
-      - begrip:klantproduct
+      - begrip:6qms9 #klantproduct
     description: deel van een periodieke vergoeding voor een aansluiting
     comments:
       - De combinatie van netbeheerder, afnemerscategorie en soort is uniek.
@@ -62,7 +62,7 @@ classes:
   Totaaltarief:
     class_uri: Totaaltarief
     related_mappings:
-      - begrip:klantproduct
+      - begrip:6qms9 #klantproduct
     description: totale periodieke verdoeding voor een aansluiting
     comments:
       - Het totaaltarief wordt aangemaakt bij de eerste uitvraag van unieke combinatie van netbeheerder, afnemerscategorie en aantallen.

@@ -19,7 +19,7 @@ classes:
   Leveringsovereenkomst:
     class_uri: Leveringsovereenkomst
     related_mappings:
-      - begrip:marktactiviteit
+      - begrip:ihyma #marktactiviteit
     description: overeenkomst voor de levering van elektriciteit of gas aan een eindafnemer
     source: energiewet:g=2025-07-01
     see_also:
@@ -51,7 +51,7 @@ classes:
   Marktactiviteit:
     class_uri: Marktactiviteit
     exact_mappings:
-      - begrip:marktactiviteit
+      - begrip:ihyma #marktactiviteit
     see_also:
       - iceg:hoofdstuk=2&paragraaf=2.1&g=2025-01-01
     annotations:
@@ -87,7 +87,7 @@ classes:
   Melding leveringsovereenkomst:
     class_uri: Melding-leveringsovereenkomst
     related_mappings:
-      - begrip:marktactiviteit
+      - begrip:ihyma #marktactiviteit
     description: bericht van een leverancier dat hij een leveringsovereenkomst heeft afgesloten
     see_also:
       - iceg:hoofdstuk=2&paragraaf=2.5&artikel=2.5.5&g=2025-01-01

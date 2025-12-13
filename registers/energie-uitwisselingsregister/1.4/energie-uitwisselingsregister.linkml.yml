@@ -25,7 +25,7 @@ classes:
   Actuele temperatuurcoëfficiënt:
     class_uri: Actuele-temperatuurcoefficient
     related_mappings:
-      - begrip:energie-uitwisseling
+      - begrip:tibcm #energie-uitwisseling
     description: etmaalgemiddelde effectieve temperatuur, berekend op basis van de gemiddelde temperatuur en windsnelheid, die wordt gebruikt voor gasallocatieprocessen
     slots:
       - beginmoment
@@ -38,7 +38,7 @@ classes:
   Calorische omrekenfactor:
     class_uri: Calorische-omrekenfactor
     related_mappings:
-      - begrip:energie-uitwisseling
+      - begrip:tibcm #energie-uitwisseling
     description: maandgemiddelde correctiefactor die de hoeveelheid verbruikt gas (in m3) omzet naar energie (in kWh), op basis van de calorische waarde van het gas in een specifiek netgebied
     slots:
       - beginmoment
@@ -87,7 +87,7 @@ classes:
   Gewogen gemiddelde calorische waarde:
     class_uri: Gewogen-gemiddelde-calorische-waarde
     related_mappings:
-      - begrip:energie-uitwisseling
+      - begrip:tibcm #energie-uitwisseling
     description: per netgebied gewogen gemiddelde hoeveelheid energie die vrijkomt bij verbranding per eenheid van volume
     slots:
       - beginmoment
@@ -109,7 +109,7 @@ classes:
   kWmax:
     class_uri: kWmax
     broad_mappings:
-      - begrip:energie-uitwisseling
+      - begrip:tibcm #energie-uitwisseling
     description: werkelijk voorgekomen maximale belasting van het net door een aangeslotene op een netaansluiting
     slots:
       - beginmoment
@@ -148,7 +148,7 @@ classes:
   Opgewekt volume:
     class_uri: Opgewekt-volume
     broad_mappings:
-      - begrip:energie-uitwisseling
+      - begrip:tibcm #energie-uitwisseling
     description: door een GCvO-installatie ontstane energie
     slots:
       - beginmoment
@@ -178,7 +178,7 @@ classes:
   Profielfractie:
     class_uri: Profielfractie
     related_mappings:
-      - begrip:energie-uitwisseling
+      - begrip:tibcm #energie-uitwisseling
     description: relatief deel van uitgewisseld volume in een kalenderjaar
   Profielfractie gas:
     class_uri: Profielfractie-gas
@@ -217,7 +217,7 @@ classes:
   Restvolume:
     class_uri: Restvolume
     broad_mappings:
-      - begrip:energie-uitwisseling
+      - begrip:tibcm #energie-uitwisseling
     description: geconstateerde verschil tussen de op afstand bepaalde standen en de ter plaatse uit- of afgelezen standen door de meetverantwoordelijke
     comments:
       - Niet te verwarren met restantvolume.
@@ -278,7 +278,7 @@ classes:
   Standaardjaarvolume:
     class_uri: Standaardjaarvolume
     exact_mappings:
-      - begrip:standaardjaarvolume
+      - begrip:y4yex #standaardjaarvolume
     comments:
       - Ook wel bekend als standaardjaarafname elektriciteit (SJA), standaardjaarinvoeding elektriciteit (SJI) en standaardjaarverbruik gas (SJV).
     annotations:
@@ -306,7 +306,7 @@ classes:
   Tellerstand:
     class_uri: Tellerstand
     broad_mappings:
-      - begrip:energie-uitwisseling
+      - begrip:tibcm #energie-uitwisseling
     description: cumulatieve energie-uitwisseling
     slots:
       - energierichting
@@ -383,7 +383,7 @@ classes:
   Uitgewisseld volume:
     class_uri: Uitgewisseld-volume
     narrow_mappings:
-      - begrip:energie-uitwisseling
+      - begrip:tibcm #energie-uitwisseling
     description: hoeveelheid energie dat is getransporteerd via een bepaald punt
     slots:
       - beginmoment
@@ -436,7 +436,7 @@ classes:
   Verwachte opwekking:
     class_uri: Verwachte-opwekking
     related_mappings:
-      - begrip:energie-uitwisseling
+      - begrip:tibcm #energie-uitwisseling
     description: verwachting van VertiCer omtrent opgewekte volumes
     slots:
       - beginmoment
@@ -502,7 +502,7 @@ slots:
     required: true
   energierichting:
     exact_mappings:
-      - begrip:energierichting
+      - begrip:yn3hb #energierichting
     range: Energierichting
     required: true
   herkomstindicatie:
@@ -550,9 +550,9 @@ enums:
   Energierichting:
     permissible_values:
       afname:
-        meaning: begrip:afname
+        meaning: begrip:3j33z #afname
       invoeding:
-        meaning: begrip:invoeding
+        meaning: begrip:j8cpp #invoeding
   Herkomstindicatie:
     permissible_values:
       berekend:
@@ -598,7 +598,7 @@ enums:
   Tariefperiode:
     permissible_values:
       laaguren:
-        meaning: begrip:laaguren
+        meaning: begrip:6hz4b #laaguren
       normaaluren:
   Tariefzone:
     permissible_values:

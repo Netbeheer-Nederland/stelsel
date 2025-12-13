@@ -19,7 +19,7 @@ classes:
   Gatewaycodering:
     class_uri: Gatewaycodering
     broad_mappings:
-      - begrip:technische-bedrijfsstandaard
+      - begrip:6jeh8 #technische bedrijfsstandaard
     description: categorisering van meetgateways met gelijke functionele en technische kenmerken, afkomstig van dezelfde fabrikant
     slots:
       - fabrikant
@@ -39,7 +39,7 @@ classes:
   Metercodering:
     class_uri: Metercodering
     broad_mappings:
-      - begrip:technische-bedrijfsstandaard
+      - begrip:6jeh8 #technische bedrijfsstandaard
     description: categorisering van energiehoeveelheidsmeters met dezelfde (metrologische) kenmerken en van dezelfde fabrikant
     source: nbnlpub:reglement-meterparkbeheer-v62
     see_also:
@@ -53,7 +53,7 @@ classes:
         multivalued: true
       energiedrager:
         exact_mappings:
-          - begrip:energiedrager
+          - begrip:bwjrm #energiedrager
         range: Energiedrager
         required: true
         multivalued: true
@@ -83,7 +83,7 @@ classes:
   Telwerkdefinitie:
     class_uri: Telwerkdefinitie
     broad_mappings:
-      - begrip:technische-bedrijfsstandaard
+      - begrip:6jeh8 #technische bedrijfsstandaard
     description: beschrijving van een cumulatieve energiehoeveelheidsmeting ten behoeve van verrekening
     see_also:
       - iceg:hoofdstuk=2&paragraaf=2.1&artikel=2.1.4&g=2025-01-01
@@ -94,7 +94,7 @@ classes:
         range: integer
       energierichting:
         exact_mappings:
-          - begrip:energierichting
+          - begrip:yn3hb #energierichting
         range: Energierichting
       meeteenheid:
         description: maat waarin natuurkundige grootheden numeriek kunnen worden uitgedrukt
@@ -126,9 +126,9 @@ enums:
   Energierichting:
     permissible_values:
       afname:
-        meaning: begrip:afnmame
+        meaning: begrip:yn3hb #afnmame
       invoeding:
-        meaning: begrip:invoeding
+        meaning: begrip:j8cpp #invoeding
   G-waarde:
     permissible_values:
       G2:

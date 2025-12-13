@@ -19,7 +19,7 @@ classes:
   Aangeslotene:
     class_uri: Aangeslotene
     exact_mappings:
-      - begrip:aangeslotene
+      - begrip:m9e2q #aangeslotene
     annotations:
       tijdlijn_registratie: true
       tijdlijn_effectuering: true
@@ -81,7 +81,7 @@ classes:
   Correspondentieadres:
     class_uri: Correspondentieadres
     broad_mappings:
-      - begrip:aangeslotene
+      - begrip:m9e2q #aangeslotene
     annotations:
       tijdlijn_registratie: true
       tijdlijn_effectuering: true

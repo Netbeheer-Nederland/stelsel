@@ -39,7 +39,7 @@ classes:
   Aansluiting:
     class_uri: Aansluiting
     exact_mappings:
-      - begrip:aansluiting
+      - begrip:gnhiy #aansluiting
     annotations:
       levensduur: true
       tijdlijn_geldigheid: true
@@ -57,7 +57,7 @@ classes:
     attributes:
       gecontracteerde transportcapaciteit:
         exact_mappings:
-          - begrip:gecontracteerde-transportcapaciteit
+          - begrip:bp9rr #gecontracteerde transportcapaciteit
         see_also:
           - tce:hoofdstuk=3&paragraaf=3.7&artikel=3.7.4&g=2022-05-18
           - tcg:hoofdstuk=2&paragraaf=2.6&artikel=2.33&g=2023-05-02
@@ -122,7 +122,7 @@ classes:
   Aansluitlocatie:
     class_uri: Aansluitlocatie
     exact_mappings:
-      - begrip:aansluitlocatie
+      - begrip:3jypg #aansluitlocatie
     annotations:
       tijdlijn_geldigheid: true
       tijdlijn_registratie: true
@@ -228,7 +228,7 @@ classes:
   Aftakking:
     class_uri: Aftakking
     broad_mappings:
-      - begrip:netcomponent
+      - begrip:9sgi2 #netcomponent
     annotations:
       tijdlijn_geldigheid: true
       tijdlijn_registratie: true
@@ -265,7 +265,7 @@ classes:
   Allocatiepunt:
     class_uri: Allocatiepunt
     exact_mappings:
-      - begrip:allocatiepunt
+      - begrip:eyp3g #allocatiepunt
     annotations:
       levensduur: true
       tijdlijn_geldigheid: true
@@ -390,7 +390,7 @@ classes:
   Groep van strengen van lichtmasten:
     class_uri: Groep-van-strengen-van-lichtmasten
     broad_mappings:
-      - begrip:aansluitlocatie
+      - begrip:3jypg #aansluitlocatie
     annotations:
       tijdlijn_geldigheid: true
       tijdlijn_registratie: true
@@ -420,7 +420,7 @@ classes:
   Meettransformator:
     class_uri: Meettransformator
     broad_mappings:
-      - begrip:netcomponent
+      - begrip:9sgi2 #netcomponent
     annotations:
       tijdlijn_geldigheid: true
       tijdlijn_registratie: true
@@ -471,7 +471,7 @@ classes:
   Netgebied:
     class_uri: Netgebied
     exact_mappings:
-      - begrip:netgebied
+      - begrip:zqagh #netgebied
     annotations:
       tijdlijn_geldigheid: true
       tijdlijn_registratie: true
@@ -498,7 +498,7 @@ classes:
   Netkoppeling:
     class_uri: Netkoppeling
     broad_mappings:
-      - begrip:aansluiting
+      - begrip:gnhiy #aansluiting
     annotations:
       tijdlijn_geldigheid: true
       tijdlijn_registratie: true
@@ -538,7 +538,7 @@ classes:
       tijdlijn_registratie: true
       tijdlijn_effectuering: true
     exact_mappings:
-      - begrip:overdrachtspunt
+      - begrip:fqqa7 #overdrachtspunt
     slots:
       - EAN-code
     slot_usage:
@@ -550,7 +550,7 @@ classes:
     attributes:
       aansluitcapaciteit:
         exact_mappings:
-          - begrip:aansluitcapaciteit
+          - begrip:x8xgk #aansluitcapaciteit
         comments:
           - "Bij een klein overdrachtspunt voor elektriciteit aangeduid als het aantal fasen vermenigvuldigd met de nominale waarde van de overstroombeveiliging per fase. Bijvoorbeeld 3x25 (eenheid: A) of klein (indien onbekend)."
           - "Bij een klein overdrachtspunt voor gas aangeduid met de code G4, G6, G10, G16, G25 of klein (indien onbekend)."
@@ -574,7 +574,7 @@ classes:
       energierichting:
         description: richting waarin energie kan stromen over het overdrachtspunt
         broad_mappings:
-          - begrip:energierichting
+          - begrip:yn3hb #energierichting
         comments:
           - "Voor elektriciteit geldt over het algemeen: combinatie. Voor gas geldt over het algemeen: indien profielcategorie GIS of GIN dan invoeding anders afname."
           - "De betekenis van het historische 'leveringsrichting' was net iets anders: de richting waarin de energie niet mogelijk maar daadwerkelijk stroomt. Energieleveranciers wisten dan wat ze konden verwachten. Dat gegeven is echter afleidbaar uit het energie-uitwisselingsregister en eventueel installatieregister."
@@ -686,7 +686,7 @@ classes:
   Primair deel meetinrichting:
     class_uri: Primair-deel-meetinrichting
     broad_mappings:
-      - begrip:netcomponent
+      - begrip:9sgi2 #netcomponent
     annotations:
       tijdlijn_geldigheid: true
       tijdlijn_registratie: true
@@ -723,7 +723,7 @@ classes:
   Primaire meetkabel:
     class_uri: Primaire-meetkabel
     broad_mappings:
-      - begrip:netcomponent
+      - begrip:9sgi2 #netcomponent
     annotations:
       tijdlijn_geldigheid: true
       tijdlijn_registratie: true
@@ -786,7 +786,7 @@ classes:
   Tarieftoepassing:
     class_uri: Tarieftoepassing
     broad_mappings:
-      - begrip:aansluiting
+      - begrip:gnhiy #aansluiting
     annotations:
       tijdlijn_geldigheid: true
       tijdlijn_registratie: true
@@ -868,7 +868,7 @@ slots:
       - iceg:hoofdstuk=2&paragraaf=2.1&artikel=2.1.3&g=2022-05-18
   energiedrager:
     exact_mappings:
-      - begrip:energiedrager
+      - begrip:bwjrm #energiedrager
     range: Energiedrager
     see_also:
       - iceg:hoofdstuk=2&paragraaf=2.1&artikel=2.1.3&g=2022-05-18
@@ -931,11 +931,11 @@ enums:
   Energierichting:
     permissible_values:
       afname:
-        meaning: begrip:afname
+        meaning: begrip:3j33z #afname
       combinatie:
         description: afname en invoeding
       invoeding:
-        meaning: begrip:invoeding
+        meaning: begrip:j8cpp #invoeding
   Flensdrukklasse:
     permissible_values:
       onbekend:
@@ -977,15 +977,15 @@ enums:
   Technische grootte:
     permissible_values:
       grote aansluiting:
-        meaning: begrip:grote-aansluiting
+        meaning: begrip:cq27t #grote aansluiting
       kleine aansluiting:
-        meaning: begrip:kleine-aansluiting
+        meaning: begrip:pp2se #kleine aansluiting
   Marktsegment:
     permissible_values:
       grootverbruikaansluiting:
-        meaning: begrip:grootverbruikaansluiting
+        meaning: begrip:win7s #grootverbruikaansluiting
       kleinverbruikaansluiting:
-        meaning: begrip:kleinverbruikaansluiting
+        meaning: begrip:masrd #kleinverbruikaansluiting
   Nauwkeurigheidsklasse:
     permissible_values:
       onbekend:

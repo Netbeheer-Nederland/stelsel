@@ -26,7 +26,7 @@ classes:
     class_uri: Gatewayadapter
     description: apparaat bedoeld om een meetgateway te voorzien van voeding en gebruikersinterface
     broad_mappings:
-      - begrip:netcomponent
+      - begrip:9sgi2 #netcomponent
     attributes:
       identificatie:
         description: unieke aanduiding waarmee een instantie van een object binnen een gegeven context ondubbelzinnig herkenbaar is
@@ -47,7 +47,7 @@ classes:
     class_uri: Meetcomponent
     description: apparaat dat energie-uitwisseling meet of deze meting op afstand uitleesbaar maakt
     broad_mappings:
-      - begrip:netcomponent
+      - begrip:9sgi2 #netcomponent
     annotations:
       tijdlijn_geldigheid: true
       tijdlijn_registratie: true
@@ -117,7 +117,7 @@ classes:
     class_uri: Meter
     is_a: Meetcomponent
     exact_mappings:
-      - begrip:meter
+      - begrip:877a7 #meter
     comments:
       - Dit register ondersteunt geen controlemeters. Een controlemeter is een meter die naast een andere meter is geplaatst om daarvan de meterstanden op nauwkeurigheid te conroleren, vaak op verzoek van de aangeslotene.
     see_also:
@@ -189,7 +189,7 @@ classes:
   Telwerk met cijferaanduiding:
     class_uri: Telwerk-met-cijferaanduiding
     broad_mappings:
-      - begrip:telwerk
+      - begrip:877a7 #meter
     description: onderdeel van een meter dat een hoeveelheid energie registreert, met een aanduiding die niet rechtstreeks verwijst naar de betekenis of functie van het telwerk
     comments:
       - Niet van toepassing op meters die telwerken aanduiden met OBIS-codes.

@@ -22,7 +22,7 @@ classes:
   Beveiligingsinstelling:
     class_uri: Beveiligingsinstelling
     broad_mappings:
-      - begrip:installatie
+      - begrip:gtj7b #installatie
     annotations:
       tijdlijn_registratie: true
     description: manier waarop wordt beschermd tegen storingen
@@ -59,7 +59,7 @@ classes:
   Conformiteitscertificaat:
     class_uri: Conformiteitscertificaat
     broad_mappings:
-      - begrip:installatie
+      - begrip:gtj7b #installatie
     annotations:
       tijdlijn_registratie: true
     description: door een erkende certificerende instantie verstrekt document voor apparatuur die wordt gebruikt door een elektriciteitsproductie-eenheid, verbruikseenheid, distributiesysteem, verbruikersinstallatie of HVDC-systeem
@@ -75,7 +75,7 @@ classes:
   Elektriciteitsinstallatie-eenheid:
     class_uri: Elektriciteitsinstallatie-eenheid
     broad_mappings:
-      - begrip:installatie
+      - begrip:gtj7b #installatie
     annotations:
       tijdlijn_registratie: true
       levensduur: true
@@ -100,7 +100,7 @@ classes:
         comments:
           - "Validatieregel: verplicht bij opslageenheid en laadeenheid. Verplicht leeg bij productie-eenheid."
         broad_mappings:
-          - begrip:maximumcapaciteit
+          - begrip:gsewd #maximumcapaciteit
         range: float
         unit:
           ucum_code: kW
@@ -109,7 +109,7 @@ classes:
         comments:
           - "Validatieregel: verplicht bij productie-eenheid en opslageenheid."
         broad_mappings:
-          - begrip:maximumcapaciteit
+          - begrip:gsewd #maximumcapaciteit
         range: float
         unit:
           ucum_code: kW
@@ -140,14 +140,14 @@ classes:
     class_uri: Elektriciteitslaadeenheid
     is_a: Elektriciteitsinstallatie-eenheid
     exact_mappings:
-      - begrip:elektriciteitslaadeenheid
+      - begrip:zebbw #elektriciteitslaadeenheid
     comments:
       - ⚠ Het is nog niet duidelijk hoe laadpunten gegroepeerd moeten worden in laadeenheden. Dit heeft namelijk direct effect op het type (A, B, C, D) en daarmee de aansluitvoorwaarden en verplichtingen die gelden voor de aangeslotene. Niet elke laadlocatie bestaat uit laadpalen, denk aan bogen, muren, etc.
   Elektriciteitsopslageenheid:
     class_uri: Elektriciteitsopslageenheid
     is_a: Elektriciteitsinstallatie-eenheid
     exact_mappings:
-      - begrip:elektriciteitsopslageenheid
+      - begrip:97gd7 #elektriciteitsopslageenheid
     attributes:
       maximaal bruikbare hoeveelheid energie:
         description: hoeveelheid elektrische energie die maximaal in een elektriciteitsopslageenheid kan worden geïnjecteerd en daaruit kan worden onttrokken voor het energienet
@@ -163,7 +163,7 @@ classes:
     class_uri: Elektriciteitsproductie-eenheid
     is_a: Elektriciteitsinstallatie-eenheid
     exact_mappings:
-      - begrip:elektriciteitsproductie-eenheid
+      - begrip:zr8ka #elektriciteitsproductie-eenheid
     attributes:
       primaire energiebron:
         description: stof, object of natuurlijke plaats waaruit de meeste energie wordt gehaald
@@ -192,7 +192,7 @@ classes:
   GCvO-installatie:
     class_uri: GCvO-installatie
     broad_mappings:
-      - begrip:installatie
+      - begrip:gtj7b #installatie
     annotations:
       tijdlijn_registratie: true
       levensduur: true
@@ -207,7 +207,7 @@ classes:
     attributes:
       energiedrager:
         exact_mappings:
-          begrip:energiedrager
+          begrip:bwjrm #energiedrager
         range: Energiedrager
         required: true
       hoogrenderende warmtekrachtkoppeling:
@@ -232,7 +232,7 @@ classes:
   Groep van omvormers:
     class_uri: Groep-van-omvormers
     broad_mappings:
-      - begrip:installatie
+      - begrip:gtj7b #installatie
     annotations:
       tijdlijn_registratie: true
     description: verzameling elektronische apparaten die de invoerspanning van een bepaalde spanning naar een andere spanning kunnen omvormen of elektrische energie in energie van een andere frequentie
@@ -252,7 +252,7 @@ classes:
   Groep van opwekkingseenheden:
     class_uri: Groep-van-opwekkingseenheden
     broad_mappings:
-      - begrip:installatie
+      - begrip:gtj7b #installatie
     annotations:
       tijdlijn_registratie: true
     description: verzameling apparaten binnen één elektriciteitsproductie-eenheid die elektrische energie opwekken en identieke kenmerken delen
@@ -326,7 +326,7 @@ classes:
   Soort transformator:
     class_uri: Soort-transformator
     broad_mappings:
-      - begrip:installatie
+      - begrip:gtj7b #installatie
     annotations:
       tijdlijn_registratie: true
     description: verzameling transformatoren die een gemeenschappelijk karakter hebben
@@ -397,7 +397,7 @@ classes:
   Transformatoropstelling:
     class_uri: Transformatoropstelling
     broad_mappings:
-      - begrip:installatie
+      - begrip:gtj7b #installatie
     annotations:
       tijdlijn_registratie: true
     description: configuratie van transformatoren bedoeld voor de gezamenlijke werking rondom een bepaald overdrachtspunt

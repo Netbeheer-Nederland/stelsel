@@ -1,0 +1,6 @@
+{% assign b = site.data.begrippen[include.id] %}
+{% if b %}
+    <a href="https://netbeheer-nederland.github.io/energiesysteembeheer/doc/{{ include.id }}">{{ b.label }}</a>
+{% else %}
+    <code>{{ include.id }}</code>
+{% endif %}

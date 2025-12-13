@@ -18,7 +18,7 @@ classes:
   Activiteitencategorie:
     class_uri: Activiteitencategorie
     related_mappings:
-      - begrip:marktpartij
+      - begrip:hc9px #marktpartij
     description: groepering van activiteiten op de energiemarkt, uitgedrukt als een combinatie van marktrol, productsoort, marktsegment en of er een erkenning is vereist
     slots:
       - energiedrager
@@ -57,7 +57,7 @@ classes:
   Contactpersoon:
     class_uri: Contactpersoon
     broad_mappings:
-      - begrip:marktpartij
+      - begrip:hc9px #marktpartij
     description: persoon die namens een marktpartijregistratie verantwoordelijk is voor een of meer onderwerpen
     attributes:
       achternaam:
@@ -92,7 +92,7 @@ classes:
   Contactgroep:
     class_uri: Contactgroep
     related_mappings:
-      - begrip:marktpartij
+      - begrip:hc9px #marktpartij
     attributes:
       naam:
         description: identificatie van de contactgroep
@@ -115,7 +115,7 @@ classes:
   Contactlidmaatschap:
     class_uri: Contactlidmaatschap
     broad_mappings:
-      - begrip:marktpartij
+      - begrip:hc9px #marktpartij
     attributes:
       # relaties:
       bij:
@@ -145,7 +145,7 @@ classes:
   Factuurcontact:
     class_uri: Factuurcontact
     broad_mappings:
-      - begrip:marktpartij
+      - begrip:hc9px #marktpartij
     description: contactgegevens die van toepassing zijn ten behoeve van het versturen van een factuur
     comments:
       - De overige adresgegevens bevinden zich in de registers van ondernemingen, zoals het Handelsregister.
@@ -178,7 +178,7 @@ classes:
   Marktpartijregistratie:
     class_uri: Marktpartijregistratie
     broad_mappings:
-      - begrip:marktpartij
+      - begrip:hc9px #marktpartij
     description: toewijzing van een bedrijfs-EAN-code aan een onderneming
     annotations:
       tijdlijn_geldigheid: true
@@ -222,7 +222,7 @@ classes:
   Marktpartijsubregistratie:
     class_uri: Marktpartijsubregistratie
     broad_mappings:
-      - begrip:marktpartij
+      - begrip:hc9px #marktpartij
     description: onderverdeling van een marktpartijregistratie, waardoor gegevens voor die eenheid apart kunnen worden gegroepeerd
     annotations:
       levensduur: true
@@ -264,7 +264,7 @@ classes:
   Marktrolbeschikking:
     class_uri: Marktrolbeschikking
     broad_mappings:
-      - begrip:marktpartij
+      - begrip:hc9px #marktpartij
     annotations:
       levensduur: true
     description: officiële toestemming (ontheffing, vergunning of erkenning) aan een onderneming voor een bepaalde categorie van activiteiten op de Nederlandse energiemarkt
@@ -292,7 +292,7 @@ classes:
   Preferentie:
     class_uri: Preferentie
     broad_mappings:
-      - begrip:marktpartij
+      - begrip:hc9px #marktpartij
     description: voorrang die is verleend door een programmaverantwoordelijke aan een leverancier of andersom en die van toepassing is tijdens een leveringszekerheidsprocedure
     annotations:
       tijdlijn_geldigheid: true
@@ -324,7 +324,7 @@ classes:
   Soort marktrolbeschikking:
     class_uri: Soort-marktrolbeschikking
     related_mappings:
-      - begrip:marktpartij
+      - begrip:hc9px #marktpartij
     description: aanduiding van een verzameling marktrolbeschikkingen die een gemeenschappelijk karakter hebben
     attributes:
       naam:
@@ -348,7 +348,7 @@ classes:
 slots:
   energiedrager:
     exact_mappings:
-      - begrip:energiedrager
+      - begrip:bwjrm
     range: Energiedrager
 
 enums:
@@ -402,9 +402,9 @@ enums:
   Marktsegment:
     permissible_values:
       grootverbruikaansluiting:
-        meaning: begrip:grootverbruikaansluiting
+        meaning: begrip:win7s #grootverbruikaansluiting
       kleinverbruikaansluiting:
-        meaning: begrip:kleinverbruikaansluiting
+        meaning: begrip:masrd #kleinverbruikaansluiting
   Naam marktrolbeschikking:
     permissible_values:
       Leveringsvergunning elektriciteit:

@@ -13,7 +13,11 @@
             [{{name}}](#{{id_safe(name)}})
         {%- endif -%}
     {%- else -%}
-        [{{name}}]({{schemaview.expand_curie(name) | replace('https://begrippen.netbeheernederland.nl/id/', 'https://netbeheer-nederland.github.io/energiesysteembeheer/doc/')}})
+        {%- if name.startswith('begrip:') -%}
+            {{ '{% include begrip.html id=' ~ name.replace('begrip:', '') ~ ' %}' }}
+        {%- else -%}
+            [{{name}}]({{schemaview.expand_curie(name)}})
+        {%- endif -%}
     {%- endif -%}
 {%- endmacro -%}
 
@@ -116,7 +120,7 @@
             {%- set _ = linked.append(link(m)) -%}
         {%- endfor -%}
         {%- if type == 'exact' -%}
-            {{- '_' ~ linked | join(', ') ~ '_' -}}
+            {{- '_' ~ label ~ ': ' ~ linked | join(', ') ~ '_' -}}
         {%- else -%}
             {{- label ~ ': ' ~ linked | join(', ') -}}
         {%- endif -%}
@@ -154,19 +158,19 @@
     {%- endif -%}
 
     {# related_mappings #}
-    {%- set related_mappings = mappings_line(element, 'related', 'Gerelateerd') -%}
+    {%- set related_mappings = mappings_line(element, 'related', 'Overeenkomstig verwant') -%}
     {%- if related_mappings -%}
         {%- set _ = parts.items.append(related_mappings) -%}
     {%- endif -%}
 
     {# narrow_mappings #}
-    {%- set narrow_mappings = mappings_line(element, 'narrow', 'Nauwer') -%}
+    {%- set narrow_mappings = mappings_line(element, 'narrow', 'Overeenkomstig onderliggend') -%}
     {%- if narrow_mappings -%}
         {%- set _ = parts.items.append(narrow_mappings) -%}
     {%- endif -%}
 
     {# broad_mappings #}
-    {%- set broad_mappings = mappings_line(element, 'broad', 'Breder') -%}
+    {%- set broad_mappings = mappings_line(element, 'broad', 'Overeenkomstig bovenliggend') -%}
     {%- if broad_mappings -%}
         {%- set _ = parts.items.append(broad_mappings) -%}
     {%- endif -%}

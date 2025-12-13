@@ -20,7 +20,7 @@ classes:
     class_uri: Grootverbruikmeetinrichting
     description: Meetinrichting bij een grootverbruikaansluiting
     broad_mappings:
-      - begrip:meetinrichting
+      - begrip:877a7 #meetinrichting
     see_also:
       - iceg:hoofdstuk=4&paragraaf=4.7&sub-paragraaf=4.7.2&g=2025-01-01
     annotations:
@@ -58,7 +58,7 @@ classes:
   Kleinverbruikmeetinrichting:
     class_uri: Kleinverbruikmeetinrichting
     exact_mappings:
-      - begrip:kleinverbruikmeetinrichting
+      - begrip:rnny7 #kleinverbruikmeetinrichting
     annotations:
       tijdlijn_effectuering: true
     attributes:
@@ -126,7 +126,7 @@ classes:
   Telwerk:
     class_uri: Telwerk
     exact_mappings:
-      - begrip:telwerk
+      - begrip:tc4xn #telwerk
     annotations:
       tijdlijn_effectuering: true
     attributes:
@@ -136,7 +136,7 @@ classes:
         required: true
       energierichting:
         exact_mappings:
-          - begrip:energierichting
+          - begrip:yn3hb #energierichting
         range: Energierichting
         required: true
       meeteenheid:
@@ -230,9 +230,9 @@ enums:
   Energierichting:
     permissible_values:
       afname:
-        meaning: begrip:afname
+        meaning: begrip:yn3hb #afnmame
       invoeding:
-        meaning: begrip:invoeding
+        meaning: begrip:j8cpp #invoeding
   Meeteenheid:
     permissible_values:
       kWh:

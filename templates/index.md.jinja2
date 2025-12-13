@@ -120,7 +120,7 @@
             {%- set _ = linked.append(link(m)) -%}
         {%- endfor -%}
         {%- if type == 'exact' -%}
-            {{- '_' ~ label ~ ': ' ~ linked | join(', ') ~ '_' -}}
+            {{- '<em>' ~ label ~ ': ' ~ linked | join(', ') ~ '</em>' -}}
         {%- else -%}
             {{- label ~ ': ' ~ linked | join(', ') -}}
         {%- endif -%}

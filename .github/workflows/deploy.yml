@@ -32,6 +32,9 @@ jobs:
       - name: Install Python dependencies
         run: pip install --cache-dir ~/.cache/pip -r requirements.txt
 
+      - name: Generate JSON fom TTL
+        run: python scripts/ttl_to_json.py
+
       - name: Create docs per model version
         run: |
           for model in registers/*; do

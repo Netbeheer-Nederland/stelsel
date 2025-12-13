@@ -80,15 +80,6 @@ jobs:
         run: |
           bundle config set path 'vendor/bundle'
           bundle install
-      
-      - name: DEBUG - Waar is mijn bestand?
-        run: |
-          echo "--- Listing root directory ---"
-          ls -la
-          echo "--- Listing _data directory ---"
-          ls -la _data || echo "_data directory bestaat niet!"
-          echo "--- Content of begrippen.json (first 5 lines) ---"
-          head -n 5 _data/begrippen.json || echo "Kan bestand niet lezen"
 
       - name: Build with Jekyll
         run: bundle exec jekyll build -s docs -d _site

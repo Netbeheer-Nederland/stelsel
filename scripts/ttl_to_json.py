@@ -3,7 +3,7 @@ from rdflib import Graph, SKOS
 
 # Instellingen
 TTL_URL = "https://netbeheer-nederland.github.io/energiesysteembeheer/begrippenkader.ttl"
-OUTPUT_DIR = "_data"
+OUTPUT_DIR = "docs/_data"
 OUTPUT_FILE = os.path.join(OUTPUT_DIR, "begrippen.json")
 BASE_URI = "https://begrippen.netbeheernederland.nl/id/"
 

@@ -277,8 +277,8 @@ classes:
           - vastgesteld afnametype
   Standaardjaarvolume:
     class_uri: Standaardjaarvolume
-    related_mappings:
-      - begrip:energie-uitwisseling
+    exact_mappings:
+      - begrip:standaardjaarvolume
     comments:
       - Ook wel bekend als standaardjaarafname elektriciteit (SJA), standaardjaarinvoeding elektriciteit (SJI) en standaardjaarverbruik gas (SJV).
     annotations:

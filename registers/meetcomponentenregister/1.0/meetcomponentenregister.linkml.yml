@@ -189,7 +189,7 @@ classes:
   Telwerk met cijferaanduiding:
     class_uri: Telwerk-met-cijferaanduiding
     broad_mappings:
-      - begripp:telwerk
+      - begrip:telwerk
     description: onderdeel van een meter dat een hoeveelheid energie registreert, met een aanduiding die niet rechtstreeks verwijst naar de betekenis of functie van het telwerk
     comments:
       - Niet van toepassing op meters die telwerken aanduiden met OBIS-codes.

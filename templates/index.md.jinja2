@@ -14,7 +14,7 @@
         {%- endif -%}
     {%- else -%}
         {%- if name.startswith('begrip:') -%}
-            {{ '{% include begrip.html id=' ~ name.replace('begrip:', '') ~ ' %}' }}
+            {{ '{% include begrip.html id="' ~ name.replace('begrip:', '') ~ '" %}' }}
         {%- else -%}
             [{{name}}]({{schemaview.expand_curie(name)}})
         {%- endif -%}

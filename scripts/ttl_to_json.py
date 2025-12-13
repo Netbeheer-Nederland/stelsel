@@ -1,9 +1,10 @@
-import json
+import os, json
 from rdflib import Graph, SKOS
 
 # Instellingen
 TTL_URL = "https://netbeheer-nederland.github.io/energiesysteembeheer/begrippenkader.ttl"
-OUTPUT_JSON = "_data/begrippen.json"
+OUTPUT_PATH = "_data"
+OUTPUT_FILE = "begrippen.json"
 BASE_URI = "https://begrippen.netbeheernederland.nl/id/"
 
 g = Graph()
@@ -25,7 +26,9 @@ for s, p, o in g.triples((None, SKOS.prefLabel, None)):
             "uri": s_str
         }
 
-with open(OUTPUT_JSON, "w", encoding="utf-8") as f:
+os.makedirs(OUTPUT_PATH, exist_ok=True)
+
+with open(os.path.join(OUTPUT_PATH, OUTPUT_FILE), "w", encoding="utf-8") as f:
     json.dump(lookup, f, ensure_ascii=False, indent=2)
 
-print(f"Generated: {OUTPUT_JSON} with {len(lookup)} concepts.")
+print(f"Generated: {OUTPUT_FILE} with {len(lookup)} concepts.")

@@ -3,8 +3,8 @@ from rdflib import Graph, SKOS
 
 # Instellingen
 TTL_URL = "https://netbeheer-nederland.github.io/energiesysteembeheer/begrippenkader.ttl"
-OUTPUT_PATH = "_data"
-OUTPUT_FILE = "begrippen.json"
+OUTPUT_DIR = "_data"
+OUTPUT_FILE = os.path.join(OUTPUT_DIR, "begrippen.json")
 BASE_URI = "https://begrippen.netbeheernederland.nl/id/"
 
 g = Graph()
@@ -26,9 +26,9 @@ for s, p, o in g.triples((None, SKOS.prefLabel, None)):
             "uri": s_str
         }
 
-os.makedirs(OUTPUT_PATH, exist_ok=True)
+os.makedirs(OUTPUT_DIR, exist_ok=True)
 
-with open(os.path.join(OUTPUT_PATH, OUTPUT_FILE), "w", encoding="utf-8") as f:
+with open(os.path.join(OUTPUT_FILE, OUTPUT_FILE), "w", encoding="utf-8") as f:
     json.dump(lookup, f, ensure_ascii=False, indent=2)
 
 print(f"Generated: {OUTPUT_FILE} with {len(lookup)} concepts.")

@@ -33,7 +33,7 @@ jobs:
         run: pip install --cache-dir ~/.cache/pip -r requirements.txt
 
       - name: Download SKOS lookup table
-        run: curl --create-dirs -o docs/_data/begrippen.json https://netbeheer-nederland.github.io/energiesysteembeheer/begrippen.json
+        run: curl --create-dirs -o docs/_data/begrippen.json https://begrippen.netbeheernederland.nl/begrippen.json
 
       - name: Create docs per model version
         run: |

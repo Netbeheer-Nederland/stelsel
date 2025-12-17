@@ -1,8 +1,9 @@
-import os
-import yaml
+import sys, os, yaml
+
+BUILD_DIR = sys.argv[1] if len(sys.argv) > 1 else "docs" # Lees de build-dir uit argumenten, standaard is "docs"
 
 BASE_INPUT_MODELS = "registers"
-BASE_OUTPUT_MODELS = os.path.join("docs", "_registers")
+BASE_OUTPUT_MODELS = os.path.join(BUILD_DIR, "_registers")
 
 os.makedirs(BASE_OUTPUT_MODELS, exist_ok=True)
 
@@ -34,7 +35,7 @@ for model_dir in sorted(os.listdir(BASE_INPUT_MODELS)):
         model_name, _ = get_model_metadata(yaml_path)
         break  # één versie is genoeg voor de naam
 
-    # Genereer docs/_registers/<modelnaam>/index.md
+    # Genereer _registers/<modelnaam>/index.md
     model_output_dir = os.path.join(BASE_OUTPUT_MODELS, model_dir)
     os.makedirs(model_output_dir, exist_ok=True)
 

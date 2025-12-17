@@ -1,12 +1,18 @@
+# .github/workflows/deploy.yml
 name: Create and publish docs
 
 on:
   push:
+    branches: ["main"]
 
 permissions:
   contents: read
   pages: write
   id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
 
 jobs:
   build:
@@ -16,73 +22,26 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Install Python and dependencies
+      - name: Install Python
         uses: actions/setup-python@v5
         with:
           python-version: '3.10'
+          cache: 'pip'
 
-      - name: Cache pip dependencies
-        uses: actions/cache@v4
-        with:
-          path: ~/.cache/pip
-          key: ${{ runner.os }}-pip-${{ hashFiles('requirements.txt') }}
-          restore-keys: |
-            ${{ runner.os }}-pip-
-
-      - name: Install Python dependencies
-        run: pip install --cache-dir ~/.cache/pip -r requirements.txt
-
-      - name: Download SKOS lookup table
-        run: curl --create-dirs -o docs/_data/begrippen.json https://begrippen.netbeheernederland.nl/begrippen.json
-
-      - name: Create docs per model version
-        run: |
-          for model in registers/*; do
-            if [ -d "$model" ]; then
-              modelname=$(basename "$model")
-              for version in "$model"/*; do
-                if [ -d "$version" ]; then
-                  versionid=$(basename "$version")
-                  echo "Processing $modelname version $versionid"
-
-                  outdir=docs/_registers/$modelname/$versionid
-                  mkdir -p "$outdir"
-
-                  cp "$version/$modelname.drawio.svg" "$outdir/"
-                  gen-doc \
-                    --template-directory templates \
-                    -d "$outdir" \
-                    "$version/$modelname.linkml.yml"
-
-                  # Remove all .md files except index.md
-                  find "$outdir" -type f -name "*.md" ! -name "index.md" -delete
-                fi
-              done
-            fi
-          done
-
-      - name: Create model landing pages
-        run: python scripts/generate_model_landing_pages.py
-
-      - name: Create index of used concepts
-        run: python scripts/concept_usages.py
-
-      - name: Setup GitHub Pages
-        uses: actions/configure-pages@v5
-
-      - name: Setup Ruby
+      - name: Install Ruby
         uses: ruby/setup-ruby@v1
         with:
           ruby-version: 3.1
           bundler-cache: true
 
-      - name: Install Ruby dependencies
+      - name: Install Dependencies
         run: |
+          pip install -r requirements.txt
           bundle config set path 'vendor/bundle'
           bundle install
 
-      - name: Build with Jekyll
-        run: bundle exec jekyll build -s docs -d _site
+      - name: Build Site via Invoke
+        run: inv build
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3

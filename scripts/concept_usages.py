@@ -1,11 +1,9 @@
-import yaml
-import json
-import glob
-import os
+import yaml, json, glob, os, sys
 
 # CONFIG
+BUILD_DIR = sys.argv[1] if len(sys.argv) > 1 else "docs" # Lees de build-dir uit argumenten, standaard is "docs"
 MODELS_DIR = "registers"
-OUTPUT_FILE = "docs/_registers/concept_usages.json"
+OUTPUT_FILE = os.path.join(BUILD_DIR, "_registers", "concept_usages.json")
 
 # --- Helper functies ---
 

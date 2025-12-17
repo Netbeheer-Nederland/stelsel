@@ -1,2 +1,9 @@
 *.svg.bkp
 *.svg.dtmp
+_staging/
+_site/
+vendor/
+tools/
+__pycache__/
+Gemfile.lock
+.bundle/

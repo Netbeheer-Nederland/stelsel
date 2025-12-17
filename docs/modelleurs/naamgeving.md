@@ -11,7 +11,7 @@ In het marktdomein zijn we energiedrageragnostisch (`elektriciteit`, `gas` zijn 
 
 ## Entiteiten
 
-Het eerste woord krijgt een hoofdletter. Entiteiten worden aangeduid in het enkelvoud en moeten een bruikbare meervoudsvorm hebben volgens het woordenboek. Dus geen `Suiker`, maar wel `Suikerklontje`.
+Het eerste woord krijgt een hoofdletter. Entiteiten worden aangeduid in het enkelvoud, maar moeten daarnaast een meervoudsvorm hebben volgens het woordenboek. Met andere woorden, het moet om telbare dingen gaan. Dus geen `Suiker`, maar wel `Suikerklontje`.
 
 ## Eigenschappen
 

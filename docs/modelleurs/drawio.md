@@ -24,23 +24,22 @@ Enkele elementen lichten we eruit. Voor bijna elk punt is het achterliggende pri
 
 - Alle elementen zijn uitgelijnd op een raster, met consistente afstanden tussen de entiteiten.
 - Entiteiten lijnen op elkaar uit. Zie bijvoorbeeld de hoge `Aansluiting` en het brede `Overdrachtspunt`.
-- Lijnen zijn alleen horizontaal en verticaal. Ze mogen niet kruisen of knikken.
+- Lijnen zijn alleen horizontaal en verticaal. Ze mogen waar mogelijk niet kruisen of knikken.
 - Bij een-op-veel-relaties staat de entiteit aan de een-zijde standaard links of boven.
 - De positie van een relatienaam bepaalt de leesrichting en staat dichtbij de entiteit die haar beheert. Bijvoorbeeld: een `Aansluiting` is `deel van` een `Netgebied`.
 
 ## Kleuren
 
-- Entiteiten hebben een [NBility](https://nbility-model.github.io/)-kleur.
-- Entiteiten uit andere registers zijn grijs en hebben geen eigenschappen of uitgaande relaties.
+- Entiteiten hebben een kleur gebaseerd op [NBility](https://nbility-model.github.io/).
+- We gebruiken hiervoor de kleuren die standaard aanwezig zijn in draw.io, omdat ze de NBility-kleuren voldoende benaderen.
 
 ## Structuur
 
-- Een entiteit wordt geïdentificeerd door een combinatie van eigenschappen en relaties (aangegeven met een `#`). Zo wordt een `Aftakking` geïdentificeerd door de combinatie van `zijde`, `nominale waarde`, `serienummer` (`Meettransformator`) en `identificatie` (`Primair deel meetinrichting`).
+- Een entiteit wordt geïdentificeerd door een combinatie van eigenschappen en relaties (aangegeven met een `#`). Zo wordt een `Aftakking` geïdentificeerd door de combinatie van `zijde`, `nominale waarde`, `serienummer` (`Meettransformator`), `identificatie` (`Primair deel meetinrichting`) en `EAN-code` (`Overdrachtspunt`).
 - Specialisaties zijn weergegeven met nesting. Dit maakt overerving van eigenschappen en relaties intuïtief.
 - Specialisaties zijn volledig en niet overlappend. Dus elke `Meettransformator` is óf een `Spanningsmeettransformator` óf een `Stroommeettransformator`. Merk op dat de notie van 'abstracte klasse' (zonder instanties) niet kan bestaan in een conceptueel model.
-- Een `OF`-boog geeft aan dat slechts één van de relaties geldt.
+- Een `OF`-boog geeft aan dat exact één van de relaties geldt.
 - Een `en/of`-boog geeft aan dat minimaal één van de relaties geldt.
-- Bij een groot model worden 'submodules' gekaderd.
 
 ## Symbolen
 

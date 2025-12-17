@@ -10,6 +10,7 @@ DOCS_DIR = "docs"
 STAGING_DIR = "_staging"
 SITE_DIR = "_site"
 REGISTERS_SOURCE_DIR = "registers"
+REGISTERS_TARGET_DIR = os.path.join(STAGING_DIR, "_registers")
 
 PYTHON = sys.executable
 JEKYLL = "bundle exec jekyll"
@@ -60,7 +61,7 @@ def generate_linkml_docs(c):
             if not os.path.isdir(version_path): continue
 
             # Doelmap in _staging
-            out_dir = os.path.join(target_registers_dir, model_name, version_id)
+            out_dir = os.path.join(REGISTERS_TARGET_DIR, model_name, version_id)
             os.makedirs(out_dir, exist_ok=True)
 
             # 1. Kopieer SVG (indien aanwezig)
@@ -120,7 +121,7 @@ def update(c):
 
 @task
 def serve(c):
-    """3. Starten: Start de website lokaal (begint met schone lei)."""
+    """Starten: Start de website lokaal (begint met schone lei)."""
     # Verwijder oude staging rommel
     print("🧹 Opruimen...")
     shutil.rmtree(STAGING_DIR, ignore_errors=True)

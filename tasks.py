@@ -1,49 +1,34 @@
-import os, shutil, glob
+import os, shutil, sys, glob
 from invoke import task
 from urllib.request import urlretrieve
 
-# Configuratie
+# ==============================================================================
+# CONFIGURATIE
+# ==============================================================================
+
 DOCS_DIR = "docs"
 STAGING_DIR = "_staging"
 SITE_DIR = "_site"
 REGISTERS_SOURCE_DIR = "registers"
 
-# Windows compatibiliteit
-PYTHON = "python"
+PYTHON = sys.executable
 JEKYLL = "bundle exec jekyll"
 
-@task
-def clean(c):
-    """Ruim de gegenereerde site en tijdelijke data op."""
-    print("🧹 Cleaning...")
-    for folder in [STAGING_DIR, SITE_DIR]:
-        if os.path.exists(folder):
-            shutil.rmtree(folder)
-            print(f"   - {folder} verwijderd.")
+# ==============================================================================
+# HULPFUNCTIES (LOGICA)
+# ==============================================================================
 
-@task
-def setup(c):
-    """Installeer dependencies (Python & Ruby)."""
-    print("📦 Setup dependencies...")
-    c.run(f"{PYTHON} -m pip install -r requirements.txt")
-    
-    print("💎 Checking Ruby dependencies...")
-    c.run("gem list -i bundler || gem install bundler")
-    c.run("bundle config set path 'vendor/bundle'")
-    c.run("bundle install")
+def clean_dir(path):
+    """Veilig map leegmaken."""
+    if os.path.exists(path):
+        try:
+            shutil.rmtree(path)
+        except OSError:
+            pass # Negeren als bestand in gebruik is
 
-@task
-def prepare_staging_dir(c):
-    """Maak een schone _staging map en kopieer docs daarheen."""
-    print(f"🏗  Preparing staging directory: {DOCS_DIR} -> {STAGING_DIR}")
-    if os.path.exists(STAGING_DIR):
-        shutil.rmtree(STAGING_DIR)
-    shutil.copytree(DOCS_DIR, STAGING_DIR)
-
-@task
-def fetch_data(c):
-    """Download externe data naar de _staging map."""
-    print("⬇️  Downloading SKOS lookup table...")
+def fetch_external_data():
+    """Download externe data (zoals begrippenlijst)."""
+    print("⬇️  Externe data downloaden...")
     data_dir = os.path.join(STAGING_DIR, "_data")
     if not os.path.exists(data_dir):
         os.makedirs(data_dir)
@@ -51,19 +36,21 @@ def fetch_data(c):
     url = "https://begrippen.netbeheernederland.nl/begrippen.json"
     dest = os.path.join(data_dir, "begrippen.json")
     
-    urlretrieve(url, dest)
-    print(f"   - Opgeslagen in {dest}")
+    try:
+        urlretrieve(url, dest)
+        print(f"   - Opgeslagen: {dest}")
+    except Exception as e:
+        print(f"   ⚠️ FOUT bij downloaden: {e}")
 
-@task
-def gen_linkml_docs(c):
-    """Genereer documentatie per modelversie in de _staging map."""
-    print("⚙️  Generating LinkML documentation...")
+def generate_linkml_docs(c):
+    """Genereer documentatie per modelversie (LinkML -> Markdown)."""
+    print("⚙️  LinkML documentatie genereren...")
     
-    # We lezen uit de root 'registers' (source), maar schrijven naar '_staging/_registers'
     if not os.path.exists(REGISTERS_SOURCE_DIR):
         print(f"   [WARN] Bronmap '{REGISTERS_SOURCE_DIR}' niet gevonden.")
         return
 
+    # Loop door bronmodellen
     for model_name in os.listdir(REGISTERS_SOURCE_DIR):
         model_path = os.path.join(REGISTERS_SOURCE_DIR, model_name)
         if not os.path.isdir(model_path): continue
@@ -72,81 +59,103 @@ def gen_linkml_docs(c):
             version_path = os.path.join(model_path, version_id)
             if not os.path.isdir(version_path): continue
 
-            print(f"   - Processing {model_name} version {version_id}")
-
             # Doelmap in _staging
-            out_dir = os.path.join(STAGING_DIR, "_registers", model_name, version_id)
-            if not os.path.exists(out_dir):
-                os.makedirs(out_dir)
+            out_dir = os.path.join(target_registers_dir, model_name, version_id)
+            os.makedirs(out_dir, exist_ok=True)
 
-            # 1. Kopieer SVG
+            # 1. Kopieer SVG (indien aanwezig)
             svg_file = os.path.join(version_path, f"{model_name}.drawio.svg")
             if os.path.exists(svg_file):
                 shutil.copy(svg_file, out_dir)
 
-            # 2. Draai gen-doc
+            # 2. Draai gen-doc (LinkML tool)
             yaml_file = os.path.join(version_path, f"{model_name}.linkml.yml")
             if os.path.exists(yaml_file):
-                # We voeren gen-doc uit tegen de _staging map
+                # Let op: gen-doc commando moet beschikbaar zijn in shell
                 cmd = f"gen-doc --template-directory templates -d {out_dir} {yaml_file}"
                 c.run(cmd, hide=True)
+                print(f"   - Verwerkt: {model_name} / {version_id}")
             
-            # 3. Cleanup .md files
+            # 3. Cleanup .md files (behalve index)
             for md_file in glob.glob(os.path.join(out_dir, "*.md")):
                 if not md_file.endswith("index.md"):
                     os.remove(md_file)
 
-@task
 def generate_indices(c):
-    """Draai de helper scripts, met _staging als argument."""
-    print("📑 Generating indices...")
-    c.run(f"{PYTHON} scripts/generate_model_landing_pages.py {STAGING_DIR}")
-    c.run(f"{PYTHON} scripts/concept_usages.py {STAGING_DIR}")
+    """Draai aanvullende Python scripts voor indexen en usages."""
+    print("📑 Indexen genereren...")
+    c.run(f"{PYTHON} scripts/generate_model_landing_pages.py {STAGING_DIR}", hide=True)
+    c.run(f"{PYTHON} scripts/concept_usages.py {STAGING_DIR}", hide=True)
+
+# ==============================================================================
+# HOOFDTAKEN (MENU)
+# ==============================================================================
 
 @task
-def prepare_content(c):
-    """De flow van content generatie."""
-    # 1. Eerst de map opzetten
-    prepare_staging_dir(c)
-    # 2. Data downloaden in die map
-    fetch_data(c)
-    # 3. LinkML docs genereren in die map
-    gen_linkml_docs(c)
-    # 4. Indices genereren in die map
-    generate_indices(c)
-
-@task
-def build(c):
-    """Bouw de site voor productie."""
-    # Genereer alles in _staging
-    prepare_content(c)
+def setup(c):
+    """Installeren: Zet alle dependencies klaar."""
+    print("📦 Dependencies installeren...")
+    c.run(f"{PYTHON} -m pip install -r requirements.txt")
     
-    print("🚀 Jekyll Build...")
-    # Bouw van _staging naar _site
-    c.run(f"{JEKYLL} build -s {STAGING_DIR} -d {SITE_DIR}")
+    print("💎 Ruby dependencies...")
+    c.run("bundle config set path 'vendor/bundle'")
+    c.run("bundle install")
+    
+    print("✅ Klaar.")
+
+@task
+def update(c):
+    """Verversen: Draai dit om wijzigingen in data/modellen door te voeren."""
+    print(f"📂 Content kopiëren: {DOCS_DIR} -> {STAGING_DIR}")
+    
+    # Stap 1: Statische content (overschrijven toegestaan)
+    shutil.copytree(DOCS_DIR, STAGING_DIR, dirs_exist_ok=True)
+    
+    # Stap 2: Generatoren draaien
+    fetch_external_data()
+    generate_linkml_docs(c)
+    generate_indices(c)
+    
+    print("✅ Data bijgewerkt.")
 
 @task
 def serve(c):
-    """Draai lokaal."""
-    # Genereer alles in _staging
-    prepare_content(c)
+    """3. Starten: Start de website lokaal (begint met schone lei)."""
+    # Verwijder oude staging rommel
+    print("🧹 Opruimen...")
+    shutil.rmtree(STAGING_DIR, ignore_errors=True)
     
-    print("🌍 Starting Local Server...")
+    # Bouw alles vers op
+    update(c)
+    
+    print("\n🌍 Server start... (Ctrl+C om te stoppen)")
     c.run(f"{JEKYLL} serve -s {STAGING_DIR} -d {SITE_DIR} --livereload --incremental --open-url")
 
 @task
+def build(c):
+    """Productie build (voor CI/CD)."""
+    update(c)
+    c.run(f"{JEKYLL} build -s {STAGING_DIR} -d {SITE_DIR}")
+
+# ==============================================================================
+# INTERACTIEF MENU
+# ==============================================================================
+
+@task(default=True)
 def menu(c):
-    """Toon menu."""
     while True:
-        print("\n=== STELSEL MENU ===")
-        print(" [1] Setup")
-        print(" [2] Clean")
-        print(" [3] Build (Generate + Jekyll)")
-        print(" [4] Serve (Local)")
-        print(" [Q] Quit")
-        choice = input("Keuze: ").strip().lower()
+        print("\n=== STELSEL TOOL ===")
+        print(" [1] Setup  (Installeren)")
+        print(" [2] Start  (Website bekijken)")
+        print(" [3] Update (Verversen tijdens draaien)")
+        print(" [Q] Stop")
+        
+        try:
+            choice = input("\nKies een optie: ").strip().lower()
+        except KeyboardInterrupt:
+            break
+            
         if choice == '1': setup(c)
-        elif choice == '2': clean(c)
-        elif choice == '3': build(c)
-        elif choice == '4': serve(c)
+        elif choice == '2': serve(c)
+        elif choice == '3': update(c)
         elif choice == 'q': break

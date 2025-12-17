@@ -34,14 +34,11 @@ jobs:
           ruby-version: 3.1
           bundler-cache: true
 
-      - name: Install Dependencies
-        run: |
-          pip install -r requirements.txt
-          bundle config set path 'vendor/bundle'
-          bundle install
+      - name: Install Python dependencies
+        run: pip install -r requirements.txt
 
       - name: Build Site via Invoke
-        run: inv build
+        run: invoke build
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3

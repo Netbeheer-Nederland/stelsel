@@ -13,7 +13,3 @@ Deze website beschrijft het officiële stelsel van energieregisters. Hier leggen
 Deze plaat toont hoe de registers met elkaar samenhangen. De kleuren zijn gebaseerd op [NBility](https://nbility-model.github.io/).
 
 ![Stelselplaat]({{ site.baseurl }}/assets/images/stelselplaat.drawio.svg)
-
-## Over ons
-
-De conceptuele informatiemodellen van de energieregisters worden beheerd door Team Semantiek.

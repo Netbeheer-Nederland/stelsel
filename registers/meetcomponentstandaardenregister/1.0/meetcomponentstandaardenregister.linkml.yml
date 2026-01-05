@@ -1,4 +1,4 @@
-id: https://modellen.netbeheernederland.nl/stelsel/registers/meetcomponentenregister
+id: https://modellen.netbeheernederland.nl/stelsel/registers/meetcomponentstandaardenregister
 name: meetcomponentstandaardenregister
 title: Meetcomponentstandaardenregister
 description: Register met vastgestelde standaarden, richtlijnen en definities voor de configuratie, interpretatie en toepassing van meters en meetgateways in Nederlandse energienetten.
@@ -6,7 +6,7 @@ comments:
   - Dit register kan eventueel nog worden uitgebreid met meetcomponentconfiguratiebeleid met betrekking tot bijvoorbeeld firmwareversies en mobiele-netwerktechnologieën.
 version: 1.0-draft
 prefixes:
-  this: https://modellen.netbeheernederland.nl/stelsel/registers/meetcomponentenregister#
+  this: https://modellen.netbeheernederland.nl/stelsel/registers/meetcomponentstandaardenregister#
   linkml: https://w3id.org/linkml/
   begrip: https://begrippen.netbeheernederland.nl/id/
   nbnlpub: https://www.netbeheernederland.nl/publicatie/
@@ -126,7 +126,7 @@ enums:
   Energierichting:
     permissible_values:
       afname:
-        meaning: begrip:yn3hb #afnmame
+        meaning: begrip:3j33z #afnmame
       invoeding:
         meaning: begrip:j8cpp #invoeding
   G-waarde:

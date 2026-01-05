@@ -133,7 +133,6 @@ slots:
     required: true
   EAN-code:
     description: unieke cijfercombinatie volgens de Europese Artikelnummer-standaard
-    range: EAN-18
     required: true
 
 enums:

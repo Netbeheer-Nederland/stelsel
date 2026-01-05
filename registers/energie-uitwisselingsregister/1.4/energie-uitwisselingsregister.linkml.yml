@@ -402,9 +402,11 @@ classes:
         required: true
       reparatiemethodiek:
         description: wijze waarop de waarde is gecorrigeerd of berekend
+        source: bce:g=2025-12-20
         range: Reparatiemethodiek
       validatiestatus:
         description: resultaat van de validatie van de waarde
+        source: bce:g=2025-12-20
         range: Validatiestatus
       # relaties:
       op:
@@ -507,6 +509,7 @@ slots:
     required: true
   herkomstindicatie:
     description: oorsprong van een waarde
+    source: bce:g=2025-12-20
     range: Herkomstindicatie
     required: true
   netlevering:

@@ -29,7 +29,7 @@ classes:
       - begrip:9sgi2 #netcomponent
     attributes:
       identificatie:
-        description: unieke aanduiding waarmee een instantie van een object binnen een gegeven context ondubbelzinnig herkenbaar is
+        description: unieke aanduiding waarmee iets binnen een gegeven context ondubbelzinnig herkenbaar is
         required: true
       # relaties:
       ondersteuning voor:

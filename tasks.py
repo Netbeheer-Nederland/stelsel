@@ -74,13 +74,14 @@ def generate_linkml_docs(c):
             if os.path.exists(yaml_file):
                 # Let op: gen-doc commando moet beschikbaar zijn in shell
                 cmd = f"gen-doc --template-directory templates -d {out_dir} {yaml_file}"
-                c.run(cmd, hide=True)
-                print(f"   - Verwerkt: {model_name} / {version_id}")
+                print(f"{model_name}/{version_id}:")
+                c.run(cmd)
             
             # 3. Cleanup .md files (behalve index)
             for md_file in glob.glob(os.path.join(out_dir, "*.md")):
                 if not md_file.endswith("index.md"):
                     os.remove(md_file)
+    print()
 
 def generate_indices(c):
     """Draai aanvullende Python scripts voor indexen en usages."""

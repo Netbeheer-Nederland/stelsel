@@ -1,0 +1,403 @@
+id: https://modellen.netbeheernederland.nl/stelsel/registers/energietoerekeningsregister
+name: energietoerekeningsregister
+title: Energietoerekeningsregister
+version: "1.5"
+description: Het energietoerekeningsregister bevat de verklaringen van netbeheerders over de uitgewisselde energie die marktpartijen toebehoort zodat zij deze kunnen verrekenen.
+see_also:
+  - iceg:hoofdstuk=7&z=2025-01-01&g=2025-01-01
+prefixes:
+  linkml: https://w3id.org/linkml/
+  begrip: https://begrippen.netbeheernederland.nl/id/
+  this: https://modellen.netbeheernederland.nl/stelsel/registers/energietoerekeningsregister#
+  aansluitingenregister: https://modellen.netbeheernederland.nl/stelsel/registers/aansluitingenregister#
+  marktpartijenregister: https://modellen.netbeheernederland.nl/stelsel/registers/marktpartijenregister#
+  acg: https://wetten.overheid.nl/jci1.3:c:BWBR0037931&
+  bce: https://wetten.overheid.nl/jci1.3:c:BWBR0037938&z=2025-12-20&
+  bcg: https://wetten.overheid.nl/jci1.3:c:BWBR0037923&
+  iceg: https://wetten.overheid.nl/jci1.3:c:BWBR0037934&
+  nce: https://wetten.overheid.nl/jci1.3:c:BWBR0037940&
+default_prefix: this
+
+classes:
+  Aggregatiesoort:
+    class_uri: Aggregatiesoort
+    broad_mappings:
+      - begrip:xbzft #energietoerekening
+    comments:
+      - De lijst van eigenschappen is nog niet volledig.
+    annotations:
+      tijdlijn_registratie: true
+    attributes:
+      identificatie:
+        description: unieke aanduiding waarmee iets binnen een gegeven context ondubbelzinnig herkenbaar is
+        required: true
+    unique_keys:
+      identificatie:
+        unique_key_slots:
+          - identificatie
+  Afzonderlijk toegerekend volume:
+    class_uri: Afzonderlijk_toegerekend_volume
+    broad_mappings:
+      - begrip:xbzft #energietoerekening
+    description: uitgewisselde energie op een aansluiting, waarvan is verklaard dat zij een marktpartij toekomt
+    comments:
+      - Ook wel bekend als individueel allocatievolume.
+    annotations:
+      tijdlijn_registratie: true
+    slots:
+      - allocatiegroep
+      - beginmoment
+      - eindmoment
+      - eenheid
+      - energierichting
+      - proces
+      - tariefperiode
+    slot_usage:
+      allocatiegroep:
+        comments:
+          - "Validatie bij een allocatiepunt bij aansluiting: gelijk aan de allocatiemethode, maar `DIM` als de allocatiemethode `telemetrie` is en de profielcategorie `OPC`."
+          - "Validatie bij een allocatiepunt bij netgebied: gelijk aan het type allocatiepunt."
+          - "Validatie bij een overdrachtspunt (van netkoppeling): gelijk aan `NKP`."
+        required: true
+    attributes:
+      herkomstindicatie:
+        description: oorsprong van een waarde
+        source: bce:g=2025-12-20
+        comments:
+          - "Validatie: zelfde waarde als bij overeenkomend Uitgewisseld volume (Energie-uitwisselingsregister)."
+        range: Herkomstindicatie
+        required: true
+      reparatiemethodiek:
+        description: wijze waarop een waarde is gecorrigeerd of berekend
+        source: bce:g=2025-12-20
+        range: Reparatiemethodiek
+        comments:
+          - "Validatie: zelfde waarde als bij overeenkomend Uitgewisseld volume (Energie-uitwisselingsregister)."
+      validatiestatus:
+        description: resultaat van de validatie van een waarde
+        source: bce:g=2025-12-20
+        range: Validatiestatus
+      waarde:
+        description: hoeveelheid eenheden
+        range: float
+        required: true
+      # relaties:
+      op:
+        comments:
+          - "Validatie: bij een relatie naar een overdrachtspunt betreft het een overdrachtspunt van een netkoppeling."
+        range: Any
+        exactly_one_of:
+          - range: Overdrachtspunt
+          - range: Allocatiepunt
+        required: true
+        multivalued: false
+        annotations:
+          inverse_cardinality: "*"
+    unique_keys:
+      identificatie:
+        unique_key_slots:
+          - beginmoment
+          - proces
+          - energierichting
+          - tariefperiode
+          - grootheid
+          - op
+  Geaggregeerd toegerekend volume:
+    class_uri: Geaggregeerd_toegerekend_volume
+    broad_mappings:
+      - begrip:xbzft #energietoerekening
+    description: uitgewisselde energie met een netgebied, waarvan is verklaard dat zij een marktpartij toekomt
+    comments:
+      - Ook wel bekend als geaggregeerd allocatievolume dan wel reconciliatievolume.
+    annotations:
+      tijdlijn_registratie: true
+    slots:
+      - allocatiegroep
+      - eenheid
+      - energierichting
+      - grootheid
+      - proces
+      - tariefperiode
+      - waarde
+    attributes:
+      profielcategorie:
+        description: categorie van allocatiepunten op basis van objectief vast te stellen kenmerken en waarbij voor elk van deze categorieën een eigen, voor de desbetreffende categorie kenmerkende reeks profielfracties wordt vastgesteld
+        range: Profielcategorie
+      te verrekenen bedrag:
+        description: hoeveelheid geld dat vanwege het toegerekend volume in de berekening moet worden meegenomen
+        range: decimal
+      typering:
+        description: classificatie
+        comments:
+          - Conform ENTSO-E Codelist zoals A15 (netverlies) of A20 (onbalansvolume).
+      waarde:
+        description: hoeveelheid eenheden
+        range: float
+        required: true
+      # relaties:
+      aan:
+        range: Marktpartij
+        required: false
+        multivalued: true
+        annotations:
+          inverse_cardinality: "*"
+      in:
+        range: Netgebied
+        required: false
+        multivalued: false
+        annotations:
+          inverse_cardinality: "*"
+      per:
+        range: Aggregatiesoort
+        required: true
+        multivalued: false
+        annotations:
+          inverse_cardinality: "*"
+    unique_keys:
+      identificatie:
+        unique_key_slots:
+          - proces
+          - energierichting
+          - allocatiegroep
+          - profielcategorie
+          - tariefperiode
+          - grootheid
+          - typering
+          - aan
+          - in
+          - per
+  Maxverbruik:
+    class_uri: Maxverbruik
+    broad_mappings:
+      - begrip:xbzft #energietoerekening
+    description: bij een telemetriegrootverbruiker of ten behoeve van netverlies RNB in een uur gedurende de drie recentste volledig verstreken wintermaanden gemeten hoogste gasafname
+    source: bcg:g=2021-06-01
+    see_also:
+      - iceg:hoofdstuk=2&paragraaf=2.1&artikel=2.1.5&z=2025-01-01&g=2025-01-01
+    annotations:
+      tijdlijn_registratie: true
+    attributes:
+      waarde:
+        description: hoeveelheid m3(n;35,17)/uur
+        range: float
+        required: true
+      # relaties:
+      op:
+        range: Allocatiepunt
+        required: true
+        multivalued: false
+        annotations:
+          inverse_cardinality: "*"
+    unique_keys:
+      identificatie:
+        unique_key_slots:
+          - op
+  Restantvolumecorrectiefactor:
+    class_uri: Restantvolumecorrectiefactor
+    broad_mappings:
+      - begrip:xbzft #energietoerekening
+    description: getal waarmee de veronderstelde geprofileerde afname vermenigvuldigd moet worden om het restantvolume toe te wijzen
+    comments:
+      - Ook wel bekend als meetcorrectiefactor (MCF).
+    see_also:
+      - nce:bijlage=18&g=2025-12-31
+      - acg:g=2025-05-08
+    annotations:
+      tijdlijn_registratie: true
+    attributes:
+      waarde:
+        description: hoeveelheid waarmee vermenigvuldigd moet worden
+        range: float
+        required: true
+      # relaties:
+      in:
+        range: Netgebied
+        required: true
+        multivalued: false
+        annotations:
+          inverse_cardinality: "*"
+    unique_keys:
+      identificatie:
+        unique_key_slots:
+          - in
+  Run:
+    class_uri: Run
+    broad_mappings:
+      - begrip:xbzft #energietoerekening
+    description: reeks opeenvolgende berekeningen
+    annotations:
+      tijdlijn_registratie: true
+    slots:
+      - proces
+    attributes:
+      maand:
+        description: kalendermaand waarin de run heeft plaatsgevonden
+        comments:
+          - "Validatie: komt overeen met tijdlijn registratie."
+        see_also:
+          - nce:hoofdstuk=10&paragraaf=10.5&artikel=10.27&g=2025-12-31
+      versie:
+        description: relatief moment waarop de uitgewisselde energie wordt toegerekend
+        comments:
+          - Bijvoorbeeld `N-1`, `N-3`, etc.
+        required: true
+    unique_keys:
+      identificatie:
+        unique_key_slots:
+          - proces
+          - versie
+  Transportverbruiksfactor:
+    class_uri: Transportverbruiksfactor
+    broad_mappings:
+      - begrip:xbzft #energietoerekening
+    description: getal waarmee het via een netgebied getransporteerde volume vermenigvuldigd moet worden om het transportafhankelijk netverlies (transportverbruik, TVB) te bepalen
+    annotations:
+      tijdlijn_registratie: true
+    attributes:
+      waarde:
+        description: hoeveelheid waarmee vermenigvuldigd moet worden
+        range: float
+      # relaties:
+      in:
+        range: Netgebied
+        required: true
+        multivalued: false
+        annotations:
+          inverse_cardinality: "*"
+    unique_keys:
+      identificatie:
+        unique_key_slots:
+          - in
+
+  # externe entiteiten:
+  Aansluiting:
+    class_uri: aansluitingenregister:Aansluiting
+    annotations:
+      external_registry: Aansluitingenregister
+  Allocatiepunt:
+    class_uri: aansluitingenregister:Allocatiepunt
+    annotations:
+      external_registry: Aansluitingenregister
+  Marktpartijsubregistratie:
+    class_uri: marktpartijenregister:Marktpartijsubregistratie
+    annotations:
+      external_registry: Marktpartijenregister
+  Netgebied:
+    class_uri: aansluitingenregister:Netgebied
+    annotations:
+      external_registry: Aansluitingenregister
+  Any:
+    class_uri: linkml:Any
+
+slots:
+  allocatiegroep:
+    description: aanduiding van de wijze waarop de toerekening van uitgewisselde energie plaatsvindt
+    range: Allocatiegroep
+  beginmoment:
+    description: eerste tijdstip waarop iets geldt
+    range: datetime
+    required: true
+  eenheid:
+    description: maat waarin natuurkundige grootheden numeriek kunnen worden uitgedrukt
+    range: Eenheid
+    required: true
+  eindmoment:
+    description: eerste tijdstip waarop iets niet meer geldt
+    range: datetime
+    required: true
+  energierichting:
+    exact_mappings:
+      - begrip:yn3hb #energierichting
+    range: Energierichting
+    required: true
+  grootheid:
+    description: kwantificeerbare eigenschap van een entiteit
+    range: Grootheid
+    required: true
+  netlevering:
+    description: geeft aan of het volume is ingevoed op het energienet
+    range: boolean
+    required: true
+  proces:
+    description: set van samenhangende activiteiten om de uitgewisselde energie toe te wijzen
+    range: Proces
+    required: true
+  tariefperiode:
+    description: aaneengesloten periode van normaaluren of laaguren
+    range: Tariefperiode
+    required: true
+
+enums:
+  Allocatiegroep:
+    permissible_values:
+      TMT:
+      SMA:
+      PRF:
+      DIM:
+      NVL:
+      OVB:
+      NVB:
+      TVB:
+      GMN:
+      NKP:
+  Eenheid:
+    permissible_values:
+      kWh:
+      m3(n):
+      m3(n;35;17):
+  Energierichting:
+    permissible_values:
+      afname:
+        meaning: begrip:3j33z #afname
+      invoeding:
+        meaning: begrip:j8cpp #invoeding
+  Grootheid:
+    permissible_values:
+      actieve energie:
+      herleid volume:
+      volume Groningen gas:
+  Herkomstindicatie:
+    permissible_values:
+      berekend:
+      fysieke opname:
+      gemeten door MV:
+      "gemeten door MV: update":
+      klantstand:
+      overeengekomen:
+      P4-stand:
+  Proces:
+    permissible_values:
+      allocatie:
+      reconciliatie:
+  Profielcategorie:
+    permissible_values:
+      E1A:
+      E1B:
+      E1C:
+      E2A:
+      E2B:
+      E4A:
+      G1A:
+      G2A:
+      G2C:
+      GGV:
+      GIN:
+      GIS:
+      GXX:
+  Reparatiemethodiek:
+    permissible_values:
+      controlemeter:
+      correctie factorfout:
+      correctie inbouwfout:
+      interpolatie bij meterwissel:
+      nuldata bij spanningloos:
+      correctie o.b.v. meterstanden:
+      extra informatie:
+      reclamatie PV:
+      reclamatie NB:
+      geschat:
+  Validatiestatus:
+    permissible_values:
+      handmatig goedgekeurd:
+      niet valide:
+      valide:

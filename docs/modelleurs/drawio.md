@@ -47,4 +47,4 @@ Enkele elementen lichten we eruit. Voor bijna elk punt is het achterliggende pri
 - `●` voor essentiële (of 'verplichte') eigenschappen
 - `○` voor accidentiële (of 'optionele') eigenschappen
 - `/` voor entiteiten, eigenschappen of relaties die logisch of computationeel afleidbaar zijn uit andere elementen in het model
-- `⏲` voor tijdslijnmarkeringen (zie [Tijdlijnen in conceptuele modellen](tijdlijnen))
+- `⏲` voor tijdslijnmarkeringen (zie [Tijdlijnen](tijdlijnen))

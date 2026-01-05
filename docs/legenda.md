@@ -79,6 +79,8 @@ Sommige gegevens veranderen in de tijd. Denk aan een verzwaring van de aansluiti
 
 Deze geven aan in welke periode een feit geldig was in de werkelijkheid (`tijdlijn geldigheid`), wanneer deze bekend was in het systeem (`tijdlijn registratie`) en wanneer deze van kracht was voor de energiemarkt (`tijdlijn effectuering`). De `levensduur` geeft het moment van ontstaan en vergaan van een object aan.
 
+Voor meer informatie, zie de pagina over [Tijdlijnen](modelleurs/tijdlijnen).
+
 ## Kleuren
 
 Elke entiteit heeft een kleur die de relatie naar [NBility](https://nbility-model.github.io/) weergeeft.

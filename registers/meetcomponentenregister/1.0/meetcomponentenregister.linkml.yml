@@ -67,7 +67,7 @@ classes:
         description: classificatie op basis van technische mogelijkheden
         range: integer
       lokaal communicatieprofiel:
-        description: wijze van gegevensuitwisseling tussen meetcomponenten binnen dezelfde locatie
+        description: mogelijke wijze van gegevensuitwisseling tussen meetcomponenten binnen dezelfde locatie
         range: Lokaal communicatieprofiel
       serienummer:
         description: unieke code die door de fabrikant aan een exemplaar uit een reeks producten gegeven wordt

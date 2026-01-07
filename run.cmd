@@ -1,6 +1,6 @@
 @echo off
 setlocal enabledelayedexpansion
-title Begrippenkader Launcher
+title Launcher
 
 :: ========================================================
 :: CONFIGURATIE

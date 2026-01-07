@@ -17,23 +17,17 @@ def get_model_metadata(yaml_path):
 # Itereer over modellen
 for model_dir in sorted(os.listdir(BASE_INPUT_MODELS)):
     model_path = os.path.join(BASE_INPUT_MODELS, model_dir)
-    if not os.path.isdir(model_path):
-        continue
+    if not os.path.isdir(model_path): continue
 
-    model_name = model_dir  # fallback
-    for version in sorted(os.listdir(model_path), reverse=True):
-        yaml_path = os.path.join(model_path, version, f'{model_name}.linkml.yml')
-        gen_md_path = os.path.join(BASE_OUTPUT_MODELS, model_dir, version, "index.md")
-
-        if not os.path.exists(yaml_path):
-            print(f"Missing YAML: {yaml_path}")
-            continue
-        if not os.path.exists(gen_md_path):
-            print(f"Missing index.md: {gen_md_path}")
-            continue
-
+    model_name = None
+    for version in sorted(os.listdir(model_path), reverse=True): # use latest version
+        yaml_path = os.path.join(model_path, version, f'{model_dir}.linkml.yml') # assume: filename equals dirname
+        if not os.path.exists(yaml_path): continue
         model_name, _ = get_model_metadata(yaml_path)
-        break  # één versie is genoeg voor de naam
+        break
+    if model_name is None:
+        print(f'Skipping {model_dir}: model name not found')
+        continue
 
     # Genereer _registers/<modelnaam>/index.md
     model_output_dir = os.path.join(BASE_OUTPUT_MODELS, model_dir)
@@ -45,6 +39,4 @@ for model_dir in sorted(os.listdir(BASE_INPUT_MODELS)):
         f.write(f'title: "{model_name}"\n')
         f.write(f'redirect: "{version}"\n')
         f.write("---\n\n")
-        f.write("{: .note }\n")
-        f.write("Kijk gerust rond! Aan deze website wordt momenteel nog gewerkt.\n\n")
         f.write(f"# {model_name}\n\n")

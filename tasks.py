@@ -59,29 +59,31 @@ def generate_linkml_docs(c):
         for version_id in os.listdir(model_path):
             version_path = os.path.join(model_path, version_id)
             if not os.path.isdir(version_path): continue
+            yaml_file = os.path.join(version_path, f"{model_name}.linkml.yml")
+            if not os.path.exists(yaml_file):
+                print(f'Skipping {model_name}/{version_id}: no YAML file')
+                continue
+            svg_file = os.path.join(version_path, f"{model_name}.drawio.svg")
+            if not os.path.exists(svg_file):
+                print(f'Skipping {model_name}/{version_id}: no SVG file')
+                continue
 
             # Doelmap in _staging
             out_dir = os.path.join(REGISTERS_TARGET_DIR, model_name, version_id)
             os.makedirs(out_dir, exist_ok=True)
 
-            # 1. Kopieer SVG (indien aanwezig)
-            svg_file = os.path.join(version_path, f"{model_name}.drawio.svg")
-            if os.path.exists(svg_file):
-                shutil.copy(svg_file, out_dir)
+            # Kopieer SVG
+            shutil.copy(svg_file, out_dir)
 
-            # 2. Draai gen-doc (LinkML tool)
-            yaml_file = os.path.join(version_path, f"{model_name}.linkml.yml")
-            if os.path.exists(yaml_file):
-                # Let op: gen-doc commando moet beschikbaar zijn in shell
-                cmd = f"gen-doc --template-directory templates -d {out_dir} {yaml_file}"
-                print(f"{model_name}/{version_id}:")
-                c.run(cmd)
+            # Draai gen-doc (LinkML tool)
+            cmd = f"gen-doc --template-directory templates -d {out_dir} {yaml_file}"
+            print(f"{model_name}/{version_id}:")
+            c.run(cmd)
             
-            # 3. Cleanup .md files (behalve index)
+            # Cleanup .md files (behalve index)
             for md_file in glob.glob(os.path.join(out_dir, "*.md")):
                 if not md_file.endswith("index.md"):
                     os.remove(md_file)
-    print()
 
 def generate_indices(c):
     """Draai aanvullende Python scripts voor indexen en usages."""

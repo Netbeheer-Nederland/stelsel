@@ -63,6 +63,8 @@ classes:
       dossierreden:
         description: oorzaak van het niet tijdig verwijderen van een afgekeurde meter
         range: Dossierreden
+      EID:
+        description: wereldwijd unieke identificatiecode van de fysieke, ingebouwde eSIM-chip die op afstand kan worden voorzien van telecommunicatieabonnementen
       generatie:
         description: classificatie op basis van technische mogelijkheden
         range: integer

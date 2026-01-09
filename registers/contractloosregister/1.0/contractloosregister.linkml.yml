@@ -1,0 +1,11 @@
+id: https://modellen.netbeheernederland.nl/stelsel/registers/contractloosregister
+name: contractloosregister
+title: Contractloosregister
+version: 1.0-draft
+description: Dit model bevindt zich in een vroege fase van ontwikkeling en bevat daarom nog geen definities.
+prefixes:
+  linkml: https://w3id.org/linkml/
+  begrip: https://begrippen.netbeheernederland.nl/id/
+  this: https://modellen.netbeheernederland.nl/stelsel/registers/contractloosregister#
+  aansluitingenregister: https://modellen.netbeheernederland.nl/stelsel/registers/aansluitingenregister#
+default_prefix: this

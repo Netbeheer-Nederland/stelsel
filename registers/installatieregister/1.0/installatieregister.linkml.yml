@@ -46,7 +46,7 @@ classes:
           ucum_code: ms
       #relaties
       bij:
-        range: Elektriciteitsinstallatie-eenheid
+        range: Overdrachtspunt
         required: true
         multivalued: false
         annotations:

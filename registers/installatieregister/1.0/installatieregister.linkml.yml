@@ -19,6 +19,16 @@ prefixes:
 default_prefix: this
 
 classes:
+  Aanmelder:
+    class_uri: Aanmelder
+    annotations:
+      tijdlijn_registratie: true
+    description: een persoon of bedrijf die een installatie aanmeld
+    attributes:
+      naam:
+        description: 
+        range: 
+        required: true
   Beveiligingsinstelling:
     class_uri: Beveiligingsinstelling
     broad_mappings:

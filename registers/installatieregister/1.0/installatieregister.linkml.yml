@@ -27,35 +27,32 @@ classes:
     attributes:
       naam:
         description: de naam van de Aanmelder
-        range: Any&string #klopt het op deze manier?
+        range: 
         required: true
       bedrijfsnaam:
         description: de naam van het bedrijf van de Aanmelder
-        range: Any #ntb
+        range: 
         required: false
-      straatnaam_huisnummer:
+      straatnaam + huisnummer:
         description: een combinatie van de straatnaam en het huisnummer
-        range: Any #ntb
+        range: 
         required: true
       postcode:
         description: een vastgestelde code behorende bij een bepaalde combinatie van een straatnaam en een huisnummer
-        range: Any #ntb
+        range: 
         required: true
       woonplaats: 
-        description: Een door de gemeente benoemd gebied
-        range: Any #ntb
+        description: een door de gemeente benoemd gebied
+        range: 
         required: true
       telefoonnummer: 
-        description: Een identificatiecode van cijfers voor routering van verbindingen
-        range: Any #ntb
+        description: een identificatiecode van cijfers voor routering van verbindingen
+        range: 
         required: true
       e-mailadress: 
-        description: Een elektronisch adres voor het verzenden/ontvangen van berichten
-        range: Any #ntb
+        description: een elektronisch adres voor het verzenden/ontvangen van berichten
+        range: 
         required: true
-
-
-
   Beveiligingsinstelling:
     class_uri: Beveiligingsinstelling
     broad_mappings:

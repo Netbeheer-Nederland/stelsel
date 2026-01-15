@@ -26,9 +26,36 @@ classes:
     description: een persoon of bedrijf die een installatie aanmeld
     attributes:
       naam:
-        description: 
-        range: 
+        description: de naam van de Aanmelder
+        range: Any&string #klopt het op deze manier?
         required: true
+      bedrijfsnaam:
+        description: de naam van het bedrijf van de Aanmelder
+        range: Any #ntb
+        required: false
+      straatnaam_huisnummer:
+        description: een combinatie van de straatnaam en het huisnummer
+        range: Any #ntb
+        required: true
+      postcode:
+        description: een vastgestelde code behorende bij een bepaalde combinatie van een straatnaam en een huisnummer
+        range: Any #ntb
+        required: true
+      woonplaats: 
+        description: Een door de gemeente benoemd gebied
+        range: Any #ntb
+        required: true
+      telefoonnummer: 
+        description: Een identificatiecode van cijfers voor routering van verbindingen
+        range: Any #ntb
+        required: true
+      e-mailadress: 
+        description: Een elektronisch adres voor het verzenden/ontvangen van berichten
+        range: Any #ntb
+        required: true
+
+
+
   Beveiligingsinstelling:
     class_uri: Beveiligingsinstelling
     broad_mappings:

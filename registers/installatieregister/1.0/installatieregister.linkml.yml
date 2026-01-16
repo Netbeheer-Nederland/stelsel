@@ -19,40 +19,44 @@ prefixes:
 default_prefix: this
 
 classes:
-  Aanmelder:
-    class_uri: Aanmelder
-    annotations:
-      tijdlijn_registratie: true
-    description: een persoon of bedrijf die een installatie aanmeld
-    attributes:
-      naam:
-        description: de naam van de Aanmelder
-        range: 
-        required: true
-      bedrijfsnaam:
-        description: de naam van het bedrijf van de Aanmelder
-        range: 
-        required: false
-      straatnaam + huisnummer:
-        description: een combinatie van de straatnaam en het huisnummer
-        range: 
-        required: true
-      postcode:
-        description: een vastgestelde code behorende bij een bepaalde combinatie van een straatnaam en een huisnummer
-        range: 
-        required: true
-      woonplaats: 
-        description: een door de gemeente benoemd gebied
-        range: 
-        required: true
-      telefoonnummer: 
-        description: een identificatiecode van cijfers voor routering van verbindingen
-        range: 
-        required: true
-      e-mailadress: 
-        description: een elektronisch adres voor het verzenden/ontvangen van berichten
-        range: 
-        required: true
+  # Aanmelder:
+  #   class_uri: Aanmelder
+  #   annotations:
+  #     tijdlijn_registratie: true
+  #   description:  eigenschappen van een persoon of bedrijf die een installatie aanmeld
+  #   attributes:
+  #     soort:
+  #       description: categorie waartoe de aanmelder behoort
+  #       range: Soort aanmelder
+  #       required: true
+  #     naam:
+  #       description: de naam van de Aanmelder
+  #       range: 
+  #       required: false
+  #     bedrijfsnaam:
+  #       description: de naam van het bedrijf van de Aanmelder
+  #       range: 
+  #       required: false
+  #     straatnaam + huisnummer:
+  #       description: een combinatie van de straatnaam en het huisnummer
+  #       range: 
+  #       required: false
+  #     postcode:
+  #       description: een vastgestelde code behorende bij een bepaalde combinatie van een straatnaam en een huisnummer
+  #       range: 
+  #       required: false
+  #     woonplaats: 
+  #       description: een door de gemeente benoemd gebied
+  #       range: 
+  #       required: false
+  #     telefoonnummer: 
+  #       description: een identificatiecode van cijfers voor routering van verbindingen
+  #       range: 
+  #       required: false
+  #     e-mailadress: 
+  #       description: een elektronisch adres voor het verzenden/ontvangen van berichten
+  #       range: 
+  #       required: false
   Beveiligingsinstelling:
     class_uri: Beveiligingsinstelling
     broad_mappings:
@@ -159,6 +163,7 @@ classes:
           ucum_code: MW
       kortsluitbijdrage:
         description: hoeveelheid stroom die een elektrische installatie levert aan een kortsluiting in het elektriciteitsnet
+        range: 
       #relaties
       achter:
         range: Overdrachtspunt
@@ -552,3 +557,14 @@ enums:
         description: overdrachtspunt beneden 110 kV en maximumcapaciteit minimaal 50 MW en beneden 60 MW
       D:
         description: overdrachtspunt minimaal 110 kV of maximumcapaciteit minimaal 60 MW
+  Soort aanmelder: # gebruik de natuurlijke schrijfwijze, eerste woord met een hoofdletter
+    permissible_values:
+      3RD:
+        description: #to do
+      DDM:
+        description: #to do
+      UD:
+        description: #to do
+      UNK: 
+        description: #to do
+      

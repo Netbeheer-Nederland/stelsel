@@ -1,0 +1,139 @@
+id: https://modellen.netbeheernederland.nl/stelsel/registers/marktactiviteitenregister
+name: marktactiviteitenregister
+title: Marktactiviteitenregister
+version: "1.3-draft"
+description: Het marktactiviteitenregister bevat alle economische activiteiten die door netbeheerders worden gecoördineerd op het niveau van een aansluiting of allocatiepunt.
+comments:
+  - Registratie van leveringsovereenkomsten staat ook wel bekend als het 'contracteinderegister'.
+  - "Wijzigingen: (1) Netkoppeling toegevoegd."
+prefixes:
+  linkml: https://w3id.org/linkml/
+  begrip: https://begrippen.netbeheernederland.nl/id/
+  this: https://modellen.netbeheernederland.nl/stelsel/registers/marktactiviteitenregister#
+  aansluitingenregister: https://modellen.netbeheernederland.nl/stelsel/registers/aansluitingenregister#
+  marktpartijenregister: https://modellen.netbeheernederland.nl/stelsel/registers/marktpartijenregister#
+  energiewet: https://wetten.overheid.nl/jci1.3:c:BWBR0050714&
+  iceg: https://wetten.overheid.nl/jci1.3:c:BWBR0037934&
+default_prefix: this
+
+classes:
+  Leveringsovereenkomst:
+    class_uri: Leveringsovereenkomst
+    related_mappings:
+      - begrip:ihyma #marktactiviteit
+    description: overeenkomst voor de levering van elektriciteit of gas aan een eindafnemer
+    source: energiewet:g=2025-07-01
+    see_also:
+      - iceg:hoofdstuk=2&paragraaf=2.5&artikel=2.5.3&g=2025-01-01
+    annotations:
+      tijdlijn_registratie: true
+      tijdlijn_effectuering: true
+    attributes:
+      einddatum:
+        description: dag waarop de overeenkomst afloopt dan wel automatisch wordt verlengd
+        range: date
+      opzegtermijn:
+        description: aantal dagen tussen opzegging en beëindiging van de overeenkomst
+        range: integer
+        required: true
+      # relaties:
+      met:
+        range: Marktpartijsubregistratie
+        required: true
+        multivalued: false
+        annotations:
+          inverse_cardinality: "*"
+      op:
+        range: Allocatiepunt
+        required: true
+        multivalued: false
+        annotations:
+          inverse_cardinality: "*"
+  Marktactiviteit:
+    class_uri: Marktactiviteit
+    exact_mappings:
+      - begrip:ihyma #marktactiviteit
+    see_also:
+      - iceg:hoofdstuk=2&paragraaf=2.1&g=2025-01-01
+    annotations:
+      tijdlijn_geldigheid: true
+      tijdlijn_registratie: true
+      tijdlijn_effectuering: true
+    attributes:
+      dienst:
+        description: soort marktactiviteit dat door een marktpartij op een aansluiting of allocatiepunt wordt verricht
+        range: Dienst
+        required: true
+      # relaties:
+      op:
+        range: Any
+        exactly_one_of:
+          - range: Aansluiting
+          - range: Allocatiepunt
+          - range: Netkoppeling
+        required: true
+        multivalued: false
+        annotations:
+          inverse_cardinality: "*"
+      van:
+        range: Marktpartijsubregistratie
+        required: true
+        multivalued: false
+        annotations:
+          inverse_cardinality: "*"
+    unique_keys:
+      identificatie:
+        unique_key_slots:
+          - dienst
+          - op
+  Melding leveringsovereenkomst:
+    class_uri: Melding-leveringsovereenkomst
+    related_mappings:
+      - begrip:ihyma #marktactiviteit
+    description: bericht van een leverancier dat hij een leveringsovereenkomst heeft afgesloten
+    see_also:
+      - iceg:hoofdstuk=2&paragraaf=2.5&artikel=2.5.5&g=2025-01-01
+    annotations:
+      tijdlijn_registratie: true
+      tijdlijn_effectuering: true
+    attributes:
+      # relaties:
+      van:
+        range: Marktpartijsubregistratie
+        required: true
+        multivalued: false
+        annotations:
+          inverse_cardinality: "*"
+
+  # externe entiteiten:
+  Aansluiting:
+    class_uri: aansluitingenregister:aansluiting
+    annotations:
+      external_registry: Aansluitingenregister
+  Allocatiepunt:
+    class_uri: aansluitingenregister:allocatiepunt
+    annotations:
+      external_registry: Aansluitingenregister
+  Any:
+    class_uri: linkml:Any
+  Marktpartijsubregistratie:
+    class_uri: marktpartijenregister:Marktpartijsubregistratie
+    annotations:
+      external_registry: Marktpartijenregister
+  Netkoppeling:
+    class_uri: aansluitingenregister:netkoppeling
+    annotations:
+      external_registry: Aansluitingenregister
+
+enums:
+  Dienst:
+    permissible_values:
+      (terug)levering:
+      balanceringsverantwoordelijkheid:
+      meterbeheer:
+      bieding redispatch:
+      capaciteitsbeperking: # wordt capaciteitssturing
+      FCR:
+      aFRR:
+      noodvermogen:
+      MARI-product:

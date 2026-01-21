@@ -1,13 +1,13 @@
-id: https://modellen.netbeheernederland.nl/stelsel/registers/martkmutatieregister
-name: martkmutatieregister
-title: Martkmutatieregister
+id: https://modellen.netbeheernederland.nl/stelsel/registers/marktmutatieregister
+name: marktmutatieregister
+title: Marktmutatieregister
 version: "1.0-draft"
 description: Dit model bevindt zich in een vroege fase van ontwikkeling en bevat daarom nog geen definities.
 # see_also: # TODO: H3/4/5 iceg
 prefixes:
   linkml: https://w3id.org/linkml/
   begrip: https://begrippen.netbeheernederland.nl/id/
-  this: https://modellen.netbeheernederland.nl/stelsel/registers/martkmutatieregister#
+  this: https://modellen.netbeheernederland.nl/stelsel/registers/marktmutatieregister#
   aansluitingenregister: https://modellen.netbeheernederland.nl/stelsel/registers/aansluitingenregister#
   iceg: https://wetten.overheid.nl/jci1.3:c:BWBR0037934&
 default_prefix: this

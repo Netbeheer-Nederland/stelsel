@@ -63,7 +63,7 @@ classes:
       - begrip:gtj7b #installatie
     annotations:
       tijdlijn_registratie: true
-    description: manier waarop wordt beschermd tegen storingen
+    description: manier waarop door de elektriciteitsinstallatie-eenheid wordt beschermd tegen storingen
     attributes:
       onregelmatigheid:
         description: afwijking van de normale bedrijfsomstandigheden
@@ -128,11 +128,20 @@ classes:
         see_also:
           - nce:hoofdstuk=2&paragraaf=2.1&artikel=2.4&g=2024-07-05
     attributes:
-      type:
-        description: classificatie op basis van maximumcapaciteit en spanning op het overdrachtspunt
-        source: celex:32016R0631
-        range: Type elektriciteitsinstallatie-eenheid
-        required: true
+      aansluitspanning op het overdrachtspunt:
+        description: nominale spanning op het overdrachtspunt van de aansluiting
+        range: float
+        unit:
+          ucum_code: kV
+        deprecated: Deze eigenschap hoort thuis in het aansluitingenregister.
+      absolute kortsluitbijdrage:
+        description: grootte van de stroomsterkte die de elektriciteitsinstallatie-eenheid injecteert op het overdrachtspunt gedurende een kortsluiting in het net
+        range: float
+        unit:
+          ucum_code: kA
+      relatieve kortsluitbijdrage:
+        description: verhouding tussen de kortsluitstroombijdrage (Isc) en de nominale stroom (In) van de elektriciteitsinstallatie-eenheid op het overdrachtspunt
+        range: float
       maximumcapaciteit voor afname:
         description: maximaal continu werkzame vermogen dat een elektricitsinstallatie-eenheid kan verbruiken, als gespecificeerd in de aansluitovereenkomst of overeengekomen tussen de netbeheerder en de eigenaar van de installatie
         comments:
@@ -151,9 +160,6 @@ classes:
         range: float
         unit:
           ucum_code: kW
-      typeaanduiding:
-        description: naam die door een fabrikant aan een reeks producten met vergelijkbare eigenschappen wordt gegeven
-        required: true
       totale vermogen omvormers:
         description: som van de vermogens van alle bij de elektriciteitinstallatie-eenheid behorende omvormers
         comments:
@@ -161,9 +167,14 @@ classes:
         range: float
         unit:
           ucum_code: MW
-      kortsluitbijdrage:
-        description: hoeveelheid stroom die een elektrische installatie levert aan een kortsluiting in het elektriciteitsnet
-        range: 
+      type:
+        description: classificatie op basis van maximumcapaciteit en spanning op het overdrachtspunt
+        source: celex:32016R0631
+        range: Type elektriciteitsinstallatie-eenheid
+        required: true
+      typeaanduiding:
+        description: naam die door een fabrikant aan een reeks producten met vergelijkbare eigenschappen wordt gegeven
+        required: true
       #relaties
       achter:
         range: Overdrachtspunt
@@ -423,7 +434,9 @@ classes:
           ucum_code: kV
       stapgrootte:
         description: spanningsverschil tussen opeenvolgende standen van de regelschakelaar
-        range: float
+        range: decimal
+        comments:
+          - Tot vier decimalen.
         unit:
           ucum_code: kV
       #relaties
@@ -476,7 +489,7 @@ slots:
     description: unieke cijfercombinatie volgens de Europese Artikelnummer-standaard
     required: true
   fabrikant:
-    description: bedrijf dat industrieel goederen vervaardigt
+    description: (merk)naam van een bedrijf dat industrieel goederen vervaardigt
     required: true
   typeaanduiding:
     description: naam die door een fabrikant aan een reeks producten met vergelijkbare eigenschappen wordt gegeven
@@ -567,4 +580,8 @@ enums:
         description: #to do
       UNK: 
         description: #to do
-      
+
+types:
+  Schakelgroep wikkeling:
+    typeof: string
+    pattern: ^(Y|D)(N?)(y|d)(n?)([0-9]|10|11)$

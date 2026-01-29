@@ -35,7 +35,7 @@ classes:
         comments:
           - "Validatie: afwezig bij 'geen huishoudelijk eindafnemer'."
       naam:
-        description: statutaire naam van de niet-natuurlijke persoon of achternaam zonder tussenvoegsel van de natuurlijke persoon
+        description: statutaire naam van de niet-natuurlijke persoon of achternaam zonder voorvoegsel van de natuurlijke persoon
         required: true
       roepnaam:
         description: naam waarmee iemand wil worden aangesproken
@@ -45,10 +45,12 @@ classes:
         description: uniek nummer dat toegekend wordt om een aansluiting op het publieke telefoonnet te identificeren, bestaande uit het plusteken, een landnummer, een netnummer en een abonneenummer
       type:
         description: categorie waartoe de aangeslotene behoort
+        required: true
         range: Type aangeslotene
       voorvoegsel:
         description: verzameling van een of meer voorzetsels en/of lidwoorden die aan het significante deel van de achternaam vooraf gaat en daarmee gezamelijk de achternaam vormt
         comments:
+          - Ook wel tussenvoegsel.
           - "Validatie: afwezig bij 'geen huishoudelijk eindafnemer'."
       voorletters:
         description: verzameling letters die wordt gevormd door de eerste letter van alle in volgorde voorkomende voornamen
@@ -137,3 +139,5 @@ enums:
       geen huishoudelijk eindafnemer:
         description:  eindafnemer die elektriciteit of gas koopt of wil kopen anders dan voor eigen huishoudelijk gebruik
         source: energiewet:g=2025-02-22
+      onbekend:
+        description: eindafnemer waarvan niet bekend is of deze een huishoudelijk eindafnemer is

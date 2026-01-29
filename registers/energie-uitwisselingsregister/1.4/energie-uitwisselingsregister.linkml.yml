@@ -234,14 +234,12 @@ classes:
       op:
         range: Any
         exactly_one_of:
-          - range: Allocatiepunt bij aansluiting
+          - range: Allocatiepunt
           - range: Overdrachtspunt
         required: true
         multivalued: false
         annotations:
           inverse_cardinality: "*"
-        comments:
-          - De relatie naar Overdrachtspunt geldt alleen bij netkoppelingen.
       vastgesteld door:
         range: Marktpartijsubregistratie
         required: true
@@ -292,7 +290,7 @@ classes:
     attributes:
       # relaties:
       op:
-        range: Allocatiepunt bij aansluiting
+        range: Allocatiepunt
         required: true
         multivalued: false
         annotations:
@@ -341,14 +339,12 @@ classes:
       op:
         range: Any
         exactly_one_of:
-          - range: Allocatiepunt bij aansluiting
+          - range: Allocatiepunt
           - range: Overdrachtspunt
         required: true
         multivalued: false
         annotations:
           inverse_cardinality: "*"
-        comments:
-          - De relatie naar Overdrachtspunt geldt alleen bij netkoppelingen.
       vastgesteld door:
         range: Marktpartijsubregistratie
         required: true
@@ -412,7 +408,7 @@ classes:
       op:
         range: Any
         exactly_one_of:
-          - range: Allocatiepunt bij aansluiting
+          - range: Allocatiepunt
           - range: GCvO-installatie
           - range: Overdrachtspunt
         required: true
@@ -466,8 +462,8 @@ classes:
           - met
 
   # externe entiteiten:
-  Allocatiepunt bij aansluiting:
-    class_uri: aansluitingenregister:Allocatiepunt-bij-aansluiting
+  Allocatiepunt:
+    class_uri: aansluitingenregister:Allocatiepunt
     annotations:
       external_registry: Aansluitingenregister
   Any:

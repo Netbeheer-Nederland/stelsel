@@ -419,6 +419,7 @@ classes:
         required: true
       schakelgroep wikkelingen:
         description: configuratie van de wikkelingen in de transformator die aangeeft hoe de spanningsfasen aan de primaire en secundaire zijde zich tot elkaar verhouden
+        range: Schakelgroep wikkelingen
         comments:
           - ⚠ Beperken tot een bepaalde waardelijst met items zoals 'Dyn5'?
         required: true
@@ -440,40 +441,12 @@ classes:
         unit:
           ucum_code: kV
       #relaties
-      in:
-        range: Transformatoropstelling
-        required: true
-        multivalued: false
-        annotations:
-          inverse_cardinality: "*"
-  Transformatoropstelling:
-    class_uri: Transformatoropstelling
-    broad_mappings:
-      - begrip:gtj7b #installatie
-    annotations:
-      tijdlijn_registratie: true
-    description: configuratie van transformatoren bedoeld voor de gezamenlijke werking rondom een bepaald overdrachtspunt
-    comments:
-      - Alhoewel artikel 13.1 van de Netcode elektriciteit vraagt om de transformatorgegevens van de gehele installatie, gaat dit register uit van de transformatorgegevens bij het overdrachtspunt waarachter de installatie-eenheid zich bevindt.
-    attributes:
-      sterpuntsbehandeling:
-        description: manier waarop de sterpunt (punt waarop de gemeenschappelijke nuldraad van de drie fasen wordt aangesloten) van de transformator wordt behandeld om aardfouten te beheersen
-        range: Sterpuntsbehandeling
-        required: true
-      regelbaarheid:
-        description: aanduiding of de regelschakelaar onder spanning kan worden bediend
-        range: Regelbaarheid
-      #relaties
-      bij:
+      verbonden met:
         range: Elektriciteitsinstallatie-eenheid
         required: true
         multivalued: false
         annotations:
-          inverse_cardinality: 0..1
-    unique_keys:
-      identificatie:
-        unique_key_slots:
-          - bij
+          inverse_cardinality: "*"
   #extern:
   Allocatiepunt bij aansluiting:
     class_uri: aansluitingenregister:Allocatiepunt-bij-aansluiting
@@ -555,11 +528,6 @@ enums:
       omvormer-gekoppeld:
       dubbelgevoede inductiemachine:
       direct drive:
-  Sterpuntsbehandeling:
-    permissible_values:
-      zwevend:
-      hard geaard:
-      geaard via impedantie:
   Type elektriciteitsinstallatie-eenheid:
     permissible_values:
       A:
@@ -582,6 +550,6 @@ enums:
         description: #to do
 
 types:
-  Schakelgroep wikkeling:
-    typeof: string
+  Schakelgroep wikkelingen:
+    base: str
     pattern: ^(Y|D)(N?)(y|d)(n?)([0-9]|10|11)$

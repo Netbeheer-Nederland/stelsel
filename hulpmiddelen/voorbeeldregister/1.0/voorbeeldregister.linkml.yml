@@ -157,7 +157,7 @@ slots: # eigenschappen voor gebruik in meer dan 1 klasse
 types:
   EAN-18:
     description: reeks van achttien cijfers
-    typeof: string
+    base: str
     pattern: "^[0-9]{18}$" # een reguliere expressie
 
 # waardelijsten:

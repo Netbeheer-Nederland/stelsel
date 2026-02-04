@@ -24,7 +24,7 @@ RUN apk add --no-cache \
 RUN pip install -r requirements.txt
 
 # Install Ruby dependencies
-RUN gem install --no-document just-the-docs -v '~> 0.7.0'
+RUN grep ^gem Gemfile | cut -d ' ' -f 2- | sed 's/, / -v /' | xargs gem install --no-document
 
 # Metadata
 LABEL org.opencontainers.image.source=https://github.com/netbeheer-nederland/stelsel

@@ -22,6 +22,8 @@
 1. Maak een kopie van `.devcontainer.example.json` in dezelfde map en noem dit bestand `.devcontainer.json`. 
 2. Navigeer naar de regel met sleutel `postCreateCommand`, en vervang daar `'Your Name'` en `'your@email-address.com'` door je volledige naam en e-mailadres zoals deze op GitHub zichtbaar (moeten) zijn.
 
+_Let op_: Als je zowel lokaal als in de container werkt kan dit problemen veroorzaken. Na een installatie wordt een `Gemfile.lock` gegenereerd en deze is platformspecifiek. Bij een volgende installatie wordt echter specifiek naar dit bestand gekeken voor exacte versies van afhankelijkheden, maar evt. dus voor het verkeerde platform. Verder kunnen er ook issues optreden met owernship en permissions.
+
 ### Gebruik
 
 1. Start Visual Studio Code.

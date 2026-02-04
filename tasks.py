@@ -17,8 +17,7 @@ REGISTERS_SOURCE_DIR = "registers"
 REGISTERS_TARGET_DIR = os.path.join(STAGING_DIR, "_registers")
 
 PYTHON = sys.executable
-
-JEKYLL = "bundle exec jekyll"
+JEKYLL = "jekyll" if running_in_docker() else "bundle exec jekyll"
 
 # ==============================================================================
 # HULPFUNCTIES (LOGICA)

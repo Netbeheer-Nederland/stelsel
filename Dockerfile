@@ -3,9 +3,8 @@ FROM python:3.13-alpine3.23
 # Set environment variables to avoid interactive prompts during package installation
 ENV RUNNING_IN_DOCKER=true
 ENV PYTHONUNBUFFERED=1
-ENV NODE_PATH=/usr/lib/node_modules
 
-EXPOSE 8080
+EXPOSE 4000
 
 WORKDIR /workspace
 COPY . /workspace
@@ -25,7 +24,7 @@ RUN apk add --no-cache \
 RUN pip install -r requirements.txt
 
 # Install Ruby dependencies
-RUN bundle install
+RUN gem install --no-document just-the-docs -v '~> 0.7.0'
 
 # Metadata
 LABEL org.opencontainers.image.source=https://github.com/netbeheer-nederland/stelsel

@@ -26,6 +26,6 @@
 
 1. Start Visual Studio Code.
 2. Open deze repository met _Open folder_.
-3. Rechtsonderin het scherm vraagt VS Code je nu als het goed is om de Dev Container te starten en het project erin te openen. Bevestig. In het geval deze vraag niet komt, klik dan linksonderin het scherm op het icoon dat een pallet opent om met remotes te verbinden. Kies daar _Open Folder in Container_.
+3. Rechtsonderin het scherm vraagt VS Code je nu als het goed is om de Dev Container te starten en het project erin te openen. Bevestig door te klikken op _Reopen in Container_. In het geval deze vraag niet komt, klik dan linksonderin het scherm op het icoon dat een pallet opent om met remotes te verbinden. Kies daar _Open Folder in Container_.
 4. Nadat de Dev Container is opgestart, start je een terminal (`Ctrl` + `~`).
 5. Draai in de terminal: `./run.sh`.

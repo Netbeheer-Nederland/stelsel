@@ -1,6 +1,7 @@
 {
   "name": "NBNL - Nationale Energieregisters",
   "build": { "dockerfile": "Dockerfile" },
+  "remoteUser": "developer",
   "customizations": {
     "vscode": {
       "extensions": [

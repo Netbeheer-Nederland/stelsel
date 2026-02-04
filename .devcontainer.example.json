@@ -1,16 +1,14 @@
 {
   "name": "NBNL - Nationale Energieregisters",
-  "build": { "dockerfile": "Dockerfile" },
+  "build": {
+    "dockerfile": "Dockerfile"
+  },
   "remoteUser": "developer",
   "customizations": {
     "vscode": {
       "extensions": [
         "hediet.vscode-drawio"
-      ],
-      "settings": {
-        "git.defaultCloneDirectory": "/workspace/"
-        }
-      }
+      ]
     }
   },
   "postCreateCommand": "git config --global user.name 'Your Name' && git config --global user.email 'your@email-address.com'"

@@ -1,7 +1,6 @@
 {
   "name": "NBNL - Nationale Energieregisters",
-  "image": "ghcr.io/netbeheer-nederland/env-nationale-energieregisters:latest",
-  "remoteUser": "devuser",
+  "build": { "dockerfile": "Dockerfile" },
   "customizations": {
     "vscode": {
       "extensions": [
@@ -13,8 +12,5 @@
       }
     }
   },
-  "postCreateCommand": "git config --global user.name 'Your Name' && git config --global user.email 'your@email-address.com'",
-  "containerEnv": {
-    "GH_TOKEN": "your-gh-pat-token"
-  }
+  "postCreateCommand": "git config --global user.name 'Your Name' && git config --global user.email 'your@email-address.com'"
 }

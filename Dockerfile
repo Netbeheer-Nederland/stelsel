@@ -44,9 +44,6 @@ RUN addgroup \
 
 USER $USER
 
-WORKDIR /workspace
-COPY . /workspace
-
 # Metadata
 LABEL org.opencontainers.image.source=https://github.com/netbeheer-nederland/stelsel
 LABEL org.opencontainers.image.description="Nederland environment for modeling national energy registers and generating documentation and schemas."

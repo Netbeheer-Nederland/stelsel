@@ -91,13 +91,12 @@ classes:
           inverse_cardinality: "*"
       communicatiemiddel voor:
         comments:
-          - In een standaardsituatie met een elektriciteitsmeter, gasmeter en gateway, is de gateway het communicatiemiddel voor beide aansluitingen. In een situatie zonder gateway is de elektriciteitsmeter het communicatiemiddel voor beide aansluitingen.
-          - Deze relatie is veel-op-veel, bijvoorbeeld voor de situatie waarin er in één meterkast twee zelfstandig communicerende elektriciteitsmeters zijn en een gasmeter die wordt uitgelezen via een van de elektriciteitsmeters.
-        range: Aansluiting
+          - Een elektriciteitsmeter met ingebouwde communicatiemodule is zowel meetmiddel als communicatiemiddel voor een bepaald allocatiepunt, en en krijgt dus twee relaties naar dat allocatiepunt.
+        range: Allocatiepunt bij aansluiting
         required: false
         multivalued: true
         annotations:
-          inverse_cardinality: "*"
+          inverse_cardinality: 0..1
   Meetgateway:
     class_uri: Meetgateway
     description: apparaat bedoeld om meters op afstand uitleesbaar te maken, zonder zelf energie-uitwisseling te meten
@@ -223,10 +222,6 @@ classes:
   # extern:
   Any:
     class_uri: linkml:Any
-  Aansluiting:
-    class_uri: aansluitingenregister:Aansluiting
-    annotations:
-      external_registry: Aansluitingenregister
   Allocatiepunt bij aansluiting:
     class_uri: aansluitingenregister:Allocatiepunt-bij-aansluiting
     annotations:

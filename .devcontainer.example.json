@@ -1,5 +1,5 @@
 {
-  "name": "NBNL - Nationale Energieregisters",
+  "name": "NBNL - Nationale energieregisters",
   "build": {
     "dockerfile": "Dockerfile"
   },

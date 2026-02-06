@@ -14,7 +14,6 @@ RUN apk add --no-cache \
     bash=5.3.3-r1 \
     bc=1.08.2-r0 \
     git=2.52.0-r0 \
-    github-cli=2.83.0-r2 \
     ruby=3.4.8-r0 \
     ruby-dev=3.4.8-r0 \
     ruby-bundler=2.6.9-r0

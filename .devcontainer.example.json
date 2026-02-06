@@ -1,8 +1,6 @@
 {
   "name": "NBNL - Nationale energieregisters",
-  "build": {
-    "dockerfile": "Dockerfile"
-  },
+  "image": "ghcr.io/netbeheer-nederland/env-nationale-energieregisters:latest",
   "remoteUser": "developer",
   "customizations": {
     "vscode": {

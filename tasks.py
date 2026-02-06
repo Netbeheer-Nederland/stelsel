@@ -2,9 +2,13 @@ import os, shutil, sys, glob
 from invoke import task
 from urllib.request import urlretrieve
 
+
 # ==============================================================================
 # CONFIGURATIE
 # ==============================================================================
+
+def running_in_docker():
+    return os.environ.get("RUNNING_IN_DOCKER")
 
 DOCS_DIR = "docs"
 STAGING_DIR = "_staging"
@@ -13,7 +17,7 @@ REGISTERS_SOURCE_DIR = "registers"
 REGISTERS_TARGET_DIR = os.path.join(STAGING_DIR, "_registers")
 
 PYTHON = sys.executable
-JEKYLL = "bundle exec jekyll"
+JEKYLL = "jekyll" if running_in_docker() else "bundle exec jekyll"
 
 # ==============================================================================
 # HULPFUNCTIES (LOGICA)
@@ -133,7 +137,11 @@ def serve(c):
     update(c)
     
     print("\n🌍 Server start... (Ctrl+C om te stoppen)")
-    c.run(f"{JEKYLL} serve -s {STAGING_DIR} -d {SITE_DIR} --livereload --incremental --open-url")
+
+    if running_in_docker():
+        c.run(f"{JEKYLL} serve -H 0.0.0.0 -s {STAGING_DIR} -d {SITE_DIR} --livereload --incremental --open-url")
+    else:
+        c.run(f"{JEKYLL} serve -s {STAGING_DIR} -d {SITE_DIR} --livereload --incremental --open-url")
 
 @task
 def build(c):
@@ -147,19 +155,26 @@ def build(c):
 
 @task(default=True)
 def menu(c):
+    tasks = [
+        ("Start  (Website bekijken)", serve),
+        ("Update (Verversen tijdens draaien)", update),
+        ("Stop", None)
+    ]
+
+    if not running_in_docker():
+        tasks.insert(0, ("Setup  (Installeren)", setup))
+
     while True:
         print("\n=== STELSEL TOOL ===")
-        print(" [1] Setup  (Installeren)")
-        print(" [2] Start  (Website bekijken)")
-        print(" [3] Update (Verversen tijdens draaien)")
-        print(" [Q] Stop")
+        for i, task in enumerate(tasks[:-1], 1):
+            print(f"[{i}] {task[0]}")
+        print("[Q] Stop")
         
         try:
             choice = input("\nKies een optie: ").strip().lower()
         except KeyboardInterrupt:
             break
             
-        if choice == '1': setup(c)
-        elif choice == '2': serve(c)
-        elif choice == '3': update(c)
-        elif choice == 'q': break
+        match choice:
+            case 'q': break
+            case i: tasks[int(i)-1][1](c)

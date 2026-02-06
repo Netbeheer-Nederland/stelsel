@@ -1,0 +1,13 @@
+{
+  "name": "NBNL - Nationale energieregisters",
+  "image": "ghcr.io/netbeheer-nederland/env-nationale-energieregisters:latest",
+  "remoteUser": "developer",
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "hediet.vscode-drawio"
+      ]
+    }
+  },
+  "postCreateCommand": "git config --global user.name 'Your Name' && git config --global user.email 'your@email-address.com'"
+}

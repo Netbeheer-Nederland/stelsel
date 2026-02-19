@@ -3,9 +3,3 @@
     scrollbar-width: thin;
     scrollbar-color: #d9e7ef transparent;
 }
-
-// Footer: to prevent the footer from overlaying the content on mobile devices
-.main-content .site-footer {
-    position: static;
-    padding-left: 0;
-}

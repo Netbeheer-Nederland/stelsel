@@ -1,4 +1,4 @@
- # use the old version until we understand which rules we are breaking under the new version (1.10.0)
-linkml == 1.9.6
+linkml == 1.9.5 # use the old version until we understand which rules we are breaking under the new version (1.10.0)
+linkml-runtime == 1.9.5 # line added to keep versions in sync
 pyyaml
 invoke

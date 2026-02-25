@@ -1,3 +1,4 @@
-linkml
+ # use the old version until we understand which rules we are breaking under the new version (1.10.0)
+linkml == 1.9.6
 pyyaml
 invoke

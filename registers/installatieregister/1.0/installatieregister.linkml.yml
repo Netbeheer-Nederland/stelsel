@@ -160,6 +160,16 @@ classes:
         range: float
         unit:
           ucum_code: kW
+      maximale afregelsnelheid:
+        description: de maximale snelheid waarmee de opslageenheid zijn vermogen kan verhogen.
+        range: float
+        unit:
+          ucum_code: '%/s'
+      maximale opregelsnelheid:
+        description: de maximale snelheid waarmee de opslageenheid zijn vermogen kan verlagen.
+        range: float
+        unit:
+          ucum_code: '%/s'
       totale vermogen omvormers:
         description: som van de vermogens van alle bij de elektriciteitinstallatie-eenheid behorende omvormers
         comments:

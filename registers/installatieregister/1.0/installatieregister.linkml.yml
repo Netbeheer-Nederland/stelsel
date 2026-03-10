@@ -185,12 +185,6 @@ classes:
       typeaanduiding:
         description: naam die door een fabrikant aan een reeks producten met vergelijkbare eigenschappen wordt gegeven
         required: true
-      fabrikant van parkregelaar:
-        description: (merk)naam van een bedrijf dat industrieel goederen vervaardigt van de parkregelaar
-        range:
-      type generator van parkregelaar:
-        description:
-        range:
       #relaties
       achter:
         range: Overdrachtspunt

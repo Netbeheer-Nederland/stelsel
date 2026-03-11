@@ -52,8 +52,8 @@ classes:
     broad_mappings:
       - begrip:6m4pq #contractloze situatie
     description: rechthebbende op een onroerende zaak die onderwerp is van een bepaalde contractloze zaak
-    comments:
-      - De specificatie van de dienst om tenaamstellingsgegevens op te halen, staat op kadatawebservice.kadaster.nl/contractloos/swagger.
+    see_also:
+      - https://kadatawebservice.kadaster.nl/contractloos/swagger
     attributes:
       rang:
         description: positie op een ranglijst, gebaseerd op de waarschijnlijkheid om contractloze situaties te beëindigen

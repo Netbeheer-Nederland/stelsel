@@ -1,11 +1,299 @@
 id: https://modellen.netbeheernederland.nl/stelsel/registers/contractloosregister
 name: contractloosregister
 title: Contractloosregister
-version: 1.0-draft
-description: Dit model bevindt zich in een vroege fase van ontwikkeling en bevat daarom nog geen definities.
+version: "1.0-draft"
+description: Het contractloosregister bevat informatie over de behandeling van situaties waarbij er een aansluiting is zonder leveringsovereenkomst.
 prefixes:
   linkml: https://w3id.org/linkml/
   begrip: https://begrippen.netbeheernederland.nl/id/
   this: https://modellen.netbeheernederland.nl/stelsel/registers/contractloosregister#
   aansluitingenregister: https://modellen.netbeheernederland.nl/stelsel/registers/aansluitingenregister#
 default_prefix: this
+
+classes:
+  Adres:
+    class_uri: Adres
+    broad_mappings:
+      - begrip:6m4pq #contractloze situatie
+    description: aanduiding van een verblijfplaats of bestemming
+    attributes:
+      huisnummer:
+        description: aan een verblijfsobject, standplaats of ligplaats toegekend nummer, een antwoordnummer of een postbusnummer
+        required: true
+        range: integer
+      huisnummertoevoeging:
+        description: aan een verblijfsobject, standplaats of ligplaats toegekende nadere toevoeging aan een huisnummer inclusief huisletter
+      landcode:
+        description: identificatie van een land met twee letters conform ISO 3166-1
+        required: true
+      postcode:
+        description: reeks tekens die in een postadres wordt opgenomen om het automatisch sorteren van de post gemakkelijker te maken
+        required: true
+      soort:
+        description: aanduiding van een verzameling adressen die een gemeenschappelijk karakter hebben
+        range: Soort adres
+      straatnaam:
+        description: naam om openbare ruimten zoals straten, lanen, wegen en stegen mee aan te duiden, of 'antwoordnummer' of 'postbus'
+        required: true
+      woonplaatsnaam:
+        description: aanduiding van een gebied met bewoning zoals een stad of dorp
+        required: true
+      # relaties
+      deel van:
+        range: Tenaamstellingsbevinding
+        required: true
+        multivalued: false
+        annotations:
+          inverse_cardinality: "*"
+  Brief:
+    class_uri: Brief
+    broad_mappings:
+      - begrip:6m4pq #contractloze situatie
+    description: op schrift gestelde en via de post gestuurde mededeling
+    attributes:
+      referentienummer:
+        description: kenmerk waarmee de geadresseerde snel eerdere correspondentie terug kan vinden
+        required: true
+      soort:
+        description: aanduiding van een verzameling brieven die een gemeenschappelijk karakter hebben
+        range: Soort brief
+        required: true
+      verzenddatum:
+        description: dag waarop de brief naar de geadresseerde is verstuurd
+        range: date
+      vervaldatum:
+        description: uiterste datum waarop een reactie wordt verwachten
+        range: date
+        required: true
+      verwijderingsdatum aansluitingen:
+        description: voorgenomen dag waarop de aansluitingen worden verwijderd
+        range: date
+      # relaties
+      notificatie van:
+        range: Contractloze zaak
+        required: true
+        multivalued: false
+        annotations:
+          inverse_cardinality: "*"
+    unique_keys:
+      identificatie:
+        unique_key_slots:
+          - referentienummer
+  Contactpersoon van wooncoöperatie:
+    class_uri: Contactpersoon-van-wooncooperatie
+    broad_mappings:
+      - begrip:m9e2q #aangeslotene
+    description: door een wooncoöperatie aangewezen persoon die fungeert als aanspreekpunt voor communicatie over contractloze situaties
+    attributes:
+      e-mailadres:
+        description: uniek adres voor digitaal, elektronisch postverkeer
+        required: true
+      achternaam:
+        description: significant deel (zonder voorvoegsel) van de officiële naam die een persoon deelt met familieleden en van generatie op generatie wordt doorgegeven
+        required: true
+      voorletters:
+        description: verzameling letters die wordt gevormd door de eerste letter van alle in volgorde voorkomende voornamen
+        required: true
+      voorvoegsel:
+        description: verzameling van een of meer voorzetsels en/of lidwoorden die aan het significante deel van de achternaam vooraf gaat en daarmee gezamelijk de achternaam vormt
+      # relaties
+      namens:
+        range: Onderneming of maatschappelijke activiteit
+        required: true
+        multivalued: false
+        annotations:
+          inverse_cardinality: "*"
+      voor:
+        range: Adresseerbaar object
+        required: true
+        multivalued: true
+        annotations:
+          inverse_cardinality: "*"
+  Contractloze situatie:
+    class_uri: Contractloze-situatie
+    exact_mappings:
+      - begrip:6m4pq #contractloze situatie
+    slots:
+      - begindatum
+      - einddatum
+    attributes:
+      oorzaak:
+        description: omstandigheid die maakt dat iets ontstaat of begint
+        range: Oorzaak contractloze situatie
+        required: true
+      afgenomen volume:
+        description: hoeveelheid van het energienet onttrokken energie in kWh voor elektriciteit of m3 voor gas
+        range: float
+      datum laatste tellerstand:
+        description: dag waarop de (eventueel berekende) tellerstand betrekking heeft die als basis is gebruikt om het afgenomen volume te bepalen
+        range: date
+      groot afgenomen volume:
+        description: geeft aan of er veel energie is onttrokken van het energienet
+        range: boolean
+        required: true
+      # relaties
+      op:
+        range: Allocatiepunt
+        required: true
+        multivalued: false
+        annotations:
+          inverse_cardinality: "*"
+    unique_keys:
+      identificatie:
+        unique_key_slots:
+        - op
+        - begindatum
+  Contractloze zaak:
+    class_uri: Contractloze-zaak
+    broad_mappings:
+      - begrip:6m4pq #contractloze situatie
+    description: afhandeling van één of meer contractloze situaties, waarvan kwaliteit en doorlooptijd bewaakt moeten worden
+    comments:
+      - Contractloze situaties worden typisch samengenomen onder één contractloze zaak als ze eenzelfde netbeheerder, aansluitlocatie en oorzaak hebben.
+    slots:
+      - begindatum
+      - einddatum
+    attributes:
+      soort:
+        description: aanduiding van een verzameling zaken die een gemeenschappelijk karakter hebben
+        required: true
+        range: Soort contractloze zaak
+      status:
+        description: toestand waarin de behandeling van de zaak zich bevindt
+        range: Status contractloze zaak
+        required: true
+      zaaknummer:
+        description: unieke identificatie van een contractloze zaak
+        required: true
+      uitgevallen:
+        description: geeft aan of de automatische behandeling van de zaak is gefaald
+        range: boolean
+        required: true
+      uitvalreden:
+        description: verklaring voor het falen van de automatische behandeling
+        range: Uitvalreden
+      # relaties
+      behandeling van:
+        range: Contractloze situatie
+        required: true
+        multivalued: true
+        annotations:
+          inverse_cardinality: 1
+    unique_keys:
+      identificatie:
+        unique_key_slots:
+        - zaaknummer
+  Tenaamstellingsbevinding:
+    class_uri: Tenaamstellingsbevinding
+    broad_mappings:
+      - begrip:6m4pq #contractloze situatie
+    description: vaststelling van de tenaamstelling van een onroerende zaak aan een rechthebbende, in de context van een contractloze zaak
+    comments:
+      - De specificatie van de dienst om tenaamstellingsgegevens op te halen, staat op kadatawebservice.kadaster.nl/contractloos/swagger.
+    attributes:
+      rang:
+        description: positie op de ranglijst van tenaamstellingen bij dezelfde onroerende zaak, gebaseerd op de waarschijnlijkheid om contractloze situaties te beëindigen
+        range: integer
+        required: true
+      # relaties
+      duiding van:
+        description: geeft aan welke onderneming of maatschappelijke activiteit wordt gedreven door de rechthebbende van de onroerende zaak
+        range: Onderneming of maatschappelijke activiteit
+        required: false
+        multivalued: false
+        annotations:
+          inverse_cardinality: "*"
+      voor:
+        range: Contractloze zaak
+        required: true
+        multivalued: false
+        annotations:
+          inverse_cardinality: "*"
+  Tenaamstellingsbevinding bij natuurlijk persoon:
+    class_uri: Tenaamstellingsbevinding-bij-natuurlijk-persoon
+    is_a: Tenaamstellingsbevinding
+    description: tenaamstellingsbevinding waarbij de rechthebbende een mens is
+    attributes:
+      achternaam:
+        description: significant deel (zonder voorvoegsel) van de officiële naam die een persoon deelt met familieleden en van generatie op generatie wordt doorgegeven
+        required: true
+      geslacht:
+        description: geeft aan of de persoon een man, vrouw of (nog) onbekend is
+        range: Geslacht
+        required: true
+      overlijdensdatum:
+        description: dag waarop de persoon is overleden
+        range: date
+      voornamen:
+        description: verzameling van één of meer naamgegevens, ter onderscheiding van personen met dezelfde achternaam
+        required: true
+      voorvoegsel:
+        description: verzameling van een of meer voorzetsels en/of lidwoorden die aan het significante deel van de achternaam vooraf gaat en daarmee gezamelijk de achternaam vormt
+  Tenaamstellingsbevinding bij niet-natuurlijk persoon:
+    class_uri: Tenaamstellingsbevinding-bij-niet-natuurlijk-persoon
+    is_a: Tenaamstellingsbevinding
+    description: tenaamstellingsbevinding waarbij de rechthebbende een samenwerkingsverband of rechtspersoon is
+    attributes:
+      naam:
+        description: woord of een combinatie van woorden waarmee een niet-natuurlijk persoon wordt aangeduid en geïdentificeerd
+        required: true
+
+  # extern
+  Adresseerbaar object:
+    class_uri: bag:adresseerbaar_object
+    annotations:
+      external_registry: Basisregistratie Adressen en Gebouwen
+  Allocatiepunt:
+    class_uri: aansluitingenregister:Allocatiepunt
+    annotations:
+      external_registry: Aansluitingenregister
+  Onderneming of maatschappelijke activiteit:
+    class_uri: hr:maatschappelijke_activiteit
+    annotations:
+      external_registry: Basisregistratie Handelsregister
+
+slots:
+  begindatum:
+    description: eerste dag waarop iets geldt
+    range: date
+    required: true
+  einddatum:
+    description: eerste dag waarop iets niet meer geldt
+    range: date
+
+enums:
+  Geslacht:
+    permissible_values:
+      man:
+      vrouw:
+      onbekend:
+  Oorzaak contractloze situatie:
+    permissible_values:
+      regulier:
+      einde levering:
+      sloop:
+      nieuwbouw:
+  Soort adres:
+    permissible_values:
+      postadres:
+      bezoekadres:
+  Soort brief:
+    permissible_values:
+      herinnering:
+      ...:
+  Soort contractloze zaak:
+    permissible_values:
+      ...:
+  Status contractloze zaak:
+    permissible_values:
+      centraal geautomatiseerd in behandeling:
+      centraal handmatig in behandeling:
+      in behandeling bij monteur:
+      in behandeling bij deurwaarder:
+      gesloten:
+  Uitvalreden:
+    permissible_values:
+      BAG:
+      Wooncoöperatie:
+      Kadaster:
+      Type aansluiting:

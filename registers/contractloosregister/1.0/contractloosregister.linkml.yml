@@ -2,12 +2,13 @@ id: https://modellen.netbeheernederland.nl/stelsel/registers/contractloosregiste
 name: contractloosregister
 title: Contractloosregister
 version: "1.0-draft"
-description: Het contractloosregister bevat informatie over de behandeling van situaties waarbij er een aansluiting is zonder leveringsovereenkomst.
+description: Het contractloosregister bevat informatie over de behandeling van situaties waarbij er een aansluiting is met een ontbrekende leveringsovereenkomst.
 prefixes:
   linkml: https://w3id.org/linkml/
   begrip: https://begrippen.netbeheernederland.nl/id/
   this: https://modellen.netbeheernederland.nl/stelsel/registers/contractloosregister#
   aansluitingenregister: https://modellen.netbeheernederland.nl/stelsel/registers/aansluitingenregister#
+  bag: http://opendata.stelselcatalogus.nl/bag/id/begrip/
 default_prefix: this
 
 classes:

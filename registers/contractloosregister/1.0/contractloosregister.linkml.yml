@@ -9,6 +9,7 @@ prefixes:
   this: https://modellen.netbeheernederland.nl/stelsel/registers/contractloosregister#
   aansluitingenregister: https://modellen.netbeheernederland.nl/stelsel/registers/aansluitingenregister#
   bag: http://opendata.stelselcatalogus.nl/bag/id/begrip/
+  hr: http://opendata.stelselcatalogus.nl/hr/id/begrip/
 default_prefix: this
 
 classes:

@@ -41,12 +41,65 @@ classes:
         description: aanduiding van een gebied met bewoning zoals een stad of dorp
         required: true
       # relaties
-      deel van:
-        range: Tenaamstellingsbevinding
+      van:
+        range: Betrokkene
         required: true
         multivalued: false
         annotations:
           inverse_cardinality: "*"
+  Betrokkene:
+    class_uri: Betrokkene
+    broad_mappings:
+      - begrip:6m4pq #contractloze situatie
+    description: rechthebbende op een onroerende zaak die onderwerp is van een bepaalde contractloze zaak
+    comments:
+      - De specificatie van de dienst om tenaamstellingsgegevens op te halen, staat op kadatawebservice.kadaster.nl/contractloos/swagger.
+    attributes:
+      rang:
+        description: positie op een ranglijst, gebaseerd op de waarschijnlijkheid om contractloze situaties te beëindigen
+        range: integer
+        required: true
+      # relaties
+      drijver van:
+        range: Onderneming of maatschappelijke activiteit
+        required: false
+        multivalued: false
+        annotations:
+          inverse_cardinality: "*"
+      bij:
+        range: Contractloze zaak
+        required: true
+        multivalued: false
+        annotations:
+          inverse_cardinality: "*"
+  Betrokken natuurlijk persoon:
+    class_uri: Betrokken-natuurlijk-persoon
+    is_a: Betrokkene
+    description: betrokkene als mens
+    attributes:
+      achternaam:
+        description: significant deel (zonder voorvoegsel) van de officiële naam die een persoon deelt met familieleden en van generatie op generatie wordt doorgegeven
+        required: true
+      geslacht:
+        description: geeft aan of de persoon een man, vrouw of (nog) onbekend is
+        range: Geslacht
+        required: true
+      overlijdensdatum:
+        description: dag waarop de persoon is overleden
+        range: date
+      voornamen:
+        description: verzameling van één of meer naamgegevens, ter onderscheiding van personen met dezelfde achternaam
+        required: true
+      voorvoegsel:
+        description: verzameling van een of meer voorzetsels en/of lidwoorden die aan het significante deel van de achternaam vooraf gaat en daarmee gezamelijk de achternaam vormt
+  Betrokken niet-natuurlijk persoon:
+    class_uri: Betrokken-niet-natuurlijk-persoon
+    is_a: Betrokkene
+    description: betrokkene als samenwerkingsverband of rechtspersoon
+    attributes:
+      naam:
+        description: woord of een combinatie van woorden waarmee een niet-natuurlijk persoon wordt aangeduid en geïdentificeerd
+        required: true
   Brief:
     class_uri: Brief
     broad_mappings:
@@ -185,60 +238,6 @@ classes:
       identificatie:
         unique_key_slots:
         - zaaknummer
-  Tenaamstellingsbevinding:
-    class_uri: Tenaamstellingsbevinding
-    broad_mappings:
-      - begrip:6m4pq #contractloze situatie
-    description: vaststelling van de tenaamstelling van een onroerende zaak aan een rechthebbende, in de context van een contractloze zaak
-    comments:
-      - De specificatie van de dienst om tenaamstellingsgegevens op te halen, staat op kadatawebservice.kadaster.nl/contractloos/swagger.
-    attributes:
-      rang:
-        description: positie op de ranglijst van tenaamstellingen bij dezelfde onroerende zaak, gebaseerd op de waarschijnlijkheid om contractloze situaties te beëindigen
-        range: integer
-        required: true
-      # relaties
-      duiding van:
-        description: geeft aan welke onderneming of maatschappelijke activiteit wordt gedreven door de rechthebbende van de onroerende zaak
-        range: Onderneming of maatschappelijke activiteit
-        required: false
-        multivalued: false
-        annotations:
-          inverse_cardinality: "*"
-      voor:
-        range: Contractloze zaak
-        required: true
-        multivalued: false
-        annotations:
-          inverse_cardinality: "*"
-  Tenaamstellingsbevinding bij natuurlijk persoon:
-    class_uri: Tenaamstellingsbevinding-bij-natuurlijk-persoon
-    is_a: Tenaamstellingsbevinding
-    description: tenaamstellingsbevinding waarbij de rechthebbende een mens is
-    attributes:
-      achternaam:
-        description: significant deel (zonder voorvoegsel) van de officiële naam die een persoon deelt met familieleden en van generatie op generatie wordt doorgegeven
-        required: true
-      geslacht:
-        description: geeft aan of de persoon een man, vrouw of (nog) onbekend is
-        range: Geslacht
-        required: true
-      overlijdensdatum:
-        description: dag waarop de persoon is overleden
-        range: date
-      voornamen:
-        description: verzameling van één of meer naamgegevens, ter onderscheiding van personen met dezelfde achternaam
-        required: true
-      voorvoegsel:
-        description: verzameling van een of meer voorzetsels en/of lidwoorden die aan het significante deel van de achternaam vooraf gaat en daarmee gezamelijk de achternaam vormt
-  Tenaamstellingsbevinding bij niet-natuurlijk persoon:
-    class_uri: Tenaamstellingsbevinding-bij-niet-natuurlijk-persoon
-    is_a: Tenaamstellingsbevinding
-    description: tenaamstellingsbevinding waarbij de rechthebbende een samenwerkingsverband of rechtspersoon is
-    attributes:
-      naam:
-        description: woord of een combinatie van woorden waarmee een niet-natuurlijk persoon wordt aangeduid en geïdentificeerd
-        required: true
 
   # extern
   Adresseerbaar object:

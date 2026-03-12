@@ -55,10 +55,25 @@ classes:
     see_also:
       - https://kadatawebservice.kadaster.nl/contractloos/swagger
     attributes:
+      achternaam:
+        description: significant deel (zonder voorvoegsel) van de officiële naam die een persoon deelt met familieleden en van generatie op generatie wordt doorgegeven
+      geslacht:
+        description: geeft aan of de persoon een man, vrouw of (nog) onbekend is
+        range: Geslacht
+      naam:
+        description: statutaire naam van de niet-natuurlijke persoon of achternaam zonder voorvoegsel van de natuurlijke persoon
+        required: true
+      overlijdensdatum:
+        description: dag waarop de persoon is overleden
+        range: date
       rang:
         description: positie op een ranglijst, gebaseerd op de waarschijnlijkheid om contractloze situaties te beëindigen
         range: integer
         required: true
+      voornamen:
+        description: verzameling van één of meer naamgegevens, ter onderscheiding van personen met dezelfde achternaam
+      voorvoegsel:
+        description: verzameling van een of meer voorzetsels en/of lidwoorden die aan het significante deel van de achternaam vooraf gaat en daarmee gezamelijk de achternaam vormt
       # relaties
       drijver van:
         range: Onderneming of maatschappelijke activiteit
@@ -72,38 +87,10 @@ classes:
         multivalued: false
         annotations:
           inverse_cardinality: "*"
-  Betrokken natuurlijk persoon:
-    class_uri: Betrokken-natuurlijk-persoon
-    is_a: Betrokkene
-    description: betrokkene als mens
-    attributes:
-      achternaam:
-        description: significant deel (zonder voorvoegsel) van de officiële naam die een persoon deelt met familieleden en van generatie op generatie wordt doorgegeven
-        required: true
-      geslacht:
-        description: geeft aan of de persoon een man, vrouw of (nog) onbekend is
-        range: Geslacht
-        required: true
-      overlijdensdatum:
-        description: dag waarop de persoon is overleden
-        range: date
-      voornamen:
-        description: verzameling van één of meer naamgegevens, ter onderscheiding van personen met dezelfde achternaam
-        required: true
-      voorvoegsel:
-        description: verzameling van een of meer voorzetsels en/of lidwoorden die aan het significante deel van de achternaam vooraf gaat en daarmee gezamelijk de achternaam vormt
-  Betrokken niet-natuurlijk persoon:
-    class_uri: Betrokken-niet-natuurlijk-persoon
-    is_a: Betrokkene
-    description: betrokkene als samenwerkingsverband of rechtspersoon
-    attributes:
-      naam:
-        description: woord of een combinatie van woorden waarmee een niet-natuurlijk persoon wordt aangeduid en geïdentificeerd
-        required: true
   Brief:
     class_uri: Brief
     broad_mappings:
-      - begrip:6m4pq #contractloze situatie
+      - begrip:grpae #klantnotificatie
     description: op schrift gestelde en via de post gestuurde mededeling
     attributes:
       referentienummer:
@@ -139,6 +126,8 @@ classes:
     broad_mappings:
       - begrip:m9e2q #aangeslotene
     description: door een wooncoöperatie aangewezen persoon die fungeert als aanspreekpunt voor communicatie over contractloze situaties
+    comments:
+      - Enkel bedoeld voor de afhandeling van contractloze zaken. Indien breder nodig dan onderbrengen in het aangeslotenenregister.
     attributes:
       e-mailadres:
         description: uniek adres voor digitaal, elektronisch postverkeer
@@ -164,6 +153,8 @@ classes:
         multivalued: true
         annotations:
           inverse_cardinality: "*"
+        comments:
+          - In de aanlevering van gegevens richting dit register loopt deze relatie soms indirect via de EAN-code van een aansluiting. Het advies is om de leverancier van deze gegevens te vragen de verwijzing om te leggen van EAN-code naar BAG-ID zodat direct wordt verwezen naar het adresseerbare object en de werelden van netbeheerders en wooncoöperaties ontkoppeld blijven.
   Contractloze situatie:
     class_uri: Contractloze-situatie
     exact_mappings:

@@ -338,18 +338,6 @@ classes:
       nominale arbeidsfactor:
         description: verhouding tussen het werkelijke vermogen en het schijnbare vermogen onder nominale bedrijfsomstandigheden
         range: float
-      #relaties
-      deel van:
-        range: Elektriciteitsproductie-eenheid
-        required: true
-        multivalued: false
-        annotations:
-          inverse_cardinality: "*"
-  Groep van windturbines:
-    class_uri: Groep-van-windturbines
-    is_a: Groep van opwekkingseenheden
-    description: verzameling van één of meer windturbines binnen één elektriciteitsproductie-eenheid die identieke kenmerken delen
-    attributes:
       ashoogte:
         description: verticale afstand in meters tot het middelpunt van de as waarop de wieken draaien
         range: float
@@ -366,11 +354,6 @@ classes:
         range: float
         unit:
           ucum_code: kg.m2
-  Groep van zonnepanelen:
-    class_uri: Groep-van-zonnepanelen
-    is_a: Groep van opwekkingseenheden
-    description: verzameling van één of meer zonnepanelen binnen één elektriciteitsproductie-eenheid die identieke kenmerken delen
-    attributes:
       azimut:
         description: horizontale hoek, gemeten met de klok mee vanaf het geografische noorden
         comments:
@@ -383,6 +366,13 @@ classes:
         range: float
         unit:
           ucum_code: deg
+      #relaties
+      deel van:
+        range: Elektriciteitsproductie-eenheid
+        required: true
+        multivalued: false
+        annotations:
+          inverse_cardinality: "*"
   Soort transformator:
     class_uri: Soort-transformator
     broad_mappings:

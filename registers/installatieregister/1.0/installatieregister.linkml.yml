@@ -139,6 +139,8 @@ classes:
         range: float
         unit:
           ucum_code: kA
+      fabrikant van parkregelaar:
+        description: (merk)naam van een bedrijf dat perkregelaars vervaardigt
       relatieve kortsluitbijdrage:
         description: verhouding tussen de kortsluitstroombijdrage (Isc) en de nominale stroom (In) van de elektriciteitsinstallatie-eenheid op het overdrachtspunt
         range: float
@@ -161,12 +163,12 @@ classes:
         unit:
           ucum_code: kW
       maximale afregelsnelheid:
-        description: de maximale snelheid waarmee de opslageenheid zijn vermogen kan verhogen
+        description: maximale vermogensafname per tijdeenheid, als deel van de maximumcapaciteit
         range: float
         unit:
           ucum_code: '%/s'
       maximale opregelsnelheid:
-        description: de maximale snelheid waarmee de opslageenheid zijn vermogen kan verlagen
+        description: maximale vermogenstoename per tijdeenheid, als deel van de maximumcapaciteit
         range: float
         unit:
           ucum_code: '%/s'
@@ -182,9 +184,8 @@ classes:
         source: celex:32016R0631
         range: Type elektriciteitsinstallatie-eenheid
         required: true
-      typeaanduiding:
-        description: naam die door een fabrikant aan een reeks producten met vergelijkbare eigenschappen wordt gegeven
-        required: true
+      typeaanduiding van parkregelaar:
+        description: naam die door een fabrikant aan een reeks parkregelaars wordt gegeven
       #relaties
       achter:
         range: Overdrachtspunt
@@ -192,6 +193,8 @@ classes:
         multivalued: false
         annotations:
           inverse_cardinality: "*"
+        comments:
+          - In de praktijk wordt er direct gekoppeld op aansluiting, totdat er EAN-codes zijn toegekend aan overdrachtspunten.
     unique_keys:
       identificatie:
         unique_key_slots:
@@ -209,6 +212,9 @@ classes:
     exact_mappings:
       - begrip:97gd7 #elektriciteitsopslageenheid
     attributes:
+      automatische invoeding bij frequentiedaling:
+        description: geeft aan of een opslageenheid automatisch kan wisselen tussen afname en invoeding in reactie op frequentiedalingen
+        range: boolean
       maximaal bruikbare hoeveelheid energie:
         description: hoeveelheid elektrische energie die maximaal in een elektriciteitsopslageenheid kan worden geïnjecteerd en daaruit kan worden onttrokken voor het energienet
         range: float
@@ -335,6 +341,10 @@ classes:
           ucum_code: MVA
       subtransiënte reactantie:
         description: kortstondige reactantie direct na een plotselinge storing zoals een kortsluiting, uitgedrukt in het per-unit systeem
+      soort opwekkingseenheid:
+        description: aanduiding van een verzameling opwekkingseenheden die een gemeenschappelijk karakter hebben
+        range: Soort opwekkingseenheid
+        required: true
       nominale arbeidsfactor:
         description: verhouding tussen het werkelijke vermogen en het schijnbare vermogen onder nominale bedrijfsomstandigheden
         range: float
@@ -528,6 +538,11 @@ enums:
       omvormer-gekoppeld:
       dubbelgevoede inductiemachine:
       direct drive:
+  Soort opwekkingseenheid:
+    permissible_values:
+      zonnepaneel:
+      windturbine:
+      overig:
   Type elektriciteitsinstallatie-eenheid:
     permissible_values:
       A:

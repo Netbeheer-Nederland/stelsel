@@ -553,16 +553,18 @@ enums:
         description: overdrachtspunt beneden 110 kV en maximumcapaciteit minimaal 50 MW en beneden 60 MW
       D:
         description: overdrachtspunt minimaal 110 kV of maximumcapaciteit minimaal 60 MW
-  Soort aanmelder: # gebruik de natuurlijke schrijfwijze, eerste woord met een hoofdletter
+  Soort aanmelder: 
     permissible_values:
       3RD:
-        description: #to do
+        description: professionele derde
       DDM:
-        description: #to do
+        description: netbeheerder
       UD:
-        description: #to do
+        description: aangeslotene
       UNK: 
-        description: #to do
+        description: onbekend
+      overig:
+        description: onbekend
 
 types:
   Schakelgroep wikkelingen:

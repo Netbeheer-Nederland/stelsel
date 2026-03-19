@@ -219,12 +219,21 @@ classes:
         description: aanduiding die aangeeft of de opgeslagen energie afkomstig is uit het energienet, die installatie of beide
         range: Energieherkomst
         required: true
+      gebruikte technologie: #todo
+        description: 
+        range: Gebruikte technologie
+        required: true
       maximaal bruikbare hoeveelheid energie:
         description: hoeveelheid elektrische energie die maximaal in een elektriciteitsopslageenheid kan worden geïnjecteerd en daaruit kan worden onttrokken voor het energienet
         range: float
         unit:
           ucum_code: kWh
         required: true
+      opslagcapaciteit:
+        description: maximale hoeveel energie die de opslageenheid kan opslaan
+        range: float
+        unit:
+          ucum_code: MWh
   Elektriciteitsproductie-eenheid:
     class_uri: Elektriciteitsproductie-eenheid
     is_a: Elektriciteitsinstallatie-eenheid
@@ -556,14 +565,25 @@ enums:
   # Soort aanmelder: # gebruik de natuurlijke schrijfwijze, eerste woord met een hoofdletter
   #   permissible_values:
   #     3RD:
-  #       description: #to do
+  #       description: professionele derde
   #     DDM:
-  #       description: #to do
+  #       description: netbeheerder
   #     UD:
-  #       description: #to do
+  #       description: aangeslotene
   #     UNK: 
-  #       description: #to do
-
+  #       description: onbekend
+  #     anders:
+  #       description: onbekenmd
+  Gebruikte technologie:
+    permissible_values:
+      chemisch:
+        description: #to do
+      elektrochemisch:
+        description: #to do
+      mechanisch:
+        description: #to do
+      thermisch:
+        description: #to do
 types:
   Schakelgroep wikkelingen:
     base: str

@@ -199,13 +199,13 @@ classes:
       identificatie:
         unique_key_slots:
           - EAN-code
-  Elektriciteitslaadeenheid:
-    class_uri: Elektriciteitslaadeenheid
-    is_a: Elektriciteitsinstallatie-eenheid
-    exact_mappings:
-      - begrip:zebbw #elektriciteitslaadeenheid
-    comments:
-      - ⚠ Het is nog niet duidelijk hoe laadpunten gegroepeerd moeten worden in laadeenheden. Dit heeft namelijk direct effect op het type (A, B, C, D) en daarmee de aansluitvoorwaarden en verplichtingen die gelden voor de aangeslotene. Niet elke laadlocatie bestaat uit laadpalen, denk aan bogen, muren, etc.
+  # Elektriciteitslaadeenheid:
+  #   class_uri: Elektriciteitslaadeenheid
+  #   is_a: Elektriciteitsinstallatie-eenheid
+  #   exact_mappings:
+  #     - begrip:zebbw #elektriciteitslaadeenheid
+  #   comments:
+  #     - ⚠ Het is nog niet duidelijk hoe laadpunten gegroepeerd moeten worden in laadeenheden. Dit heeft namelijk direct effect op het type (A, B, C, D) en daarmee de aansluitvoorwaarden en verplichtingen die gelden voor de aangeslotene. Niet elke laadlocatie bestaat uit laadpalen, denk aan bogen, muren, etc.
   Elektriciteitsopslageenheid:
     class_uri: Elektriciteitsopslageenheid
     is_a: Elektriciteitsinstallatie-eenheid
@@ -215,15 +215,15 @@ classes:
       automatische invoeding bij frequentiedaling:
         description: geeft aan of een opslageenheid automatisch kan wisselen tussen afname en invoeding in reactie op frequentiedalingen
         range: boolean
+      energieherkomst:
+        description: aanduiding die aangeeft of de opgeslagen energie afkomstig is uit het energienet, die installatie of beide
+        range: Energieherkomst
+        required: true
       maximaal bruikbare hoeveelheid energie:
         description: hoeveelheid elektrische energie die maximaal in een elektriciteitsopslageenheid kan worden geïnjecteerd en daaruit kan worden onttrokken voor het energienet
         range: float
         unit:
           ucum_code: kWh
-        required: true
-      energieherkomst:
-        description: aanduiding die aangeeft of de opgeslagen energie afkomstig is uit het energienet, die installatie of beide
-        range: Energieherkomst
         required: true
   Elektriciteitsproductie-eenheid:
     class_uri: Elektriciteitsproductie-eenheid
@@ -553,16 +553,16 @@ enums:
         description: overdrachtspunt beneden 110 kV en maximumcapaciteit minimaal 50 MW en beneden 60 MW
       D:
         description: overdrachtspunt minimaal 110 kV of maximumcapaciteit minimaal 60 MW
-  Soort aanmelder: # gebruik de natuurlijke schrijfwijze, eerste woord met een hoofdletter
-    permissible_values:
-      3RD:
-        description: #to do
-      DDM:
-        description: #to do
-      UD:
-        description: #to do
-      UNK: 
-        description: #to do
+  # Soort aanmelder: # gebruik de natuurlijke schrijfwijze, eerste woord met een hoofdletter
+  #   permissible_values:
+  #     3RD:
+  #       description: #to do
+  #     DDM:
+  #       description: #to do
+  #     UD:
+  #       description: #to do
+  #     UNK: 
+  #       description: #to do
 
 types:
   Schakelgroep wikkelingen:

@@ -1,0 +1,10 @@
+id: https://modellen.netbeheernederland.nl/stelsel/registers/netfunctieregister
+name: netfunctieregister
+title: Netfunctieregister
+version: 1.0-draft
+description: Dit model bevindt zich in een vroege fase van ontwikkeling en bevat daarom nog geen definities.
+prefixes:
+  linkml: https://w3id.org/linkml/
+  begrip: https://begrippen.netbeheernederland.nl/id/
+  this: https://modellen.netbeheernederland.nl/stelsel/registers/netfunctieregister#
+default_prefix: this

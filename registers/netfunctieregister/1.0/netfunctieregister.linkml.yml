@@ -109,8 +109,7 @@ classes:
     unique_keys:
       identificatie:
         unique_key_slots:
-          - van
-          - naar
+          - identificatie
   Knooppunt:
     class_uri: Knooppunt
     broad_mappings:

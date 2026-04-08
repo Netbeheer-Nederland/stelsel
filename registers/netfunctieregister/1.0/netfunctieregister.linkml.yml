@@ -41,17 +41,11 @@ classes:
           - Ook bekend als N-0, N-1, N-2.
         range: integer
         required: true
-      minmale aanwezige transportcapaciteit:
+      individuele aanwezige transportcapaciteit:
         broad_mappings:
           - begrip:2whwi #aanwezige transportcapaciteit
-        description: transportcapaciteit die gegarandeerd aanwezig blijft bij gelijktijdig gebruik van gedeelde netelementen door andere transporteenheden
-        range: float
-        unit:
-          ucum_code: MW
-      maximale aanwezige transportcapaciteit:
-        broad_mappings:
-          - begrip:2whwi #aanwezige transportcapaciteit
-        description: transportcapaciteit die aanwezig is wanneer deze transporteenheid de gedeelde netelementen alleen benut
+        description: aanwezige transportcapaciteit van een afzonderlijke transporteenheid, zonder rekening te houden met gelijktijdige belasting door andere transporteenheden
+        required: true
         range: float
         unit:
           ucum_code: MW
@@ -62,12 +56,12 @@ classes:
         unit:
           ucum_code: MW
       # relaties:
-      geheel van:
+      samengesteld uit:
         range: Padsegment
         required: true
         multivalued: true
         annotations:
-          inverse_cardinality: 1..*
+          inverse_cardinality: *
       volgend op:
         description: B is volgend op A indien energietransport richting B verloopt via A.
         range: Transporteenheid
@@ -79,6 +73,29 @@ classes:
       identificatie:
         unique_key_slots:
           - identificatie
+  Gelijktijdige transportcapaciteit:
+    class_uri: Gelijktijdige-transportcapaciteit
+    broad_mappings:
+      - begrip:2whwi #aanwezige transportcapaciteit
+    description: aanwezige bovengrens voor gelijktijdig transport over meerdere transporteenheden, voortkomend uit gedeelde netstructuur
+    attributes:
+      waarde:
+        description: hoeveelheid eenheden
+        range: float
+        required: true
+        unit:
+          ucum_code: MW
+    # relaties:
+      van:
+        range: Transporteenheid
+        required: true
+        multivalued: true
+        annotations:
+          inverse_cardinality: "*"
+    unique_keys:
+      identificatie:
+        unique_key_slots:
+          - van
   Padsegment:
     class_uri: Padsegment
     broad_mappings:
@@ -93,6 +110,7 @@ classes:
         description: transportcapaciteit in de standaardbedieningssituatie
         comments:
           - "Afleidingsregel: gelijk aan de kleinste normale capaciteit van de geleidende netelementen waaruit het padsegment bestaat."
+        required: true
         range: float
         unit:
           ucum_code: MVA
@@ -100,16 +118,17 @@ classes:
         description: transportcapaciteit in alternatieve bedieningssituaties
         comments:
           - "Afleidingsregel: gelijk aan de kleinste noodcapaciteit van de geleidende netelementen waaruit het padsegment bestaat."
+        required: true
         range: float
         unit:
           ucum_code: MVA
       # relaties:
-      geheel van:
+      samengesteld uit:
         range: Geleidend netelement
         required: true
         multivalued: true
         annotations:
-          inverse_cardinality: 1..*
+          inverse_cardinality: *
       van:
         range: Knooppunt
         required: true
@@ -176,6 +195,7 @@ classes:
         description: transportcapaciteit in de standaardbedieningssituatie
         comments:
           - "Afleidingsregel: gelijk aan de kleinste normale capaciteit van de geleidende netelementen waaruit het padsegment bestaat."
+        required: true
         range: float
         unit:
           ucum_code: MVA
@@ -184,6 +204,7 @@ classes:
         comments:
           - De noodcapaciteit is doorgaans hoger dan de normale capaciteit omdat aangenomen wordt dat alternatieve bedieningssituaties kort duren.
           - "Afleidingsregel: gelijk aan de kleinste noodcapaciteit van de geleidende netelementen waaruit het padsegment bestaat."
+        required: true
         range: float
         unit:
           ucum_code: MVA

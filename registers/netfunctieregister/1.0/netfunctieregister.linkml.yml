@@ -6,7 +6,7 @@ description: Het netfunctieregister legt de transportcapaciteiten van energienet
 comments:
   - Het netfunctieregister beschrijft wat het net volgens ontwerp moet kunnen, niet hoe het net op enig moment staat geschakeld.
   - De transportcapaciteit van een transporteenheid wordt bepaald door zowel de beschikbare padsegmenten als door netelementen die door meerdere paden worden gedeeld, zoals railsystemen en driewegstransformatoren. Door deze samenhang expliciet te modelleren, wordt de bepaling van transportcapaciteit stabiel, herleidbaar en toepasbaar in congestiebeheer.
-  - Streven is om het model te generaliseren naar andere energiedragers zoals gas en warmte.
+  - Het model is ook bedoeld voor andere energiedragers zoals gas en warmte, maar heeft vooralsnog elektriciteit als focus.
 prefixes:
   linkml: https://w3id.org/linkml/
   begrip: https://begrippen.netbeheernederland.nl/id/
@@ -61,7 +61,7 @@ classes:
         required: true
         multivalued: true
         annotations:
-          inverse_cardinality: *
+          inverse_cardinality: "*"
       volgend op:
         description: B is volgend op A indien energietransport richting B verloopt via A.
         range: Transporteenheid
@@ -128,7 +128,7 @@ classes:
         required: true
         multivalued: true
         annotations:
-          inverse_cardinality: *
+          inverse_cardinality: "*"
       van:
         range: Knooppunt
         required: true

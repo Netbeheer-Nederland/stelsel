@@ -18,8 +18,8 @@ defaults:
       layout: default
 
 color_scheme: nbnl
-logo: "/stelsel/assets/images/logo.svg"
-favicon_ico: "/stelsel/assets/images/favicon.png"
+logo: "/assets/images/logo.svg"
+favicon_ico: "/assets/images/favicon.png"
 
 callouts:
   note:

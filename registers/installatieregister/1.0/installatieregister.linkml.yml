@@ -172,6 +172,16 @@ classes:
         range: float
         unit:
           ucum_code: '%/s'
+      nominale arbeidsfactor:
+        description: verhouding tussen het werkelijke vermogen en het schijnbare vermogen onder nominale bedrijfsomstandigheden
+        range: float
+      soort koppeling:
+        description: manier waarop de elektriciteitsinstallatie-eenheid is gekoppeld met het overdrachtspunt
+        range: Soort koppeling
+        required: true
+      subtransiënte reactantie:
+        description: kortstondige reactantie direct na een plotselinge storing zoals een kortsluiting, uitgedrukt in het per-unit systeem
+        range: float
       totale vermogen omvormers:
         description: som van de vermogens van alle bij de elektriciteitinstallatie-eenheid behorende omvormers
         comments:
@@ -220,7 +230,7 @@ classes:
         range: Energieherkomst
         required: true
       gebruikte technologie: #todo
-        description: 
+        description: manier waarop energie is opgewekt
         range: Gebruikte technologie
         required: true
       maximaal bruikbare hoeveelheid energie:
@@ -339,24 +349,15 @@ classes:
         description: hoeveelheid opwekkingseenheden in de groep
         range: integer
         required: true
-      soort koppeling:
-        description: manier waarop de opwekkingseenheden in de groep zijn gekoppeld met de rest van de installatie
-        range: Soort koppeling
-        required: true
       nominaal vermogen per opwekkingseenheid:
         description: door de fabrikant aangegeven maximale vermogen bij continu gebruik waarbij een maximaal rendement wordt behaald
         range: float
         unit:
           ucum_code: MVA
-      subtransiënte reactantie:
-        description: kortstondige reactantie direct na een plotselinge storing zoals een kortsluiting, uitgedrukt in het per-unit systeem
       soort opwekkingseenheid:
         description: aanduiding van een verzameling opwekkingseenheden die een gemeenschappelijk karakter hebben
         range: Soort opwekkingseenheid
         required: true
-      nominale arbeidsfactor:
-        description: verhouding tussen het werkelijke vermogen en het schijnbare vermogen onder nominale bedrijfsomstandigheden
-        range: float
       ashoogte:
         description: verticale afstand in meters tot het middelpunt van de as waarop de wieken draaien
         range: float

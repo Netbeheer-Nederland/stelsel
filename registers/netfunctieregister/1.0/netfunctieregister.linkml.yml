@@ -11,6 +11,7 @@ prefixes:
   linkml: https://w3id.org/linkml/
   begrip: https://begrippen.netbeheernederland.nl/id/
   this: https://modellen.netbeheernederland.nl/stelsel/registers/netfunctieregister#
+  bce: https://wetten.overheid.nl/jci1.3:c:BWBR0052320&
 default_prefix: this
 
 classes:
@@ -49,9 +50,31 @@ classes:
         range: float
         unit:
           ucum_code: MW
+      regelbare transportcapaciteit:
+        description: transportcapaciteit die door toepassing van regelmiddelen kan worden benut om overschrijding van de aanwezige transportcapaciteit te voorkomen
+        source: bce:g=2026-02-21
+        comments:
+          - Regelmiddelen zijn onder andere het gecontroleerd afschakelen van zuivere invoeding, capaciteitssturing (inclusief statische capaciteitsbeperking) en redispatchbiedingen.
+          - Alternatieve transportrechten verhogen niet de regelbare transportcapaciteit maar verlagen de benodigde transportapaciteit.
+        required: true
+        range: float
+        unit:
+          ucum_code: MW
       benodigde transportcapaciteit:
         exact_mappings:
           - begrip:7bs28 #benodigde transportcapaciteit
+        range: float
+        unit:
+          ucum_code: MW      
+      individuele beschikbare transportcapaciteit:
+        description: deel van de individuele aanwezige transportcapaciteit dat niet wordt ingezet om aan de benodigde transportcapaciteit te voldoen
+        source: bce:g=2026-02-21
+        range: float
+        unit:
+          ucum_code: MW
+      gevraagde transportcapaciteit:
+        exact_mappings:
+          - begrip:7n44w #gevraagde transportcapaciteit
         range: float
         unit:
           ucum_code: MW
@@ -73,20 +96,29 @@ classes:
       identificatie:
         unique_key_slots:
           - identificatie
-  Gelijktijdige transportcapaciteit:
-    class_uri: Gelijktijdige-transportcapaciteit
+  Capaciteitsdeling:
+    class_uri: Capaciteitsdeling
     broad_mappings:
-      - begrip:2whwi #aanwezige transportcapaciteit
-    description: aanwezige bovengrens voor gelijktijdig transport over meerdere transporteenheden, voortkomend uit gedeelde netstructuur
+      - begrip:dwk8c #transportcapaciteit
+    description: relatie tussen transporteenheden waarbij hun transportcapaciteit bij gelijktijdig transport wordt begrensd door gedeelde netstructuur
     attributes:
-      waarde:
-        description: hoeveelheid eenheden
+      aanwezige transportcapaciteit:
+        exact_mappings:
+          - begrip:2whwi #aanwezige transportcapaciteit
         range: float
         required: true
         unit:
           ucum_code: MW
-    # relaties:
-      van:
+      beschikbare transportcapaciteit:
+        description: deel van de aanwezige transportcapaciteit dat niet wordt ingezet om aan de benodigde transportcapaciteit te voldoen
+        source: bce:g=2026-02-21
+        comments:
+          - "Validatieregel: gelijk aan hetverschil tussen de aanwezige transportcapaciteit en de som van de benodigde transportcapaciteiten van de betrokken transporteenheden."
+        range: float
+        unit:
+          ucum_code: MW
+      # relaties:
+      tussen:
         range: Transporteenheid
         required: true
         multivalued: true
@@ -95,7 +127,7 @@ classes:
     unique_keys:
       identificatie:
         unique_key_slots:
-          - van
+          - tussen
   Padsegment:
     class_uri: Padsegment
     broad_mappings:

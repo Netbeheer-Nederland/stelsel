@@ -11,6 +11,9 @@ prefixes:
   bag: http://opendata.stelselcatalogus.nl/bag/id/begrip/
   hr: http://opendata.stelselcatalogus.nl/hr/id/begrip/
 default_prefix: this
+imports:
+  - linkml:types
+default_range: string
 
 classes:
   Adres:

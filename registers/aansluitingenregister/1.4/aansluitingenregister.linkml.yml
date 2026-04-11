@@ -34,6 +34,9 @@ prefixes:
   bag: http://opendata.stelselcatalogus.nl/bag/id/begrip/
   brk: http://opendata.stelselcatalogus.nl/brk/id/begrip/
 default_prefix: this
+imports:
+  - linkml:types
+default_range: string
 
 classes:
   Aansluiting:

@@ -1,4 +1,4 @@
-linkml==1.9.5
-linkml-runtime==1.9.5
+linkml==1.10.0
+linkml-runtime==1.10.0
 pyyaml==6.0.3
 invoke==2.2.1

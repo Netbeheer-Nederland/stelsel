@@ -44,13 +44,15 @@ comments: |
   * `TE.BTC` + `TE.GTC` > `TE.ATC`: capaciteitsknelpunt
   * `TE.BTC` + `TE.GTC` > `TE.ATC` + `TE.RTC`: congestiegebied
   * Congestiebeheersdiensten verlagen niet de `BTC` maar verhogen de `RTC`
-
 prefixes:
   linkml: https://w3id.org/linkml/
   begrip: https://begrippen.netbeheernederland.nl/id/
   this: https://modellen.netbeheernederland.nl/stelsel/registers/netfunctieregister#
   bce: https://wetten.overheid.nl/jci1.3:c:BWBR0052320&
 default_prefix: this
+imports:
+  - linkml:types
+default_range: string
 
 classes:
   Transporteenheid:

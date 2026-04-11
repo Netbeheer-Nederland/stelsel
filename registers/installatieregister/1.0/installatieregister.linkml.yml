@@ -17,6 +17,9 @@ prefixes:
   bce: https://wetten.overheid.nl/jci1.3:c:BWBR0037938&
   rakveg: https://wetten.overheid.nl/jci1.3:c:BWBR0030164&
 default_prefix: this
+imports:
+  - linkml:types
+default_range: string
 
 classes:
   # Aanmelder:

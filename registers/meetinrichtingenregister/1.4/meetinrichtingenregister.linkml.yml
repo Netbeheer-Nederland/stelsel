@@ -14,6 +14,9 @@ prefixes:
   boaum: https://wetten.overheid.nl/jci1.3:c:BWBR0030605&
   iceg: https://wetten.overheid.nl/jci1.3:c:BWBR0037934&
 default_prefix: this
+imports:
+  - linkml:types
+default_range: string
 
 classes:
   Grootverbruikmeetinrichting:

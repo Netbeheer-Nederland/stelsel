@@ -17,6 +17,9 @@ prefixes:
   iceg: https://wetten.overheid.nl/jci1.3:c:BWBR0037934&
   nce: https://wetten.overheid.nl/jci1.3:c:BWBR0037940&
 default_prefix: this
+imports:
+  - linkml:types
+default_range: string
 
 classes:
   Aggregatiesoort:

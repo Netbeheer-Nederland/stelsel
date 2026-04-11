@@ -20,6 +20,9 @@ prefixes:
   mcg: https://wetten.overheid.nl/jci1.3:c:BWBR0037925&
   nce: https://wetten.overheid.nl/jci1.3:c:BWBR0037940&
 default_prefix: this
+imports:
+  - linkml:types
+default_range: string
 
 classes:
   Actuele temperatuurcoëfficiënt:

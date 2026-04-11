@@ -9,3 +9,6 @@ prefixes:
   this: https://modellen.netbeheernederland.nl/stelsel/registers/congestiebeheersdienstenregister#
   aansluitingenregister: https://modellen.netbeheernederland.nl/stelsel/registers/aansluitingenregister#
 default_prefix: this
+imports:
+  - linkml:types
+default_range: string

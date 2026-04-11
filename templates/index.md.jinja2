@@ -154,7 +154,7 @@
     {# close_mappings #}
     {%- set close_mappings = mappings_line(element, 'close', 'Vrijwel overeenkomstig') -%}
     {%- if close_mappings -%}
-        {%- set _ = parts.items.append(element, close_mappings) -%}
+        {%- set _ = parts.items.append(close_mappings) -%}
     {%- endif -%}
 
     {# related_mappings #}
@@ -254,20 +254,14 @@ parent: "{{schema.title}}"
 {% set properties = [] %}
 {% set relationships = [] %}
 {% for slot in gen.get_direct_slots(class) | sort(attribute=sort_by) -%}
-    {%- set effective_ranges = [] -%}
-    {%- set sub_expressions = (slot.any_of or []) + (slot.all_of or []) + (slot.exactly_one_of or []) -%}
-    {%- if sub_expressions -%}
-        {%- for sub in sub_expressions -%}
-            {%- for r in schemaview.slot_range_as_union(sub) -%}
-                {%- if r not in effective_ranges -%}
-                    {%- set _ = effective_ranges.append(r) -%}
-                {%- endif -%}
-            {%- endfor -%}
-        {%- endfor -%}
-    {%- else -%}
-        {%- set effective_ranges = schemaview.slot_range_as_union(slot) -%}
-    {%- endif -%}
-    {%- set some_are_classes = effective_ranges | select('in', schemaview.all_classes()) | list | length > 0 -%}
+    {%- set some_are_classes =
+        schemaview.slot_range_as_union(slot)
+        | select('in', schemaview.all_classes())
+        | reject('equalto', 'Any')
+        | reject('in', schemaview.all_enums())
+        | list
+        | length > 0
+    -%}
     {%- if some_are_classes -%}
         {%- set _ = relationships.append(slot) -%}
     {%- else -%}

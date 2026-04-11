@@ -14,6 +14,9 @@ prefixes:
   iceg: https://wetten.overheid.nl/jci1.3:c:BWBR0037934&
   bce: https://wetten.overheid.nl/jci1.3:c:BWBR0037938&
 default_prefix: this
+imports:
+  - linkml:types
+default_range: string
 
 classes:
   Gatewaycodering:

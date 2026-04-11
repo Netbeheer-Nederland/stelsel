@@ -14,6 +14,9 @@ prefixes:
   hr: http://opendata.stelselcatalogus.nl/hr/id/begrip/
   kvk: https://www.kvk.nl/
 default_prefix: this
+imports:
+  - linkml:types
+default_range: string
 
 classes:
   Aangeslotene:

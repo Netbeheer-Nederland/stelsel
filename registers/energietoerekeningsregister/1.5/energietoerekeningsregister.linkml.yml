@@ -136,7 +136,7 @@ classes:
         required: true
       # relaties:
       aan:
-        range: Marktpartij
+        range: Marktpartijsubregistratie
         required: false
         multivalued: true
         annotations:
@@ -270,10 +270,6 @@ classes:
           - in
 
   # externe entiteiten:
-  Aansluiting:
-    class_uri: aansluitingenregister:Aansluiting
-    annotations:
-      external_registry: Aansluitingenregister
   Allocatiepunt:
     class_uri: aansluitingenregister:Allocatiepunt
     annotations:
@@ -284,6 +280,10 @@ classes:
       external_registry: Marktpartijenregister
   Netgebied:
     class_uri: aansluitingenregister:Netgebied
+    annotations:
+      external_registry: Aansluitingenregister
+  Overdrachtspunt:
+    class_uri: aansluitingenregister:Overdrachtspunt
     annotations:
       external_registry: Aansluitingenregister
   Any:

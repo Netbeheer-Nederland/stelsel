@@ -47,16 +47,16 @@ classes:
         description: categorie waartoe de aangeslotene behoort
         required: true
         range: Type aangeslotene
-      voorvoegsel:
-        description: verzameling van een of meer voorzetsels en/of lidwoorden die aan het significante deel van de achternaam vooraf gaat en daarmee gezamelijk de achternaam vormt
-        comments:
-          - Ook wel tussenvoegsel.
-          - "Validatie: afwezig bij 'geen huishoudelijk eindafnemer'."
       voorletters:
         description: verzameling letters die wordt gevormd door de eerste letter van alle in volgorde voorkomende voornamen
         comments:
           - "Validatie: afwezig bij 'geen huishoudelijk eindafnemer'."
           - NEN 1888 onderscheidt voorletters-n van voorletters-1. Bijvoorbeeld Theo Adriaan wordt afgekort als Th.Adr. (voorletters-n) en als TA (voorletters-1, zonder puntjes). Dit register hanteert voorletters-1.
+      voorvoegsel:
+        description: verzameling van een of meer voorzetsels en/of lidwoorden die aan het significante deel van de achternaam vooraf gaat en daarmee gezamelijk de achternaam vormt
+        comments:
+          - Ook wel tussenvoegsel.
+          - "Validatie: afwezig bij 'geen huishoudelijk eindafnemer'."
       # relaties
       houder van:
         range: Aansluiting
@@ -77,7 +77,7 @@ classes:
         comments:
           - "Validatie: afwezig bij een 'huishoudelijk eindafnemer'."
     unique_keys:
-      primary_key:
+      identificatie:
         unique_key_slots:
         - houder van
   Correspondentieadres:
@@ -117,7 +117,7 @@ classes:
         annotations:
           inverse_cardinality: 0..1
     unique_keys:
-      primary_key:
+      identificatie:
         unique_key_slots:
         - van
   # extern

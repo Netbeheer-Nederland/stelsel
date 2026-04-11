@@ -1,0 +1,317 @@
+id: https://modellen.netbeheernederland.nl/stelsel/registers/netfunctieregister
+name: netfunctieregister
+title: Netfunctieregister
+version: 1.0-draft
+description: Het netfunctieregister legt de transportcapaciteiten van energienetten vast op drie samenhangende abstractieniveaus (netelementen, padsegmenten en transporteenheden). Hierdoor worden keuzes over congestie, wachtrijen en uitbreidingen reproduceerbaar en uitlegbaar.
+comments: |
+  Het netfunctieregister beschrijft wat het net volgens ontwerp moet kunnen, niet hoe het net op enig moment staat geschakeld.
+
+  De transportcapaciteit van een transporteenheid wordt bepaald door zowel de beschikbare padsegmenten als door netelementen die door meerdere paden worden gedeeld, zoals railsystemen en driewegstransformatoren. Door deze samenhang expliciet te modelleren, wordt de bepaling van transportcapaciteit stabiel, herleidbaar en toepasbaar in congestiebeheer.
+
+  Het model is ook bedoeld voor andere energiedragers zoals gas en warmte, maar heeft vooralsnog elektriciteit als focus.
+
+  De volgende vereenvoudigde formules tonen de verhouding tussen de verschillende vormen van transportcapaciteit. We gebruiken daarbij de volgende afkortingen:
+
+  * `TE`: transporteenheid
+  * `CD`: capaciteitsdeling
+  * `APS`: padsegment tussen actieve knooppunten
+  * `PPS`: padsegment van of naar een passief knooppunt
+  * `GN`: geleidend netelement
+  * `GGN`: gedeelde geleidende netelementen
+  * `ATC`: (individuele) aanwezige transportcapaciteit
+  * `RTC`: regelbare transportcapaciteit
+  * `BTC`: benodigde transportcapaciteit
+  * `STC`: (individuele) beschikbare transportcapaciteit
+  * `GTC`: gevraagde transportapaciteit
+  * `NMC`: normale capaciteit
+  * `NDC`: noodcapaciteit
+
+  Om de formules goed leesbaar te houden, zijn ze (nog) niet geformaliseerd. Zo moet bijvoorbeeld bij statistische functies (zoals `min` of `som`) worden aangenomen dat het de gerelateerde verzameling betreft.
+
+  * `PD.NMC` = min(`GN.NMC`)
+  * `PD.NDC` = min(`GN.NDC`)
+  * `TE.ATC` =
+    * Bij redundantieniveau `0`: min(som(`APS.NMC`), `GGN.NMC`)
+    * Bij redundantieniveau `1`:
+      * Standby: min(`APS.NMC`, `PPS.NDC`)
+      * Gesectioneerd: min(`APS.NDC`, `PPS.NDC`)
+      * Parallel: min(`APS.NDC`, `PPS.NDC`)
+  * `TE.STC` = `TE.ATC` - `TE.BTC`
+  * `CD.ATC` = min(`GGN.NMC` dan wel `GGN.NDC` afhankelijk van het beroep dat een `TE` erop kan doen)
+
+  Verder geldt:
+
+  * `TE.BTC` + `TE.GTC` > `TE.ATC`: capaciteitsknelpunt
+  * `TE.BTC` + `TE.GTC` > `TE.ATC` + `TE.RTC`: congestiegebied
+  * Congestiebeheersdiensten verlagen niet de `BTC` maar verhogen de `RTC`
+
+prefixes:
+  linkml: https://w3id.org/linkml/
+  begrip: https://begrippen.netbeheernederland.nl/id/
+  this: https://modellen.netbeheernederland.nl/stelsel/registers/netfunctieregister#
+  bce: https://wetten.overheid.nl/jci1.3:c:BWBR0052320&
+default_prefix: this
+
+classes:
+  Transporteenheid:
+    class_uri: Transporteenheid
+    broad_mappings:
+      - begrip:a4ejc #netfunctie
+    description: deel van het energienet dat in samenhang moet worden beschouwd om de aanwezige transportcapaciteit te kunnen bepalen
+    comments:
+      - Een transporteenheid wordt ontworpen met een normatieve ontwerprichtting. Dat is de richting waarin het energienet is ontworpen om energie betrouwbaar te leveren. Deze richting wordt soms aangeduid als 'afname', maar die term werkt verwarrend omdat er bijvoorbeeld aansluitingen bestaan die zijn ontworpen om in te voeden, zoals bij energieproducenten.
+      - Een transporteenheid kan één padsegment bevatten (radiaal) of meerdere (standby, gesectioneerd, parallel).
+      - Een transporteenheid is het niveau waarop netbeheerders de transportcapaciteiten bepalen (aanwezig, benodigd, beschikbaar), capaciteitsknelpunten signaleren, congestiegebieden afroepen en wachtrijen beheren.
+      - Ook bekend als 'capaciteitsgroep'.
+    slots:
+      - identificatie
+    attributes:
+      richting:
+        description: geeft aan of de transporteenheid wordt beschouwd in de normatieve ontwerprichting dan wel in de tegengestelde richting daarvan
+        range: Richting
+        required: true
+      netvlak:
+        description: netvlak waarvoor deze transporteenheid de transportfunctie vervult
+        range: Netvlak
+        required: true
+      redundatieniveau:
+        description: aantal padsegmenten dat onbeschikbaar kan zijn zonder (lange) onderbreking van het energietransport
+        comments:
+          - Ook bekend als N-0, N-1, N-2. Maar let op het verschil met redundantie van netelementen zoals een dubbel uitgevoerd railsysteem.
+        range: integer
+        required: true
+      individuele aanwezige transportcapaciteit:
+        broad_mappings:
+          - begrip:2whwi #aanwezige transportcapaciteit
+        description: aanwezige transportcapaciteit van een afzonderlijke transporteenheid, zonder rekening te houden met gelijktijdige belasting door andere transporteenheden
+        required: true
+        range: float
+        unit:
+          ucum_code: MW
+      regelbare transportcapaciteit:
+        description: transportcapaciteit die door toepassing van regelmiddelen kan worden benut om overschrijding van de aanwezige transportcapaciteit te voorkomen
+        source: bce:g=2026-02-21
+        comments:
+          - Regelmiddelen zijn onder andere het gecontroleerd afschakelen van zuivere invoeding, capaciteitssturing (inclusief statische capaciteitsbeperking) en redispatchbiedingen.
+          - Alternatieve transportrechten verhogen niet de regelbare transportcapaciteit maar verlagen de benodigde transportapaciteit.
+        required: true
+        range: float
+        unit:
+          ucum_code: MW
+      benodigde transportcapaciteit:
+        exact_mappings:
+          - begrip:7bs28 #benodigde transportcapaciteit
+        range: float
+        unit:
+          ucum_code: MW      
+      individuele beschikbare transportcapaciteit:
+        description: deel van de individuele aanwezige transportcapaciteit dat niet wordt ingezet om aan de benodigde transportcapaciteit te voldoen
+        source: bce:g=2026-02-21
+        range: float
+        unit:
+          ucum_code: MW
+      gevraagde transportcapaciteit:
+        exact_mappings:
+          - begrip:7n44w #gevraagde transportcapaciteit
+        range: float
+        unit:
+          ucum_code: MW
+      # relaties:
+      samengesteld uit:
+        range: Padsegment
+        required: true
+        multivalued: true
+        annotations:
+          inverse_cardinality: "*"
+      volgend op:
+        description: B is volgend op A indien energietransport richting B verloopt via A.
+        range: Transporteenheid
+        required: false
+        multivalued: true
+        annotations:
+          inverse_cardinality: "*"
+    unique_keys:
+      identificatie:
+        unique_key_slots:
+          - identificatie
+  Capaciteitsdeling:
+    class_uri: Capaciteitsdeling
+    broad_mappings:
+      - begrip:dwk8c #transportcapaciteit
+    description: relatie tussen transporteenheden waarbij hun transportcapaciteit bij gelijktijdig transport wordt begrensd door gedeelde netstructuur
+    attributes:
+      aanwezige transportcapaciteit:
+        exact_mappings:
+          - begrip:2whwi #aanwezige transportcapaciteit
+        range: float
+        required: true
+        unit:
+          ucum_code: MW
+      beschikbare transportcapaciteit:
+        description: deel van de aanwezige transportcapaciteit dat niet wordt ingezet om aan de benodigde transportcapaciteit te voldoen
+        source: bce:g=2026-02-21
+        comments:
+          - "Validatieregel: gelijk aan hetverschil tussen de aanwezige transportcapaciteit en de som van de benodigde transportcapaciteiten van de betrokken transporteenheden."
+        range: float
+        unit:
+          ucum_code: MW
+      # relaties:
+      tussen:
+        range: Transporteenheid
+        required: true
+        multivalued: true
+        annotations:
+          inverse_cardinality: "*"
+    unique_keys:
+      identificatie:
+        unique_key_slots:
+          - tussen
+  Padsegment:
+    class_uri: Padsegment
+    broad_mappings:
+      - begrip:a4ejc #netfunctie
+    description: samenhangend deel van een energienet tussen twee knooppunten
+    comments:
+      - Ook bekend als feeder (CIM) of circuitsectie (GE Electric Office).
+    slots:
+      - identificatie
+    attributes:
+      normale capaciteit:
+        description: transportcapaciteit in de standaardbedieningssituatie
+        comments:
+          - "Afleidingsregel: gelijk aan de kleinste normale capaciteit van de geleidende netelementen waaruit het padsegment bestaat."
+        required: true
+        range: float
+        unit:
+          ucum_code: MVA
+      noodcapaciteit:
+        description: transportcapaciteit in alternatieve bedieningssituaties
+        comments:
+          - "Afleidingsregel: gelijk aan de kleinste noodcapaciteit van de geleidende netelementen waaruit het padsegment bestaat."
+        required: true
+        range: float
+        unit:
+          ucum_code: MVA
+      # relaties:
+      samengesteld uit:
+        range: Geleidend netelement
+        required: true
+        multivalued: true
+        annotations:
+          inverse_cardinality: "*"
+      van:
+        range: Knooppunt
+        required: true
+        multivalued: false
+        annotations:
+          inverse_cardinality: "*"
+      naar:
+        range: Knooppunt
+        required: true
+        multivalued: false
+        annotations:
+          inverse_cardinality: "*"
+    unique_keys:
+      identificatie:
+        unique_key_slots:
+          - identificatie
+  Knooppunt:
+    class_uri: Knooppunt
+    broad_mappings:
+      - begrip:a4ejc #netfunctie
+    description: plek waar een energiedrager zich in de standaardbedieningssituatie vrij kan verdelen en waar bediening kan ingrijpen in die verdeling
+    slots:
+      - identificatie
+    attributes:
+      actief:
+        description: geeft aan of het knooppunt in de standaardbedieningssituatie beschikbaar is voor energietransport, zonder dat een bedieningshandeling is vereist
+        range: boolean
+        required: true
+      # relaties:
+      deel van:
+        range: Sectiegroep
+        required: false
+        multivalued: false
+        annotations:
+          inverse_cardinality: 1..*
+    unique_keys:
+      identificatie:
+        unique_key_slots:
+          - identificatie
+  Sectiegroep:
+    class_uri: Sectiegroep
+    broad_mappings:
+      - begrip:a4ejc #netfunctie
+    description: verzameling knooppunten die onderling door bediening met elkaar verbonden kunnen worden, waarbij die verbinding in standaardbediening niet actief is
+    comments:
+      - Lidmaatschap van een sectiegroep is onafhankelijk van de activiteitstoestand van de knooppunten.
+    slots:
+      - identificatie
+    unique_keys:
+      identificatie:
+        unique_key_slots:
+          - identificatie
+  Geleidend netelement:
+    class_uri: Geleidend-netelement
+    broad_mappings:
+      - begrip:a4ejc #netfunctie
+    description: elementaire functionaliteit op een bepaalde plek in het energienet dat tenminste de (potentiële) geleiding van een energiedrager omvat
+    comments:
+      - Ook bekend als conducting equipment (CIM).
+    slots:
+      - identificatie
+    attributes:
+      normale capaciteit:
+        description: transportcapaciteit in de standaardbedieningssituatie
+        comments:
+          - "Afleidingsregel: gelijk aan de kleinste normale capaciteit van de geleidende netelementen waaruit het padsegment bestaat."
+        required: true
+        range: float
+        unit:
+          ucum_code: MVA
+      noodcapaciteit:
+        description: transportcapaciteit in alternatieve bedieningssituaties
+        comments:
+          - De noodcapaciteit is doorgaans hoger dan de normale capaciteit omdat aangenomen wordt dat alternatieve bedieningssituaties kort duren.
+          - "Afleidingsregel: gelijk aan de kleinste noodcapaciteit van de geleidende netelementen waaruit het padsegment bestaat."
+        required: true
+        range: float
+        unit:
+          ucum_code: MVA
+    unique_keys:
+      identificatie:
+        unique_key_slots:
+          - identificatie
+
+slots:
+  identificatie:
+    description: unieke aanduiding waarmee iets binnen een gegeven context ondubbelzinnig herkenbaar is
+    required: true
+
+enums:
+  Netvlak:
+    comments:
+      - Netvlakken representeren functionele lagen voor het modelleren van transportcapaciteit en redundantie. Zij hoeven niet altijd overeen te komen met een fysisch spanningsniveau.
+    permissible_values:
+      EHS:
+        description: extra hoogspanning
+      HS:
+        description: hoogspanning
+      TS:
+        description: tussenspanning
+      Trafo HS+TS / MS:
+        comments:
+          - Dit netvlak hoort bij een transporteenheid die zich functioneel bevindt tussen een HS- of TS-transporteenheid en een MS-transporteenheid.
+      MS:
+        description: middenspanning
+      Trafo MS/LS:
+        comments:
+          - Dit netvlak hoort bij een transporteenheid die zich functioneel bevindt tussen een MS-transporteenheid en een LS-transporteenheid.
+      LS:
+        description: laagspanning
+  Richting:
+    permissible_values:
+      normatief:
+        description: richting van energietransport die leidend is voor het ontwerp en de beoordeling van transportzekerheid
+      tegengesteld:
+        description: richting van energietransport tegengesteld aan de normatieve ontwerprichting

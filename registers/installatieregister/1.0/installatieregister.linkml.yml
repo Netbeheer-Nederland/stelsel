@@ -139,6 +139,8 @@ classes:
         range: float
         unit:
           ucum_code: kA
+      fabrikant van parkregelaar:
+        description: (merk)naam van een bedrijf dat perkregelaars vervaardigt
       relatieve kortsluitbijdrage:
         description: verhouding tussen de kortsluitstroombijdrage (Isc) en de nominale stroom (In) van de elektriciteitsinstallatie-eenheid op het overdrachtspunt
         range: float
@@ -160,6 +162,26 @@ classes:
         range: float
         unit:
           ucum_code: kW
+      maximale afregelsnelheid:
+        description: maximale vermogensafname per tijdeenheid, als deel van de maximumcapaciteit
+        range: float
+        unit:
+          ucum_code: '%/s'
+      maximale opregelsnelheid:
+        description: maximale vermogenstoename per tijdeenheid, als deel van de maximumcapaciteit
+        range: float
+        unit:
+          ucum_code: '%/s'
+      nominale arbeidsfactor:
+        description: verhouding tussen het werkelijke vermogen en het schijnbare vermogen onder nominale bedrijfsomstandigheden
+        range: float
+      soort koppeling:
+        description: manier waarop de elektriciteitsinstallatie-eenheid is gekoppeld met het overdrachtspunt
+        range: Soort koppeling
+        required: true
+      subtransiënte reactantie:
+        description: kortstondige reactantie direct na een plotselinge storing zoals een kortsluiting, uitgedrukt in het per-unit systeem
+        range: float
       totale vermogen omvormers:
         description: som van de vermogens van alle bij de elektriciteitinstallatie-eenheid behorende omvormers
         comments:
@@ -172,9 +194,8 @@ classes:
         source: celex:32016R0631
         range: Type elektriciteitsinstallatie-eenheid
         required: true
-      typeaanduiding:
-        description: naam die door een fabrikant aan een reeks producten met vergelijkbare eigenschappen wordt gegeven
-        required: true
+      typeaanduiding van parkregelaar:
+        description: naam die door een fabrikant aan een reeks parkregelaars wordt gegeven
       #relaties
       achter:
         range: Overdrachtspunt
@@ -182,33 +203,47 @@ classes:
         multivalued: false
         annotations:
           inverse_cardinality: "*"
+        comments:
+          - In de praktijk wordt er direct gekoppeld op aansluiting, totdat er EAN-codes zijn toegekend aan overdrachtspunten.
     unique_keys:
       identificatie:
         unique_key_slots:
           - EAN-code
-  Elektriciteitslaadeenheid:
-    class_uri: Elektriciteitslaadeenheid
-    is_a: Elektriciteitsinstallatie-eenheid
-    exact_mappings:
-      - begrip:zebbw #elektriciteitslaadeenheid
-    comments:
-      - ⚠ Het is nog niet duidelijk hoe laadpunten gegroepeerd moeten worden in laadeenheden. Dit heeft namelijk direct effect op het type (A, B, C, D) en daarmee de aansluitvoorwaarden en verplichtingen die gelden voor de aangeslotene. Niet elke laadlocatie bestaat uit laadpalen, denk aan bogen, muren, etc.
+  # Elektriciteitslaadeenheid:
+  #   class_uri: Elektriciteitslaadeenheid
+  #   is_a: Elektriciteitsinstallatie-eenheid
+  #   exact_mappings:
+  #     - begrip:zebbw #elektriciteitslaadeenheid
+  #   comments:
+  #     - ⚠ Het is nog niet duidelijk hoe laadpunten gegroepeerd moeten worden in laadeenheden. Dit heeft namelijk direct effect op het type (A, B, C, D) en daarmee de aansluitvoorwaarden en verplichtingen die gelden voor de aangeslotene. Niet elke laadlocatie bestaat uit laadpalen, denk aan bogen, muren, etc.
   Elektriciteitsopslageenheid:
     class_uri: Elektriciteitsopslageenheid
     is_a: Elektriciteitsinstallatie-eenheid
     exact_mappings:
       - begrip:97gd7 #elektriciteitsopslageenheid
     attributes:
+      automatische invoeding bij frequentiedaling:
+        description: geeft aan of een opslageenheid automatisch kan wisselen tussen afname en invoeding in reactie op frequentiedalingen
+        range: boolean
+      energieherkomst:
+        description: aanduiding die aangeeft of de opgeslagen energie afkomstig is uit het energienet, die installatie of beide
+        range: Energieherkomst
+        required: true
+      gebruikte technologie: #todo
+        description: manier waarop energie is opgewekt
+        range: Gebruikte technologie
+        required: true
       maximaal bruikbare hoeveelheid energie:
         description: hoeveelheid elektrische energie die maximaal in een elektriciteitsopslageenheid kan worden geïnjecteerd en daaruit kan worden onttrokken voor het energienet
         range: float
         unit:
           ucum_code: kWh
         required: true
-      energieherkomst:
-        description: aanduiding die aangeeft of de opgeslagen energie afkomstig is uit het energienet, die installatie of beide
-        range: Energieherkomst
-        required: true
+      opslagcapaciteit:
+        description: maximale hoeveel energie die de opslageenheid kan opslaan
+        range: float
+        unit:
+          ucum_code: MWh
   Elektriciteitsproductie-eenheid:
     class_uri: Elektriciteitsproductie-eenheid
     is_a: Elektriciteitsinstallatie-eenheid
@@ -314,32 +349,15 @@ classes:
         description: hoeveelheid opwekkingseenheden in de groep
         range: integer
         required: true
-      soort koppeling:
-        description: manier waarop de opwekkingseenheden in de groep zijn gekoppeld met de rest van de installatie
-        range: Soort koppeling
-        required: true
       nominaal vermogen per opwekkingseenheid:
         description: door de fabrikant aangegeven maximale vermogen bij continu gebruik waarbij een maximaal rendement wordt behaald
         range: float
         unit:
           ucum_code: MVA
-      subtransiënte reactantie:
-        description: kortstondige reactantie direct na een plotselinge storing zoals een kortsluiting, uitgedrukt in het per-unit systeem
-      nominale arbeidsfactor:
-        description: verhouding tussen het werkelijke vermogen en het schijnbare vermogen onder nominale bedrijfsomstandigheden
-        range: float
-      #relaties
-      deel van:
-        range: Elektriciteitsproductie-eenheid
+      soort opwekkingseenheid:
+        description: aanduiding van een verzameling opwekkingseenheden die een gemeenschappelijk karakter hebben
+        range: Soort opwekkingseenheid
         required: true
-        multivalued: false
-        annotations:
-          inverse_cardinality: "*"
-  Groep van windturbines:
-    class_uri: Groep-van-windturbines
-    is_a: Groep van opwekkingseenheden
-    description: verzameling van één of meer windturbines binnen één elektriciteitsproductie-eenheid die identieke kenmerken delen
-    attributes:
       ashoogte:
         description: verticale afstand in meters tot het middelpunt van de as waarop de wieken draaien
         range: float
@@ -356,11 +374,6 @@ classes:
         range: float
         unit:
           ucum_code: kg.m2
-  Groep van zonnepanelen:
-    class_uri: Groep-van-zonnepanelen
-    is_a: Groep van opwekkingseenheden
-    description: verzameling van één of meer zonnepanelen binnen één elektriciteitsproductie-eenheid die identieke kenmerken delen
-    attributes:
       azimut:
         description: horizontale hoek, gemeten met de klok mee vanaf het geografische noorden
         comments:
@@ -373,6 +386,13 @@ classes:
         range: float
         unit:
           ucum_code: deg
+      #relaties
+      deel van:
+        range: Elektriciteitsproductie-eenheid
+        required: true
+        multivalued: false
+        annotations:
+          inverse_cardinality: "*"
   Soort transformator:
     class_uri: Soort-transformator
     broad_mappings:
@@ -528,6 +548,11 @@ enums:
       omvormer-gekoppeld:
       dubbelgevoede inductiemachine:
       direct drive:
+  Soort opwekkingseenheid:
+    permissible_values:
+      zonnepaneel:
+      windturbine:
+      overig:
   Type elektriciteitsinstallatie-eenheid:
     permissible_values:
       A:
@@ -538,17 +563,28 @@ enums:
         description: overdrachtspunt beneden 110 kV en maximumcapaciteit minimaal 50 MW en beneden 60 MW
       D:
         description: overdrachtspunt minimaal 110 kV of maximumcapaciteit minimaal 60 MW
-  Soort aanmelder: # gebruik de natuurlijke schrijfwijze, eerste woord met een hoofdletter
+  # Soort aanmelder: # gebruik de natuurlijke schrijfwijze, eerste woord met een hoofdletter
+  #   permissible_values:
+  #     3RD:
+  #       description: professionele derde
+  #     DDM:
+  #       description: netbeheerder
+  #     UD:
+  #       description: aangeslotene
+  #     UNK: 
+  #       description: onbekend
+  #     anders:
+  #       description: onbekenmd
+  Gebruikte technologie:
     permissible_values:
-      3RD:
+      chemisch:
         description: #to do
-      DDM:
+      elektrochemisch:
         description: #to do
-      UD:
+      mechanisch:
         description: #to do
-      UNK: 
+      thermisch:
         description: #to do
-
 types:
   Schakelgroep wikkelingen:
     base: str

@@ -141,6 +141,10 @@ def generate_linkml_docs(c, only_model=None, only_version=None):
                 if not md_file.endswith("index.md"):
                     os.remove(md_file)
 
+def copy_content():
+    print(f"📂 Content kopiëren: {DOCS_DIR} -> {STAGING_DIR}")
+    shutil.copytree(DOCS_DIR, STAGING_DIR, dirs_exist_ok=True)
+
 def generate_indices(c):
     """Draai aanvullende Python scripts voor indexen en usages."""
     print("📑 Indexen genereren...")
@@ -164,14 +168,16 @@ def setup(c):
     print("✅ Klaar.")
 
 @task
-def update(c):
+def update_all(c):
     """Verversen: Draai dit om wijzigingen in data/modellen door te voeren."""
-    print(f"📂 Content kopiëren: {DOCS_DIR} -> {STAGING_DIR}")
+
+    # Verwijder oude staging rommel
+    print("🧹 Opruimen...")
+    shutil.rmtree(STAGING_DIR, ignore_errors=True)
+
+    copy_content()
     
-    # Stap 1: Statische content (overschrijven toegestaan)
-    shutil.copytree(DOCS_DIR, STAGING_DIR, dirs_exist_ok=True)
-    
-    # Stap 2: Generatoren draaien
+    # Generatoren draaien
     fetch_external_data()
     generate_linkml_docs(c)
     generate_indices(c)
@@ -179,9 +185,13 @@ def update(c):
     print("✅ Data bijgewerkt.")
 
 @task
+def update_static_content(c):
+    copy_content()
+    print("✅ Data bijgewerkt.")
+
+@task
 def update_single_register(c):
-    print("📂 Statische content verversen...")
-    shutil.copytree(DOCS_DIR, STAGING_DIR, dirs_exist_ok=True)
+    copy_content()
 
     fetch_external_data()
 
@@ -197,16 +207,8 @@ def update_single_register(c):
 
 @task
 def serve(c):
-    """Starten: Start de website lokaal (begint met schone lei)."""
-    # Verwijder oude staging rommel
-    print("🧹 Opruimen...")
-    shutil.rmtree(STAGING_DIR, ignore_errors=True)
-    
-    # Bouw alles vers op
-    update(c)
-    
+    """Starten: Start de website lokaal."""
     print("\n🌍 Server start... (Ctrl+C om te stoppen)")
-
     if running_in_docker():
         c.run(f"{JEKYLL} serve -H 0.0.0.0 -s {STAGING_DIR} -d {SITE_DIR} --livereload --incremental --open-url")
     else:
@@ -215,7 +217,7 @@ def serve(c):
 @task
 def build(c):
     """Productie build (voor CI/CD)."""
-    update(c)
+    update_all(c)
     c.run(f"{JEKYLL} build -s {STAGING_DIR} -d {SITE_DIR}")
 
 # ==============================================================================
@@ -225,20 +227,20 @@ def build(c):
 @task(default=True)
 def menu(c):
     tasks = [
-        ("Start  (Website bekijken)", serve),
-        ("Update alles", update),
-        ("Update één register", update_single_register),
-        ("Stop", None)
+        ("Alles verversen", update_all),
+        ("Eén register verversen", update_single_register),
+        ("Statische inhoud verversen", update_static_content),
+        ("Website starten", serve)
     ]
 
     if not running_in_docker():
-        tasks.insert(0, ("Setup  (Installeren)", setup))
+        tasks.insert(0, ("Installeren", setup))
 
     while True:
         print("\n=== STELSEL TOOL ===")
-        for i, task in enumerate(tasks[:-1], 1):
+        for i, task in enumerate(tasks, 1):
             print(f"[{i}] {task[0]}")
-        print("[Q] Stop")
+        print("[Q] Stoppen")
 
         try:
             choice = input("\nKies een optie: ").strip().lower()

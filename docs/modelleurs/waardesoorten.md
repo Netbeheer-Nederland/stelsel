@@ -1,14 +1,13 @@
 ---
-title: Basistypen
+title: Waardesoorten
 parent: Modelleurs
 ---
 
-## Basistypen
+## Waardesoorten
 
-In dit stelsel wordt gewerkt met een eigen set conceptuele basistypen. Deze basistypen beschrijven *wat informatie betekent* en maken deel uit van het conceptuele informatiemodel (_Requirements_‑laag, R, volgens het WRSPM‑model).
+In dit stelsel wordt gewerkt met een eigen set conceptuele waardesoorten. Deze waardesoorten categoriseren elementaire informatie (waarden) en maken deel uit van het conceptuele informatiemodel (_Requirements_‑laag, R, volgens het WRSPM‑model).
 
-De basistypen doen uitdrukkelijk geen uitspraken over technische realisatie. Zij leggen niet vast dat iets een `string`, `float`, `double` of ander technisch datatype moet zijn. Dergelijke keuzes horen thuis in de
-_System Specification_‑laag (S) en kunnen per toepassing verschillen.
+De waardesoorten doen uitdrukkelijk geen uitspraken over technische realisatie. Zij leggen niet vast dat iets een `string`, `float`, `double` of ander technisch datatype moet zijn. Dergelijke keuzes horen thuis in de _System Specification_‑laag (S) en kunnen per toepassing verschillen.
 
 Door betekenis en techniek te scheiden:
 
@@ -18,13 +17,13 @@ Door betekenis en techniek te scheiden:
 
 ### Voorbeeld
 
-Het basistype **Reëel getal** beschrijft een *continue, fysiek meetbare hoeveelheid*. In een concrete implementatie kan dit bijvoorbeeld worden gerepresenteerd als:
+De waardesoort **Reëel getal** beschrijft een *continue, fysiek meetbare hoeveelheid*. In een concrete implementatie kan dit bijvoorbeeld worden gerepresenteerd als:
 
 - een `float`,
 - een `double`,
 - een `integer` als benadering omwille van prestatieoptimalisatie onder geaccepteerd verlies van precisie.
 
-Het basistype **Tijdsduur** beschrijft de *lengte van een tijdsinterval*. Afhankelijk van de toepassing kan dit technisch worden vastgelegd als:
+De waardesoort **Tijdsduur** beschrijft de *lengte van een tijdsinterval*. Afhankelijk van de toepassing kan dit technisch worden vastgelegd als:
 
 - een tekenreeks conform een ISO‑standaard (bijv. `PT15M` voor 15 minuten),
 - een geheel getal dat een aantal seconden, milliseconden of microseconden telt,
@@ -32,7 +31,9 @@ Het basistype **Tijdsduur** beschrijft de *lengte van een tijdsinterval*. Afhank
 
 Al deze representaties zijn technisch gelijkwaardig, zolang zij dezelfde conceptuele betekenis correct uitdrukken.
 
-## Overzicht van de basistypen
+## Basiswaardesoorten
+
+Het stelsel hanteert een beperkte set fundamentele waardesoorten waarop alle waardedefinities zijn gebaseerd.
 
 ### Tekst
 
@@ -55,8 +56,6 @@ Gebruik voor:
 - adresserende waarden (telefoonnummer, e-mailadres)
 - type- en modelaanduidingen
 - classificaties die niet als waardelijsten zijn vastgelegd
-
-Een code is niet-talige informatie: de betekenis ligt vast door afspraak en is niet afhankelijk van interpretatie.
 
 ### Geheel getal
 

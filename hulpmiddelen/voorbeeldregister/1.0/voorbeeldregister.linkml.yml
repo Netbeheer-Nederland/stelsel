@@ -16,7 +16,7 @@ prefixes:
   iceg: https://wetten.overheid.nl/jci1.3:c:BWBR0037934& # gebruik Juriconnect bij verwijzing naar regelgeving
 default_prefix: this
 imports:
-  - ../../basistypen
+  - ../../basiswaardesoorten
 default_range: Tekst
 
 # Overal kun je de volgende elementen gebruiken:

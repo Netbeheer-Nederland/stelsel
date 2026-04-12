@@ -1,7 +1,7 @@
-id: https://modellen.netbeheernederland.nl/stelsel/basistypen
-name: basistypen
-title: Basistypen
-description: Conceptuele basistypen voor informatiemodellering.
+id: https://modellen.netbeheernederland.nl/stelsel/basiswaardesoorten
+name: basiswaardesoorten
+title: Basiswaardesoorten
+description: Fundamentele waardesoorten voor informatiemodellering.
 
 types:
   Tekst:

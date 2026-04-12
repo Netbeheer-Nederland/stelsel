@@ -15,7 +15,7 @@ prefixes:
   kvk: https://www.kvk.nl/
 default_prefix: this
 imports:
-  - ../../basistypen
+  - ../../basiswaardesoorten
 default_range: Tekst
 
 classes:

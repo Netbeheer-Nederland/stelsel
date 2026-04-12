@@ -11,6 +11,3 @@ prefixes:
   aansluitingenregister: https://modellen.netbeheernederland.nl/stelsel/registers/aansluitingenregister#
   iceg: https://wetten.overheid.nl/jci1.3:c:BWBR0037934&
 default_prefix: this
-imports:
-  - ../../basistypen
-default_range: Tekst

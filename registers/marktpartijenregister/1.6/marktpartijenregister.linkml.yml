@@ -14,7 +14,7 @@ prefixes:
   iceg: https://wetten.overheid.nl/jci1.3:c:BWBR0037934&
 default_prefix: this
 imports:
-  - ../../basistypen
+  - ../../basiswaardesoorten
 default_range: Tekst
 
 classes:

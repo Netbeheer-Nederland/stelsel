@@ -51,7 +51,7 @@ prefixes:
   bce: https://wetten.overheid.nl/jci1.3:c:BWBR0052320&
 default_prefix: this
 imports:
-  - ../../basistypen
+  - ../../basiswaardesoorten
 default_range: Tekst
 
 classes:

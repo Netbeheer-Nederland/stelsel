@@ -12,7 +12,7 @@ prefixes:
   hr: http://opendata.stelselcatalogus.nl/hr/id/begrip/
 default_prefix: this
 imports:
-  - ../../basistypen
+  - ../../basiswaardesoorten
 default_range: Tekst
 
 classes:

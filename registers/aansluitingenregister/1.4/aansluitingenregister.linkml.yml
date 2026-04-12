@@ -35,7 +35,7 @@ prefixes:
   brk: http://opendata.stelselcatalogus.nl/brk/id/begrip/
 default_prefix: this
 imports:
-  - ../../basistypen
+  - ../../basiswaardesoorten
 default_range: Tekst
 
 classes:

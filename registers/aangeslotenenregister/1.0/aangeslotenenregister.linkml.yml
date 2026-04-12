@@ -15,8 +15,8 @@ prefixes:
   kvk: https://www.kvk.nl/
 default_prefix: this
 imports:
-  - linkml:types
-default_range: string
+  - ../../basistypen
+default_range: Tekst
 
 classes:
   Aangeslotene:
@@ -34,7 +34,7 @@ classes:
         description: uniek adres voor digitaal, elektronisch postverkeer
       geboortedatum:
         description: datum van geboorte van een persoon
-        range: date
+        range: Datum
         comments:
           - "Validatie: afwezig bij 'geen huishoudelijk eindafnemer'."
       naam:
@@ -97,7 +97,7 @@ classes:
       huisnummer:
         description: aan een verblijfsobject, standplaats of ligplaats toegekend nummer, een antwoordnummer of een postbusnummer
         required: true
-        range: integer
+        range: Geheel getal
       huisnummertoevoeging:
         description: aan een verblijfsobject, standplaats of ligplaats toegekende nadere toevoeging aan een huisnummer inclusief huisletter
       landcode:

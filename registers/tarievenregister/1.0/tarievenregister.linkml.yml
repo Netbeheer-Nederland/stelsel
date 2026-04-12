@@ -26,8 +26,8 @@ prefixes:
   rmt: https://wetten.overheid.nl/jci1.3:c:BWBR0028965&
 default_prefix: this
 imports:
-  - linkml:types
-default_range: string
+  - ../../basistypen
+default_range: Tekst
 
 classes:
   Tariefcomponent:
@@ -46,7 +46,7 @@ classes:
     attributes:
       bedrag:
         description: hoeveelheid geld die verschuldigd is
-        range: decimal
+        range: Decimaal getal
         required: true
       soort:
         description: categorie waartoe de tariefcomponent behoort
@@ -79,38 +79,38 @@ classes:
     attributes:
       aantal PAV:
         description: getal waarmee het bedrag van de periodieke aansluitvergoeding vermenigvuldigd moet worden
-        range: integer
+        range: Geheel getal
         required: true
       aantal TAVT:
         description: getal waarmee het bedrag van het transportafhankelijk transporttarief dan wel verbruikerstarief vermenigvuldigd moet worden
-        range: integer
+        range: Geheel getal
         required: true
       aantal TOVT:
         description: getal waarmee het bedrag van het transportonafhankelijk transporttarief dan wel verbruikerstarief vermenigvuldigd moet worden
-        range: integer
+        range: Geheel getal
         required: true
       aantal MT:
         description: getal waarmee het bedrag van het meettarief vermenigvuldigd moet worden
-        range: integer
+        range: Geheel getal
         required: true
       subtotaal PAV:
         description: totaalbedrag van de periodieke aansluitvergoeding na vermenigvuldiging met het aantal
         comments:
           - "Validatie: gelijk aan aantal PAV * bedrag van tariefcomponent waar soort = PAV."
-        range: decimal
+        range: Decimaal getal
       subtotaal TOVT:
         description: totaalbedrag van het transportonafhankelijk transporttarief dan wel verbruikerstarief na vermenigvuldiging met het aantal
         comments:
           - "Validatie: gelijk aan aantal TOVT * bedrag van tariefcomponent waar soort = TOVT."
-        range: decimal
+        range: Decimaal getal
       subtotaal MT:
         description: totaalbedrag van het meettarief na vermenigvuldiging met het aantal
         comments:
           - "Validatie: gelijk aan aantal MT * bedrag van tariefcomponent waar soort = MT."
-        range: decimal
+        range: Decimaal getal
       totaalbedrag:
         description: som van alle bedragen van onderliggende tariefcomponenten, na vermenigvuldiging met het aantal
-        range: decimal
+        range: Decimaal getal
       # relaties:
       vastgesteld door:
         range: Marktpartijsubregistratie
@@ -136,6 +136,7 @@ slots:
     required: true
   EAN-code:
     description: unieke cijfercombinatie volgens de Europese Artikelnummer-standaard
+    range: Code
     required: true
 
 enums:

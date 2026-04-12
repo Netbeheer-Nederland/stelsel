@@ -15,8 +15,8 @@ prefixes:
   bce: https://wetten.overheid.nl/jci1.3:c:BWBR0037938&
 default_prefix: this
 imports:
-  - linkml:types
-default_range: string
+  - ../../basistypen
+default_range: Tekst
 
 classes:
   Gatewaycodering:
@@ -66,18 +66,18 @@ classes:
         multivalued: true
       luchtdrukgecorrigeerd:
         description: aanduiding of de metingen door de meter worden gecorrigeerd voor luchtdruk
-        range: boolean
+        range: Waar of onwaar
         required: true
       metercode:
         description: unieke code die een type energiehoeveelheidsmeter aanduidt op basis van metrologische eigenschappen en fabrikant
         required: true
       op afstand uitleesbaar:
         description: kenmerk dat weergeeft of de meter voldoet aan het Besluit op afstand uitleesbare meetinrichtingen
-        range: boolean
+        range: Waar of onwaar
         required: true
       temperatuurgecorrigeerd:
         description: aanduiding of de metingen door de meter worden gecorrigeerd voor temperatuur
-        range: boolean
+        range: Waar of onwaar
         required: true
     unique_keys:
       identificatie:
@@ -94,7 +94,7 @@ classes:
     attributes:
       aantal posities voor de komma:
         description: maximaal aantal posities in het decimale talstelsel dat het telwerk kan bevatten
-        range: integer
+        range: Geheel getal
       energierichting:
         exact_mappings:
           - begrip:yn3hb #energierichting

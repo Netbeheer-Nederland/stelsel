@@ -51,8 +51,8 @@ prefixes:
   bce: https://wetten.overheid.nl/jci1.3:c:BWBR0052320&
 default_prefix: this
 imports:
-  - linkml:types
-default_range: string
+  - ../../basistypen
+default_range: Tekst
 
 classes:
   Transporteenheid:
@@ -80,14 +80,14 @@ classes:
         description: aantal padsegmenten dat onbeschikbaar kan zijn zonder (lange) onderbreking van het energietransport
         comments:
           - Ook bekend als N-0, N-1, N-2. Maar let op het verschil met redundantie van netelementen zoals een dubbel uitgevoerd railsysteem.
-        range: integer
+        range: Geheel getal
         required: true
       individuele aanwezige transportcapaciteit:
         broad_mappings:
           - begrip:2whwi #aanwezige transportcapaciteit
         description: aanwezige transportcapaciteit van een afzonderlijke transporteenheid, zonder rekening te houden met gelijktijdige belasting door andere transporteenheden
         required: true
-        range: float
+        range: Reëel getal
         unit:
           ucum_code: MW
       regelbare transportcapaciteit:
@@ -97,25 +97,25 @@ classes:
           - Regelmiddelen zijn onder andere het gecontroleerd afschakelen van zuivere invoeding, capaciteitssturing (inclusief statische capaciteitsbeperking) en redispatchbiedingen.
           - Alternatieve transportrechten verhogen niet de regelbare transportcapaciteit maar verlagen de benodigde transportapaciteit.
         required: true
-        range: float
+        range: Reëel getal
         unit:
           ucum_code: MW
       benodigde transportcapaciteit:
         exact_mappings:
           - begrip:7bs28 #benodigde transportcapaciteit
-        range: float
+        range: Reëel getal
         unit:
           ucum_code: MW      
       individuele beschikbare transportcapaciteit:
         description: deel van de individuele aanwezige transportcapaciteit dat niet wordt ingezet om aan de benodigde transportcapaciteit te voldoen
         source: bce:g=2026-02-21
-        range: float
+        range: Reëel getal
         unit:
           ucum_code: MW
       gevraagde transportcapaciteit:
         exact_mappings:
           - begrip:7n44w #gevraagde transportcapaciteit
-        range: float
+        range: Reëel getal
         unit:
           ucum_code: MW
       # relaties:
@@ -145,7 +145,7 @@ classes:
       aanwezige transportcapaciteit:
         exact_mappings:
           - begrip:2whwi #aanwezige transportcapaciteit
-        range: float
+        range: Reëel getal
         required: true
         unit:
           ucum_code: MW
@@ -154,7 +154,7 @@ classes:
         source: bce:g=2026-02-21
         comments:
           - "Validatieregel: gelijk aan hetverschil tussen de aanwezige transportcapaciteit en de som van de benodigde transportcapaciteiten van de betrokken transporteenheden."
-        range: float
+        range: Reëel getal
         unit:
           ucum_code: MW
       # relaties:
@@ -183,7 +183,7 @@ classes:
         comments:
           - "Afleidingsregel: gelijk aan de kleinste normale capaciteit van de geleidende netelementen waaruit het padsegment bestaat."
         required: true
-        range: float
+        range: Reëel getal
         unit:
           ucum_code: MVA
       noodcapaciteit:
@@ -191,7 +191,7 @@ classes:
         comments:
           - "Afleidingsregel: gelijk aan de kleinste noodcapaciteit van de geleidende netelementen waaruit het padsegment bestaat."
         required: true
-        range: float
+        range: Reëel getal
         unit:
           ucum_code: MVA
       # relaties:
@@ -227,7 +227,7 @@ classes:
     attributes:
       actief:
         description: geeft aan of het knooppunt in de standaardbedieningssituatie beschikbaar is voor energietransport, zonder dat een bedieningshandeling is vereist
-        range: boolean
+        range: Waar of onwaar
         required: true
       # relaties:
       deel van:
@@ -268,7 +268,7 @@ classes:
         comments:
           - "Afleidingsregel: gelijk aan de kleinste normale capaciteit van de geleidende netelementen waaruit het padsegment bestaat."
         required: true
-        range: float
+        range: Reëel getal
         unit:
           ucum_code: MVA
       noodcapaciteit:
@@ -277,7 +277,7 @@ classes:
           - De noodcapaciteit is doorgaans hoger dan de normale capaciteit omdat aangenomen wordt dat alternatieve bedieningssituaties kort duren.
           - "Afleidingsregel: gelijk aan de kleinste noodcapaciteit van de geleidende netelementen waaruit het padsegment bestaat."
         required: true
-        range: float
+        range: Reëel getal
         unit:
           ucum_code: MVA
     unique_keys:
@@ -288,6 +288,7 @@ classes:
 slots:
   identificatie:
     description: unieke aanduiding waarmee iets binnen een gegeven context ondubbelzinnig herkenbaar is
+    range: Code
     required: true
 
 enums:

@@ -18,8 +18,8 @@ prefixes:
   rakveg: https://wetten.overheid.nl/jci1.3:c:BWBR0030164&
 default_prefix: this
 imports:
-  - linkml:types
-default_range: string
+  - ../../basistypen
+default_range: Tekst
 
 classes:
   # Aanmelder:
@@ -73,7 +73,7 @@ classes:
         range: Onregelmatigheid
         required: true
       waarde:
-        range: float
+        range: Reëel getal
         required: true
       eenheid:
         description: maat waarin een grootheid numeriek kan worden uitgedrukt
@@ -82,7 +82,7 @@ classes:
       afschakeltijd:
         description: tijd om iets buiten werking te stellen
         required: true
-        range: float
+        range: Reëel getal
         unit:
           ucum_code: ms
       #relaties
@@ -133,27 +133,27 @@ classes:
     attributes:
       aansluitspanning op het overdrachtspunt:
         description: nominale spanning op het overdrachtspunt van de aansluiting
-        range: float
+        range: Reëel getal
         unit:
           ucum_code: kV
         deprecated: Deze eigenschap hoort thuis in het aansluitingenregister.
       absolute kortsluitbijdrage:
         description: grootte van de stroomsterkte die de elektriciteitsinstallatie-eenheid injecteert op het overdrachtspunt gedurende een kortsluiting in het net
-        range: float
+        range: Reëel getal
         unit:
           ucum_code: kA
       fabrikant van parkregelaar:
         description: (merk)naam van een bedrijf dat perkregelaars vervaardigt
       relatieve kortsluitbijdrage:
         description: verhouding tussen de kortsluitstroombijdrage (Isc) en de nominale stroom (In) van de elektriciteitsinstallatie-eenheid op het overdrachtspunt
-        range: float
+        range: Reëel getal
       maximumcapaciteit voor afname:
         description: maximaal continu werkzame vermogen dat een elektricitsinstallatie-eenheid kan verbruiken, als gespecificeerd in de aansluitovereenkomst of overeengekomen tussen de netbeheerder en de eigenaar van de installatie
         comments:
           - "Validatieregel: verplicht bij opslageenheid en laadeenheid. Verplicht leeg bij productie-eenheid."
         broad_mappings:
           - begrip:gsewd #maximumcapaciteit
-        range: float
+        range: Reëel getal
         unit:
           ucum_code: kW
       maximumcapaciteit voor invoeding:
@@ -162,34 +162,34 @@ classes:
           - "Validatieregel: verplicht bij productie-eenheid en opslageenheid."
         broad_mappings:
           - begrip:gsewd #maximumcapaciteit
-        range: float
+        range: Reëel getal
         unit:
           ucum_code: kW
       maximale afregelsnelheid:
         description: maximale vermogensafname per tijdeenheid, als deel van de maximumcapaciteit
-        range: float
+        range: Reëel getal
         unit:
           ucum_code: '%/s'
       maximale opregelsnelheid:
         description: maximale vermogenstoename per tijdeenheid, als deel van de maximumcapaciteit
-        range: float
+        range: Reëel getal
         unit:
           ucum_code: '%/s'
       nominale arbeidsfactor:
         description: verhouding tussen het werkelijke vermogen en het schijnbare vermogen onder nominale bedrijfsomstandigheden
-        range: float
+        range: Reëel getal
       soort koppeling:
         description: manier waarop de elektriciteitsinstallatie-eenheid is gekoppeld met het overdrachtspunt
         range: Soort koppeling
         required: true
       subtransiënte reactantie:
         description: kortstondige reactantie direct na een plotselinge storing zoals een kortsluiting, uitgedrukt in het per-unit systeem
-        range: float
+        range: Reëel getal
       totale vermogen omvormers:
         description: som van de vermogens van alle bij de elektriciteitinstallatie-eenheid behorende omvormers
         comments:
           - ⚠ Bij type A staat kW op het formulier, bij type B, C en D, MW. Is het oké om in het register enkel MW (of enkel kW) te hanteren?
-        range: float
+        range: Reëel getal
         unit:
           ucum_code: MW
       type:
@@ -227,7 +227,7 @@ classes:
     attributes:
       automatische invoeding bij frequentiedaling:
         description: geeft aan of een opslageenheid automatisch kan wisselen tussen afname en invoeding in reactie op frequentiedalingen
-        range: boolean
+        range: Waar of onwaar
       energieherkomst:
         description: aanduiding die aangeeft of de opgeslagen energie afkomstig is uit het energienet, die installatie of beide
         range: Energieherkomst
@@ -238,13 +238,13 @@ classes:
         required: true
       maximaal bruikbare hoeveelheid energie:
         description: hoeveelheid elektrische energie die maximaal in een elektriciteitsopslageenheid kan worden geïnjecteerd en daaruit kan worden onttrokken voor het energienet
-        range: float
+        range: Reëel getal
         unit:
           ucum_code: kWh
         required: true
       opslagcapaciteit:
         description: maximale hoeveel energie die de opslageenheid kan opslaan
-        range: float
+        range: Reëel getal
         unit:
           ucum_code: MWh
   Elektriciteitsproductie-eenheid:
@@ -264,17 +264,17 @@ classes:
         comments:
           - Alhoewel artikel 13.1 van de Netcode elektriciteit het totale vermogen van de elektriciteitsproductie-installatie noemt, gaat dit register uit van het totale vermogen per elektriciteitsprodcutie-eenheid.
           - ⚠ Bij type A staat kW op het formulier, bij type B, C en D, MW. Is het oké om in het register enkel MW (of enkel kW) te hanteren?
-        range: float
+        range: Reëel getal
         unit:
           ucum_code: MW
       x-coördinaat:
         description: oost-westpositie van een punt in het Rijksdriehoeksstelsel (RD)
-        range: float
+        range: Reëel getal
         unit:
           ucum_code: m
       y-coördinaat:
         description: noord-zuidpositie van een punt in het Rijksdriehoeksstelsel (RD)
-        range: float
+        range: Reëel getal
         unit:
           ucum_code: m
   GCvO-installatie:
@@ -300,10 +300,10 @@ classes:
         required: true
       hoogrenderende warmtekrachtkoppeling:
         description: geeft aan of sprake is van een installatie voor hoogrenderende warmtekrachtkoppeling (HR-WKK)
-        range: boolean
+        range: Waar of onwaar
       subsidie:
         description: geeft aan of de GCvO-installatie overheidssteun ontvangt of geniet
-        range: boolean
+        range: Waar of onwaar
       primaire energiebron:
         description: stof, object of natuurlijke plaats waaruit de meeste energie wordt gehaald
       #relaties
@@ -350,11 +350,11 @@ classes:
     attributes:
       aantal opwekkingseenheden:
         description: hoeveelheid opwekkingseenheden in de groep
-        range: integer
+        range: Geheel getal
         required: true
       nominaal vermogen per opwekkingseenheid:
         description: door de fabrikant aangegeven maximale vermogen bij continu gebruik waarbij een maximaal rendement wordt behaald
-        range: float
+        range: Reëel getal
         unit:
           ucum_code: MVA
       soort opwekkingseenheid:
@@ -363,7 +363,7 @@ classes:
         required: true
       ashoogte:
         description: verticale afstand in meters tot het middelpunt van de as waarop de wieken draaien
-        range: float
+        range: Reëel getal
         unit:
           ucum_code: m
       hoogtereferentie:
@@ -374,19 +374,19 @@ classes:
         comments:
           - Traagheid (inertia) helpt het energienet te stabiliseren.
           - Dit betreft de fysieke vorm van traagheid, ter onderscheiding van de synthetische variant die door omvormers wordt geleverd.
-        range: float
+        range: Reëel getal
         unit:
           ucum_code: kg.m2
       azimut:
         description: horizontale hoek, gemeten met de klok mee vanaf het geografische noorden
         comments:
           - Bij een oost-westopstelling zijn er minimaal twee groepen, elk met een eigen azimut.
-        range: float
+        range: Reëel getal
         unit:
           ucum_code: deg
       hellingshoek:
         description: hoek ten opzichte van het horizontale vlak
-        range: float
+        range: Reëel getal
         unit:
           ucum_code: deg
       #relaties
@@ -406,37 +406,37 @@ classes:
     attributes:
       nominaal schijnbaar vermogen:
         description: maximale totale vermogen dat de transformator onder normale bedrijfsomstandigheden kan verwerken zonder overbelasting
-        range: float
+        range: Reëel getal
         unit:
           ucum_code: MVA
         required: true
       nominale spanning primair:
         description: standaardspanning waarvoor de transformator is ontworpen om optimaal te functioneren aan de primaire zijde
-        range: float
+        range: Reëel getal
         unit:
           ucum_code: kV
         required: true
       nominale spanning secundair:
         description: standaardspanning waarvoor de transformator is ontworpen om optimaal te functioneren aan de secundaire zijde
-        range: float
+        range: Reëel getal
         unit:
           ucum_code: kV
         required: true
       nominale kortsluitspanning:
         description: spanning die nodig is om de volledige nominale stroom door de transformator te laten vloeien bij een kortsluiting op de uitgang, wanneer er geen belasting is
-        range: float
+        range: Reëel getal
         unit:
           ucum_code: "%"
         required: true
       nominale koper- of kortsluitverliezen:
         description: warmteverliezen die optreden in de wikkelingen van de transformator wanneer deze onder nominale belasting werkt
-        range: float
+        range: Reëel getal
         unit:
           ucum_code: kW
         required: true
       nominale ijzer- of nullastverliezen:
         description: verliezen in de transformator die optreden wanneer deze onder nominale spanning werkt, maar zonder belasting
-        range: float
+        range: Reëel getal
         unit:
           ucum_code: kW
         required: true
@@ -448,17 +448,17 @@ classes:
         required: true
       hoogste trap:
         description: hoogste spanningsniveau van de regelschakelaar
-        range: float
+        range: Reëel getal
         unit:
           ucum_code: kV
       laagste trap:
         description: laagste spanningsniveau van de regelschakelaar
-        range: float
+        range: Reëel getal
         unit:
           ucum_code: kV
       stapgrootte:
         description: spanningsverschil tussen opeenvolgende standen van de regelschakelaar
-        range: decimal
+        range: Decimaal getal
         comments:
           - Tot vier decimalen.
         unit:
@@ -483,12 +483,14 @@ classes:
 slots:
   EAN-code:
     description: unieke cijfercombinatie volgens de Europese Artikelnummer-standaard
+    range: Code
     required: true
   fabrikant:
     description: (merk)naam van een bedrijf dat industrieel goederen vervaardigt
     required: true
   typeaanduiding:
     description: naam die door een fabrikant aan een reeks producten met vergelijkbare eigenschappen wordt gegeven
+    range: Code
     required: true
 
 enums:

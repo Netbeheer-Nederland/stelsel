@@ -15,8 +15,8 @@ prefixes:
   iceg: https://wetten.overheid.nl/jci1.3:c:BWBR0037934&
 default_prefix: this
 imports:
-  - linkml:types
-default_range: string
+  - ../../basistypen
+default_range: Tekst
 
 classes:
   Grootverbruikmeetinrichting:
@@ -34,14 +34,15 @@ classes:
         range: Capaciteit
       meternummer:
         description: identificatie van de meetinrichting
+        range: Code
         required: true
       moment van ingebruikname:
         description: tijdstip waarop de meetinrichting begint met het registreren van energie-uitwisseling
-        range: datetime
+        range: Tijdstip
         required: true
       moment van buitengebruikstelling:
         description: tijdstip waarop de meetinrichting stopt met het registreren van energie-utwisseling
-        range: datetime
+        range: Tijdstip
       wijze van bemeting:
         description: tijdsinterval tussen metingen
         comments:
@@ -69,28 +70,29 @@ classes:
         description: hoeveelheid telwerken waarin daadwerkelijk de gemeten hoeveelheid energie wordt vastgelegd en waarvan de stand wordt uitgelezen ten behoeve van de marktprocessen
         comments:
           - "Validatie: gelijk aan het aantal instanties van Telwerk bij deze meetinrichting."
-        range: integer
+        range: Geheel getal
         required: true
       correctiefactor voor hoogteligging:
         description: factor waarmee het getal van de telwerken vermenigvuldigd moet worden om de meetwaarde te corrigeren voor hoogteligging
         comments:
           - Bij een niet-temperatuurgecorrigeerde gasmeetinrichting geldt de waarde uit de Meetcode gas (B1.3.5.1) op basis van postcode en nha.nl, anders 1.
-        range: float
+        range: Reëel getal
         required: true
       correctiefactor voor indirecte meting:
         description: factor waarmee het getal van de telwerken vermenigvuldigd moet worden om de meetwaarde te corrigeren voor een meting via meettransformatoren
         comments:
           - De waarde is afkomstig uit het Meetcomponentenregister.
-        range: float
+        range: Reëel getal
         required: true
       correctiefactor voor leveringsdruk:
         description: factor waarmee het getal van de telwerken vermenigvuldigd moet worden om de meetwaarde te corrigeren voor leveringsdruk (afleveringsdruk + atmosferische druk)
         comments:
           - Bij een niet-temperatuurgecorrigeerde gasmeetinrichting geldt de waarde uit de Meetcode gas (B.1.3.5.3), anders 1.
-        range: float
+        range: Reëel getal
         required: true
       meternummer:
         description: identificatie van de meetinrichting
+        range: Code
         required: true
       op afstand uitleesbaar:
         description: geeft weer of de meetinrichting voldoet aan het Besluit op afstand uitleesbare meetinrichtingen
@@ -98,7 +100,7 @@ classes:
           - Ook wel bekend als 'slim'.
         see_also:
           - boaum:g=2020-10-25
-        range: boolean
+        range: Waar of onwaar
         required: true
       reden technisch niet op afstand uitleesbaar:
         description: verklaring voor het technisch niet op afstand uitleesbaar zijn van de meetinrichting
@@ -107,10 +109,10 @@ classes:
         description: geeft weer of de meetinrichting gelet op externe factoren van technische aard al dan niet op afstand uitleesbaar is
         comments:
           - "Validatie: afwezig bij een niet op afstand uitleesbare meetinrichting."
-        range: boolean
+        range: Waar of onwaar
       temperatuurgecorrigeerd:
         description: geeft weer of de metingen door de meetinrichting worden gecorrigeerd voor temperatuur
-        range: boolean
+        range: Waar of onwaar
       # telwerk:
       bij:
         range: Any
@@ -135,7 +137,7 @@ classes:
     attributes:
       aantal posities voor de komma:
         description: maximaal aantal posities in het decimale talstelsel dat het telwerk kan bevatten
-        range: integer
+        range: Geheel getal
         required: true
       energierichting:
         exact_mappings:
@@ -167,7 +169,7 @@ classes:
         description: samenstel van alle specifiek voor de meetinrichting van toepassing zijnde correctiefactoren, met uitzondering van de volumeherleidingsfactor, die nodig zijn om uit de tellerstanden de daadwerkelijke hoeveelheid met het net uitgewisselde energie te kunnen vaststellen of om tot een normaalvolume te komen
         comments:
           - "Validatie: product van de correctiefactoren voor hoogteligging, leveringsdruk en indirecte meting."
-        range: float
+        range: Reëel getal
         required: true
       # relaties:
       deel van:
@@ -209,7 +211,7 @@ classes:
 types:
   Cijfer:
     description: enkel karakter dat een numeriek symbool weergeeft
-    base: string
+    typeof: Code
     pattern: "^[0-9]$"
 
 enums:

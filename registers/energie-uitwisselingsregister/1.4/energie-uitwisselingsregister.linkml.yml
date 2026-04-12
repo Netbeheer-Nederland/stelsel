@@ -21,8 +21,8 @@ prefixes:
   nce: https://wetten.overheid.nl/jci1.3:c:BWBR0037940&
 default_prefix: this
 imports:
-  - linkml:types
-default_range: string
+  - ../../basistypen
+default_range: Tekst
 
 classes:
   Actuele temperatuurcoëfficiënt:
@@ -123,9 +123,7 @@ classes:
     attributes:
       interval:
         description: voorgenomen tijdsduur tussen beginmoment en eindmoment
-        comments:
-          - Tijdsduuraanduiding conform ISO 8601 zoals PT15M, P1M of P1W.
-        range: string
+        range: Tijdsduur
         required: true
       # relaties:
       op:
@@ -198,19 +196,19 @@ classes:
         description: fractie van een (jaar)verbruik dat het temperatuurafhankelijke verbruik per graad Celsius van het desbetreffende uur weergeeft
         comments:
           - In graden Celcius per uur, met 8 decimalen.
-        range: decimal
+        range: Decimaal getal
         required: true
       stooktemperatuur:
         description: temperatuur waarboven geen temperatuurafhankelijk verbruik is
         comments:
           - In graden Celcius per uur, met 4 decimalen.
-        range: decimal
+        range: Decimaal getal
         required: true
       temperatuuronafhankelijke deel:
         description: fractie van een (jaar)verbruik dat het temperatuuronafhankelijke verbruik van het desbetreffende uur weergeeft
         comments:
           - Getal met 8 decimalen.
-        range: decimal
+        range: Decimaal getal
         required: true
     unique_keys:
       identificatie:
@@ -317,7 +315,7 @@ classes:
     attributes:
       moment:
         description: tijdstip
-        range: datetime
+        range: Tijdstip
         required: true
       meternummer:
         description: identificatie van de meetinrichting van het telwerk
@@ -336,7 +334,7 @@ classes:
         required: true
       vermenigvuldigingsfactor:
         description: getal waarmee vermenigvuldigd moet worden om de daadwerkelijke hoeveelheid met het net uitgewisselde energie te kunnen vaststellen of om tot een normaalvolume te komen
-        range: float
+        range: Reëel getal
         required: true
       # relaties:
       op:
@@ -491,7 +489,7 @@ classes:
 slots:
   beginmoment:
     description: eerste tijdstip waarop iets geldt
-    range: datetime
+    range: Tijdstip
     required: true
   eenheid:
     description: maat waarin natuurkundige grootheden numeriek kunnen worden uitgedrukt
@@ -499,7 +497,7 @@ slots:
     required: true
   eindmoment:
     description: eerste tijdstip waarop iets niet meer geldt
-    range: datetime
+    range: Tijdstip
     required: true
   energierichting:
     exact_mappings:
@@ -529,13 +527,13 @@ slots:
     required: true
   waarde:
     description: hoeveelheid eenheden
-    range: float
+    range: Reëel getal
     required: true
 
 types:
   Cijfer:
     description: enkel karakter dat een numeriek symbool weergeeft
-    base: string
+    typeof: Code
     pattern: "^[0-9]$"
 
 enums:

@@ -1,0 +1,32 @@
+id: https://modellen.netbeheernederland.nl/stelsel/basistypen
+name: basistypen
+title: Basistypen
+description: Conceptuele basistypen voor informatiemodellering. Deze types definiëren de betekenis voor mensen en bieden een technische basis voor validatie en serialisatie.
+
+types:
+  Tekst:
+    description: aanduiding bedoeld voor mensen, zonder vaste structuur of betekenis
+    comments:
+      - Wordt gebruikt voor namen, omschrijvingen en toelichtingen.
+  Code:
+    description: niet-talige, symbolische aanduiding waarmee informatie op een vast afgesproken manier wordt overgedragen
+  Geheel getal:
+    description: telbare hoeveelheid zonder decimalen
+    comments:
+      - Wordt gebruikt voor aantallen en ordinalen.
+  Reëel getal:
+    description: continue, fysiek meetbare hoeveelheid
+    comments:
+      - Wordt gebruikt voor metingen zoals afstand, vermogen en spanning.
+  Decimaal getal:
+    description: exact afgesproken numerieke waarde
+    comments:
+      - Wordt gebruikt voor geldbedragen, tarieven en contractuele percentages.
+  Waar of onwaar:
+    description: binaire aanduiding die aangeeft of een propositie of kenmerk van toepassing is (waar) of niet van toepassing is (onwaar)
+  Datum:
+    description: kalenderdatum zonder tijdsaanduiding
+  Tijdstip:
+    description: exacte aanduiding van datum en tijd, eventueel inclusief tijdzone-informatie
+  Tijdsduur:
+    description: lengte van een tijdsinterval, zoals een uur, dag of maand

@@ -14,8 +14,8 @@ prefixes:
   iceg: https://wetten.overheid.nl/jci1.3:c:BWBR0037934&
 default_prefix: this
 imports:
-  - linkml:types
-default_range: string
+  - ../../basistypen
+default_range: Tekst
 
 classes:
   Activiteitencategorie:
@@ -41,7 +41,7 @@ classes:
         comments:
           - Voor grootverbruikaansluitingen en sommige kleinverbruikaansluitingen is bijvoorbeeld geen leveringsvergunning vereist.
         required: true
-        range: boolean
+        range: Waar of onwaar
       # relaties:
       toegestaan in:
         range: Soort marktrolbeschikking
@@ -70,11 +70,13 @@ classes:
           personal_data: true
       e-mailadres:
         description: uniek adres voor digitaal, elektronisch postverkeer
+        range: Code
         required: true
         annotations:
           personal_data: true
       nummer:
         description: identificatie van de contactpersoon
+        range: Code
         required: true
         annotations:
           personal_data: true
@@ -85,6 +87,7 @@ classes:
           personal_data: true
       telefoonnummer:
         description: uniek nummer dat wordt toegekend wordt om een aansluiting op het publieke telefoonnet te identificeren
+        range: Code
         required: true
         annotations:
           personal_data: true
@@ -109,7 +112,7 @@ classes:
         multivalued: true
       verplicht:
         description: geeft aan of bij marktpartijregistraties met de betreffende marktrollen een lidmaatschap van deze contactgroep aanwezig moet zijn
-        range: boolean
+        range: Waar of onwaar
         required: true
     unique_keys:
       identificatie:
@@ -161,6 +164,7 @@ classes:
           personal_data: true
       e-mailadres:
         description: uniek adres voor digitaal, elektronisch postverkeer
+        range: Code
         annotations:
           personal_data: true
       onderwerp:
@@ -190,13 +194,14 @@ classes:
     attributes:
       bedrijfs-EAN-code:
         description: identificatie van een onderneming in het berichtenverkeer
+        range: Code
         required: true
       laatste validatie van contactpersoonsgegevens:
         description:  moment waarop de dan actuele gegevens over contactpersonen bij de marktpartijregistratie voor het laatst zijn gecontroleerd op juistheid en actualiteit
-        range: date
+        range: Datum
       laatste validatie van marktpartijgegevens:
         description: moment waarop de dan actuele gegevens over de marktpartijregistratie, exclusief de contactpersoonsgegevens, voor het laatst zijn gecontroleerd op juistheid en actualiteit
-        range: date
+        range: Datum
       marktrol:
         description: rol die een onderneming kan vervullen op de energiemarkt
         range: Marktrol
@@ -236,16 +241,20 @@ classes:
         description: aanduiding van een subregistratie
       bedrijfs-EAN-code:
         description: identificatie van een onderneming in het berichtenverkeer
+        range: Code
         comments:
           - Bij de eerste subregistratie gelijk aan de bedrijfs-EAN-code van de Marktpartijregistratie.
       IBAN:
         description: betaalrekeningnummer
+        range: Code
         comments:
           - "Ingeval van een leverancier: het IBAN voor afdrachten aan en eventuele bijstortingen van netbeheerders."
       identificatie:
         description: reeks karakters om de subregistratie uniek te identificeren
+        range: Code
       VAT-nummer:
         description: omzetbelastingnummer
+        range: Code
       # relaties:
       actor in:
         range: Activiteitencategorie
@@ -274,6 +283,7 @@ classes:
     attributes:
       referentie:
         description: bijvoorbeeld een ACM-besluitnummer
+        range: Code
       # relaties:
       ingedeeld naar:
         range: Soort marktrolbeschikking

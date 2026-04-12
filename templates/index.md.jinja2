@@ -271,17 +271,7 @@ parent: "{{schema.title}}"
 {% endif %}
 {% endfor %}
 
-{% set used = [] %}
-{% set default = schemaview.schema.default_range %}
-{% for c in schemaview.schema.classes.values() %}
-  {% for s in c.attributes.values() %}
-    {% set r = s.range if s.range else default %}
-    {% if r and r not in used %}
-      {% set _ = used.append(r) %}
-    {% endif %}
-  {% endfor %}
-{% endfor %}
-{% for t in schemaview.schema.types.values() | sort(attribute=sort_by) if t.name in used %}
+{% for t in schemaview.schema.types.values() | sort(attribute=sort_by) %}
 {% if loop.first %}
 ## Waardesoorten
 {{ '{: .no_toc }' }}

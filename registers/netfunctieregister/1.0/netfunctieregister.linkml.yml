@@ -227,7 +227,7 @@ classes:
     attributes:
       actief:
         description: geeft aan of het knooppunt in de standaardbedieningssituatie beschikbaar is voor energietransport, zonder dat een bedieningshandeling is vereist
-        range: Waar of onwaar
+        range: Waarheidswaarde
         required: true
       # relaties:
       deel van:

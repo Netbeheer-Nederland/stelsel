@@ -227,7 +227,7 @@ classes:
     attributes:
       automatische invoeding bij frequentiedaling:
         description: geeft aan of een opslageenheid automatisch kan wisselen tussen afname en invoeding in reactie op frequentiedalingen
-        range: Waar of onwaar
+        range: Waarheidswaarde
       energieherkomst:
         description: aanduiding die aangeeft of de opgeslagen energie afkomstig is uit het energienet, die installatie of beide
         range: Energieherkomst
@@ -300,10 +300,10 @@ classes:
         required: true
       hoogrenderende warmtekrachtkoppeling:
         description: geeft aan of sprake is van een installatie voor hoogrenderende warmtekrachtkoppeling (HR-WKK)
-        range: Waar of onwaar
+        range: Waarheidswaarde
       subsidie:
         description: geeft aan of de GCvO-installatie overheidssteun ontvangt of geniet
-        range: Waar of onwaar
+        range: Waarheidswaarde
       primaire energiebron:
         description: stof, object of natuurlijke plaats waaruit de meeste energie wordt gehaald
       #relaties
@@ -592,5 +592,5 @@ enums:
         description: #to do
 types:
   Schakelgroep wikkelingen:
-    base: str
+    typeof: Code
     pattern: ^(Y|D)(N?)(y|d)(n?)([0-9]|10|11)$

@@ -1,7 +1,6 @@
 ---
 title: LinkML
 parent: Modelleurs
-nav_order: 3
 ---
 
 # Modelleren in LinkML

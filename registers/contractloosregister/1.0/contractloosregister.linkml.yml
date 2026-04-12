@@ -181,7 +181,7 @@ classes:
         range: Datum
       groot afgenomen volume:
         description: geeft aan of er veel energie is onttrokken van het energienet
-        range: Waar of onwaar
+        range: Waarheidswaarde
         required: true
       # relaties
       op:
@@ -220,7 +220,7 @@ classes:
         range: Code
       uitgevallen:
         description: geeft aan of de automatische behandeling van de zaak is gefaald
-        range: Waar of onwaar
+        range: Waarheidswaarde
         required: true
       uitvalreden:
         description: verklaring voor het falen van de automatische behandeling

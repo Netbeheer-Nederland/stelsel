@@ -100,7 +100,7 @@ classes:
           - Ook wel bekend als 'slim'.
         see_also:
           - boaum:g=2020-10-25
-        range: Waar of onwaar
+        range: Waarheidswaarde
         required: true
       reden technisch niet op afstand uitleesbaar:
         description: verklaring voor het technisch niet op afstand uitleesbaar zijn van de meetinrichting
@@ -109,10 +109,10 @@ classes:
         description: geeft weer of de meetinrichting gelet op externe factoren van technische aard al dan niet op afstand uitleesbaar is
         comments:
           - "Validatie: afwezig bij een niet op afstand uitleesbare meetinrichting."
-        range: Waar of onwaar
+        range: Waarheidswaarde
       temperatuurgecorrigeerd:
         description: geeft weer of de metingen door de meetinrichting worden gecorrigeerd voor temperatuur
-        range: Waar of onwaar
+        range: Waarheidswaarde
       # telwerk:
       bij:
         range: Any

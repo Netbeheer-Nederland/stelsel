@@ -320,7 +320,7 @@ slots:
     required: true
   netlevering:
     description: geeft aan of het volume is ingevoed op het energienet
-    range: Waar of onwaar
+    range: Waarheidswaarde
     required: true
   proces:
     description: set van samenhangende activiteiten om de uitgewisselde energie toe te wijzen

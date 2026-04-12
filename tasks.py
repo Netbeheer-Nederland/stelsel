@@ -47,44 +47,96 @@ def fetch_external_data():
     except Exception as e:
         print(f"   ⚠️ FOUT bij downloaden: {e}")
 
-def generate_linkml_docs(c):
+def choose_register_and_version():
+    models = [
+        d for d in os.listdir(REGISTERS_SOURCE_DIR)
+        if os.path.isdir(os.path.join(REGISTERS_SOURCE_DIR, d))
+    ]
+
+    if not models:
+        print("⚠️ Geen registers gevonden.")
+        return None, None
+
+    print("\n📚 Kies een register:")
+    for i, m in enumerate(models, 1):
+        print(f"[{i}] {m}")
+    print("[A] Alle registers")
+    print("[Q] Annuleren")
+
+    choice = input("> ").strip().lower()
+    if choice in ("q", ""):
+        return None, None
+    if choice == "a":
+        return None, None
+
+    try:
+        model = models[int(choice) - 1]
+    except (ValueError, IndexError):
+        print("❌ Ongeldige keuze")
+        return None, None
+
+    versions_path = os.path.join(REGISTERS_SOURCE_DIR, model)
+    versions = [
+        d for d in os.listdir(versions_path)
+        if os.path.isdir(os.path.join(versions_path, d))
+    ]
+
+    print(f"\n📦 Kies een versie van '{model}':")
+    for i, v in enumerate(versions, 1):
+        print(f"[{i}] {v}")
+    print("[A] Alle versies")
+
+    choice = input("> ").strip().lower()
+    if choice == "a":
+        return model, None
+
+    try:
+        version = versions[int(choice) - 1]
+        return model, version
+    except (ValueError, IndexError):
+        print("❌ Ongeldige keuze")
+        return None, None
+
+def generate_linkml_docs(c, only_model=None, only_version=None):
     """Genereer documentatie per modelversie (LinkML -> Markdown)."""
     print("⚙️  LinkML documentatie genereren...")
-    
+
     if not os.path.exists(REGISTERS_SOURCE_DIR):
         print(f"   [WARN] Bronmap '{REGISTERS_SOURCE_DIR}' niet gevonden.")
         return
 
-    # Loop door bronmodellen
     for model_name in os.listdir(REGISTERS_SOURCE_DIR):
+        if only_model and model_name != only_model:
+            continue
+
         model_path = os.path.join(REGISTERS_SOURCE_DIR, model_name)
-        if not os.path.isdir(model_path): continue
+        if not os.path.isdir(model_path):
+            continue
 
         for version_id in os.listdir(model_path):
-            version_path = os.path.join(model_path, version_id)
-            if not os.path.isdir(version_path): continue
-            yaml_file = os.path.join(version_path, f"{model_name}.linkml.yml")
-            if not os.path.exists(yaml_file):
-                print(f'Skipping {model_name}/{version_id}: no YAML file')
-                continue
-            svg_file = os.path.join(version_path, f"{model_name}.drawio.svg")
-            if not os.path.exists(svg_file):
-                print(f'Skipping {model_name}/{version_id}: no SVG file')
+            if only_version and version_id != only_version:
                 continue
 
-            # Doelmap in _staging
+            version_path = os.path.join(model_path, version_id)
+            if not os.path.isdir(version_path):
+                continue
+
+            yaml_file = os.path.join(version_path, f"{model_name}.linkml.yml")
+            svg_file = os.path.join(version_path, f"{model_name}.drawio.svg")
+
+            if not os.path.exists(yaml_file) or not os.path.exists(svg_file):
+                print(f"Skipping {model_name}/{version_id}: missing files")
+                continue
+
             out_dir = os.path.join(REGISTERS_TARGET_DIR, model_name, version_id)
             os.makedirs(out_dir, exist_ok=True)
 
-            # Kopieer SVG
             shutil.copy(svg_file, out_dir)
 
-            # Draai gen-doc (LinkML tool)
-            cmd = f"gen-doc --template-directory templates -d {out_dir} {yaml_file}"
             print(f"{model_name}/{version_id}:")
+            cmd = f"gen-doc --template-directory templates -d {out_dir} {yaml_file}"
             c.run(cmd)
-            
-            # Cleanup .md files (behalve index)
+
             for md_file in glob.glob(os.path.join(out_dir, "*.md")):
                 if not md_file.endswith("index.md"):
                     os.remove(md_file)
@@ -127,6 +179,23 @@ def update(c):
     print("✅ Data bijgewerkt.")
 
 @task
+def update_single_register(c):
+    print("📂 Statische content verversen...")
+    shutil.copytree(DOCS_DIR, STAGING_DIR, dirs_exist_ok=True)
+
+    fetch_external_data()
+
+    model, version = choose_register_and_version()
+    if model is None and version is None:
+        print("⏹️ Afgebroken.")
+        return
+
+    generate_linkml_docs(c, only_model=model, only_version=version)
+    generate_indices(c)
+
+    print("✅ Register bijgewerkt.")
+
+@task
 def serve(c):
     """Starten: Start de website lokaal (begint met schone lei)."""
     # Verwijder oude staging rommel
@@ -157,7 +226,8 @@ def build(c):
 def menu(c):
     tasks = [
         ("Start  (Website bekijken)", serve),
-        ("Update (Verversen tijdens draaien)", update),
+        ("Update alles", update),
+        ("Update één register", update_single_register),
         ("Stop", None)
     ]
 
@@ -169,12 +239,16 @@ def menu(c):
         for i, task in enumerate(tasks[:-1], 1):
             print(f"[{i}] {task[0]}")
         print("[Q] Stop")
-        
+
         try:
             choice = input("\nKies een optie: ").strip().lower()
         except KeyboardInterrupt:
             break
-            
-        match choice:
-            case 'q': break
-            case i: tasks[int(i)-1][1](c)
+
+        if choice == 'q':
+            break
+
+        try:
+            tasks[int(choice) - 1][1](c)
+        except (ValueError, IndexError, TypeError):
+            print("❌ Ongeldige keuze")

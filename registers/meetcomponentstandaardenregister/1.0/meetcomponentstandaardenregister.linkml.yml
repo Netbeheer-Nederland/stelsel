@@ -66,18 +66,18 @@ classes:
         multivalued: true
       luchtdrukgecorrigeerd:
         description: aanduiding of de metingen door de meter worden gecorrigeerd voor luchtdruk
-        range: Waar of onwaar
+        range: Waarheidswaarde
         required: true
       metercode:
         description: unieke code die een type energiehoeveelheidsmeter aanduidt op basis van metrologische eigenschappen en fabrikant
         required: true
       op afstand uitleesbaar:
         description: kenmerk dat weergeeft of de meter voldoet aan het Besluit op afstand uitleesbare meetinrichtingen
-        range: Waar of onwaar
+        range: Waarheidswaarde
         required: true
       temperatuurgecorrigeerd:
         description: aanduiding of de metingen door de meter worden gecorrigeerd voor temperatuur
-        range: Waar of onwaar
+        range: Waarheidswaarde
         required: true
     unique_keys:
       identificatie:

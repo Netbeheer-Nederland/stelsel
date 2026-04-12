@@ -41,7 +41,7 @@ classes:
         comments:
           - Voor grootverbruikaansluitingen en sommige kleinverbruikaansluitingen is bijvoorbeeld geen leveringsvergunning vereist.
         required: true
-        range: Waar of onwaar
+        range: Waarheidswaarde
       # relaties:
       toegestaan in:
         range: Soort marktrolbeschikking
@@ -112,7 +112,7 @@ classes:
         multivalued: true
       verplicht:
         description: geeft aan of bij marktpartijregistraties met de betreffende marktrollen een lidmaatschap van deze contactgroep aanwezig moet zijn
-        range: Waar of onwaar
+        range: Waarheidswaarde
         required: true
     unique_keys:
       identificatie:

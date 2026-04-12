@@ -162,7 +162,7 @@ classes:
         description: kenmerk dat weergeeft of de meter gelet op externe factoren van technische aard al dan niet op afstand uitleesbaar is
         comments:
           - De uitleesbaarheid van de meter heeft invloed op marktprocessen zoals allocatie.
-        range: Waar of onwaar
+        range: Waarheidswaarde
       verzegeldatum:
         description: datum waarop het apparaat voor het laatst metrologisch is verzegeld ter waarborging van de meetintegriteit
         range: Datum

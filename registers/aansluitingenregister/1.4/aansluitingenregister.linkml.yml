@@ -89,7 +89,7 @@ classes:
           - tce:hoofdstuk=3&paragraaf=3.7&artikel=3.7.13.b&g=2022-05-18
         comments:
           - Ook wel bekend als 'zuivere teruglevering'.
-        range: Waar of onwaar
+        range: Waarheidswaarde
         required: true
       unieke EAN-code bij MLOEA:
         description: EAN-code die ongelijk is aan die van een allocatiepunt
@@ -100,7 +100,7 @@ classes:
         description: geeft aan of de kWmax per week gemeten moet worden
         see_also:
           - tce:hoofdstuk=3&paragraaf=3.7&artikel=3.7.5a&g=2022-05-18
-        range: Waar of onwaar
+        range: Waarheidswaarde
       # relaties
       beheerd door:
         description: geeft aan welke netbeheerder de aansluiting beheert
@@ -246,7 +246,7 @@ classes:
     attributes:
       in gebruik:
         description: geeft aan of de aftakking wordt gebruikt
-        range: Waar of onwaar
+        range: Waarheidswaarde
       nominale waarde:
         description: hoeveelheid spanning of stroom waarvoor de aftakking is ontworpen, en die in combinatie met de waarde van de aftakking aan de andere zijde de overzetverhouding vormt
         range: Reëel getal
@@ -595,7 +595,7 @@ classes:
           - Bij een vaste druk bevat de aansluitverbinding een drukregelaar.
         see_also:
           - iceg:hoofdstuk=2&paragraaf=2.11&artikel=2.11.5&g=2023-06-28
-        range: Waar of onwaar
+        range: Waarheidswaarde
       waarde hoofdzekering:
         description: maximale stroomsterkte die de algemene veiligheid op de aansluitverbinding toelaat.
         comments:
@@ -647,7 +647,7 @@ classes:
       toegang vereist:
         description: geeft weer of essentiële onderdelen van de meetinrichting zijn geplaatst in een aan de netbeheerder ter beschikking staande ruimte die niet vrij toegankelijk is voor de meetverantwoordelijke
         source: mce:hoofdstuk=4&paragraaf=4.3&sub-paragraaf=4.3.1&artikel=4.3.1.1&g=2023-04-01
-        range: Waar of onwaar
+        range: Waarheidswaarde
       waarde meetzekering:
         description: waarde van de meetzekering in de spanningsmeetcircuits
         source: mce:hoofdstuk=4&paragraaf=4.3&sub-paragraaf=4.3.2&artikel=4.3.2.4&g=2022-10-25
@@ -683,7 +683,7 @@ classes:
           ucum_code: mbar
       meetdruk geregeld:
         description: aanduiding of de druk speciaal ten behoeve van het secundair gedeelte van de meetinrichting wordt geregeld
-        range: Waar of onwaar
+        range: Waarheidswaarde
       schroefdraaddiameter:
         description: doorsnede van het schroefdraad waarop het secundaire gedeelte van de meetinrichting kan worden geplaatst
         comments:

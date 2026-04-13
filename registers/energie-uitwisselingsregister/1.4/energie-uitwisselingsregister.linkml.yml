@@ -530,12 +530,6 @@ slots:
     range: Reëel getal
     required: true
 
-types:
-  Cijfer:
-    description: enkel karakter dat een numeriek symbool weergeeft
-    typeof: Code
-    pattern: "^[0-9]$"
-
 enums:
   Eenheid: # TODO
     permissible_values:
@@ -615,3 +609,9 @@ enums:
       afname met invoeding:
       afname zonder invoeding:
       niet van toepassing:
+
+types:
+  Cijfer:
+    description: enkel karakter dat een numeriek symbool weergeeft
+    typeof: Code
+    pattern: "^[0-9]$"

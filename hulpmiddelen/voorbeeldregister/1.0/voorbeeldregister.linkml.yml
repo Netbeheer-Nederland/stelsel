@@ -142,13 +142,6 @@ slots: # eigenschappen voor gebruik in meer dan 1 klasse
     see_also:
       - iceg:hoofdstuk=2&paragraaf=2.1&artikel=2.1.3&g=2022-05-18 # laat zichdatum (z=...) weg voor en kortere link
 
-# waardesoorten:
-types:
-  EAN-18:
-    description: reeks van achttien cijfers
-    typeof: Code # specialisatie van een basistype
-    pattern: "^[0-9]{18}$" # een reguliere expressie
-
 # waardelijsten:
 enums:
   Energierichting: # gebruik de natuurlijke schrijfwijze, eerste woord met een hoofdletter
@@ -159,3 +152,10 @@ enums:
         description: afname en invoeding
       invoeding:
         meaning: begrip:invoeding
+
+# waardesoorten:
+types:
+  EAN-18:
+    description: reeks van achttien cijfers
+    typeof: Code # specialisatie van een basistype
+    pattern: "^[0-9]{18}$" # een reguliere expressie

@@ -208,12 +208,6 @@ classes:
     annotations:
       external_registry: Aansluitingenregister
 
-types:
-  Cijfer:
-    description: enkel karakter dat een numeriek symbool weergeeft
-    typeof: Code
-    pattern: "^[0-9]$"
-
 enums:
   Capaciteit:
     permissible_values:
@@ -276,3 +270,9 @@ enums:
         description: jaarlijks
       TMT:
         description: telemetrie
+
+types:
+  Cijfer:
+    description: enkel karakter dat een numeriek symbool weergeeft
+    typeof: Code
+    pattern: "^[0-9]$"

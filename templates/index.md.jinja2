@@ -271,17 +271,6 @@ parent: "{{schema.title}}"
 {% endif %}
 {% endfor %}
 
-{% for t in schemaview.schema.types.values() | sort(attribute=sort_by) %}
-{% if loop.first %}
-## Waardesoorten
-{{ '{: .no_toc }' }}
-
-| Waardesoort | Omschrijving | Gebaseerd op | Patroon |
-| :--- | :--- | :--- | :--- |
-{% endif -%}
-| {{anchor(t)}}{{t.name}} | {{omschrijving(t)}} | {% if t.typeof %}{{link(t.typeof, true)}}{% endif %} | {% if t.pattern %}`{{t.pattern}}`{% endif %} |
-{%- endfor %}
-
 {% for e in gen.all_enum_objects() | sort(attribute=sort_by) %}
 {% if loop.first %}
 ## Waardelijsten
@@ -305,3 +294,14 @@ parent: "{{schema.title}}"
 {% endif -%}
 
 {% endfor %}
+
+{% for t in schemaview.schema.types.values() | sort(attribute=sort_by) %}
+{% if loop.first %}
+## Waardesoorten
+{{ '{: .no_toc }' }}
+
+| Waardesoort | Omschrijving | Gebaseerd op | Patroon |
+| :--- | :--- | :--- | :--- |
+{% endif -%}
+| {{anchor(t)}}{{t.name}} | {{omschrijving(t)}} | {% if t.typeof %}{{link(t.typeof, true)}}{% endif %} | {% if t.pattern %}`{{t.pattern}}`{% endif %} |
+{%- endfor %}

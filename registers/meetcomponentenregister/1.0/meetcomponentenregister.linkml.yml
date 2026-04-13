@@ -256,12 +256,6 @@ classes:
     annotations:
       external_registry: Meetcomponentstandaardenregister
 
-types:
-  Cijfer:
-    description: enkel karakter dat een numeriek symbool weergeeft
-    typeof: Code
-    pattern: "^[0-9]$"
-
 enums:
   Dossierreden:
     permissible_values:
@@ -305,3 +299,9 @@ enums:
         description: de zegel is verbroken, zonder dat een revisie heeft plaatsgevonden
       gereviseerd:
         description: de zegel is vervangen na een formele revisie
+
+types:
+  Cijfer:
+    description: enkel karakter dat een numeriek symbool weergeeft
+    typeof: Code
+    pattern: "^[0-9]$"

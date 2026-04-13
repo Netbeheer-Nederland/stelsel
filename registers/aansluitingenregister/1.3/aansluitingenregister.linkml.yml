@@ -34,6 +34,9 @@ prefixes:
   bag: http://opendata.stelselcatalogus.nl/bag/id/begrip/
   brk: http://opendata.stelselcatalogus.nl/brk/id/begrip/
 default_prefix: this
+imports:
+  - ../../basiswaardesoorten
+default_range: Tekst
 
 classes:
   Aansluiting:
@@ -82,7 +85,7 @@ classes:
           - tce:hoofdstuk=3&paragraaf=3.7&artikel=3.7.13.b&g=2022-05-18
         comments:
           - Ook wel bekend als 'zuivere teruglevering'.
-        range: boolean
+        range: Waar of onwaar
         required: true
       unieke EAN-code bij MLOEA:
         description: EAN-code die ongelijk is aan die van een allocatiepunt
@@ -92,7 +95,7 @@ classes:
         description: geeft aan of de kWmax per week gemeten moet worden
         see_also:
           - tce:hoofdstuk=3&paragraaf=3.7&artikel=3.7.5a&g=2022-05-18
-        range: boolean
+        range: Waar of onwaar
       # relaties
       beheerd door:
         description: geeft aan welke netbeheerder de aansluiting beheert
@@ -131,7 +134,7 @@ classes:
         description: aan een verblijfsobject, standplaats of ligplaats toegekend nummer, een antwoordnummer of een postbusnummer
         source: nen:nen-5825-2002-nl-83617
         required: true
-        range: integer
+        range: Geheel getal
         annotations:
           personal_data: true
       huisnummertoevoeging:
@@ -142,9 +145,11 @@ classes:
       landcode:
         description: identificatie van een land met twee letters conform ISO 3166-1
         source: iso:iso-3166-country-codes.html
+        range: Code
         required: true
       locatienummer:
         description: identificatie van een aansluitlocatie
+        range: Code
         required: true
         annotations:
           personal_data: true
@@ -155,6 +160,7 @@ classes:
       postcode:
         description: reeks tekens die in een postadres wordt opgenomen om het automatisch sorteren van de post gemakkelijker te maken
         source: nen:nen-5825-2002-nl-83617
+        range: Code
         required: true
       soort:
         description: aanduiding van een verzameling aansluitlocaties die een gemeenschappelijk karakter hebben
@@ -173,21 +179,21 @@ classes:
         comments:
           - Dit gegeven helpt bij het snel lokaliseren van storingen in hoogbouw.
           - De begande grond geldt als 0. Als de toegang meer dan 1,5 m onder het maaiveld ligt, wordt als verdieping -1 aangemerkt.
-        range: integer
+        range: Geheel getal
       woonplaatsnaam:
         description: aanduiding van een gebied met bewoning zoals een stad of dorp
         source: nen:nen-5825-2002-nl-83617
         required: true
       x-coördinaat:
         description: oost-westpositie van een punt in het Rijksdriehoeksstelsel (RD)
-        range: float
+        range: Reëel getal
         unit:
           ucum_code: m
         annotations:
           personal_data: true
       y-coördinaat:
         description: noord-zuidpositie van een punt in het Rijksdriehoeksstelsel (RD)
-        range: float
+        range: Reëel getal
         unit:
           ucum_code: m
         annotations:
@@ -235,10 +241,10 @@ classes:
     attributes:
       in gebruik:
         description: geeft aan of de aftakking wordt gebruikt
-        range: boolean
+        range: Waar of onwaar
       nominale waarde:
         description: hoeveelheid spanning of stroom waarvoor de aftakking is ontworpen, en die in combinatie met de waarde van de aftakking aan de andere zijde de overzetverhouding vormt
-        range: float
+        range: Reëel getal
         comments:
           - "Eenheid: volt (V) of ampère (A)."
       zijde:
@@ -291,6 +297,7 @@ classes:
           - iceg:hoofdstuk=2&paragraaf=2.1&artikel=2.1.3&g=2022-05-18
           - bce:hoofdstuk=1&artikel=1.1&g=2022-11-25
           - bcg:hoofdstuk=1&artikel=1.1&g=2021-06-01
+        range: Code
         annotations:
           personal_data: true
     unique_keys:
@@ -329,7 +336,7 @@ classes:
           personal_data: true
       maand verbruiksbepaling:
         description: maand waarin de verbruiksbepaling plaatsvindt
-        range: integer
+        range: Geheel getal
         comments:
           - Waarde in het bereik 1-12 conform ISO 8601.
           - "Validatie: in geval van een aansluiting waarbij eenmaal per jaar het verbruik wordt bepaald."
@@ -398,7 +405,7 @@ classes:
         description: som van het aantal overdrachtspunten van alle strengen in de groep, zowel de in dit register geïdentificeerde als niet-geïdentificeerde overdrachtspunten
         comments:
           - Gemeenten weten het aantal lichtmasten niet altijd per streng (of 'voedingspunt') op te geven.
-        range: integer
+        range: Geheel getal
       # relaties
       in rekening te brengen bij:
         range: Aansluiting
@@ -426,12 +433,12 @@ classes:
         description: bedrijf dat industrieel goederen vervaardigt
       meetbereik bovengrens:
         description: maximale belasting waarbij de meettransformator de maximaal toelaatbare meetfout behorend bij de nauwkeurigheidsklasse niet overschrijdt
-        range: float
+        range: Reëel getal
         unit:
           ucum_code: V.A
       meetbereik ondergrens:
         description: minimale belasting waarbij de meettransformator de maximaal toelaatbare meetfout behorend bij de nauwkeurigheidsklasse niet overschrijdt
-        range: float
+        range: Reëel getal
         unit:
           ucum_code: V.A
       nauwkeurigheidsklasse:
@@ -439,16 +446,18 @@ classes:
         range: Nauwkeurigheidsklasse
       nominaal vermogen:
         description: maximaal vermogen bij continu gebruik waarbij een maximaal rendement wordt behaald
-        range: float
+        range: Reëel getal
         unit:
           ucum_code: V.A
       serienummer:
         description: code die door de fabrikant aan een exemplaar uit een reeks producten wordt gegeven
+        range: Code
       soort schakeling:
         description: aanduiding van een verzameling schakelingen die een gemeenschappelijk karakter hebben
         range: Soort schakeling
       typeaanduiding:
         description: naam die door een fabrikant aan een reeks producten met vergelijkbare eigenschappen wordt gegeven
+        range: Code
       # relaties
       deel van:
         range: Primair deel elektriciteitsmeetinrichting
@@ -552,7 +561,7 @@ classes:
         range: Any
         any_of:
           - range: Niet-numerieke aansluitcapaciteit
-          - range: float
+          - range: Reëel getal
         annotations:
           personal_data: true
       aansluitspanning of leveringsdruk:
@@ -563,7 +572,7 @@ classes:
           - nce:hoofdstuk=13&paragraaf=13.1&artikel=13.1&g=2023-06-10
           - iceg:hoofdstuk=2&paragraaf=2.11&artikel=2.11.4&g=2023-06-28
           - iceg:hoofdstuk=2&paragraaf=2.11&artikel=2.11.5&g=2023-06-28
-        range: float
+        range: Reëel getal
       energierichting:
         description: richting waarin energie kan stromen over het overdrachtspunt
         broad_mappings:
@@ -580,14 +589,14 @@ classes:
           - Bij een vaste druk bevat de aansluitverbinding een drukregelaar.
         see_also:
           - iceg:hoofdstuk=2&paragraaf=2.11&artikel=2.11.5&g=2023-06-28
-        range: boolean
+        range: Waar of onwaar
       waarde hoofdzekering:
         description: maximale stroomsterkte die de algemene veiligheid op de aansluitverbinding toelaat.
         comments:
           - In geval van een door de netbeheerder geplaatste LS-hoofdzekering.
         see_also:
           - iceg:hoofdstuk=2&paragraaf=2.11&artikel=2.11.4&g=2023-06-28
-        range: float
+        range: Reëel getal
         unit:
           ucum_code: A
       # relaties
@@ -618,11 +627,11 @@ classes:
     attributes:
       aantal meetkabels:
         description: totale hoeveelheid kabels waaruit de primaire bekabeling van de meetcircuits bestaan, waarbij een kabel een samenstel is van een of meer geïsoleerde elektrische leidingen met een gezamenlijke mantel
-        range: integer
+        range: Geheel getal
       trafocorrectiefactor:
         description: factor waarmee vermenigvuldigd moet worden om de meetwaarde te corrigeren voor energieverlies in de MS/LS-transformator, indien deze zich bevindt tussen het overdrachtspunt en het meetpunt
         source: mce:hoofdstuk=4&paragraaf=4.3&sub-paragraaf=4.3.1&artikel=4.3.1.3&g=2022-10-25
-        range: float
+        range: Reëel getal
       soort meetzekering:
         description: aanduiding van een verzameling meetzekeringen die een gemeenschappelijk karakter hebben
         source: mce:hoofdstuk=4&paragraaf=4.3&sub-paragraaf=4.3.2&artikel=4.3.2.4&g=2022-10-25
@@ -632,13 +641,13 @@ classes:
       toegang vereist:
         description: geeft weer of essentiële onderdelen van de meetinrichting zijn geplaatst in een aan de netbeheerder ter beschikking staande ruimte die niet vrij toegankelijk is voor de meetverantwoordelijke
         source: mce:hoofdstuk=4&paragraaf=4.3&sub-paragraaf=4.3.1&artikel=4.3.1.1&g=2023-04-01
-        range: boolean
+        range: Waar of onwaar
       waarde meetzekering:
         description: waarde van de meetzekering in de spanningsmeetcircuits
         source: mce:hoofdstuk=4&paragraaf=4.3&sub-paragraaf=4.3.2&artikel=4.3.2.4&g=2022-10-25
         comments:
           -  In afwijking van de Meetcode elektriciteit spreken we niet van 'smeltveiligheid' om ook zekeringen die niet smelten in te sluiten.
-        range: float
+        range: Reëel getal
         unit:
           ucum_code: A
   Primair deel gas- of waterstofmeetinrichting:
@@ -652,7 +661,7 @@ classes:
         description: afstand tussen de flenzen waartussen het secundaire gedeelte van de meetinrichting kan worden geplaatst
         comments:
           - Ook bekend als inbouwmaat.
-        range: float
+        range: Reëel getal
         unit:
           ucum_code: mm
       flensdrukklasse:
@@ -663,17 +672,17 @@ classes:
         range: Flensmaat
       geregelde meetdruk:
         description: spanning van het gas of de waterstof, indien deze speciaal ten behoeve van het secundaire gedeelte van de meetinrichting wordt geregeld
-        range: float
+        range: Reëel getal
         unit:
           ucum_code: mbar
       meetdruk geregeld:
         description: aanduiding of de druk speciaal ten behoeve van het secundair gedeelte van de meetinrichting wordt geregeld
-        range: boolean
+        range: Waar of onwaar
       schroefdraaddiameter:
         description: doorsnede van het schroefdraad waarop het secundaire gedeelte van de meetinrichting kan worden geplaatst
         comments:
           - Het secundaire gedeelte van de meetinrichting wordt óf op een schroefdraad óf tussen twee flenzen geplaatst.
-        range: float
+        range: Reëel getal
         unit:
           ucum_code: "[in_i]"
   Primair deel meetinrichting:
@@ -695,6 +704,7 @@ classes:
         see_also:
           - mce:hoofdstuk=4&paragraaf=4.3&sub-paragraaf=4.3.2&artikel=4.3.2.8&g=2023-04-01
           - iceg:hoofdstuk=2&paragraaf=2.11&artikel=2.11.5&g=2023-06-28
+        range: Code
       fysieke status:
         description: aanduiding van de toestand met betrekking tot het daadwerkelijk aanwezig zijn van het primair gedeelte van de meetinrichting
         see_also:
@@ -725,15 +735,15 @@ classes:
     attributes:
       aantal aders:
         description: hoeveelheid elektrisch geleidende draden
-        range: integer
+        range: Geheel getal
       aderdoorsnede:
         description: oppervlakte van een elektrisch geleidende draad bij een doorsnijding loodrecht op de lengterichting
-        range: float
+        range: Reëel getal
         unit:
           ucum_code: mm2
       lengte:
         description: afmeting van de grootste kant van de kabel
-        range: float
+        range: Reëel getal
         unit:
           ucum_code: m
       # relaties
@@ -757,7 +767,7 @@ classes:
         description: maximaal complex vermogen dat de transformator permanent kan leveren zonder de in de normen vastgelegde temperatuurlimieten te overschrijden
         comments:
           - Ook wel bekend als rated thermal limiting output (Sth).
-        range: float
+        range: Reëel getal
         unit:
           ucum_code: V.A
   Stroommeettransformator:
@@ -768,14 +778,14 @@ classes:
     attributes:
       overbelastbaarheid:
         description: maximale continue belasting van de meettransformator die geen schade veroorzaakt, uitgedrukt als factor van de nominale belasting - 100%
-        range: float
+        range: Reëel getal
         unit:
           ucum_code: "%"
       overstroomfactor:
         description: verhouding van de primaire kortsluitstroom en de primaire nominale stroom van de stroomtransformator
         comments:
           - Ook bekend als factor of security (FS) en instrumentsveiligheidsfactor.
-        range: float
+        range: Reëel getal
   Tarieftoepassing:
     class_uri: Tarieftoepassing
     broad_mappings:
@@ -793,7 +803,7 @@ classes:
         description: getal waarmee het bedrag van de tariefcomponent vermenigvuldigd moet worden
         comments:
           - De afleidingsregels staan in het tarievenregister.
-        range: integer
+        range: Geheel getal
       # relaties
       van:
         range: Aansluiting
@@ -856,6 +866,7 @@ classes:
 slots:
   EAN-code:
     description: unieke cijfercombinatie volgens de Europese Artikelnummer-standaard
+    range: Code
     required: true
     see_also:
       - iceg:hoofdstuk=2&paragraaf=2.1&artikel=2.1.3&g=2022-05-18

@@ -15,6 +15,9 @@ prefixes:
   aansluitingenregister: https://modellen.netbeheernederland.nl/stelsel/registers/aansluitingenregister#
   iceg: https://wetten.overheid.nl/jci1.3:c:BWBR0037934& # gebruik Juriconnect bij verwijzing naar regelgeving
 default_prefix: this
+imports:
+  - ../../basiswaardesoorten
+default_range: Tekst
 
 # Overal kun je de volgende elementen gebruiken:
 # - mappings (exact_mappings, etc.): voor mappings op begrippen
@@ -72,26 +75,12 @@ classes:
         required: true # bij verplichte registratie van de eigenschap
       aantal:
         description: hoeveelheid
-        range: integer # het standaardbereik is string (tekst), andere standaardopties zijn:
-        # integer: geheel getal
-        # boolean: waar of onwaar
-        # float: reëel getal
-        # double: reëel getal
-        # decimal: decimaal getal
-        # time: tijd van de dag
-        # date: datum
-        # datetime: datum en tijd
-        # date_or_datetime: datum en eventueel tijd
-        # uriorcurie: URI of CURIE
-        # curie: CURIE
-        # uri: URI
-        # ncname: prefixnaam
-        #
+        range: Geheel getal # Zie basistypen.yaml
         # conventie voor 'range' bij getallen:
-        # string: niet-rekenkundige nummers (codes)
-        # integer: telbare dingen (aantallen)
-        # float: fysiek meetbare, continue waarden (afstand, vermogen)
-        # decimal: door mensen exact afgesproken waarden (geld, contractuele percentages)
+        # Code: niet-rekenkundige nummers
+        # Geheel getal: telbare dingen (aantallen)
+        # Reëel getal: fysiek meetbare, continue waarden (afstand, vermogen)
+        # Decimaal getal: door mensen exact afgesproken waarden (geld, contractuele percentages)
         #
         # Daarnaast kan de range ook verwijzen naar een enum of een andere class (relatie).
       energierichting:
@@ -100,7 +89,7 @@ classes:
         range: Energierichting # verwijzing naar enum
       lengte:
         description: grootste afmeting van een voorwerp
-        range: float # fysiek meetbare, continue waarde (ongeacht of men in de database voor bijvoorbeeld integer kiest vanwege prestatie-efficiëntie)
+        range: Reëel getal # fysiek meetbare, continue waarde (ongeacht of men in de database voor bijvoorbeeld integer kiest vanwege prestatie-efficiëntie)
         comments:
           - "Validatie: de waarde mag niet kleiner zijn dan 0." # eenvoudig patroon voor validatieregels (in natuurlijke maar precieze taal)
         unit:
@@ -153,13 +142,6 @@ slots: # eigenschappen voor gebruik in meer dan 1 klasse
     see_also:
       - iceg:hoofdstuk=2&paragraaf=2.1&artikel=2.1.3&g=2022-05-18 # laat zichdatum (z=...) weg voor en kortere link
 
-# waardesoorten:
-types:
-  EAN-18:
-    description: reeks van achttien cijfers
-    base: str
-    pattern: "^[0-9]{18}$" # een reguliere expressie
-
 # waardelijsten:
 enums:
   Energierichting: # gebruik de natuurlijke schrijfwijze, eerste woord met een hoofdletter
@@ -170,3 +152,10 @@ enums:
         description: afname en invoeding
       invoeding:
         meaning: begrip:invoeding
+
+# waardesoorten:
+types:
+  EAN-18:
+    description: reeks van achttien cijfers
+    typeof: Code # specialisatie van een basistype
+    pattern: "^[0-9]{18}$" # een reguliere expressie

@@ -20,6 +20,9 @@ prefixes:
   energiewet: https://wetten.overheid.nl/jci1.3:c:BWBR0050714&
   iceg: https://wetten.overheid.nl/jci1.3:c:BWBR0037934&
 default_prefix: this
+imports:
+  - ../../basiswaardesoorten
+default_range: Tekst
 
 classes:
   Gatewayadapter:
@@ -30,6 +33,7 @@ classes:
     attributes:
       identificatie:
         description: unieke aanduiding waarmee iets binnen een gegeven context ondubbelzinnig herkenbaar is
+        range: Code
         required: true
       # relaties:
       ondersteuning voor:
@@ -54,10 +58,10 @@ classes:
     attributes:
       afkeurjaar:
         description: kalenderjaar waarin is vastgesteld dat het apparaat ongeschikt is voor verder gebruik
-        range: integer
+        range: Geheel getal
       bouwjaar:
         description: jaar waarin de meter voor het eerst is geproduceerd, zoals vermeld op het apparaat of geregistreerd in een daartoe bestemd systeem
-        range: integer
+        range: Geheel getal
         comments:
           - Verplicht indien niet gereviseerd.
       dossierreden:
@@ -65,22 +69,25 @@ classes:
         range: Dossierreden
       EID:
         description: wereldwijd unieke identificatiecode van de fysieke, ingebouwde eSIM-chip die op afstand kan worden voorzien van telecommunicatieabonnementen
+        range: Code
       generatie:
         description: classificatie op basis van technische mogelijkheden
-        range: integer
+        range: Geheel getal
       lokaal communicatieprofiel:
         description: mogelijke wijze van gegevensuitwisseling tussen meetcomponenten binnen dezelfde locatie
         range: Lokaal communicatieprofiel
       serienummer:
         description: unieke code die door de fabrikant aan een exemplaar uit een reeks producten gegeven wordt
+        range: Code
         required: true
       revisiejaar:
         description: jaar waarin de meter gereviseerd is voor hergebruik, zoals vermeld op het apparaat of geregistreerd in een daartoe bestemd systeem
-        range: integer
+        range: Geheel getal
         comments:
           - Verplicht indien gereviseerd.
       typeaanduiding:
         description: naam die door een fabrikant aan een reeks producten met vergelijkbare eigenschappen wordt gegeven
+        range: Code
       # relaties:
       beheerd door:
         description: identificeert de marktpartij (netbeheerder) die verantwoordelijk is voor het beheer, via diens registratie in marktcommunicatie
@@ -104,6 +111,7 @@ classes:
     attributes:
       gatewaynummer:
         description: identificatie van de meetgateway, bestaande uit een combinatie van gatewaycode, serienummer en de laatste twee cijfers van het bouwjaar
+        range: Code
         required: true
       # relaties:
       ingedeeld naar:
@@ -129,13 +137,13 @@ classes:
     attributes:
       afkeurjaar:
         description: kalenderjaar waarin is vastgesteld dat de meter niet langer geschikt is voor gebruik
-        range: integer
+        range: Geheel getal
       correctiefactor voor indirecte meting:
         description: factor waarmee het getal van de telwerken vermenigvuldigd moet worden om de meetwaarde te corrigeren voor een meting via meettransformatoren
         comments:
           - Alleen van toepassing op elektriciteitsmeters.
           - Als de meter zelf corrigeert, is de waarde `1`.
-        range: float
+        range: Reëel getal
       deelpopulatiecodering:
         description: aanvullende codering die, samen met de metercode, een subset van meters met gedeelde kenmerken aanduidt die binnen het meterpark apart worden behandeld
         range: Cijfer
@@ -145,6 +153,7 @@ classes:
         comments:
           - In de praktijk wordt het serienummer soms ook het (korte) meternummer genoemd.
           - "Validatie: meternummer is een combinatie van metercode, serienummer en de laatste twee cijfers van het bouwjaar."
+        range: Code
         required: true
       reden technisch niet op afstand uitleesbaar:
         description: verklaring voor het technisch niet op afstand uitleesbaar zijn van de meter
@@ -153,10 +162,10 @@ classes:
         description: kenmerk dat weergeeft of de meter gelet op externe factoren van technische aard al dan niet op afstand uitleesbaar is
         comments:
           - De uitleesbaarheid van de meter heeft invloed op marktprocessen zoals allocatie.
-        range: boolean
+        range: Waarheidswaarde
       verzegeldatum:
         description: datum waarop het apparaat voor het laatst metrologisch is verzegeld ter waarborging van de meetintegriteit
-        range: date
+        range: Datum
       zegelcategorie:
         description: classificatie van de fabriekszegelstatus
         range: Zegelcategorie
@@ -247,12 +256,6 @@ classes:
     annotations:
       external_registry: Meetcomponentstandaardenregister
 
-types:
-  Cijfer:
-    description: enkel karakter dat een numeriek symbool weergeeft
-    base: string
-    pattern: "^[0-9]$"
-
 enums:
   Dossierreden:
     permissible_values:
@@ -296,3 +299,9 @@ enums:
         description: de zegel is verbroken, zonder dat een revisie heeft plaatsgevonden
       gereviseerd:
         description: de zegel is vervangen na een formele revisie
+
+types:
+  Cijfer:
+    description: enkel karakter dat een numeriek symbool weergeeft
+    typeof: Code
+    pattern: "^[0-9]$"

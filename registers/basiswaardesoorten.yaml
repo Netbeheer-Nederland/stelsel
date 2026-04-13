@@ -1,0 +1,32 @@
+id: https://modellen.netbeheernederland.nl/stelsel/basiswaardesoorten
+name: basiswaardesoorten
+title: Basiswaardesoorten
+description: Fundamentele waardesoorten voor informatiemodellering.
+
+types:
+  Tekst:
+    description: aanduiding bedoeld voor mensen, zonder vaste structuur of betekenis
+
+  Code:
+    description: symbolische aanduiding met een vastgelegde betekenis
+
+  Geheel getal:
+    description: telbare hoeveelheid zonder decimalen
+
+  Reëel getal:
+    description: continue, fysiek meetbare hoeveelheid
+
+  Decimaal getal:
+    description: exact afgesproken numerieke waarde
+
+  Waarheidswaarde:
+    description: aanduiding die één van twee elkaar uitsluitende waarden kan aannemen
+
+  Datum:
+    description: kalenderdatum zonder tijdsaanduiding
+
+  Tijdstip:
+    description: exacte aanduiding van datum en tijd
+
+  Tijdsduur:
+    description: lengte van een tijdsinterval

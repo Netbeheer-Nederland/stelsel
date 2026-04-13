@@ -7,3 +7,5 @@ tools/
 __pycache__/
 Gemfile.lock
 .bundle/
+/.devcontainer.json
+/.venv/

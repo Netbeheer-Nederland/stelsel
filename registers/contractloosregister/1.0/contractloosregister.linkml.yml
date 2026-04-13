@@ -11,6 +11,9 @@ prefixes:
   bag: http://opendata.stelselcatalogus.nl/bag/id/begrip/
   hr: http://opendata.stelselcatalogus.nl/hr/id/begrip/
 default_prefix: this
+imports:
+  - ../../basiswaardesoorten
+default_range: Tekst
 
 classes:
   Adres:
@@ -22,15 +25,17 @@ classes:
       huisnummer:
         description: aan een verblijfsobject, standplaats of ligplaats toegekend nummer, een antwoordnummer of een postbusnummer
         required: true
-        range: integer
+        range: Geheel getal
       huisnummertoevoeging:
         description: aan een verblijfsobject, standplaats of ligplaats toegekende nadere toevoeging aan een huisnummer inclusief huisletter
       landcode:
         description: identificatie van een land met twee letters conform ISO 3166-1
         required: true
+        range: Code
       postcode:
         description: reeks tekens die in een postadres wordt opgenomen om het automatisch sorteren van de post gemakkelijker te maken
         required: true
+        range: Code
       soort:
         description: aanduiding van een verzameling adressen die een gemeenschappelijk karakter hebben
         range: Soort adres
@@ -65,10 +70,10 @@ classes:
         required: true
       overlijdensdatum:
         description: dag waarop de persoon is overleden
-        range: date
+        range: Datum
       rang:
         description: positie op een ranglijst, gebaseerd op de waarschijnlijkheid om contractloze situaties te beëindigen
-        range: integer
+        range: Geheel getal
         required: true
       voornamen:
         description: verzameling van één of meer naamgegevens, ter onderscheiding van personen met dezelfde achternaam
@@ -96,20 +101,21 @@ classes:
       referentienummer:
         description: kenmerk waarmee de geadresseerde snel eerdere correspondentie terug kan vinden
         required: true
+        range: Code
       soort:
         description: aanduiding van een verzameling brieven die een gemeenschappelijk karakter hebben
         range: Soort brief
         required: true
       verzenddatum:
         description: dag waarop de brief naar de geadresseerde is verstuurd
-        range: date
+        range: Datum
       vervaldatum:
         description: uiterste datum waarop een reactie wordt verwachten
-        range: date
+        range: Datum
         required: true
       verwijderingsdatum aansluitingen:
         description: voorgenomen dag waarop de aansluitingen worden verwijderd
-        range: date
+        range: Datum
       # relaties
       notificatie van:
         range: Contractloze zaak
@@ -169,13 +175,13 @@ classes:
         required: true
       afgenomen volume:
         description: hoeveelheid van het energienet onttrokken energie in kWh voor elektriciteit of m3 voor gas
-        range: float
+        range: Reëel getal
       datum laatste tellerstand:
         description: dag waarop de (eventueel berekende) tellerstand betrekking heeft die als basis is gebruikt om het afgenomen volume te bepalen
-        range: date
+        range: Datum
       groot afgenomen volume:
         description: geeft aan of er veel energie is onttrokken van het energienet
-        range: boolean
+        range: Waarheidswaarde
         required: true
       # relaties
       op:
@@ -211,9 +217,10 @@ classes:
       zaaknummer:
         description: unieke identificatie van een contractloze zaak
         required: true
+        range: Code
       uitgevallen:
         description: geeft aan of de automatische behandeling van de zaak is gefaald
-        range: boolean
+        range: Waarheidswaarde
         required: true
       uitvalreden:
         description: verklaring voor het falen van de automatische behandeling
@@ -247,11 +254,11 @@ classes:
 slots:
   begindatum:
     description: eerste dag waarop iets geldt
-    range: date
+    range: Datum
     required: true
   einddatum:
     description: eerste dag waarop iets niet meer geldt
-    range: date
+    range: Datum
 
 enums:
   Geslacht:

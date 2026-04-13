@@ -17,6 +17,9 @@ prefixes:
   iceg: https://wetten.overheid.nl/jci1.3:c:BWBR0037934&
   nce: https://wetten.overheid.nl/jci1.3:c:BWBR0037940&
 default_prefix: this
+imports:
+  - ../../basiswaardesoorten
+default_range: Tekst
 
 classes:
   Aggregatiesoort:
@@ -30,6 +33,7 @@ classes:
     attributes:
       identificatie:
         description: unieke aanduiding waarmee iets binnen een gegeven context ondubbelzinnig herkenbaar is
+        range: Code
         required: true
     unique_keys:
       identificatie:
@@ -79,7 +83,7 @@ classes:
         range: Validatiestatus
       waarde:
         description: hoeveelheid eenheden
-        range: float
+        range: Reëel getal
         required: true
       # relaties:
       op:
@@ -125,14 +129,14 @@ classes:
         range: Profielcategorie
       te verrekenen bedrag:
         description: hoeveelheid geld dat vanwege het toegerekend volume in de berekening moet worden meegenomen
-        range: decimal
+        range: Decimaal getal
       typering:
         description: classificatie
         comments:
           - Conform ENTSO-E Codelist zoals A15 (netverlies) of A20 (onbalansvolume).
       waarde:
         description: hoeveelheid eenheden
-        range: float
+        range: Reëel getal
         required: true
       # relaties:
       aan:
@@ -179,7 +183,7 @@ classes:
     attributes:
       waarde:
         description: hoeveelheid m3(n;35,17)/uur
-        range: float
+        range: Reëel getal
         required: true
       # relaties:
       op:
@@ -207,7 +211,7 @@ classes:
     attributes:
       waarde:
         description: hoeveelheid waarmee vermenigvuldigd moet worden
-        range: float
+        range: Reëel getal
         required: true
       # relaties:
       in:
@@ -256,7 +260,7 @@ classes:
     attributes:
       waarde:
         description: hoeveelheid waarmee vermenigvuldigd moet worden
-        range: float
+        range: Reëel getal
       # relaties:
       in:
         range: Netgebied
@@ -295,7 +299,7 @@ slots:
     range: Allocatiegroep
   beginmoment:
     description: eerste tijdstip waarop iets geldt
-    range: datetime
+    range: Tijdstip
     required: true
   eenheid:
     description: maat waarin natuurkundige grootheden numeriek kunnen worden uitgedrukt
@@ -303,7 +307,7 @@ slots:
     required: true
   eindmoment:
     description: eerste tijdstip waarop iets niet meer geldt
-    range: datetime
+    range: Tijdstip
     required: true
   energierichting:
     exact_mappings:
@@ -316,7 +320,7 @@ slots:
     required: true
   netlevering:
     description: geeft aan of het volume is ingevoed op het energienet
-    range: boolean
+    range: Waarheidswaarde
     required: true
   proces:
     description: set van samenhangende activiteiten om de uitgewisselde energie toe te wijzen

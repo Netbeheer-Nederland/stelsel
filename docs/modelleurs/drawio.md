@@ -1,7 +1,6 @@
 ---
 title: Draw.io
 parent: Modelleurs
-nav_order: 2
 ---
 
 # Modelleren in draw.io

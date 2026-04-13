@@ -15,6 +15,9 @@ prefixes:
   energiewet: https://wetten.overheid.nl/jci1.3:c:BWBR0050714&
   iceg: https://wetten.overheid.nl/jci1.3:c:BWBR0037934&
 default_prefix: this
+imports:
+  - ../../basiswaardesoorten
+default_range: Tekst
 
 classes:
   Leveringsovereenkomst:
@@ -31,10 +34,10 @@ classes:
     attributes:
       einddatum:
         description: dag waarop de overeenkomst afloopt dan wel automatisch wordt verlengd
-        range: date
+        range: Datum
       opzegtermijn:
         description: aantal dagen tussen opzegging en beëindiging van de overeenkomst
-        range: integer
+        range: Geheel getal
         required: true
       # relaties:
       met:

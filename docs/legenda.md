@@ -52,7 +52,7 @@ De positie van het label laat de richting van de relatie zien: een `Aansluiting`
 De kraaienpootnotatie gebruikt symbolen om aan te geven hoeveel elementen aan elke kant van de relatie voorkomen. Daarbij staat een cirkel voor 0, een streep voor 1 en een driepoot voor veel. In paren geven zij het minimum en maximum aan:
 
 - Elke `Aansluiting` kan deel zijn van één `Netgebied`
-- Elk `Netgebeid` kan een groepering zijn van één of meer `Aansluitingen`
+- Elk `Netgebied` kan een groepering zijn van één of meer `Aansluitingen`
 - Elke `Overdrachtspunt` moet deel zijn van exact één `Aansluiting`
 - Elke `Aansluiting` moet de groepering zijn van één of meer `Overdrachtspunten`
 
@@ -88,3 +88,4 @@ Elke entiteit heeft een kleur die de relatie naar [NBility](https://nbility-mode
 Zo behoort de `Aangeslotene` bij **Klant**, de `Aansluiting` en het `Overdrachtspunt` bij **Aansluiting** (binnen de **Energiemarkt**) en het `Primair deel meetinrichting` bij **Netcomponent** (binnen het **Energienet**).
 
 ![Kleuren]({{ site.baseurl }}/assets/images/legenda6.drawio.svg)
+

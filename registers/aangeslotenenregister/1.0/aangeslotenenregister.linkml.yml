@@ -14,6 +14,9 @@ prefixes:
   hr: http://opendata.stelselcatalogus.nl/hr/id/begrip/
   kvk: https://www.kvk.nl/
 default_prefix: this
+imports:
+  - ../../basiswaardesoorten
+default_range: Tekst
 
 classes:
   Aangeslotene:
@@ -31,7 +34,7 @@ classes:
         description: uniek adres voor digitaal, elektronisch postverkeer
       geboortedatum:
         description: datum van geboorte van een persoon
-        range: date
+        range: Datum
         comments:
           - "Validatie: afwezig bij 'geen huishoudelijk eindafnemer'."
       naam:
@@ -94,7 +97,7 @@ classes:
       huisnummer:
         description: aan een verblijfsobject, standplaats of ligplaats toegekend nummer, een antwoordnummer of een postbusnummer
         required: true
-        range: integer
+        range: Geheel getal
       huisnummertoevoeging:
         description: aan een verblijfsobject, standplaats of ligplaats toegekende nadere toevoeging aan een huisnummer inclusief huisletter
       landcode:

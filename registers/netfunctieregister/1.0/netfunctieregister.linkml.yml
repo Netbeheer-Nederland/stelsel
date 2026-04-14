@@ -172,8 +172,9 @@ classes:
     class_uri: Padsegment
     broad_mappings:
       - begrip:a4ejc #netfunctie
-    description: maximaal aaneengesloten deel van het energienet waar het transport geen interne verdelings- of routeringskeuze kent
+    description: afzonderlijk relevante transportroute voor capaciteits- en faalscenario-analyse
     comments:
+      - Padsegmenten worden niet verder opgesplitst zolang verdere opsplitsing geen extra onderscheidingsvermogen oplevert voor capaciteits- en faalscenario-analyse.
       - Ook bekend als feeder (CIM) of circuitsectie (GE Electric Office).
     slots:
       - identificatie
@@ -221,16 +222,12 @@ classes:
     class_uri: Knooppunt
     broad_mappings:
       - begrip:a4ejc #netfunctie
-    description: plek waar een energiedrager zich in de standaardbedieningssituatie vrij kan verdelen en waar bediening kan ingrijpen in die verdeling
+    description: begin- of eindpunt van één of meer padsegmenten
     comments:
       - Overdrachtspunten (van aansluitingen) die hun transportbelasting projecteren op hetzelfde padsegment, worden functioneel als één knooppunt beschouwd.
     slots:
       - identificatie
     attributes:
-      actief:
-        description: geeft aan of het knooppunt in de standaardbedieningssituatie beschikbaar is voor energietransport, zonder dat een bedieningshandeling is vereist
-        range: Waarheidswaarde
-        required: true
       # relaties:
       deel van:
         range: Sectiegroep

@@ -128,7 +128,7 @@ classes:
     class_uri: Meter
     is_a: Meetcomponent
     exact_mappings:
-      - begrip:877a7 #meter
+      - begrip:i6atk #meter
     comments:
       - Dit register ondersteunt geen controlemeters. Een controlemeter is een meter die naast een andere meter is geplaatst om daarvan de meterstanden op nauwkeurigheid te conroleren, vaak op verzoek van de aangeslotene.
     see_also:
@@ -201,7 +201,7 @@ classes:
   Telwerk met cijferaanduiding:
     class_uri: Telwerk-met-cijferaanduiding
     broad_mappings:
-      - begrip:877a7 #meter
+      - begrip:i6atk #meter
     description: onderdeel van een meter dat een hoeveelheid energie registreert, met een aanduiding die niet rechtstreeks verwijst naar de betekenis of functie van het telwerk
     comments:
       - Niet van toepassing op meters die telwerken aanduiden met OBIS-codes.

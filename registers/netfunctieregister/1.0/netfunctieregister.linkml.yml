@@ -36,6 +36,8 @@ comments: |
       * Standby: min(`APS.NMC`, `PPS.NDC`)
       * Gesectioneerd: min(`APS.NDC`, `PPS.NDC`)
       * Parallel: min(`APS.NDC`, `PPS.NDC`)
+    * Bij redundantieniveau > `1`:
+      * `TE.ATC` = min(min(som(`APS.NMC`), `GGN.NMC`), min(som(`alle mogelijke combinaties van geactiveerde padsegmenten binnen redundantieniveau`.`NDC`), `GGN.NDC`))
   * `TE.STC` = `TE.ATC` - `TE.BTC`
   * `CD.ATC` = min(`GGN.NMC` dan wel `GGN.NDC` afhankelijk van het beroep dat een `TE` erop kan doen)
 
@@ -174,7 +176,6 @@ classes:
       - begrip:a4ejc #netfunctie
     description: afzonderlijk relevante transportroute voor capaciteits- en faalscenario-analyse
     comments:
-      - Padsegmenten worden niet verder opgesplitst zolang verdere opsplitsing geen extra onderscheidingsvermogen oplevert voor capaciteits- en faalscenario-analyse.
       - Ook bekend als feeder (CIM) of circuitsectie (GE Electric Office).
     slots:
       - identificatie

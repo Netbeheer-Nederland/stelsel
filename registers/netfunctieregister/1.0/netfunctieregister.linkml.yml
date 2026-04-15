@@ -30,14 +30,7 @@ comments: |
 
   * `PD.NMC` = min(`GN.NMC`)
   * `PD.NDC` = min(`GN.NDC`)
-  * `TE.ATC` =
-    * Bij redundantieniveau `0`: min(som(`APS.NMC`), `GGN.NMC`)
-    * Bij redundantieniveau `1`:
-      * Standby: min(`APS.NMC`, `PPS.NDC`)
-      * Gesectioneerd: min(`APS.NDC`, `PPS.NDC`)
-      * Parallel: min(`APS.NDC`, `PPS.NDC`)
-    * Bij redundantieniveau > `1`:
-      * `TE.ATC` = min(min(som(`APS.NMC`), `GGN.NMC`), min(som(`alle mogelijke combinaties van geactiveerde padsegmenten binnen redundantieniveau`.`NDC`), `GGN.NDC`))
+  * `TE.ATC` = min(min(som(`APS.NMC`), `GGN.NMC`), min(som(`alternatieve combinaties van geactiveerde padsegmenten`.`NDC`), `GGN.NDC`))
   * `TE.STC` = `TE.ATC` - `TE.BTC`
   * `CD.ATC` = min(`GGN.NMC` dan wel `GGN.NDC` afhankelijk van het beroep dat een `TE` erop kan doen)
 

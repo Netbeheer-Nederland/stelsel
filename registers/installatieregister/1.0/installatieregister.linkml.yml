@@ -262,7 +262,7 @@ classes:
       totale vermogen opwekkingseenheden:
         description: som van de vermogens van alle bij de elektriciteitsproductie-eenheid behorende opwekkingseenheden
         comments:
-          - Alhoewel artikel 13.1 van de Netcode elektriciteit het totale vermogen van de elektriciteitsproductie-installatie noemt, gaat dit register uit van het totale vermogen per elektriciteitsprodcutie-eenheid.
+          - Alhoewel artikel 13.1 van de Netcode elektriciteit het totale vermogen van de elektriciteitsproductie-installatie noemt, gaat dit register uit van het totale vermogen per elektriciteitsproductie-eenheid.
           - ⚠ Bij type A staat kW op het formulier, bij type B, C en D, MW. Is het oké om in het register enkel MW (of enkel kW) te hanteren?
         range: Reëel getal
         unit:

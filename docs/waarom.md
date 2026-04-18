@@ -43,10 +43,14 @@ Juist omdat begrippen en objecten stabieler zijn dan processen, organisaties of 
 
 ## Governance en verantwoordelijkheid
 
-Het stelsel van modellen valt onder de verantwoordelijkheid van de CDO's van de netbeheerders. Dat betekent dat betekenis:
+De modellen vallen onder de verantwoordelijkheid van de CDO's van de netbeheerders. Dat betekent dat betekenis:
 
 - een herkenbare eigenaar heeft
 - onderdeel is van datagovernance
 - en meebeweegt via afgesproken wijzigingsprocessen
 
 Hierdoor blijven de modellen duurzaam inzetbaar, zonder hun samenhang te verliezen.
+
+## Stabiliteit door evolutie
+
+De stabiliteit van de modellen zit niet in het vastzetten van betekenis, maar in het gezamenlijk en bestuurbaar laten evolueren ervan. Doordat betekenis expliciet is vastgelegd, eigenaarschap heeft en via afgesproken processen wijzigt, blijven de modellen betrouwbaar terwijl systemen, beleid en praktijk veranderen.

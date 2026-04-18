@@ -19,4 +19,16 @@ Eigenschappen beginnen met een kleine letter (tenzij de spellingsregels anders v
 
 ## Relaties
 
-Voor relatienamen gebruiken we het patroon zoals beschreven door David Hay in zijn artikel [Relationships Are Not Verbs](https://tdan.com/relationships-are-not-verbs-part-one/26996).
+Voor relatienamen gebruiken we het patroon zoals beschreven door David Hay in zijn artikel [Relationships Are Not Verbs](https://tdan.com/relationships-are-not-verbs-part-one/26996):
+
+> Elke `entiteitnaam`  
+> \[ is | kan zijn ] `relatienaam`  
+> \[ één | één of meer \] `gerelateerde entiteit`
+
+Voorbeelden:
+
+* Elke `aansluiting` kan `deel` zijn `van` één `netgebied`.
+* Elk `overdrachtspunt` is `in` één `aansluitlocatie`.
+* Elke `contractloze zaak` is de `behandeling van` één of meer `contractloze situaties`.
+
+Door enkel het werkwoord _zijn_ te gebruiken, ontstaat de discipline om te beschrijven wat _is_ (in tegenstelling tot wat iets _doet_, zoals in procesmodellen).

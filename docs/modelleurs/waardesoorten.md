@@ -3,7 +3,7 @@ title: Waardesoorten
 parent: Modelleurs
 ---
 
-## Waardesoorten
+# Waardesoorten
 
 In dit stelsel wordt gewerkt met een eigen set conceptuele waardesoorten. Deze waardesoorten categoriseren elementaire informatie (waarden) en maken deel uit van het conceptuele informatiemodel (_Requirements_‑laag, R, volgens het WRSPM‑model).
 
@@ -15,7 +15,7 @@ Door betekenis en techniek te scheiden:
 - kunnen dezelfde begrippen in verschillende systemen verschillend worden geïmplementeerd;
 - ontstaat ruimte voor preciezere technische keuzes zonder het model aan te passen.
 
-### Voorbeeld
+## Voorbeeld
 
 De waardesoort **Reëel getal** beschrijft een *continue, fysiek meetbare hoeveelheid*. In een concrete implementatie kan dit bijvoorbeeld worden gerepresenteerd als:
 

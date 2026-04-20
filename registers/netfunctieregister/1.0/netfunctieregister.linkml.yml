@@ -10,8 +10,9 @@ comments: |
 
   De volgende vereenvoudigde formules tonen de verhouding tussen de verschillende vormen van transportcapaciteit.
 
-  * `Padsegment`.`normale capaciteit` = min over `i` ( `Geleidend netelement`\_`i`.`normale capaciteit` )
-  * `Padsegment`.`noodcapaciteit` = min over `i` ( `Geleidend netelement`\_`i`.`noodcapaciteit` )
+  * Als de netelementen in serie staan:
+    * `Padsegment`.`normale capaciteit` = min over `i` ( `Geleidend netelement`\_`i`.`normale capaciteit` )
+    * `Padsegment`.`noodcapaciteit` = min over `i` ( `Geleidend netelement`\_`i`.`noodcapaciteit` )
   * `Transporteenheid`.`individueel aanwezige transportcapaciteit` = min over `s` ∈ {`StandaardScenario` U `AlternatieveScenario's`} : min( sum over `i` ( `Padsegment`\_`i`.`actief_in`(`s`).`capaciteit_in`(`s`) ), min over `j` ( `Geleidend netelement`\_`j`.`gedeeld_in`(`s`).`capaciteit_in`(`s`) ) ), waar `capaciteit_in`(`s`) = `normale capaciteit` voor `StandaardScenario`, `noodcapaciteit` voor `AlternatieveScenario's`
   * `Capaciteitsdeling`.`aanwezige transportcapaciteit` = min over `s` ∈ {`StandaardScenario` U `AlternatieveScenario's`} : min over `i` ( `Geleidend netelement`\_`i`.`gedeeld_in`(`s`).`capaciteit_in`(`s`) ), waar `capaciteit_in`(`s`) = `normale capaciteit` voor `StandaardScenario`, `noodcapaciteit` voor `AlternatieveScenario's`
 
@@ -113,8 +114,41 @@ classes:
       identificatie:
         unique_key_slots:
           - identificatie
-  Capaciteitsdeling:
-    class_uri: Capaciteitsdeling
+  Capaciteitsdeling tussen padsegmenten:
+    class_uri: Capaciteitsdeling-tussen-padsegmenten
+    broad_mappings:
+      - begrip:dwk8c #transportcapaciteit
+    description: relatie tussen padsegmenten waarbij hun transportcapaciteit bij gelijktijdig transport wordt begrensd door gedeelde netstructuur
+    attributes:
+      normale capaciteit:
+        description: transportcapaciteit in de standaardbedieningssituatie
+        comments:
+          - "Afleidingsregel: gelijk aan de kleinste normale capaciteit van de geleidende netelementen waaruit het padsegment bestaat."
+        required: true
+        range: Reëel getal
+        unit:
+          ucum_code: MVA
+      noodcapaciteit:
+        description: transportcapaciteit in alternatieve bedieningssituaties
+        comments:
+          - "Afleidingsregel: gelijk aan de kleinste noodcapaciteit van de geleidende netelementen waaruit het padsegment bestaat."
+        required: true
+        range: Reëel getal
+        unit:
+          ucum_code: MVA
+      # relaties:
+      tussen:
+        range: Padsegment
+        required: true
+        multivalued: true
+        annotations:
+          inverse_cardinality: "*"
+    unique_keys:
+      identificatie:
+        unique_key_slots:
+          - tussen
+  Capaciteitsdeling tussen transporteenheden:
+    class_uri: Capaciteitsdeling-tussen-transporteenheden
     broad_mappings:
       - begrip:dwk8c #transportcapaciteit
     description: relatie tussen transporteenheden waarbij hun transportcapaciteit bij gelijktijdig transport wordt begrensd door gedeelde netstructuur
@@ -150,6 +184,10 @@ classes:
     broad_mappings:
       - begrip:a4ejc #netfunctie
     description: afzonderlijk relevante transportroute voor capaciteits- en faalscenario-analyse
+    comments:
+      - Lange uitlopers in het elektriciteitsnet worden typisch steeds smaller, waarbij de kabelsegmenten verbonden zijn met moffen. Waar dit onderscheid in capaciteit relevant is, vormt elk kabelsegment een eigen padsegment.
+      - Een verbinding tussen railsystemen kan in uitzonderlijke gevallen parallel opgestelde transformatoren bevatten, waarbij de gehele verbinding faalt als één van de transformatoren faalt. Deze transformatoren bevinden zich dan in één padsegment.
+      - Stationsautomatisering kan losse railsystemen als één geheel laten functioneren door telkens in groepen te schakelen. In die gevallen kan er sprake zijn van minder padsegmenten dan het netschema op het eerste oog doet lijken.
     slots:
       - identificatie
     attributes:

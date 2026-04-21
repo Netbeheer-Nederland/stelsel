@@ -177,9 +177,10 @@ classes:
       - begrip:a4ejc #netfunctie
     description: afzonderlijk relevante transportroute voor capaciteits- en faalscenario-analyse
     comments:
-      - Lange uitlopers in het elektriciteitsnet bestaan typisch uit met moffen verbonden kabelsegmenten die steeds dunner worden, hoe verder ze van het station of liggen. Dit verschil in capaciteit kan worden gemaakt door elk kabelsegment als een eigen padsegment te beschouwen, conform de definitie van padsegment. De kabelsegmenten zijn dan immers afzonderlijk relevant voor capaciteitsanalyse.
-      - Een verbinding tussen railsystemen kan in uitzonderlijke gevallen parallel opgestelde transformatoren bevatten, waarbij de gehele verbinding faalt als één van de transformatoren faalt. Deze transformatoren kunnen zich dan in één padsegment bevinden, conform de definitie van padsegment. De transformatoren zijn immers afzonderlijk niet relevant voor faalscenario-analyse.
+      - Een transportroute waarin netelementen parallel staan opgesteld maar niet onafhankelijk kunnen falen, kan worden beschouwd als één padsegment. Hieronder vallen parallelle kabels tussen stations zonder schakelmogelijkheid en verbindingen tussen railsystemen met parallelle transformateren die bij falen niet kunnen worden geïsoleerd.
+      - Een enkele transportroute waarlangs de capaciteit wijzigt, kan worden beschouwd als meerdere padsegmenten. Hieronder vallen uitlopers in het elektriciteitsnet die bestaan uit met moffen verbonden kabelsegmenten met steeds iets minder capaciteit, naarmate ze verder van het station af liggen.
       - Stationsautomatisering kan losse railsystemen als één geheel laten functioneren door telkens in groepen te schakelen. In die gevallen kan er sprake zijn van minder padsegmenten dan het netschema op het eerste oog doet lijken.
+      - Padsegmenten kunnen netelementen delen. Hieronder vallen opstellingen met driewegstransformatoren, waarbij de primaire zijde van de transformator deel uitmaakt van twee padsegmenten.
     slots:
       - identificatie
     attributes:

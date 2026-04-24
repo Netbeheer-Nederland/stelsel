@@ -18,7 +18,7 @@ prefixes:
   linkml: https://w3id.org/linkml/
   begrip: https://begrippen.netbeheernederland.nl/id/
   this: https://modellen.netbeheernederland.nl/stelsel/registers/netfunctieregister#
-  bce: https://wetten.overheid.nl/jci1.3:c:BWBR0052320&
+  bce: https://wetten.overheid.nl/jci1.3:c:BWBR0052321&
 default_prefix: this
 imports:
   - ../../basiswaardesoorten
@@ -61,9 +61,9 @@ classes:
           ucum_code: MW
       regelbare transportcapaciteit:
         description: transportcapaciteit die door toepassing van regelmiddelen kan worden benut om overschrijding van de aanwezige transportcapaciteit te voorkomen
-        source: bce:g=2026-02-21
+        source: bce:g=2026-04-25
         comments:
-          - Regelmiddelen zijn onder andere het gecontroleerd afschakelen van zuivere invoeding, capaciteitssturing (inclusief statische capaciteitsbeperking) en redispatchbiedingen. Alternatieve transportrechten gelden niet als regelmiddel maar bepalen de benodigde transportcapaciteit.
+          - Regelmiddelen zijn onder andere het gecontroleerd afschakelen van zuivere invoeding, capaciteitssturing (inclusief statische capaciteitsbeperking) en redispatchbiedingen. Alternatieve transportrechten gelden niet als regelmiddel maar dragen bij aan de benodigde transportcapaciteit.
         required: true
         range: Reëel getal
         unit:
@@ -72,13 +72,13 @@ classes:
         exact_mappings:
           - begrip:7bs28 #benodigde transportcapaciteit
         comments:
-          - De bendodigde transportcapaciteit is de capaciteit die nodig is om transportovereenkomsten uit te voeren, inclusief alternatieve transportrechten. Congestiebeheersdiensten, zoals capaciteitssturing, verlagen de benodigde transportcapaciteit niet.
+          - De bendodigde transportcapaciteit is de capaciteit die nodig is om transportovereenkomsten uit te voeren, inclusief alternatieve transportrechten. Congestiebeheersdiensten, zoals capaciteitssturing, verlagen de benodigde transportcapaciteit niet, maar dragen bij aan de regelbare transportcapaciteit.
         range: Reëel getal
         unit:
           ucum_code: MW      
       individuele beschikbare transportcapaciteit:
         description: deel van de individuele aanwezige transportcapaciteit dat niet wordt ingezet om aan de benodigde transportcapaciteit te voldoen
-        source: bce:g=2026-02-21
+        source: bce:g=2026-04-25
         range: Reëel getal
         unit:
           ucum_code: MW
@@ -150,9 +150,9 @@ classes:
           ucum_code: MW
       beschikbare transportcapaciteit:
         description: deel van de aanwezige transportcapaciteit dat niet wordt ingezet om aan de benodigde transportcapaciteit te voldoen
-        source: bce:g=2026-02-21
+        source: bce:g=2026-04-25
         comments:
-          - "Validatieregel: gelijk aan hetverschil tussen de aanwezige transportcapaciteit en de som van de benodigde transportcapaciteiten van de betrokken transporteenheden."
+          - "Validatieregel: gelijk aan het verschil tussen de aanwezige transportcapaciteit en de som van de benodigde transportcapaciteiten van de betrokken transporteenheden."
         range: Reëel getal
         unit:
           ucum_code: MW
@@ -184,16 +184,12 @@ classes:
     attributes:
       normale capaciteit:
         description: transportcapaciteit in de standaardbedieningssituatie
-        comments:
-          - "Afleidingsregel: gelijk aan de kleinste normale capaciteit van de geleidende netelementen waaruit het padsegment bestaat."
         required: true
         range: Reëel getal
         unit:
           ucum_code: MVA
       noodcapaciteit:
         description: transportcapaciteit in alternatieve bedieningssituaties
-        comments:
-          - "Afleidingsregel: gelijk aan de kleinste noodcapaciteit van de geleidende netelementen waaruit het padsegment bestaat."
         required: true
         range: Reëel getal
         unit:
@@ -291,8 +287,10 @@ slots:
 
 enums:
   Netvlak:
+    description: deel van het energienet waarvoor geldt dat de verbruikers aangesloten op dit deel van het net eenzelfde tarief in rekening krijgen
+    source: bce:g=2026-04-25
     comments:
-      - Netvlakken representeren functionele lagen voor het modelleren van transportcapaciteit en redundantie. Zij hoeven niet altijd overeen te komen met een fysisch spanningsniveau.
+      - Netvlakken hoeven niet altijd overeen te komen met een fysisch spanningsniveau.
     permissible_values:
       EHS:
         description: extra hoogspanning

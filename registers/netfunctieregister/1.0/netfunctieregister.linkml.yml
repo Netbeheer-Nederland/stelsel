@@ -177,7 +177,7 @@ classes:
       - Een transportroute waarin netelementen parallel staan opgesteld maar niet onafhankelijk kunnen falen, wordt als één padsegment beschouwd. Dit geldt onder andere voor parallelle kabels tussen stations zonder schakelmogelijkheid en verbindingen tussen railsystemen met parallelle transformateren die bij falen niet kunnen worden geïsoleerd.
       - Indien binnen één transportroute de beschikbare capaciteit significant wijzigt, wordt de route opgesplitst in meerdere padsegmenten. Dit doet zich bijvoorbeeld voor bij uitlopers in het elektriciteitsnet die bestaan uit kabeldelen met verschillende capaciteiten.
       - Stationsautomatisering kan ertoe leiden dat meerdere railsystemen functioneel als één geheel opereren. Indien deze automatisering maakt dat bepaalde routes geen afzonderlijk relevante faalscenario's vormen, dan worden zij samen als één padsegment beschouwd.
-      - Een netelement kan gelijktijdig deel uitmaken van meer dan één padsegment. Een voorbeeld hiervan zijn opstellingen met driewegstransformatoren, waarbij een van de wikkelingen deel uitmaakt van twee padsegmenten.
+      - Een netelement kan gelijktijdig deel uitmaken van meer dan één padsegment. Een voorbeeld hiervan zijn opstellingen met driewegstransformatoren, waarbij de wikkeling aan de primaire zijde deel uitmaakt van twee padsegmenten.
       - "Padsegmenten die uitsluitend zijn bedoeld voor inzet bij calamiteiten, storingen of uitzonderlijke bedrijfsvoering vormen elk een afzonderlijke transporteenheid met normatief nul aanwezige transportcapaciteit. Conventie: de normatieve richting van een calamiteitenpadsegment loopt van het gesloten veld naar het open veld in de standaardbedieningssituatie."
     slots:
       - identificatie
@@ -227,7 +227,7 @@ classes:
       - begrip:a4ejc #netfunctie
     description: begin- of eindpunt van één of meer padsegmenten
     comments:
-      - Overdrachtspunten (van aansluitingen) die hun transportbelasting projecteren op hetzelfde padsegment, worden functioneel als één knooppunt beschouwd.
+      - Netaansluitpunten (van aansluitingen) die hun transportbelasting projecteren op hetzelfde padsegment, worden functioneel als één knooppunt beschouwd.
     slots:
       - identificatie
     attributes:

@@ -336,13 +336,9 @@ enums:
       TS:
         description: tussenspanning
       Trafo HS+TS / MS:
-        comments:
-          - Dit netvlak hoort bij een transporteenheid die zich functioneel bevindt tussen een HS- of TS-transporteenheid en een MS-transporteenheid.
       MS:
         description: middenspanning
       Trafo MS/LS:
-        comments:
-          - Dit netvlak hoort bij een transporteenheid die zich functioneel bevindt tussen een MS-transporteenheid en een LS-transporteenheid.
       LS:
         description: laagspanning
   Richting:

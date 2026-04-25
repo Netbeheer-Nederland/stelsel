@@ -18,6 +18,8 @@ prefixes:
   linkml: https://w3id.org/linkml/
   begrip: https://begrippen.netbeheernederland.nl/id/
   this: https://modellen.netbeheernederland.nl/stelsel/registers/netfunctieregister#
+  aansluitingenregister: https://modellen.netbeheernederland.nl/stelsel/registers/aansluitingenregister#
+  marktpartijenregister: https://modellen.netbeheernederland.nl/stelsel/registers/marktpartijenregister#
   bce: https://wetten.overheid.nl/jci1.3:c:BWBR0052321&
 default_prefix: this
 imports:
@@ -102,6 +104,31 @@ classes:
         multivalued: true
         annotations:
           inverse_cardinality: "*"
+      beheerd door:
+        range: Marktpartij
+        required: true
+        multivalued: false
+        annotations:
+          inverse_cardinality: "*"
+      beschikbaar door:
+        description: overdrachtspunt via welke de transportcapaciteit wordt ontsloten (herkomst)
+        comments:
+          - Bijvoorbeeld het overdrachtspunt van een energieproducent of bovenliggende netkoppeling.
+        range: Overdrachtspunt
+        required: false
+        multivalued: false
+        annotations:
+          inverse_cardinality: "*"
+      beschikbaar voor:
+        description: overdrachtspunt waaraan de transportcapaciteit wordt geleverd (bestemming)
+        comments:
+          - Bijvoorbeeld het overdrachtspunt van een huisaansluiting.
+          - "Een transporteenheid met deze relatie bestaat uit de netelementen die de aansluitverbinding realiseren."
+        range: Overdrachtspunt
+        required: false
+        multivalued: false
+        annotations:
+          inverse_cardinality: "*"
     unique_keys:
       identificatie:
         unique_key_slots:
@@ -174,11 +201,11 @@ classes:
     description: afzonderlijk relevante transportroute voor capaciteits- en faalscenario-analyse
     comments:
       - Bij elektriciteit beginnen en/of eindigen padsegmenten typisch bij een railsysteem. Het railsysteem wordt functioneel toegerekend aan alle inkomende en uitgaande padsegmenten die er gebruik van maken. Railkoppelingen worden niet als padsegmenten gezien, tenzij zij, in zeer uitzonderlijke gevallen, afzonderlijk relevante faalscenario's of capaciteitsbeperkingen introduceren.
+      - In vermaasde netten zonder redundantie (zoals in sommige laagspanningsnetten) wijzen padsegmenten richting het balanspunt (het punt waar de stroomsterkte in de standaardbedieningssituatie in theorie nul is). Als een balanspunt zich in een verdeelkast bevindt, eindigen de betreffende padsegmenten bij die kast (als knooppunt). Als een verbinding tussen twee kasten het balanspunt vormt, dan zijn er twee padsegmenten die samenkomen in één knooppunt, waar eventuele huisaansluitingen topologisch op in kunnen prikken.
       - Een transportroute waarin netelementen parallel staan opgesteld maar niet onafhankelijk kunnen falen, wordt als één padsegment beschouwd. Dit geldt onder andere voor parallelle kabels tussen stations zonder schakelmogelijkheid en verbindingen tussen railsystemen met parallelle transformateren die bij falen niet kunnen worden geïsoleerd.
-      - Indien binnen één transportroute de beschikbare capaciteit significant wijzigt, wordt de route opgesplitst in meerdere padsegmenten. Dit doet zich bijvoorbeeld voor bij uitlopers in het elektriciteitsnet die bestaan uit kabeldelen met verschillende capaciteiten.
       - Stationsautomatisering kan ertoe leiden dat meerdere railsystemen functioneel als één geheel opereren. Indien deze automatisering maakt dat bepaalde routes geen afzonderlijk relevante faalscenario's vormen, dan worden zij samen als één padsegment beschouwd.
-      - Een netelement kan gelijktijdig deel uitmaken van meer dan één padsegment. Een voorbeeld hiervan zijn opstellingen met driewegstransformatoren, waarbij de wikkeling aan de primaire zijde deel uitmaakt van twee padsegmenten.
-      - "Padsegmenten die uitsluitend zijn bedoeld voor inzet bij calamiteiten, storingen of uitzonderlijke bedrijfsvoering vormen elk een afzonderlijke transporteenheid met normatief nul aanwezige transportcapaciteit. Conventie: de normatieve richting van een calamiteitenpadsegment loopt van het gesloten veld naar het open veld in de standaardbedieningssituatie."
+      - "Een netelement kan gelijktijdig deel uitmaken van meer dan één padsegment. Dit komt standaard voor bij railsystemen. Een meer complex voorbeeld is een opstelling met een driewegstransformator. Daarbij maakt de wikkeling aan de primaire zijde deel uit van twee padsegmenten."
+      - "Padsegmenten die uitsluitend zijn bedoeld voor inzet bij calamiteiten, storingen of uitzonderlijke bedrijfsvoering vormen afzonderlijke transporteenheden met normatief nul aanwezige transportcapaciteit. De normatieve ontwerprichting van een calamiteitenpadsegment loopt van het gesloten veld naar het open veld in de standaardbedieningssituatie."
     slots:
       - identificatie
     attributes:
@@ -223,7 +250,7 @@ classes:
       - begrip:a4ejc #netfunctie
     description: begin- of eindpunt van één of meer padsegmenten
     comments:
-      - Netaansluitpunten (van aansluitingen) die hun transportbelasting projecteren op hetzelfde padsegment, worden functioneel als één knooppunt beschouwd.
+      - Netaansluitpunten en railsystemen die hun transportbelasting afnemen van hetzelfde padsegment, worden functioneel als één knooppunt beschouwd.
     slots:
       - identificatie
     attributes:
@@ -278,6 +305,16 @@ classes:
       identificatie:
         unique_key_slots:
           - identificatie
+
+  # verwijzingen naar externe entiteiten:
+  Marktpartij:
+    class_uri: marktpartijenregister:Marktpartij
+    annotations:
+      external_registry: Marktpartijenregister
+  Overdrachtspunt:
+    class_uri: aansluitingenregister:Overdrachtspunt
+    annotations:
+      external_registry: Aansluitingenregister
 
 slots:
   identificatie:

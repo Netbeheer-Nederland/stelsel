@@ -1,23 +1,30 @@
-id: https://modellen.netbeheernederland.nl/stelsel/registers/netfunctieregister
-name: netfunctieregister
-title: Netfunctieregister
+id: https://modellen.netbeheernederland.nl/stelsel/registers/transporteenhedenregister
+name: transporteenhedenregister
+title: Transporteenhedenregister
 version: 1.0-draft
-description: Het netfunctieregister legt de transportcapaciteiten van energienetten vast op drie samenhangende abstractieniveaus (netelementen, padsegmenten en transporteenheden). Hierdoor worden keuzes over congestie, wachtrijen en uitbreidingen reproduceerbaar en uitlegbaar.
+description: Het transporteenhedenregister legt de transportcapaciteiten van energienetten vast op drie samenhangende abstractieniveaus (netelementen, padsegmenten en transporteenheden). Hierdoor worden keuzes over netcongestie, wachtrijen en netuitbreidingen reproduceerbaar en uitlegbaar.
 comments: |
-  Het netfunctieregister beschrijft wat het net volgens ontwerp moet kunnen, niet hoe het net op enig moment staat geschakeld.
+  Decennialang functioneerden onze energienetten met een schijnbare overvloed. De transportcapaciteit van het net was daarom voornamelijk een interne aangelegenheid. Netcongestie maakt het nu noodzakelijk om deze transportcapaciteit transparant te maken richting de maatschappij.
 
-  De transportcapaciteit van een transporteenheid wordt bepaald door zowel de beschikbare padsegmenten als door netelementen die door meerdere paden worden gedeeld, zoals railsystemen en driewegstransformatoren. Door deze samenhang expliciet te modelleren, wordt de bepaling van transportcapaciteit stabiel, herleidbaar en toepasbaar in congestiebeheer.
+  Net zoals de telecomsector verschoof van het beheren van 'kabels' naar het dynamisch sturen op 'bandbreedte', maakt dit model de transportcapaciteit los van de interne techniek. Het model is bedrieglijk eenvoudig, maar de impact is fundamenteel. Door netelementen, padsegmenten en transporteenheden strikt te scheiden, slaan we de brug tussen de technicus, de jurist en de beleidsmaker. Het resultaat is een reproduceerbare vertaling van complexe netstructuren naar beschikbare ruimte voor de maatschappij.
+  
+  Om de status van het energienet eenduidig te communiceren, onderscheiden we de volgende transportcapaciteiten:
 
-  Over het algemeen geldt:
+  * `aanwezig`: wat het net aankan
+  * `benodigd`: nodig voor lopende transportovereenkomsten
+  * `gevraagd`: nodig voor nieuwe aanvragen
+  * `regelbaar`: flexibele capaciteit om de pieken te scheren
+
+  De optelsom:
 
   * `beschikbaar` = `aanwezig` - `benodigd`
-  * `benodigd` + `gevraagd` > `aanwezig`: capaciteitsknelpunt
-  * `benodigd` + `gevraagd` > `aanwezig` + `regelbaar`: congestiegebied
+  * `benodigd` + `gevraagd` > `aanwezig` = capaciteitsknelpunt
+  * `benodigd` + `gevraagd` > `aanwezig` + `regelbaar` = congestiegebied
 
 prefixes:
   linkml: https://w3id.org/linkml/
   begrip: https://begrippen.netbeheernederland.nl/id/
-  this: https://modellen.netbeheernederland.nl/stelsel/registers/netfunctieregister#
+  this: https://modellen.netbeheernederland.nl/stelsel/registers/transporteenhedenregister#
   aansluitingenregister: https://modellen.netbeheernederland.nl/stelsel/registers/aansluitingenregister#
   marktpartijenregister: https://modellen.netbeheernederland.nl/stelsel/registers/marktpartijenregister#
   bce: https://wetten.overheid.nl/jci1.3:c:BWBR0052321&

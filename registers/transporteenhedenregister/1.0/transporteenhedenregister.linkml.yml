@@ -6,7 +6,7 @@ description: Het transporteenhedenregister legt de transportcapaciteiten van ene
 comments: |
   Decennialang functioneerden onze energienetten met een schijnbare overvloed. De transportcapaciteit van het net was daarom voornamelijk een interne aangelegenheid. Netcongestie maakt het nu noodzakelijk om deze transportcapaciteit transparant te maken richting de maatschappij.
 
-  Net zoals de telecomsector verschoof van het beheren van 'kabels' naar het dynamisch sturen op 'bandbreedte', maakt dit model de transportcapaciteit los van de interne techniek. Het model is bedrieglijk eenvoudig, maar de impact is fundamenteel. Door netelementen, padsegmenten en transporteenheden strikt te scheiden, slaan we de brug tussen de technicus, de jurist en de beleidsmaker. Het resultaat is een reproduceerbare vertaling van complexe netstructuren naar beschikbare ruimte voor de maatschappij.
+  Net zoals de telecomsector verschoof van het beheren van 'kabels' naar het dynamisch sturen op 'bandbreedte', maakt dit model de transportcapaciteit los van de interne techniek. Het model is bedrieglijk eenvoudig, maar de impact is fundamenteel. Door netelementen, padsegmenten en transporteenheden strikt te scheiden, slaan we de brug tussen technicus en beleidsmaker. Het resultaat is een reproduceerbare vertaling van complexe netstructuren naar beschikbare ruimte voor de maatschappij. De transporteenheid vormt hierbij de gemeenschappelijke deler tussen onder andere capaciteitsknelpunten, netuitbreidingen, congestiegebieden, wachtrijen en flexbehoeften.
   
   Om de status van het energienet eenduidig te communiceren, onderscheiden we de volgende transportcapaciteiten:
 
@@ -100,7 +100,7 @@ classes:
       # relaties:
       samengesteld uit:
         range: Padsegment
-        required: true
+        required: false
         multivalued: true
         annotations:
           inverse_cardinality: "*"
@@ -121,6 +121,7 @@ classes:
         description: overdrachtspunt via welke de transportcapaciteit wordt ontsloten (herkomst)
         comments:
           - Bijvoorbeeld het overdrachtspunt van een energieproducent of bovenliggende netkoppeling.
+          - Deze relatie is verplicht als de transporteenheid geen padsegmenten heeft, anders verboden.
         range: Overdrachtspunt
         required: false
         multivalued: false

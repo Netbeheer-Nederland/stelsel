@@ -12,7 +12,7 @@ comments: |
 
   * `aanwezig`: wat het net aankan
   * `benodigd`: nodig voor lopende transportovereenkomsten
-  * `gevraagd`: nodig voor nieuwe aanvragen
+  * `gevraagd`: nodig voor ingediende aanvragen
   * `regelbaar`: flexibele capaciteit om de pieken te scheren
 
   De optelsom:
@@ -46,6 +46,11 @@ classes:
     slots:
       - identificatie
     attributes:
+      aansluitgebied:
+        description: deel van het aardoppervlak waarvoor nieuwe aansluitingen in beginsel rechtstreeks bij deze transporteenheid uitkomen
+        comments:
+          - Aansluitgebieden met veschillende netvlakken kunnen overlappen.
+        range: Multivlak
       richting:
         description: geeft aan of de transporteenheid wordt beschouwd in de normatieve ontwerprichting dan wel in de tegengestelde richting daarvan
         range: Richting
@@ -277,7 +282,7 @@ classes:
     class_uri: Sectiegroep
     broad_mappings:
       - begrip:a4ejc #netfunctie
-    description: verzameling knooppunten die onderling door bediening met elkaar verbonden kunnen worden, waarbij die verbinding in standaardbediening niet actief is
+    description: verzameling knooppunten die via vooraf bepaalde bedieningshandelingen met elkaar verbonden kunnen worden, waarbij die verbinding in standaardbediening niet actief is
     slots:
       - identificatie
     unique_keys:
@@ -355,3 +360,9 @@ enums:
         description: richting van energietransport die leidend is voor het ontwerp en de beoordeling van transportzekerheid
       tegengesteld:
         description: richting van energietransport tegengesteld aan de normatieve ontwerprichting
+
+types:
+  Multivlak:
+    description: ruimtelijke aanduiding van een samenstel van delen van het aardoppervlak
+    comments:
+      - Equivalent aan `GM_MultiSurface` in ISO 19107.

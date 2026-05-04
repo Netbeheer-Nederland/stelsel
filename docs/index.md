@@ -5,11 +5,12 @@ nav_order: 1
 
 # Stelsel van energieregisters
 
-Een efficiënte en betrouwbare energiemarkt is cruciaal voor Nederland. Om deze markt optimaal te faciliteren, hebben netbeheerders de wettelijke taak om kerngegevens over het energienet te registreren en te delen. Dit vraagt om een eenduidige en gestandaardiseerde aanpak, zodat alle partijen met dezelfde informatie werken.
-Deze website beschrijft het officiële stelsel van energieregisters. Hier leggen we de basis vast voor een gedeeld, eenduidig begrip van het energienet. Het stelsel vormt het fundament waarop systemen worden gebouwd, analyses worden uitgevoerd en beleid wordt gevormd.
+Registers spelen een centrale rol in de energiesector. Zij bevatten gegevens die gezaghebbend zijn vastgelegd en waarop partijen vertrouwen in uitvoering, analyse en besluitvorming. Dat vertrouwen vraagt om duidelijkheid: wat betekenen deze gegevens en hoe hangen zij samen?
+
+De hier beschreven modellen geven betekenis aan die gegevens en zorgen voor een gedeeld begrip, onafhankelijk van de vraag of registers centraal zijn ingericht of decentraal per netbeheerder. Gegevens uit deze registers worden niet rechtstreeks gedeeld maar ontsloten via [dataproducten](/data-products/), waarin de vastgestelde betekenis wordt toegepast voor concreet gebruik.
 
 ## Stelselplaat
 
-Deze plaat toont hoe de registers met elkaar samenhangen. De kleuren zijn gebaseerd op [NBility](https://nbility-model.github.io/).
+Deze plaat toont hoe de registers met elkaar samenhangen. De kleuren zijn gebaseerd op [NBility](https://nbility.netbeheernederland.nl/).
 
 ![Stelselplaat]({{ site.baseurl }}/assets/images/stelselplaat.drawio.svg)

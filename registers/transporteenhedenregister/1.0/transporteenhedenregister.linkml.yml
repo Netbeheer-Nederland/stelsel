@@ -2,12 +2,14 @@ id: https://modellen.netbeheernederland.nl/stelsel/registers/transporteenhedenre
 name: transporteenhedenregister
 title: Transporteenhedenregister
 version: 1.0-draft
-description: "Het transporteenhedenregister beschrijft de transportcapaciteit van energienetten op drie samenhangende abstractieniveaus: netelementen, padsegmenten en transporteenheden. Hierdoor worden keuzes over netcongestie, wachtrijen en netuitbreidingen reproduceerbaar en uitlegbaar."
+description: "Het transporteenhedenregister beschrijft de transportcapaciteit van energienetten op drie samenhangende abstractieniveaus: netelementen, padsegmenten en transporteenheden. Deze niveaus maken expliciet op welk schaalniveau we redeneren over capaciteit in het net, en maken keuzes over netcongestie, wachtrijen en netuitbreidingen reproduceerbaar en uitlegbaar."
 comments: |
-  Decennialang functioneerden onze energienetten met een schijnbare overvloed. De transportcapaciteit van het net was daarom voornamelijk een interne aangelegenheid. Netcongestie maakt het nu noodzakelijk om deze transportcapaciteit transparant te maken richting de maatschappij.
+  Decennialang functioneerden onze energienetten met een schijnbare overvloed. De transportcapaciteit van het net was daardoor vooral een impliciete, interne aangelegenheid. Met de opkomst van netcongestie wordt het noodzakelijk om deze capaciteit expliciet en eenduidig te maken richting de maatschappij.
 
-  Net zoals de telecomsector verschoof van het beheren van 'kabels' naar het dynamisch sturen op 'bandbreedte', maakt dit model de transportcapaciteit los van de interne techniek. Het model is bedrieglijk eenvoudig, maar de impact is fundamenteel. Door netelementen, padsegmenten en transporteenheden strikt te scheiden, slaan we de brug tussen technicus en beleidsmaker. Het resultaat is een reproduceerbare vertaling van complexe netstructuren naar beschikbare ruimte voor de maatschappij. De transporteenheid vormt hierbij de gemeenschappelijke deler tussen onder andere capaciteitsknelpunten, netuitbreidingen, congestiegebieden, wachtrijen en flexbehoeften.
-  
+  Experts weten al hoe ze het net moeten interpreteren: zij groeperen netelementen en beoordelen afhankelijkheden op basis van ervaring. Dit model legt die denkwijze vast. Door netelementen, padsegmenten en transporteenheden strikt te scheiden, wordt expliciet gemaakt wanneer we delen van het net als één beschouwen en wanneer niet.
+
+  Het model is bedrieglijk eenvoudig, maar de impact is fundamenteel. Het maakt het mogelijk om het impliciete denkwerk van experts overdraagbaar te maken tussen mensen, processen en systemen. Zo ontstaat een reproduceerbare vertaling van complexe netstructuren naar beschikbare ruimte voor de maatschappij. De transporteenheid vormt daarbij de gemeenschappelijke basis voor onder andere capaciteitsknelpunten, netuitbreidingen, congestiegebieden, wachtrijen en flexbehoeften.
+
   Om de status van het energienet eenduidig te communiceren, onderscheiden we de volgende transportcapaciteiten:
 
   * `aanwezig`: wat het net aankan

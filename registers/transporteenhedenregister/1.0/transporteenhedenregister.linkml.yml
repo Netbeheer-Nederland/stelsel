@@ -168,11 +168,6 @@ classes:
     slots:
       - identificatie
     attributes:
-      aansluitgebied:
-        description: deel van het aardoppervlak waarvoor nieuwe aansluitingen in beginsel rechtstreeks bij deze transporteenheid uitkomen
-        comments:
-          - Aansluitgebieden met veschillende netvlakken kunnen overlappen.
-        range: Multivlak
       benodigde transportcapaciteit:
         exact_mappings:
           - begrip:7bs28 #benodigde transportcapaciteit
@@ -224,6 +219,11 @@ classes:
         description: geeft aan of de transporteenheid wordt beschouwd in de normatieve ontwerprichting dan wel in de tegengestelde richting daarvan
         range: Richting
         required: true
+      voedingsgebied:
+        description: deel van het aardoppervlak waarop de aan deze transporteenheid direct gekoppelde aansluitingen zich bevinden of zijn beoogd te worden gerealiseerd
+        comments:
+          - Aansluitgebieden met veschillende netvlakken kunnen overlappen.
+        range: Multivlak
       # relaties:
       beheerd door:
         range: Marktpartij

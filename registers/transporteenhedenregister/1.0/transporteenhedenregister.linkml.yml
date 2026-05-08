@@ -136,7 +136,7 @@ classes:
       - begrip:a4ejc #netfunctie
     annotations:
       tijdlijn_geldigheid: true
-    description: beperking die vastlegt welke padsegmenten niet gelijktijdig actief mogen zijn
+    description: beperking op het gelijktijdig actief zijn van padsegmenten
     attributes:
       # relaties:
       op:

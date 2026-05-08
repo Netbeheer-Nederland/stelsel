@@ -6,9 +6,14 @@ description: Het aansluitingenregister bevat alle elektriciteits- en gasaansluit
 comments:
   - Het aansluitingenregister wordt gezamenlijk beheerd door de netbeheerders en bevat zowel fysieke als administratieve gegevens over aansluitingen. Het register is essentieel voor de werking van de energiemarkt omdat het de basis vormt voor processen zoals leverancierswisselingen, verhuizingen en facturatie.
   - De verplichting tot het bijhouden van het aansluitingenregister is vastgelegd in de Informatiecode elektriciteit en gas, vastgesteld door de Autoriteit Consument en Markt (ACM).
-  - "Wijzigingen: (1) `administratieve status van meetinrichting` is verplicht, omdat er semantisch geen verschil bestaat tussen `aan` en leeg. (2) `soort` toegevoegd aan `Aansluiting` omdat deze eigenschap nog in gebruik is. (3) `levensduur` toegevoegd aan `Aansluiting` en `Allocatiepunt` zodat beëindigingen expliciet zijn en betrouwbaar marktprocessen triggeren."
+  - Zie deze [uitlegvideo](https://www.youtube.com/watch?v=z7eVPSKf8l8) over de 'anatomie' van een aansluiting.
+  - |
+    Wijzigingen:
+    
+    1. `administratieve status van meetinrichting` is verplicht, omdat er semantisch geen verschil bestaat tussen `aan` en leeg.
+    2. `soort` toegevoegd aan `Aansluiting` omdat deze eigenschap nog in gebruik is.
+    3. `levensduur` toegevoegd aan `Aansluiting` en `Allocatiepunt` zodat beëindigingen expliciet zijn en betrouwbaar marktprocessen triggeren.
 see_also:
-  - youtube:z7eVPSKf8l8
   - iceg:hoofdstuk=2&paragraaf=2.1&g=2025-01-01
 prefixes:
   linkml: https://w3id.org/linkml/
@@ -29,7 +34,6 @@ prefixes:
   rakveg: https://wetten.overheid.nl/jci1.3:c:BWBR0030164&
   adamstelsel: https://www.amsterdam.nl/stelselpedia/
   iso: https://www.iso.org/
-  youtube: https://www.youtube.com/watch?v=
   bgt: http://opendata.stelselcatalogus.nl/bgt/id/begrip/
   bag: http://opendata.stelselcatalogus.nl/bag/id/begrip/
   brk: http://opendata.stelselcatalogus.nl/brk/id/begrip/

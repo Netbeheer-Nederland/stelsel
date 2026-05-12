@@ -2,12 +2,12 @@ id: https://modellen.netbeheernederland.nl/stelsel/registers/transporteenhedenre
 name: transporteenhedenregister
 title: Transporteenhedenregister
 version: 1.0-draft
-description: "Het transporteenhedenregister beschrijft de transportcapaciteit van energienetten op drie samenhangende abstractieniveaus: netelementen, padsegmenten en transporteenheden. Deze niveaus maken expliciet op welk schaalniveau we redeneren over capaciteit in het net, en maken keuzes over netcongestie, wachtrijen en netuitbreidingen reproduceerbaar en uitlegbaar."
+description: "Het transporteenhedenregister beschrijft de transportcapaciteit van energienetten op drie samenhangende abstractieniveaus: netelementen, routedelen en transporteenheden. Deze niveaus maken expliciet op welk schaalniveau we redeneren over capaciteit in het net, en maken keuzes over netcongestie, wachtrijen en netuitbreidingen reproduceerbaar en uitlegbaar."
 comments:
   - |
     Decennialang functioneerden onze energienetten met een schijnbare overvloed. De transportcapaciteit van het net was daardoor vooral een impliciete, interne aangelegenheid. Met de opkomst van netcongestie wordt het noodzakelijk om deze capaciteit expliciet en eenduidig te maken richting de maatschappij.
 
-    Experts weten al hoe ze het net moeten interpreteren: zij groeperen netelementen en beoordelen afhankelijkheden op basis van ervaring. Dit model legt die denkwijze vast. Door netelementen, padsegmenten en transporteenheden strikt te scheiden, wordt expliciet gemaakt wanneer we delen van het net als één beschouwen en wanneer niet.
+    Experts weten al hoe ze het net moeten interpreteren: zij groeperen netelementen en beoordelen afhankelijkheden op basis van ervaring. Dit model legt die denkwijze vast. Door netelementen, routedelen en transporteenheden strikt te scheiden, wordt expliciet gemaakt wanneer we delen van het net als één beschouwen en wanneer niet.
 
     Zo ontstaat een reproduceerbare vertaling van complexe netstructuren naar beschikbare ruimte voor de maatschappij. De transporteenheid vormt daarbij de gemeenschappelijke basis voor onder andere capaciteitsknelpunten, netuitbreidingen, congestiegebieden, wachtrijen en flexbehoeften.
   - |
@@ -37,11 +37,11 @@ imports:
 default_range: Tekst
 
 classes:
-  Capaciteitsdeling tussen padsegmenten:
-    class_uri: Capaciteitsdeling-tussen-padsegmenten
+  Capaciteitsdeling tussen routedelen:
+    class_uri: Capaciteitsdeling-tussen-routedelen
     broad_mappings:
       - begrip:dwk8c #transportcapaciteit
-    description: relatie tussen padsegmenten waarbij hun transportcapaciteit bij gelijktijdig transport wordt begrensd door gedeelde netelementen
+    description: relatie tussen routedelen waarbij hun transportcapaciteit bij gelijktijdig transport wordt begrensd door gedeelde netelementen
     annotations:
       tijdlijn_geldigheid: true
     attributes:
@@ -59,7 +59,7 @@ classes:
           ucum_code: MVA
       # relaties:
       tussen:
-        range: Padsegment
+        range: Routedeel
         required: true
         multivalued: true
         annotations:
@@ -116,7 +116,7 @@ classes:
         description: transportcapaciteit in alternatieve bedieningssituaties
         comments:
           - De noodcapaciteit is doorgaans hoger dan de normale capaciteit omdat aangenomen wordt dat alternatieve bedieningssituaties kort duren.
-          - "Afleidingsregel: gelijk aan de kleinste noodcapaciteit van de geleidende netelementen waaruit het padsegment bestaat."
+          - "Afleidingsregel: gelijk aan de kleinste noodcapaciteit van de geleidende netelementen waaruit het routedeel bestaat."
         required: true
         range: Reëel getal
         unit:
@@ -124,11 +124,18 @@ classes:
       normale capaciteit:
         description: transportcapaciteit in de standaardbedieningssituatie
         comments:
-          - "Afleidingsregel: gelijk aan de kleinste normale capaciteit van de geleidende netelementen waaruit het padsegment bestaat."
+          - "Afleidingsregel: gelijk aan de kleinste normale capaciteit van de geleidende netelementen waaruit het routedeel bestaat."
         required: true
         range: Reëel getal
         unit:
           ucum_code: MVA
+      # relaties:
+      verbonden met:
+        range: Geleidend netelement
+        required: false
+        multivalued: true
+        annotations:
+          inverse_cardinality: "*"
     unique_keys:
       identificatie:
         unique_key_slots:
@@ -139,11 +146,11 @@ classes:
       - begrip:a4ejc #netfunctie
     annotations:
       tijdlijn_geldigheid: true
-    description: beperking op het gelijktijdig actief zijn van padsegmenten
+    description: beperking op het gelijktijdig actief zijn van routedelen
     attributes:
       # relaties:
       op:
-        range: Padsegment
+        range: Routedeel
         required: true
         multivalued: true
         annotations:
@@ -156,17 +163,17 @@ classes:
     class_uri: Knooppunt
     broad_mappings:
       - begrip:a4ejc #netfunctie
-    description: begin- of eindpunt van één of meer padsegmenten
+    description: begin- of eindpunt van één of meer routedelen
     comments:
-      - Een knooppunt fungeert als een logisch verzamelpunt. Terwijl een beginpunt in een netschema vaak samenvalt met één fysiek voedingspunt (zoals een veld op een railsysteem), vertegenwoordigt een eindpunt de geaggregeerde 'afgifte-omtrek' van het padsegment. Dit omvat zowel het railsysteem waarop het padsegment termineert als alle netaansluitpunten die onderweg hun transportbelasting op dit segment projecteren.
+      - Een knooppunt fungeert als een logisch verzamelpunt. Terwijl een beginpunt in een netschema vaak samenvalt met één fysiek voedingspunt (zoals een veld op een railsysteem), vertegenwoordigt een eindpunt de geaggregeerde 'afgifte-omtrek' van het routedeel. Dit omvat zowel het railsysteem waarop het routedeel termineert als alle netaansluitpunten die onderweg hun transportbelasting op dit segment projecteren.
     annotations:
       tijdlijn_geldigheid: true
     slots:
       - identificatie
     attributes:
       # relaties:
-      deel van:
-        range: Sectiegroep
+      in:
+        range: Koppelgroep
         required: false
         multivalued: false
         annotations:
@@ -175,18 +182,31 @@ classes:
       identificatie:
         unique_key_slots:
           - identificatie
-  Padsegment:
-    class_uri: Padsegment
+  Koppelgroep:
+    class_uri: Koppelgroep
+    broad_mappings:
+      - begrip:a4ejc #netfunctie
+    description: verzameling knooppunten die via vooraf bepaalde bedieningshandelingen gekoppeld kunnen worden, waarbij die koppeling in standaardbediening niet actief is
+    slots:
+      - identificatie
+    annotations:
+      tijdlijn_geldigheid: true
+    unique_keys:
+      identificatie:
+        unique_key_slots:
+          - identificatie
+  Routedeel:
+    class_uri: Routedeel
     broad_mappings:
       - begrip:a4ejc #netfunctie
     description: afzonderlijk relevante transportroute voor capaciteits- en faalscenario-analyse
     comments:
-      - Een padsegment is een afgebakende mogelijkheid voor het verplaatsen van energie. Deze afbakening is zodanig dat zij alle relevante capaciteits- en faalscenario's eenduidig representeert. Bij elektriciteit vormen de railsystemen typisch deze afbakening. Het railsysteem wordt functioneel toegerekend aan alle inkomende en uitgaande padsegmenten die er gebruik van maken, omdat dit voor capaciteitsdeling relevant is. Railkoppelingen worden niet als padsegmenten gezien, tenzij zij, in uitzonderlijke gevallen, afzonderlijk relevante faalscenario's of capaciteitsbeperkingen introduceren.
-      - "Een padsegment heeft een ontwerprichting: van een geconcentreerd punt in het energienet naar een geaggregeerde afgifte-omtrek. Daarmee representeert het de transportstructuur zoals die is ontworpen, niet zoals zij incidenteel wordt gebruikt."
-      - In vermaasde netten zonder redundantie (zoals in sommige laagspanningsnetten) wijzen padsegmenten richting het balanspunt (het punt waar de stroomsterkte in de standaardbedieningssituatie in theorie nul is). Als een balanspunt zich in een verdeelkast bevindt, eindigen de betreffende padsegmenten bij die kast. Als een padsegment tussen twee kasten het balanspunt vormt, dan ontspringt vanuit elk van deze kasten een padsegment, dat het andere padsegment halverwege ontmoet, in een knooppunt waar eventuele huisaansluitingen topologisch weer op in kunnen prikken.
-      - Een transportroute waarin netelementen parallel staan opgesteld maar niet onafhankelijk kunnen falen, wordt als één padsegment beschouwd. Dit geldt onder andere voor parallelle kabels tussen stations zonder schakelmogelijkheid en padsegmenten tussen railsystemen met parallelle transformateren die bij falen niet kunnen worden geïsoleerd.
-      - Stationsautomatisering kan ertoe leiden dat meerdere railsystemen functioneel als één geheel opereren. Indien deze automatisering maakt dat bepaalde routes geen afzonderlijk relevante faalscenario's vormen, dan worden zij samen als één padsegment beschouwd.
-      - Een netelement kan gelijktijdig deel uitmaken van meer dan één padsegment. Dit komt standaard voor bij railsystemen. Een meer complex voorbeeld is een opstelling met een driewegstransformator. Daarbij maakt de wikkeling aan de primaire zijde deel uit van twee padsegmenten.
+      - Een routedeel is een afgebakende mogelijkheid voor het verplaatsen van energie. Deze afbakening is zodanig dat zij alle relevante capaciteits- en faalscenario's eenduidig representeert. Bij elektriciteit vormen de railsystemen typisch deze afbakening. Het railsysteem wordt functioneel toegerekend aan alle inkomende en uitgaande routedelen die er gebruik van maken, omdat dit voor capaciteitsdeling relevant is. Railkoppelingen hoeven niet als routedelen te worden gezien, tenzij zij, in uitzonderlijke gevallen, afzonderlijk relevante faalscenario's of capaciteitsbeperkingen introduceren.
+      - "Een routedeel heeft een ontwerprichting: van een geconcentreerd punt in het energienet naar een geaggregeerde afgifte-omtrek. Daarmee representeert het de transportstructuur zoals die is ontworpen, niet zoals zij incidenteel wordt gebruikt."
+      - In vermaasde netten zonder redundantie (zoals in sommige laagspanningsnetten) wijzen routedelen richting het balanspunt (het punt waar de stroomsterkte in de standaardbedieningssituatie in theorie nul is). Als een balanspunt zich in een verdeelkast bevindt, eindigen de betreffende routedelen bij die kast. Als een routedeel tussen twee kasten het balanspunt vormt, dan ontspringt vanuit elk van deze kasten een routedeel, dat het andere routedeel halverwege ontmoet, in een knooppunt waar eventuele huisaansluitingen topologisch weer op in kunnen prikken.
+      - Een transportroute waarin netelementen parallel staan opgesteld maar niet onafhankelijk kunnen falen, wordt als één routedeel beschouwd. Dit geldt onder andere voor parallelle kabels tussen stations zonder schakelmogelijkheid en routedelen tussen railsystemen met parallelle transformateren die bij falen niet kunnen worden geïsoleerd.
+      - Stationsautomatisering kan ertoe leiden dat meerdere railsystemen functioneel als één geheel opereren. Indien deze automatisering maakt dat bepaalde routes geen afzonderlijk relevante faalscenario's vormen, dan worden zij samen als één routedeel beschouwd.
+      - Een netelement kan gelijktijdig deel uitmaken van meer dan één routedeel. Dit komt standaard voor bij railsystemen. Een meer complex voorbeeld is een opstelling met een driewegstransformator. Daarbij maakt de wikkeling aan de primaire zijde deel uit van twee routedelen.
     annotations:
       tijdlijn_geldigheid: true
     slots:
@@ -227,19 +247,6 @@ classes:
       identificatie:
         unique_key_slots:
           - identificatie
-  Sectiegroep:
-    class_uri: Sectiegroep
-    broad_mappings:
-      - begrip:a4ejc #netfunctie
-    description: verzameling knooppunten die via vooraf bepaalde bedieningshandelingen gekoppeld kunnen worden, waarbij die koppeling in standaardbediening niet actief is
-    slots:
-      - identificatie
-    annotations:
-      tijdlijn_geldigheid: true
-    unique_keys:
-      identificatie:
-        unique_key_slots:
-          - identificatie
   Transporteenheid:
     class_uri: Transporteenheid
     broad_mappings:
@@ -247,7 +254,7 @@ classes:
     description: deel van het energienet dat in samenhang moet worden beschouwd om de aanwezige transportcapaciteit te kunnen bepalen
     comments:
       - Een transporteenheid wordt ontworpen met een normatieve ontwerprichtting. Dat is de richting waarin het energienet is ontworpen om energie betrouwbaar te leveren. Deze richting wordt soms aangeduid als 'afname', maar die term werkt verwarrend omdat er bijvoorbeeld aansluitingen bestaan die zijn ontworpen om in te voeden, zoals bij energieproducenten.
-      - Een transporteenheid kan één padsegment bevatten (radiaal) of meerdere (standby, gesectioneerd, parallel).
+      - Een transporteenheid kan één routedeel bevatten (radiaal) of meerdere (standby, gesectioneerd, parallel).
       - Een transporteenheid is het niveau waarop netbeheerders de transportcapaciteiten bepalen (aanwezig, benodigd, beschikbaar), capaciteitsknelpunten signaleren, congestiegebieden afroepen en wachtrijen beheren.
     annotations:
       tijdlijn_geldigheid: true
@@ -267,7 +274,7 @@ classes:
           - begrip:2whwi #aanwezige transportcapaciteit
         description: aanwezige transportcapaciteit van een afzonderlijke transporteenheid, zonder rekening te houden met gelijktijdige belasting door andere transporteenheden
         comments:
-          - "Afleidingsregel: de kleinste waarde, over alle relevante scenario's, van de meest beperkende factor tussen de padsegmenten en de gedeelde netelementen in dat scenario."
+          - "Afleidingsregel: de kleinste waarde, over alle relevante scenario's, van de meest beperkende factor tussen de routedelen en de gedeelde netelementen in dat scenario."
         required: true
         range: Reëel getal
         unit:
@@ -289,7 +296,7 @@ classes:
         range: Netvlak
         required: true
       redundatieniveau:
-        description: aantal padsegmenten dat onbeschikbaar kan zijn zonder (lange) onderbreking van het energietransport
+        description: aantal routedelen dat onbeschikbaar kan zijn zonder (lange) onderbreking van het energietransport
         range: Geheel getal
         required: true
       regelbare transportcapaciteit:
@@ -321,7 +328,7 @@ classes:
         description: overdrachtspunt via welke de transportcapaciteit wordt ontsloten (herkomst)
         comments:
           - Bijvoorbeeld het overdrachtspunt van een energieproducent of bovenliggende netkoppeling.
-          - Deze relatie is verplicht als de transporteenheid niet uit padsegmenten bestaat, anders verboden.
+          - Deze relatie is verplicht als de transporteenheid niet uit routedelen bestaat, anders verboden.
         range: Overdrachtspunt
         required: false
         multivalued: false
@@ -338,7 +345,7 @@ classes:
         annotations:
           inverse_cardinality: "*"
       samengesteld uit:
-        range: Padsegment
+        range: Routedeel
         required: false
         multivalued: true
         annotations:

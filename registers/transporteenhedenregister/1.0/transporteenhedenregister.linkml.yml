@@ -172,25 +172,13 @@ classes:
       - identificatie
     attributes:
       # relaties:
-      in:
-        range: Koppelgroep
+      koppelbaar met:
+        description: geeft aan dat de knooppunten via vooraf bepaalde bedieningshandelingen direct gekoppeld kunnen worden, waarbij die koppeling in standaardbediening niet actief is
+        range: Knooppunt
         required: false
-        multivalued: false
+        multivalued: true
         annotations:
-          inverse_cardinality: 1..*
-    unique_keys:
-      identificatie:
-        unique_key_slots:
-          - identificatie
-  Koppelgroep:
-    class_uri: Koppelgroep
-    broad_mappings:
-      - begrip:a4ejc #netfunctie
-    description: verzameling knooppunten die via vooraf bepaalde bedieningshandelingen gekoppeld kunnen worden, waarbij die koppeling in standaardbediening niet actief is
-    slots:
-      - identificatie
-    annotations:
-      tijdlijn_geldigheid: true
+          inverse_cardinality: "*"
     unique_keys:
       identificatie:
         unique_key_slots:

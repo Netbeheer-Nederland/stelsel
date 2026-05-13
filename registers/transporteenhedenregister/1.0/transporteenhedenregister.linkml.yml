@@ -322,6 +322,13 @@ classes:
         multivalued: false
         annotations:
           inverse_cardinality: "*"
+      beschikbaar op:
+        description: knooppunt waarop de transportcapaciteit beschikbaar is onder het geldende redundantieniveau
+        range: Knooppunt
+        required: true
+        multivalued: true
+        annotations:
+          inverse_cardinality: "*"
       beschikbaar voor:
         description: overdrachtspunt waaraan de transportcapaciteit wordt geleverd (bestemming)
         comments:
@@ -331,7 +338,7 @@ classes:
         required: false
         multivalued: false
         annotations:
-          inverse_cardinality: "*"
+          inverse_cardinality: 0..1
       samengesteld uit:
         range: Routedeel
         required: false

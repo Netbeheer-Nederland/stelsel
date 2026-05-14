@@ -37,8 +37,8 @@ imports:
 default_range: Tekst
 
 classes:
-  Capaciteitsdeling tussen routedelen:
-    class_uri: Capaciteitsdeling-tussen-routedelen
+  Capaciteitsdeling:
+    class_uri: Capaciteitsdeling
     broad_mappings:
       - begrip:dwk8c #transportcapaciteit
     description: relatie tussen routedelen waarbij hun transportcapaciteit bij gelijktijdig transport wordt begrensd door gedeelde netelementen
@@ -68,11 +68,14 @@ classes:
       identificatie:
         unique_key_slots:
           - tussen
-  Capaciteitsdeling tussen transporteenheden:
-    class_uri: Capaciteitsdeling-tussen-transporteenheden
+  Capaciteitsruimte:
+    class_uri: Capaciteitsruimte
     broad_mappings:
-      - begrip:dwk8c #transportcapaciteit
-    description: relatie tussen transporteenheden waarbij hun transportcapaciteit bij gelijktijdig transport wordt begrensd door gedeelde netstructuur
+      - begrip:a4ejc #netfunctie
+    description: afgebakende context waarbinnen vraag en aanbod van transportcapaciteit op één of meerdere transporteenheden samenkomen
+    comments:
+      - Een capaciteitsruimte kan betrekking hebben op meerdere transporteenheden wanneer zij netelementen delen, zoals bij een driewegstransformator. Een gezamenlijke capaciteitsruimte kan echter ook ontstaan in een netstructuur met zowel seriële als parallelle routedelen, waarvoor als geheel redundantie-eisen gelden.
+      - In complexe netstructuren (met een combinatie van serieel, parallel en redundant) kunnen meerdere mogelijke constructen worden geïdentificeerd als transporteenheid. De vuistregel is dat een construct als capaciteitsruimte wordt gemodelleerd in plaats van als transporteenheid wanneer het geen aanvullende transportcapaciteit toevoegt op enig knooppunt, maar uitsluitend de gezamenlijke benutting van bestaande transporteenheden begrenst.
     annotations:
       tijdlijn_geldigheid: true
     attributes:
@@ -83,6 +86,14 @@ classes:
         required: true
         unit:
           ucum_code: MW
+      benodigde transportcapaciteit:
+        exact_mappings:
+          - begrip:7bs28 #benodigde transportcapaciteit
+        comments:
+          - De bendodigde transportcapaciteit is de capaciteit die nodig is om transportovereenkomsten uit te voeren, inclusief alternatieve transportrechten. Congestiebeheersdiensten, zoals capaciteitssturing, verlagen de benodigde transportcapaciteit niet, maar dragen bij aan de regelbare transportcapaciteit.
+        range: Reëel getal
+        unit:
+          ucum_code: MW      
       beschikbare transportcapaciteit:
         description: deel van de aanwezige transportcapaciteit dat niet wordt ingezet om aan de benodigde transportcapaciteit te voldoen
         source: bce:g=2026-04-25
@@ -91,17 +102,32 @@ classes:
         range: Reëel getal
         unit:
           ucum_code: MW
+      gevraagde transportcapaciteit:
+        exact_mappings:
+          - begrip:7n44w #gevraagde transportcapaciteit
+        range: Reëel getal
+        unit:
+          ucum_code: MW
+      regelbare transportcapaciteit:
+        description: transportcapaciteit die door toepassing van regelmiddelen kan worden benut om overschrijding van de aanwezige transportcapaciteit te voorkomen
+        source: bce:g=2026-04-25
+        comments:
+          - Regelmiddelen zijn onder andere het gecontroleerd afschakelen van zuivere invoeding, capaciteitssturing (inclusief statische capaciteitsbeperking) en redispatchbiedingen. Alternatieve transportrechten gelden niet als regelmiddel maar dragen bij aan de benodigde transportcapaciteit.
+        required: true
+        range: Reëel getal
+        unit:
+          ucum_code: MW
       # relaties:
-      tussen:
+      op:
         range: Transporteenheid
         required: true
         multivalued: true
         annotations:
-          inverse_cardinality: "*"
+          inverse_cardinality: 1..*
     unique_keys:
       identificatie:
         unique_key_slots:
-          - tussen
+          - op
   Geleidend netelement:
     class_uri: Geleidend-netelement
     broad_mappings:
@@ -249,36 +275,6 @@ classes:
     slots:
       - identificatie
     attributes:
-      benodigde transportcapaciteit:
-        exact_mappings:
-          - begrip:7bs28 #benodigde transportcapaciteit
-        comments:
-          - De bendodigde transportcapaciteit is de capaciteit die nodig is om transportovereenkomsten uit te voeren, inclusief alternatieve transportrechten. Congestiebeheersdiensten, zoals capaciteitssturing, verlagen de benodigde transportcapaciteit niet, maar dragen bij aan de regelbare transportcapaciteit.
-        range: Reëel getal
-        unit:
-          ucum_code: MW      
-      individuele aanwezige transportcapaciteit:
-        broad_mappings:
-          - begrip:2whwi #aanwezige transportcapaciteit
-        description: aanwezige transportcapaciteit van een afzonderlijke transporteenheid, zonder rekening te houden met gelijktijdige belasting door andere transporteenheden
-        comments:
-          - "Afleidingsregel: de kleinste waarde, over alle relevante scenario's, van de meest beperkende factor tussen de routedelen en de gedeelde netelementen in dat scenario."
-        required: true
-        range: Reëel getal
-        unit:
-          ucum_code: MW
-      individuele beschikbare transportcapaciteit:
-        description: deel van de individuele aanwezige transportcapaciteit dat niet wordt ingezet om aan de benodigde transportcapaciteit te voldoen
-        source: bce:g=2026-04-25
-        range: Reëel getal
-        unit:
-          ucum_code: MW
-      gevraagde transportcapaciteit:
-        exact_mappings:
-          - begrip:7n44w #gevraagde transportcapaciteit
-        range: Reëel getal
-        unit:
-          ucum_code: MW
       netvlak:
         description: netvlak waarvoor deze transporteenheid de transportfunctie vervult
         range: Netvlak
@@ -287,15 +283,6 @@ classes:
         description: aantal routedelen dat onbeschikbaar kan zijn zonder (lange) onderbreking van het energietransport
         range: Geheel getal
         required: true
-      regelbare transportcapaciteit:
-        description: transportcapaciteit die door toepassing van regelmiddelen kan worden benut om overschrijding van de aanwezige transportcapaciteit te voorkomen
-        source: bce:g=2026-04-25
-        comments:
-          - Regelmiddelen zijn onder andere het gecontroleerd afschakelen van zuivere invoeding, capaciteitssturing (inclusief statische capaciteitsbeperking) en redispatchbiedingen. Alternatieve transportrechten gelden niet als regelmiddel maar dragen bij aan de benodigde transportcapaciteit.
-        required: true
-        range: Reëel getal
-        unit:
-          ucum_code: MW
       richting:
         description: geeft aan of de transporteenheid wordt beschouwd in de normatieve ontwerprichting dan wel in de tegengestelde richting daarvan
         range: Richting
@@ -306,6 +293,13 @@ classes:
           - Aansluitgebieden met veschillende netvlakken kunnen overlappen.
         range: Multivlak
       # relaties:
+      afhankelijk van:
+        description: B is afhankelijk van A als energietransport richting B verloopt via A.
+        range: Transporteenheid
+        required: false
+        multivalued: true
+        annotations:
+          inverse_cardinality: "*"
       beheerd door:
         range: Marktpartij
         required: true
@@ -341,13 +335,6 @@ classes:
           inverse_cardinality: 0..1
       samengesteld uit:
         range: Routedeel
-        required: false
-        multivalued: true
-        annotations:
-          inverse_cardinality: "*"
-      volgend op:
-        description: B is volgend op A indien energietransport richting B verloopt via A.
-        range: Transporteenheid
         required: false
         multivalued: true
         annotations:

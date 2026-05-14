@@ -108,6 +108,10 @@ classes:
         range: Reëel getal
         unit:
           ucum_code: MW
+      redundantieniveau:
+        description: aantal routedelen dat onbeschikbaar moet kunnen zijn zonder (lange) onderbreking van het energietransport
+        range: Geheel getal
+        required: true
       regelbare transportcapaciteit:
         description: transportcapaciteit die door toepassing van regelmiddelen kan worden benut om overschrijding van de aanwezige transportcapaciteit te voorkomen
         source: bce:g=2026-04-25
@@ -278,10 +282,6 @@ classes:
       netvlak:
         description: netvlak waarvoor deze transporteenheid de transportfunctie vervult
         range: Netvlak
-        required: true
-      redundatieniveau:
-        description: aantal routedelen dat onbeschikbaar kan zijn zonder (lange) onderbreking van het energietransport
-        range: Geheel getal
         required: true
       richting:
         description: geeft aan of de transporteenheid wordt beschouwd in de normatieve ontwerprichting dan wel in de tegengestelde richting daarvan

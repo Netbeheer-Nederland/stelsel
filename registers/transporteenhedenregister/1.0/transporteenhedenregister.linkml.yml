@@ -76,6 +76,7 @@ classes:
     comments:
       - Een capaciteitsruimte kan betrekking hebben op meerdere transporteenheden wanneer zij netelementen delen, zoals bij een driewegstransformator. Een gezamenlijke capaciteitsruimte kan echter ook ontstaan in een netstructuur met zowel seriële als parallelle routedelen, waarvoor als geheel redundantie-eisen gelden.
       - In complexe netstructuren (met een combinatie van serieel, parallel en redundant) kunnen meerdere mogelijke constructen worden geïdentificeerd als transporteenheid. De vuistregel is dat een construct als capaciteitsruimte wordt gemodelleerd in plaats van als transporteenheid wanneer het geen aanvullende transportcapaciteit toevoegt op enig knooppunt, maar uitsluitend de gezamenlijke benutting van bestaande transporteenheden begrenst.
+      - Een transporteenheid is het niveau waarop netbeheerders de transportcapaciteiten bepalen (aanwezig, benodigd, beschikbaar), capaciteitsknelpunten signaleren, congestiegebieden afroepen en wachtrijen beheren.
     annotations:
       tijdlijn_geldigheid: true
     attributes:
@@ -269,11 +270,10 @@ classes:
     class_uri: Transporteenheid
     broad_mappings:
       - begrip:a4ejc #netfunctie
-    description: deel van het energienet dat in samenhang moet worden beschouwd om de aanwezige transportcapaciteit te kunnen bepalen
+    description: samenhangende transportmogelijkheid op een verzameling knooppunten, waarvan de benutting niet onafhankelijk kan worden opgesplitst
     comments:
       - Een transporteenheid wordt ontworpen met een normatieve ontwerprichtting. Dat is de richting waarin het energienet is ontworpen om energie betrouwbaar te leveren. Deze richting wordt soms aangeduid als 'afname', maar die term werkt verwarrend omdat er bijvoorbeeld aansluitingen bestaan die zijn ontworpen om in te voeden, zoals bij energieproducenten.
       - Een transporteenheid kan één routedeel bevatten (radiaal) of meerdere (standby, gesectioneerd, parallel).
-      - Een transporteenheid is het niveau waarop netbeheerders de transportcapaciteiten bepalen (aanwezig, benodigd, beschikbaar), capaciteitsknelpunten signaleren, congestiegebieden afroepen en wachtrijen beheren.
     annotations:
       tijdlijn_geldigheid: true
     slots:

@@ -195,8 +195,6 @@ classes:
     broad_mappings:
       - begrip:a4ejc #netfunctie
     description: begin- of eindpunt van één of meer routedelen
-    comments:
-      - Een knooppunt fungeert als een logisch verzamelpunt. Terwijl een beginpunt in een netschema vaak samenvalt met één fysiek voedingspunt (zoals een veld op een railsysteem), vertegenwoordigt een eindpunt de geaggregeerde 'afgifte-omtrek' van het routedeel. Dit omvat zowel het railsysteem waarop het routedeel termineert als alle netaansluitpunten die onderweg hun transportbelasting op dit segment projecteren.
     annotations:
       tijdlijn_geldigheid: true
     slots:
@@ -228,8 +226,8 @@ classes:
     description: afzonderlijk relevante transportroute voor capaciteits- en faalscenario-analyse
     comments:
       - Een routedeel is een afgebakende mogelijkheid voor het verplaatsen van energie. Deze afbakening is zodanig dat zij alle relevante capaciteits- en faalscenario's eenduidig representeert. Bij elektriciteit vormen de railsystemen typisch deze afbakening. Het railsysteem wordt functioneel toegerekend aan alle inkomende en uitgaande routedelen die er gebruik van maken, omdat dit voor capaciteitsdeling relevant is. Railkoppelingen hoeven niet als routedelen te worden gezien, tenzij zij, in uitzonderlijke gevallen, afzonderlijk relevante faalscenario's of capaciteitsbeperkingen introduceren.
-      - "Een routedeel heeft een ontwerprichting: van een geconcentreerd punt in het energienet naar een geaggregeerde afgifte-omtrek. Daarmee representeert het de transportstructuur zoals die is ontworpen, niet zoals zij incidenteel wordt gebruikt."
-      - In vermaasde netten zonder redundantie (zoals in sommige laagspanningsnetten) wijzen routedelen richting het balanspunt (het punt waar de stroomsterkte in de standaardbedieningssituatie in theorie nul is). Als een balanspunt zich in een verdeelkast bevindt, eindigen de betreffende routedelen bij die kast. Als een routedeel tussen twee kasten het balanspunt vormt, dan ontspringt vanuit elk van deze kasten een routedeel, dat het andere routedeel halverwege ontmoet, in een knooppunt waar eventuele huisaansluitingen topologisch weer op in kunnen prikken.
+      - Een routedeel heeft een ontwerprichting. Daarmee representeert het de transportstructuur zoals die is ontworpen, niet zoals zij incidenteel wordt gebruikt.
+      - In vermaasde netten zonder redundantie (zoals in sommige laagspanningsnetten) wijzen routedelen richting het balanspunt (het punt waar de stroomsterkte in de standaardbedieningssituatie in theorie nul is). Als een balanspunt zich in een verdeelkast bevindt, eindigen de betreffende routedelen bij die kast. Als een routedeel tussen twee kasten het balanspunt vormt, dan ontspringt vanuit elk van deze kasten een routedeel, dat het andere routedeel halverwege ontmoet.
       - Een transportroute waarin netelementen parallel staan opgesteld maar niet onafhankelijk kunnen falen, wordt als één routedeel beschouwd. Dit geldt onder andere voor parallelle kabels tussen stations zonder schakelmogelijkheid en routedelen tussen railsystemen met parallelle transformateren die bij falen niet kunnen worden geïsoleerd.
       - Stationsautomatisering kan ertoe leiden dat meerdere railsystemen functioneel als één geheel opereren. Indien deze automatisering maakt dat bepaalde routes geen afzonderlijk relevante faalscenario's vormen, dan worden zij samen als één routedeel beschouwd.
       - Een netelement kan gelijktijdig deel uitmaken van meer dan één routedeel. Dit komt standaard voor bij railsystemen. Een meer complex voorbeeld is een opstelling met een driewegstransformator. Daarbij maakt de wikkeling aan de primaire zijde deel uit van twee routedelen.

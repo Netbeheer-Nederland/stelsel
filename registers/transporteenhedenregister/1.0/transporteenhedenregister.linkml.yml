@@ -210,6 +210,13 @@ classes:
         multivalued: true
         annotations:
           inverse_cardinality: "*"
+      op:
+        description: wijst netelementen aan waarvoor geldt dat elk routedeel dat een van deze netelementen omvat, dit knooppunt als begin- of eindpunt heeft
+        range: Geleidend netelement
+        required: true
+        multivalued: true
+        annotations:
+          inverse_cardinality: 0..1
     unique_keys:
       identificatie:
         unique_key_slots:

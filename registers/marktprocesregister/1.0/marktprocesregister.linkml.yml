@@ -2,12 +2,219 @@ id: https://modellen.netbeheernederland.nl/stelsel/registers/marktprocesregister
 name: marktprocesregister
 title: Marktprocesregister
 version: "1.0-draft"
-description: Dit model bevindt zich in een vroege fase van ontwikkeling en bevat daarom nog geen definities.
-# see_also: # TODO: H3/4/5 iceg
+description: Het marktprocesregister bevat informatie over processen die leiden tot mutaties op aansluitingen.
+see_also:
+  - iceg:hoofdstuk=3&g=2025-01-01
+  - iceg:hoofdstuk=4&g=2025-01-01
 prefixes:
   linkml: https://w3id.org/linkml/
   begrip: https://begrippen.netbeheernederland.nl/id/
   this: https://modellen.netbeheernederland.nl/stelsel/registers/marktprocesregister#
   aansluitingenregister: https://modellen.netbeheernederland.nl/stelsel/registers/aansluitingenregister#
+  marktpartijenregister: https://modellen.netbeheernederland.nl/stelsel/registers/marktpartijenregister#
   iceg: https://wetten.overheid.nl/jci1.3:c:BWBR0037934&
 default_prefix: this
+imports:
+  - ../../basiswaardesoorten
+
+classes:
+  Marktproces:
+    class_uri: Marktproces
+    broad_mappings: begrip:ihyma #marktactiviteit
+    description: samenhangende set activiteiten voor een mutatie op een object in de energiemarkt
+    slots:
+      - identificatie
+    attributes:
+      initiator:
+        description: vertegenwoordiger van een marktpartij die verantwoordelijk is voor de initiatie van het proces
+        required: true
+      soort:
+        description: typering van het marktproces volgens gestandaardiseerde categorieën
+        comments:
+          - "Validatie: gelijk aan de soort van het eerste deelproces (met eerste registratiemoment)."
+        range: Processoort
+        required: true
+      status:
+        description: toestand van het proces in de levenscyclus van initiatie tot afronding
+        comments:
+          - "Validatie: bij een beëindigd proces zijn er geen beschikbare of geplande berichten."
+        range: Processtatus
+        required: true
+      geannuleerd:
+        description: aanduiding of het proces voortijdig is beëindigd zonder effectuering
+        comments:
+          - "Validatie: bij een geannuleerd proces zijn er geen beschikbare of geplande berichten."
+        range: Waarheidswaarde
+        required: true
+      # relaties:
+      op:
+        range: Any
+        exactly_one_of:
+          - range: Aansluiting
+          - range: Allocatiepunt
+          - range: Netkoppeling
+        required: false
+        multivalued: true
+        annotations:
+          inverse_cardinality: "*"
+  Deelproces:
+    class_uri: Deelproces
+    broad_mappings: begrip:ihyma #marktactiviteit
+    description: samenhangende verzameling berichten binnen een marktproces met een gemeenschappelijk doel
+    slots:
+      - identificatie
+    attributes:
+      soort:
+        description: typering van het deelproces volgens gestandaardiseerde procesonderdelen
+        range: Processoort
+        required: true
+      onderwerp:
+        description: soort entiteit waarop het deelproces betrekking heeft
+        range: Onderwerp van deelproces
+        required: true
+      actie:
+        description: aard van de wijziging die in het deelproces wordt uitgevoerd
+        range: Actie
+        required: true
+      geannuleerd:
+        description: aanduiding of het deelproces niet verder wordt uitgevoerd
+        range: Waarheidswaarde
+        required: true
+      effectueringsdatum:
+        description: datum waarop de beoogde wijziging van kracht wordt
+        range: Datum
+        required: true
+      registratiemoment:
+        description: tijdstip waarop het deelproces is vastgelegd in het register
+        range: Tijdstip
+        required: true
+      # relaties:
+      deel van:
+        range: Marktproces
+        required: true
+        multivalued: true
+        annotations:
+          inverse_cardinality: "1..*"
+  Bericht:
+    class_uri: Bericht
+    broad_mappings: begrip:ihyma #marktactiviteit
+    description: gestructureerde informatie waarin een handeling in een marktproces is vastgelegd en die tussen marktpartijen kan worden uitgewisseld
+    slots:
+      - identificatie
+    attributes:
+      stapnummer:
+        description: volgnummer dat de processtap binnen het deelproces representeert
+        comments:
+          - Een deelproces bestaat uit processtappen, die zelf weer uit berichten (de handelingen) bestaan. De processtap is niet expliciet gemodelleerd omdat we er geen andere informatie over bijhouden dan enkel dit nummer.
+        range: Geheel getal
+        required: true
+      soort:
+        description: typering van het bericht volgens gestandaardiseerde berichtcategorieën
+        range: Berichtsoort
+        required: true
+      status:
+        description: toestand van het bericht in het verzend- en verwerkingsproces
+        range: Berichtstatus
+        required: true
+      registratiemoment:
+        description: tijdstip waarop het bericht is geregistreerd in het register
+        range: Tijdstip
+        required: true
+      aflevermoment:
+        description: tijdstip waarop het bericht beschikbaar is gesteld aan de ontvanger
+        range: Tijdstip
+      technisch-berichtidentificatie:
+        description: unieke technische identificatie van het bericht in uitwisselingssystemen
+        range: Code
+        required: true
+      technische inhoud:
+        description: inhoud van het bericht in het afgesproken uitwisselingsformaat
+      referentie van intern systeem:
+        description: identificatie van het bericht binnen het systeem van de verwerkende partij
+        range: Code
+      referentie van zendende partij:
+        description: identificatie die door de verzendende partij aan het bericht is toegekend
+        range: Code
+      # relaties:
+      handeling in:
+        range: Deelproces
+        required: true
+        multivalued: true
+        annotations:
+          inverse_cardinality: "1..*"
+      van:
+        range: Marktpartijsubregistratie
+        required: true
+        multivalued: false
+        annotations:
+          inverse_cardinality: "*"
+      voor:
+        range: Marktpartijsubregistratie
+        required: false
+        multivalued: false
+        annotations:
+          inverse_cardinality: "*"
+
+  # verwijzingen naar externe entiteiten:
+  Aansluiting:
+    class_uri: aansluitingenregister:Aansluiting
+    annotations:
+      external_registry: Aansluitingenregister
+  Allocatiepunt:
+    class_uri: aansluitingenregister:Allocatiepunt
+    annotations:
+      external_registry: Aansluitingenregister
+  Netkoppeling:
+    class_uri: aansluitingenregister:Netkoppeling
+    annotations:
+      external_registry: Aansluitingenregister
+  Marktpartijsubregistratie:
+    class_uri: marktpartijenregister:Marktpartijsubregistratie
+    annotations:
+      external_registry: Marktpartijenregister
+
+slots:
+  identificatie:
+    description: unieke aanduiding waarmee iets binnen een gegeven context ondubbelzinnig herkenbaar is
+    range: Code
+    required: true
+
+enums:
+  Actie:
+    permissible_values:
+      toewijzen:
+      verwijderen:
+  Berichtsoort:
+    permissible_values:
+      GAIN:
+      LOSS:
+      ...:
+  Berichtstatus:
+    permissible_values:
+      AVL:
+        description: beschikbaar
+      SCH:
+        description: gepland
+      RTV:
+        description: opgehaald
+      RCV:
+        description: ontvangen
+      NA:
+        description: niet van toepassing
+  Onderwerp van deelproces:
+    permissible_values:
+      allocatiepunt:
+      ...:
+  Processoort:
+    permissible_values:
+      ADMSTAT:
+      ALLMTCHG:
+      ...:
+  Processtatus:
+    permissible_values:
+      PEN:
+        description: toekomstige effectuering
+      RDY:
+        description: geëffectueerd maar niet beëindigd
+      CLD:
+        description: beëindigd

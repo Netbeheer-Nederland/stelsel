@@ -57,7 +57,7 @@ classes:
   Deelproces:
     class_uri: Deelproces
     broad_mappings: begrip:ihyma #marktactiviteit
-    description: samenhangende verzameling berichten binnen een marktproces met een gemeenschappelijk doel
+    description: samenhangende verzameling processtappen binnen een marktproces met een gemeenschappelijk doel
     slots:
       - identificatie
     attributes:
@@ -89,7 +89,7 @@ classes:
   Processtap:
     class_uri: Bericht
     broad_mappings: begrip:ihyma #marktactiviteit
-    description: gestructureerde informatie waarin een handeling in een marktproces is vastgelegd en die tussen marktpartijen kan worden uitgewisseld in berichten
+    description: afgebakend deel van een marktproces dat door één marktpartij wordt uitgevoerd
     attributes:
       stapnummer:
         description: volgnummer dat de processtap binnen het deelproces representeert
@@ -102,7 +102,7 @@ classes:
       status:
         description: toestand in de levenscyclus van de processtap
         comments:
-          - Afgeleid uit `soort`, `geannuleerd`, `ophaalmoment`, `effectueringsdatum` en `relevant voor`.
+          - Afgeleid uit `soort`, `geannuleerd`, `ophaalmoment`, `effectueringsdatum` en `gericht op`.
         range: Stapstatus
         required: true
       geannuleerd:

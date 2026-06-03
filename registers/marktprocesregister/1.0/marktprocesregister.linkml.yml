@@ -47,7 +47,7 @@ classes:
           - range: Allocatiepunt
           - range: Netkoppeling
         required: false
-        multivalued: true
+        multivalued: false
         annotations:
           inverse_cardinality: "*"
     unique_keys:
@@ -71,15 +71,11 @@ classes:
         description: datum waarop de beoogde wijziging van kracht wordt
         range: Datum
         required: true
-      registratiemoment:
-        description: tijdstip waarop het deelproces is vastgelegd in het register
-        range: Tijdstip
-        required: true
       # relaties:
       deel van:
         range: Marktproces
         required: true
-        multivalued: true
+        multivalued: false
         annotations:
           inverse_cardinality: "1..*"
     unique_keys:
@@ -89,14 +85,14 @@ classes:
   Processtap:
     class_uri: Bericht
     broad_mappings: begrip:ihyma #marktactiviteit
-    description: afgebakend deel van een marktproces dat door één marktpartij wordt uitgevoerd
+    description: afgebakend deel van een marktproces dat door één marktpartij wordt uitgevoe/rd
     attributes:
       stapnummer:
         description: volgnummer dat de processtap binnen het deelproces representeert
         range: Code
         required: true
       soort:
-        description: typering van de processtap volgens gestandaardiseerde berichtcategorieën
+        description: typering van de processtap volgens gestandaardiseerde categorieën
         range: Stapsoort
         required: true
       status:
@@ -110,14 +106,14 @@ classes:
         range: Waarheidswaarde
         required: true
       beginmoment:
-        description: tijdstip waarop de processtap is is begonnen
+        description: tijdstip waarop de processtap is begonnen
         range: Tijdstip
         required: true
       berichtidentificatie:
         description: unieke identificatie van het bericht in uitwisselingssystemen
         range: Code
       ophaalmoment:
-        description: tijdstip waarop een bericht is opgehaald door de ontvanger
+        description: tijdstip waarop het bericht is opgehaald door de ontvanger
         range: Tijdstip
       berichtinhoud:
         description: inhoud van het bericht in het afgesproken uitwisselingsformaat
@@ -128,7 +124,7 @@ classes:
       deel van:
         range: Deelproces
         required: true
-        multivalued: true
+        multivalued: false
         annotations:
           inverse_cardinality: "1..*"
       door:

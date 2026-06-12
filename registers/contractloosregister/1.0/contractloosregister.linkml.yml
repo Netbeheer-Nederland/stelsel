@@ -165,6 +165,8 @@ classes:
     class_uri: Contractloze-situatie
     exact_mappings:
       - begrip:6m4pq #contractloze situatie
+    comments:
+      - "In dit register geldt een allocatiepunt als contractloos als langer dan een dag (1) er geen 'marktactitiveit' of 'melding leveringsovereenkomst' (zie Marktactiviteitenregister) van een levancier op zit terwijl (2) deze wel 'in bedrijf' of tijdelijk 'uit bedrijf' is (zie Aansluitingenregister) (3) zonder dat er een sloopverzoek is ingediend."
     slots:
       - begindatum
       - einddatum

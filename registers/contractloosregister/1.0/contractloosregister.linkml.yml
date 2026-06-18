@@ -92,32 +92,32 @@ classes:
         multivalued: false
         annotations:
           inverse_cardinality: "*"
-  Brief:
-    class_uri: Brief
+  Notificatie:
+    class_uri: Notificatie
     broad_mappings:
       - begrip:grpae #klantnotificatie
-    description: op schrift gestelde en via de post gestuurde mededeling
+    description: officiële kennisgeving met betrekking tot een contractloze zaak
     attributes:
       referentienummer:
         description: kenmerk waarmee de geadresseerde snel eerdere correspondentie terug kan vinden
         required: true
         range: Code
       soort:
-        description: aanduiding van een verzameling brieven die een gemeenschappelijk karakter hebben
+        description: aanduiding van een verzameling klantnotificaties die een gemeenschappelijk karakter hebben
         range: Soort brief
         required: true
       verzenddatum:
-        description: dag waarop de brief naar de geadresseerde is verstuurd
+        description: dag waarop de notificatie naar de geadresseerde is verstuurd
         range: Datum
       vervaldatum:
-        description: uiterste datum waarop een reactie wordt verwachten
+        description: uiterste datum waarop een reactie wordt verwacht
         range: Datum
         required: true
       verwijderingsdatum aansluitingen:
         description: voorgenomen dag waarop de aansluitingen worden verwijderd
         range: Datum
       # relaties
-      notificatie van:
+      met betrekking tot:
         range: Contractloze zaak
         required: true
         multivalued: false

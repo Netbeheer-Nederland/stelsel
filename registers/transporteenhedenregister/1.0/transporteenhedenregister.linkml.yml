@@ -80,13 +80,6 @@ classes:
     annotations:
       tijdlijn_geldigheid: true
     attributes:
-      aanwezige transportcapaciteit:
-        exact_mappings:
-          - begrip:2whwi #aanwezige transportcapaciteit
-        range: Reëel getal
-        required: true
-        unit:
-          ucum_code: MW
       benodigde transportcapaciteit:
         exact_mappings:
           - begrip:7bs28 #benodigde transportcapaciteit
@@ -95,31 +88,17 @@ classes:
         range: Reëel getal
         unit:
           ucum_code: MW      
-      beschikbare transportcapaciteit:
-        description: deel van de aanwezige transportcapaciteit dat niet wordt ingezet om aan de benodigde transportcapaciteit te voldoen
-        source: bce:g=2026-04-25
-        comments:
-          - "Validatieregel: gelijk aan het verschil tussen de aanwezige transportcapaciteit en de som van de benodigde transportcapaciteiten van de betrokken transporteenheden."
-        range: Reëel getal
-        unit:
-          ucum_code: MW
-      gevraagde transportcapaciteit:
-        exact_mappings:
-          - begrip:7n44w #gevraagde transportcapaciteit
-        range: Reëel getal
-        unit:
-          ucum_code: MW
       redundantieniveau:
         description: aantal routedelen dat onbeschikbaar moet kunnen zijn zonder (lange) onderbreking van het energietransport
         range: Geheel getal
         required: true
-      regelbare transportcapaciteit:
-        description: transportcapaciteit die door toepassing van regelmiddelen kan worden benut om overschrijding van de aanwezige transportcapaciteit te voorkomen
+      beoogde regelbare transportcapaciteit:
+        description: in het netontwerp voorziene transportcapaciteit die door toepassing van regelmiddelen kan worden benut om overschrijding van de aanwezige transportcapaciteit te voorkomen
         source: bce:g=2026-04-25
         comments:
           - Regelmiddelen zijn onder andere het gecontroleerd afschakelen van zuivere invoeding, capaciteitssturing (inclusief statische capaciteitsbeperking) en redispatchbiedingen. Alternatieve transportrechten gelden niet als regelmiddel maar dragen bij aan de benodigde transportcapaciteit.
         required: true
-        range: Reëel getal
+        range: Decimaal getal
         unit:
           ucum_code: MW
       # relaties:

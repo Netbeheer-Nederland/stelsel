@@ -24,14 +24,16 @@ classes:
     slots:
       - identificatie
     attributes:
-      initiator:
-        description: partij die verantwoordelijk is voor de initiatie van het proces
-        required: true
       soort:
         description: typering van het marktproces volgens gestandaardiseerde categorieën
         comments:
           - "Gelijk aan de soort van het eerste deelproces."
         range: Code
+        required: true
+      initiator:
+        description: partij die verantwoordelijk is voor de initiatie van het proces
+        comments:
+          - Gelijk aan de initiator van het eerste deelproces.
         required: true
       status:
         description: toestand van het proces in de levenscyclus van initiatie tot afronding
@@ -66,6 +68,15 @@ classes:
         comments:
           - Er zijn ongeveer 50 soorten, waaronder `ADMSTAT`, `ALLMTCHG` en `BBBAGUPD`.
         range: Code
+        required: true
+      initiator:
+        description: partij die verantwoordelijk is voor de initiatie van het proces
+        required: true
+      beginmoment:
+        description: tijdstip waarop het deelproces is begonnen
+        comments:
+          - Gelijk aan het eerste beginmoment van de onderliggende processtappen.
+        range: Tijdstip
         required: true
       effectueringsdatum:
         description: datum waarop de beoogde wijziging van kracht wordt
@@ -112,6 +123,9 @@ classes:
       berichtidentificatie:
         description: unieke identificatie van het bericht in uitwisselingssystemen
         range: Code
+      berichtberschikbaarheidsdatum:
+        description: dag vanaf wanneer het bericht kan worden opgehaald
+        range: Datum
       ophaalmoment:
         description: tijdstip waarop het bericht is opgehaald door de ontvanger
         range: Tijdstip

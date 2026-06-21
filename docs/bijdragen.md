@@ -5,50 +5,39 @@ nav_order: 8
 
 # Bijdragen
 
-Binnen Netbeheer Nederland werkt Team Semantiek aan sectorbrede, conceptuele modellen: modellen die vastleggen wat begrippen *betekenen* en hoe die betekenissen zich tot elkaar verhouden.
-
-Deze modellen vormen steeds vaker het gezamenlijke vertrekpunt voor samenwerking in de energiesector. Ze sturen afstemming tussen partijen, geven richting aan implementaties, beïnvloeden beleid en raken soms zelfs aan regelgeving.
-
-We nodigen mensen uit om hieraan bij te dragen. Niet omdat het *moet*, maar omdat je merkt dat dit werk ertoe doet.
+Werken aan sectorbrede, conceptuele informatiemodellen betekent bouwen aan het fundament van de energietransitie. Onderstaande profielschets helpt je in te schatten of dit werk en ons team bij jou passen.
 
 ## Wat voor werk is dit?
 
-Je werkt aan conceptuele (semantische) modellen: modellen die niet beschrijven *hoe* systemen zijn gebouwd, maar *wat* we in de sector gezamenlijk bedoelen.
+In de energiesector hebben we te maken met complexe wetgeving, technische systemen en uiteenlopende belangen. Als conceptueel modelleur is het jouw taak om uit die wirwar van informatie de onderliggende structuur en betekenis te halen.
 
-Dat betekent onder andere:
+Je luistert naar experts, leest complexe documenten en vertaalt dit naar een verraderlijk eenvoudige blauwdruk. Zo’n model ziet er op het eerste gezicht vaak simpel uit, maar onderhuids is het zo ontworpen dat het consistent blijft onder uiteenlopende praktijksituaties.
 
-- betekenis expliciet maken
-- begrippen zorgvuldig afbakenen
-- verschillen in interpretatie zichtbaar en bespreekbaar maken
-- toewerken naar duidelijke, herbruikbare semantische afspraken
-
-Je gaat onder begeleiding van ervaren seniormodelleurs aan de slag en krijgt vanaf het begin ruimte om zo zelfstandig mogelijk te werken en je eigen oordeelsvermogen te ontwikkelen. Keuzes, afwegingen en twijfel maken daarbij expliciet onderdeel uit van het werk.
-
-Het werk vraagt concentratie en voorbereiding: veel denkwerk, precieze formulering en gesprekken met experts uit verschillende disciplines.
+Je bent dus een vertaler die expliciet maakt wat begrippen betekenen en waar interpretatieverschillen zitten. Door deze bespreekbaar te maken, zorg je voor een gemeenschappelijke, logische basis waar zowel de business als IT mee verder kan.
 
 ## Voor wie is dit interessant?
 
-Je hoeft nog geen conceptueel modelleur te zijn. Je herkent jezelf mogelijk in (een deel van) het volgende:
+We zoeken mensen die over de juiste puzzelstukjes beschikken om dit vak snel in de praktijk te leren. Dit profiel bestaat uit drie delen:
 
-- Je werkt met gegevens en merkt hoe vaak onduidelijke of tegenstrijdige definities in de weg zitten.
-- Je ervaart dat misverstanden over betekenis vaak hardnekkiger zijn dan technische problemen.
-- Je hebt talent voor *semantisch onderhandelen*: het zorgvuldig samenbrengen van verschillende perspectieven op wat iets *is* en *betekent*.
-- Je bent analytisch, taalgevoelig en niet bang voor abstractie.
-- Je kunt omgaan met een hoge mate van complexiteit en ambiguïteit, en staat open om daarin te leren van collega's.
+### Wie je bent
 
-Ervaring met modelleren is niet vereist. De technische aspecten van modelleren (zoals relaties, identificatie en begrenzing) zijn goed aan te leren. Het vermogen om zorgvuldig over betekenis na te denken is belangrijker.
+- **Je ziet snel de rode draad:** In een warrig gesprek of een dik document filter je instinctief de hoofd- van de bijzaken.
+- **Je houdt van overzicht en structuur:** Je krijgt energie van het opruimen van conceptuele chaos. Waar anderen vastlopen in de details, bewaar jij het overzicht.
+- **Je bent taalscherp:** Je merkt interpretatieverschillen in woorden snel op. Je begrijpt dat hoe we dingen noemen, bepaalt hoe we ze bouwen.
+
+### Wat je motiveert
+
+- **Je lost problemen graag bij de bron op:** Je wilt niet de zoveelste tijdelijke IT-pleister plakken, maar meebouwen aan een fundament dat jarenlang meegaat.
+- **Je bent een bruggenbouwer:** Je haalt er voldoening uit om te zorgen dat mensen uit verschillende disciplines (business, IT, juristen) elkaar eindelijk écht begrijpen.
+- **Je bent nieuwsgierig:** Je vraagt door tot je écht begrijpt hoe de vork in de steel zit.
+
+### Je ervaring
+
+- **Je hebt ervaring met data of processen:** Je hebt bijvoorbeeld gewerkt met informatiestromen, procesontwerpen, API's of databases. Je hoeft geen formele modelleeropleiding te hebben, maar je begrijpt hoe systemen informatie uitwisselen.
+- **Je hebt 'littekenweefsel':** Je bent in je werk weleens tegen de muur gelopen omdat definities niet klopten of omdat systemen niet goed op elkaar aansloten. Je hebt die pijn gevoeld en wilt dit nu aan de voorkant voorkomen.
 
 ## Leren en samenwerken
 
-Team Semantiek is een klein team van specialisten dat het modelleervak op hoog niveau uitoefent. Dat betekent:
+Conceptueel modelleren is een vak dat je vooral in de praktijk leert. Je doet dit dan ook niet alleen. We werken in een klein, hecht team van specialisten.
 
-- intensieve inhoudelijke samenwerking
-- voortdurende scherpte in begrippen en formuleringen
-- veel ruimte om te leren van ervaren collega's
-- en een cultuur waarin vragen stellen en redeneringen expliciteren centraal staan
-
-We zoeken mensen met een lerende houding: bereid om aannames te onderzoeken, zich te laten bevragen en stap voor stap vakmanschap op te bouwen.
-
-## Interesse?
-
-Twijfel je of dit bij je past, of ben je gewoon nieuwsgierig? Een verkennend gesprek is altijd mogelijk.
+We hanteren een 'meester-gezel' aanpak (zie [Rollen](modelleurs/rollen)): je loopt intensief mee met ervaren seniormodelleurs. Samen bespreken we ontwerpen en dagen we elkaars logica uit. Zo ontwikkel je in de praktijk het 'gevoel' voor dit mooie ambacht.

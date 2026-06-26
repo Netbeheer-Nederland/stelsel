@@ -5,11 +5,7 @@ version: 1.0-draft
 description: "Het transporteenhedenregister beschrijft de transportcapaciteit van energienetten op drie samenhangende abstractieniveaus: netelementen, routedelen en transporteenheden. Deze niveaus maken expliciet op welk schaalniveau we redeneren over capaciteit in het net, en maken keuzes over netcongestie, wachtrijen en netuitbreidingen reproduceerbaar en uitlegbaar."
 comments:
   - |
-    Decennialang functioneerden onze energienetten met een schijnbare overvloed. De transportcapaciteit van het net was daardoor vooral een impliciete, interne aangelegenheid. Met de opkomst van netcongestie wordt het noodzakelijk om deze capaciteit expliciet en eenduidig te maken richting de maatschappij.
-
-    Experts weten al hoe ze het net moeten interpreteren: zij groeperen netelementen en beoordelen afhankelijkheden op basis van ervaring. Dit model legt die denkwijze vast. Door netelementen, routedelen en transporteenheden strikt te scheiden, wordt expliciet gemaakt wanneer we delen van het net als één beschouwen en wanneer niet.
-
-    Zo ontstaat een reproduceerbare vertaling van complexe netstructuren naar beschikbare ruimte voor de maatschappij. De transporteenheid vormt daarbij de gemeenschappelijke basis voor onder andere capaciteitsknelpunten, netuitbreidingen, congestiegebieden, wachtrijen en flexbehoeften.
+    Decennialang functioneerden onze energienetten met een schijnbare overvloed. De transportcapaciteit van het net was daardoor vooral een interne aangelegenheid. Met de opkomst van netcongestie wordt het noodzakelijk om deze capaciteit expliciet te maken richting de maatschappij. Dat doen we door de elementen in dat net op verschillende niveaus te groeperen en aan die groeperingen stabiele identificaties toe te wijzen. Zo ontstaat een reproduceerbare vertaling van complexe netstructuren naar aanwezige ruimte voor de maatschappij. De transporteenheid vormt daarbij de gemeenschappelijke basis voor onder andere capaciteitsknelpunten, netuitbreidingen, congestiegebieden, wachtrijen en flexbehoeften.
   - |
     Om de status van het energienet eenduidig te communiceren, onderscheiden we de volgende transportcapaciteiten:
 
@@ -76,16 +72,15 @@ classes:
     comments:
       - Een capaciteitsruimte kan betrekking hebben op meerdere transporteenheden wanneer zij netelementen delen, zoals bij een driewegstransformator. Een gezamenlijke capaciteitsruimte kan echter ook ontstaan in een netstructuur met zowel seriële als parallelle routedelen, waarvoor als geheel redundantie-eisen gelden.
       - In complexe netstructuren (met een combinatie van serieel, parallel en redundant) kunnen meerdere mogelijke constructen worden geïdentificeerd als transporteenheid. De vuistregel is dat een construct als capaciteitsruimte wordt gemodelleerd in plaats van als transporteenheid wanneer het geen aanvullende transportcapaciteit toevoegt op enig knooppunt, maar uitsluitend de gezamenlijke benutting van bestaande transporteenheden begrenst.
-      - Een transporteenheid is het niveau waarop netbeheerders de transportcapaciteiten bepalen (aanwezig, benodigd, beschikbaar), capaciteitsknelpunten signaleren, congestiegebieden afroepen en wachtrijen beheren.
     annotations:
       tijdlijn_geldigheid: true
     attributes:
-      benodigde transportcapaciteit:
+      aanwezige transportcapaciteit:
         exact_mappings:
-          - begrip:7bs28 #benodigde transportcapaciteit
+          - begrip:2whwi #aanwezige transportcapaciteit
         comments:
-          - De bendodigde transportcapaciteit is de capaciteit die nodig is om transportovereenkomsten uit te voeren, inclusief alternatieve transportrechten. Congestiebeheersdiensten, zoals capaciteitssturing, verlagen de benodigde transportcapaciteit niet, maar dragen bij aan de regelbare transportcapaciteit.
-        range: Reëel getal
+          - De aanwezige transportcapaciteit ontstaat uit een combinatie van fysische grenzen (op het niveau van netelementen en routedelen) en het gekozen redundantieniveau. De capaciteitsruimte vertaalt deze fysische werkelijkheid naar de uiteindelijke administratieve grens waarbinnen transportrechten veilig kunnen worden uitgegeven.
+        range: Decimaal getal
         unit:
           ucum_code: MW      
       redundantieniveau:
@@ -126,7 +121,7 @@ classes:
         description: transportcapaciteit in alternatieve bedieningssituaties
         comments:
           - De noodcapaciteit is doorgaans hoger dan de normale capaciteit omdat aangenomen wordt dat alternatieve bedieningssituaties kort duren.
-          - "Afleidingsregel: gelijk aan de kleinste noodcapaciteit van de geleidende netelementen waaruit het routedeel bestaat."
+          - Doorgaans gelijk aan de kleinste noodcapaciteit van de netelementen waaruit het routedeel bestaat.
         required: true
         range: Reëel getal
         unit:
@@ -134,7 +129,8 @@ classes:
       normale capaciteit:
         description: transportcapaciteit in de standaardbedieningssituatie
         comments:
-          - "Afleidingsregel: gelijk aan de kleinste normale capaciteit van de geleidende netelementen waaruit het routedeel bestaat."
+          - Doorgaans gelijk aan de kleinste normale capaciteit van de netelementen waaruit het routedeel bestaat.
+          - In elektriciteitsnetten is op het niveau van het netelement alleen de thermische limiet van toepassing. Dit is de maximale hoeveelheid stroom (I-max) die het fysieke materiaal (koper of aluminium) continu kan verdragen zonder te smelten of te beschadigen. Factoren als spanningsschommelingen of redundantie spelen op dit individuele-elementniveau nog geen rol.
         required: true
         range: Reëel getal
         unit:
@@ -223,6 +219,8 @@ classes:
           ucum_code: MVA
       normale capaciteit:
         description: transportcapaciteit in de standaardbedieningssituatie
+        comments:
+          - De capaciteit van een routedeel in een elektriciteitsnet wordt in eerste instantie bepaald door de thermische zwakste schakel van de onderliggende netelementen. Omdat een routedeel echter een specifieke lengte en impedantie heeft, is dit ook het niveau waarop spanningsval en spanningsopdrijving (als ontwerpaannamen) voor het eerst ontstaan.
         required: true
         range: Reëel getal
         unit:

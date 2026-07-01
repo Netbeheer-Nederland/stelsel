@@ -3,9 +3,716 @@ name: congestiebeheersdienstenregister
 title: Congestiebeheersdienstenregister
 version: 1.0-draft
 description: Dit model bevindt zich in een vroege fase van ontwikkeling en bevat daarom nog geen definities.
+comments:
+  - "Het proces bij biedingen redispatch doorloopt de volgende stappen: redispatchbehoefte, biedingsverzoek, bieding redispatch, afroepadvies, afroep van redispatch."
+  - |
+    Mapping op GOPACS-termen:
+    - accounting point: Allocatiepunt
+    - aggregatie: Capaciteitssturingsdienst
+    - bescherming: Redispatchrestrictie
+    - biedplichtcontract: Redispatchcapaciteit
+    - BritNed: Netkoppeling
+    - clearing: Afroep van bieding redispatch
+    - gebied: Routedeel
+    - grid connection: Aansluiting, Allocatiepunt, Capaciteitssturingsdienst, Netkoppeling, Redispatchdeelname
+    - market evaluation point: Aansluiting
+    - marktbericht: Biedingsverzoek
+    - netelement: Routedeel
+    - oplossing: Afroepadvies
+    - order: Bieding redispatch
+    - periode: Capaciteitssturingspatroon
+    - probleem: Redispatchbehoefte
+see_also:
+  - sce:hoofdstuk=9&paragraaf=9.2&artikel=9.14&g=2026-07-01
 prefixes:
   linkml: https://w3id.org/linkml/
   begrip: https://begrippen.netbeheernederland.nl/id/
   this: https://modellen.netbeheernederland.nl/stelsel/registers/congestiebeheersdienstenregister#
   aansluitingenregister: https://modellen.netbeheernederland.nl/stelsel/registers/aansluitingenregister#
+  marktpartijenregister: https://modellen.netbeheernederland.nl/stelsel/registers/marktpartijenregister#
+  transporteenhedenregister: https://modellen.netbeheernederland.nl/stelsel/registers/transporteenhedenregister#
+  sce: https://wetten.overheid.nl/jci1.3:c:BWBR0052336&
+imports:
+  - ../../basiswaardesoorten
 default_prefix: this
+default_range: Tekst
+
+classes:
+  Redispatchbehoefte:
+    class_uri: Redispatchbehoefte
+    broad_mappings:
+      - begrip:zjfey #bieding redispatch
+    description: TODO
+    slots:
+      - begin levering
+      - richting
+    attributes:
+      # relaties:
+      op:
+        range: Routedeel
+        required: true
+        multivalued: false
+        annotations:
+          inverse_cardinality: "*"
+    unique_keys:
+      identificatie:
+        unique_key_slots:
+          - begin levering
+          - op
+  Biedingsverzoek:
+    class_uri: Biedingsverzoek
+    broad_mappings:
+      - begrip:zjfey #bieding redispatch
+    description: TODO
+    attributes:
+      begin biedperiode:
+        description: TODO
+        range: Tijdstip
+        required: true
+      einde biedperiode:
+        description: TODO
+        range: Tijdstip
+        required: true
+      # relaties:
+      vanwege:
+        range: Redispatchbehoefte
+        required: true
+        multivalued: false
+        annotations:
+          inverse_cardinality: "*"
+    unique_keys:
+      identificatie:
+        unique_key_slots:
+          - begin biedperiode
+          - vanwege
+  Deelbehoefte:
+    class_uri: Deelbehoefte
+    broad_mappings:
+      - begrip:zjfey #bieding redispatch
+    description: TODO
+    slots:
+      - begin levering
+      - einde levering
+    attributes:
+      volume vereist:
+        description: TODO
+        range: Decimaal getal
+        required: true
+        unit:
+          ucum_code: MWh
+      volume verholpen:
+        description: TODO
+        range: Reëel getal
+        required: true
+        unit:
+          ucum_code: MWh
+      # relaties:
+      deel van:
+        range: Redispatchbehoefte
+        required: true
+        multivalued: false
+        annotations:
+          inverse_cardinality: "1..*"
+    unique_keys:
+      identificatie:
+        unique_key_slots:
+          - begin levering
+          - deel van
+  Afroepadvies:
+    class_uri: Afroepadvies
+    broad_mappings:
+      - begrip:zjfey #bieding redispatch
+    description: TODO
+    attributes:
+      # relaties:
+      vanwege:
+        range: Redispatchbehoefte
+        required: true
+        multivalued: false
+        annotations:
+          inverse_cardinality: "0..1"
+    unique_keys:
+      identificatie:
+        unique_key_slots:
+          - vanwege
+  Deeladvies:
+    class_uri: Deeladvies
+    broad_mappings:
+      - begrip:zjfey #bieding redispatch
+    description: TODO
+    slots:
+      - begin levering
+      - einde levering
+      - volume
+    attributes:
+      # relaties:
+      deel van:
+        range: Afroepadvies
+        required: true
+        multivalued: false
+        annotations:
+          inverse_cardinality: "1..*"
+      voor inzet van:
+        range: Bieding redispatch
+        required: true
+        multivalued: false
+        annotations:
+          inverse_cardinality: "*"
+    unique_keys:
+      identificatie:
+        unique_key_slots:
+          - begin levering
+          - deel van
+  Afroep van redispatch:
+    class_uri: Afroep-van-redispatch
+    broad_mappings:
+      - begrip:zjfey #bieding redispatch
+    description: TODO
+    attributes:
+      identificatie:
+        description: TODO
+        required: true
+      balansneutraal:
+        description: TODO (voorheen 'open posities')
+        range: Waarheidswaarde
+        required: true
+      # relaties:
+      door:
+        range: Marktpartijsubregistratie
+        required: true
+        multivalued: false
+        annotations:
+          inverse_cardinality: "*"
+    unique_keys:
+      identificatie:
+        unique_key_slots:
+          - identificatie
+  Deelafroep:
+    class_uri: Deelafroep
+    broad_mappings:
+      - begrip:zjfey #bieding redispatch
+    description: TODO
+    slots:
+      - begin levering
+      - einde levering
+      - volume
+    attributes:
+      # relaties:
+      deel van:
+        range: Afroep van redispatch
+        required: true
+        multivalued: false
+        annotations:
+          inverse_cardinality: "1..*"
+      inzet van:
+        range: Bieding redispatch
+        required: true
+        multivalued: false
+        annotations:
+          inverse_cardinality: "*"
+    unique_keys:
+      identificatie:
+        unique_key_slots:
+          - begin levering
+          - inzet van
+  Redispatchrestrictie:
+    class_uri: Redispatchrestrictie
+    broad_mappings:
+      - begrip:zjfey #bieding redispatch
+    description: TODO
+    slots:
+      - beginmoment
+      - eindmoment
+      - richting
+    attributes:
+      # relaties:
+      op:
+        range: Routedeel
+        required: true
+        multivalued: false
+        annotations:
+          inverse_cardinality: "0..1"
+    unique_keys:
+      identificatie:
+        unique_key_slots:
+          - beginmoment
+          - richting
+          - op
+  Bieding redispatch:
+    class_uri: Bieding-redispatch
+    exact_mappings:
+      - begrip:zjfey #bieding redispatch
+    comments:
+      - "TODO: is de eenheid van volume `MWh` of `MWh per OVP`?"
+    slots:
+      - begin levering
+      - einde levering
+      - volume
+      - richting
+    attributes:
+      marktgebaseerd:
+        description: TODO
+        range: Waarheidswaarde
+        required: true
+      prijs:
+        description: TODO
+        range: Decimaal getal
+        required: true
+        unit:
+          ucum_code: EUR/MWh
+      partiële afroepbaarheid:
+        description: TODO (een getal tussen 0 en 1)
+        range: Decimaal getal
+      handelsplatform:
+        description: TODO
+        range: Code
+      # relaties:
+      onder:
+        range: Redispatchdeelname
+        required: true
+        multivalued: false
+        annotations:
+          inverse_cardinality: "*"
+    unique_keys:
+      identificatie:
+        unique_key_slots:
+          - begin levering
+          - onder
+  Redispatchcapaciteit:
+    class_uri: Redispatchcapaciteit
+    broad_mappings:
+      - begrip:zjfey #bieding redispatch
+    description: TODO
+    comments:
+      - Niet weergegeven zijn tijdsblokken en tarieven.
+    annotations:
+      tijdlijn_geldigheid: true
+    slots:
+      - richting
+    slot_usage:
+      richting:
+        multivalued: true
+    attributes:
+      marktgebaseerd:
+        description: TODO
+        range: Waarheidswaarde
+        required: true
+      vorm:
+        description: TODO
+        range: Vorm
+        required: true
+      minimumtransport:
+        description: TODO
+        unit:
+          ucum_code: MWh
+      verhogingsstap:
+        description: TODO
+        unit:
+          ucum_code: MWh
+      maximumtransport:
+        description: TODO
+        unit:
+          ucum_code: MWh
+      # relaties:
+      deel van:
+        range: biedplicht bij
+        required: true
+        multivalued: false
+        annotations:
+          inverse_cardinality: "0..1"
+    unique_keys:
+      identificatie:
+        unique_key_slots:
+          - biedplicht bij
+  Redispatchdeelname:
+    class_uri: Redispatchdeelname
+    see_also:
+      - sce:hoofdstuk=9&paragraaf=9.2&artikel=9.17&g=2026-07-01
+    broad_mappings:
+      - begrip:zjfey #bieding redispatch
+    description: TODO
+    annotations:
+      tijdlijn_geldigheid: true
+    slots:
+      - EAN-code
+    attributes:
+      # relaties:
+      van:
+        comments:
+          - Deze relatie is afgeleid uit het marktactiviteitenregister.
+        range: Marktpartijsubregistratie
+        required: true
+        multivalued: false
+        annotations:
+          inverse_cardinality: "*"
+      op:
+        comments:
+          - Per allocatiepunt kan er maximaal één redispatchdeelname zijn.
+        range: Any
+        exactly_one_of:
+          - range: Allocatiepunt
+          - range: Netkoppeling
+        required: true
+        multivalued: true
+        annotations:
+          inverse_cardinality: "*"
+    unique_keys:
+      identificatie:
+        unique_key_slots:
+          - begin levering
+  Capaciteitssturingsdienst:
+    class_uri: Capaciteitssturingsdienst
+    broad_mappings:
+      - begrip:39t96 #capaciteitsdienst
+    description: TODO
+    comments:
+      - Niet weergegeven zijn tarieven, overige afspraken en de toestemming voor de operationele acceptatietest.
+    annotations:
+      tijdlijn_geldigheid: true
+    slots:
+      - EAN-code
+    attributes:
+      basiscapaciteit:
+        description: TODO
+        range: Decimaal getal
+        unit:
+          ucum_code: MW
+      maximale afnamecapaciteit:
+        description: TODO
+        range: Decimaal getal
+        unit:
+          ucum_code: MW
+      maximale invoedingscapaciteit:
+        description: TODO
+        range: Decimaal getal
+        unit:
+          ucum_code: MW
+      # relaties:
+      op:
+        comments:
+          - Als later de `Aansluiting` eventueel wordt gesplitst in `Aansluitrecht` en `Transportrecht` (vanwege de groepstransportovereenkomst), dan hoort deze relatie naar `Transportrecht` te gaan.
+        range: Aansluiting
+        required: true
+        multivalued: false
+        annotations:
+          inverse_cardinality: "0..1"
+    unique_keys:
+      identificatie:
+        unique_key_slots:
+          - EAN-code
+  Wijze van activering:
+    class_uri: Wijze-van-activering
+    broad_mappings:
+      - begrip:39t96 #capaciteitsdienst
+    description: TODO
+    attributes:
+      wijze:
+        description: TODO
+        range: Wijze
+        required: true
+      API-parameters:
+        description: TODO
+        comments:
+          - Verplicht bij API.
+      e-mailadres:
+        description: TODO
+        comments:
+          - Verplicht bij GUI.
+      # relaties:
+      van:
+        range: Capaciteitssturingsdienst
+        required: true
+        multivalued: false
+        annotations:
+          inverse_cardinality: "0..1"
+    unique_keys:
+      identificatie:
+        unique_key_slots:
+          - van
+  Capaciteitssturing bij richting:
+    class_uri: Capaciteitssturing-bij-richting
+    broad_mappings:
+      - begrip:39t96 #capaciteitsdienst
+    annotations:
+      tijdlijn_geldigheid: true
+    description: TODO
+    slots:
+      - richting
+    attributes:
+      minimale sturingscapaciteit:
+        description: TODO
+        range: Decimaal getal
+        unit:
+          ucum_code: MW
+        required: true
+      maximale sturingscapaciteit:
+        description: TODO
+        range: Decimaal getal
+        unit:
+          ucum_code: MW
+        required: true
+      verhogingsstap:
+        description: TODO
+        range: Decimaal getal
+        unit:
+          ucum_code: MW
+        required: true
+      maximaal volume per afroep:
+        description: TODO
+        range: Decimaal getal
+        unit:
+          ucum_code: MWh
+      maximaal volume per dag:
+        description: TODO
+        range: Decimaal getal
+        unit:
+          ucum_code: MWh
+      minimale periode tussen afroepen:
+        description: TODO
+        range: Tijdsduur
+        required: true
+      minimale duur per afroep:
+        description: TODO
+        range: Tijdsduur
+        required: true
+      maximale duur per afroep:
+        description: TODO
+        range: Tijdsduur
+      maximale duur per jaar:
+        description: TODO
+        range: Tijdsduur
+      # relaties:
+      deel van:
+        range: Capaciteitssturingsdienst
+        required: true
+        multivalued: false
+        annotations:
+          inverse_cardinality: "1..*"
+    unique_keys:
+      identificatie:
+        unique_key_slots:
+          - richting
+          - deel van
+  Capaciteitssturingspatroon:
+    class_uri: Capaciteitssturingspatroon
+    broad_mappings:
+      - begrip:39t96 #capaciteitsdienst
+    description: TODO
+    annotations:
+      tijdlijn_geldigheid: true
+    attributes:
+      vorm:
+        description: TODO
+        range: Vorm
+        required: true
+      begindatum:
+        description: TODO (dag en maand zonder jaartal)
+        range: Code
+        required: true
+      einddatum:
+        description: TODO (dag en maand zonder jaartal)
+        range: Code
+        required: true
+      weekdag:
+        description: TODO (ma-zo, feestdag)
+        range: Code
+        multivalued: true
+        required: true
+      begintijd:
+        description: TODO (hh:mm)
+        range: Code
+        required: true
+      eindtijd:
+        description: TODO (hh:mm)
+        range: Code
+        required: true
+      maximale transportcapaciteit:
+        description: TODO
+        range: Decimaal getal
+        unit:
+          ucum_code: MW
+      energierichting bij maximale transportcapaciteit:
+        description: TODO
+        range: Energierichting
+      # relaties:
+      deel van:
+        range: Capaciteitssturing bij richting
+        required: true
+        multivalued: false
+        annotations:
+          inverse_cardinality: "*"
+  Afroep van variabele capaciteitssturing:
+    class_uri: Afroep-van-variabele-capaciteitssturing
+    broad_mappings:
+      - begrip:39t96 #capaciteitsdienst
+    description: TODO
+    slots:
+      - begin levering
+      - einde levering
+    attributes:
+      capaciteitsgrens:
+        description: TODO
+        range: Decimaal getal
+        unit:
+          ucum_code: MW
+        required: true
+      energierichting:
+        description: TODO
+        range: Energierichting
+        required: true
+      # relaties:
+      van:
+        range: Capaciteitssturing bij richting
+        required: true
+        multivalued: false
+        annotations:
+          inverse_cardinality: "*"
+      door:
+        range: Marktpartijsubregistratie
+        required: true
+        multivalued: false
+        annotations:
+          inverse_cardinality: "*"
+    unique_keys:
+      identificatie:
+        unique_key_slots:
+          - begin levering
+          - van
+          - door
+  Transportvrijgave:
+    class_uri: Transportvrijgave
+    exact_mappings:
+      - begrip:e8frg #transportvrijgave
+    slots:
+      - beginmoment
+      - eindmoment
+    attributes:
+      energierichting:
+        description: TODO
+        range: Energierichting
+        required: true
+      maximale transportcapaciteit:
+        description: TODO
+        unit:
+          ucum_code: MW
+      # relaties:
+      op:
+        range: Aansluiting
+        required: true
+        multivalued: false
+        annotations:
+          inverse_cardinality: "*"
+    unique_keys:
+      identificatie:
+        unique_key_slots:
+          - beginmoment
+          - energierichting
+          - op
+  Wijze van vrijgave:
+    class_uri: Wijze-van-vrijgave
+    broad_mappings:
+      - begrip:e8frg #transportvrijgave
+    description: TODO
+    attributes:
+      wijze:
+        description: TODO
+        range: Wijze
+        required: true
+      API-parameters:
+        description: TODO
+        comments:
+          - Verplicht bij API.
+      e-mailadres:
+        description: TODO
+        comments:
+          - Verplicht bij GUI.
+      # relaties:
+      op:
+        range: Aansluiting
+        required: true
+        multivalued: false
+        annotations:
+          inverse_cardinality: "0..1"
+    unique_keys:
+      identificatie:
+        unique_key_slots:
+          - op
+
+  # verwijzingen naar externe entiteiten:
+  Any:
+    class_uri: linkml:Any
+  Aansluiting:
+    class_uri: aansluitingenregister:Aansluiting
+    annotations:
+      external_registry: Aansluitingenregister
+  Allocatiepunt:
+    class_uri: aansluitingenregister:Allocatiepunt
+    annotations:
+      external_registry: Aansluitingenregister
+  Netkoppeling:
+    class_uri: aansluitingenregister:Netkoppeling
+    annotations:
+      external_registry: Aansluitingenregister
+  Marktpartijsubregistratie:
+    class_uri: marktpartijenregister:Marktpartijsubregistratie
+    annotations:
+      external_registry: Marktpartijenregister
+  Routedeel:
+    class_uri: transporteenhedenregister:Routedeel
+    annotations:
+      external_registry: Transporteenhedenregister
+
+slots:
+  EAN-code:
+    description: unieke cijfercombinatie volgens de Europese Artikelnummer-standaard
+    required: true
+    range: Code
+  beginmoment:
+    description: eerste moment waarop iets geldt
+    range: Tijdstip
+    required: true
+  eindmoment:
+    description: eerste moment waarop iets niet meer geldt
+    range: Tijdstip
+    required: true
+  begin levering:
+    description: TODO
+    required: true
+    range: Tijdstip
+  einde levering:
+    description: TODO
+    required: true
+    range: Tijdstip
+  richting:
+    description: TODO
+    required: true
+    range: Sturingsrichting
+  volume:
+    description: TODO (het gaat hier niet om een gemeten maar een toegezegd volume, vandaar als decimaal getal)
+    range: Decimaal getal
+    unit:
+      ucum_code: MWh
+
+enums:
+  Sturingsrichting:
+    permissible_values:
+      opregelen:
+        description: meer invoeden of minder afnemen
+      afregelen:
+        description: minder invoeden of meer afnemen
+  Energierichting:
+    permissible_values:
+      afname:
+        meaning: begrip:3j33z #afname
+      invoeding:
+        meaning: begrip:j8cpp #invoeding
+  Vorm:
+    permissible_values:
+      vast:
+      variabel:
+  Wijze:
+    permissible_values:
+      API:
+        description: via een webservice (voor systemen)
+      GUI:
+        description: via een gebruikersinterface (voor mensen)

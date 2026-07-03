@@ -66,11 +66,11 @@ classes:
     description: uitnodiging aan marktpartijen om capaciteit beschikbaar te stellen voor congestiebeheer
     attributes:
       begin biedperiode:
-        description: TODO
+        description: eerste tijdstip vanaf wanneer biedingen kunnen worden ingediend
         range: Tijdstip
         required: true
       einde biedperiode:
-        description: TODO
+        description: laatste tijdstip tot wanneer biedingen kunnen worden ingediend
         range: Tijdstip
         required: true
       # relaties:
@@ -139,7 +139,7 @@ classes:
     class_uri: Deeladvies
     broad_mappings:
       - begrip:zjfey #bieding redispatch
-    description: afgebakend deel van een advies dat betrekking heeft op een specifieke leveringsperiode
+    description: tijdgebonden advies voor de inzet van capaciteit
     slots:
       - begin levering
       - einde levering
@@ -167,14 +167,13 @@ classes:
     class_uri: Afroep-van-redispatch
     broad_mappings:
       - begrip:zjfey #bieding redispatch
-    description: opdracht aan een marktpartij om aangeboden capaciteit beschikbaar te stellen
+    description: opdracht waarmee aangeboden capaciteit wordt ingezet
     attributes:
       identificatie:
-        description: TODO
+        description: unieke aanduiding van de afroep
         required: true
       balansneutraal:
-        description: TODO (voorheen 'open posities')
-        range: Waarheidswaarde
+        description: aanduiding of de afroep zonder wijziging van de balanspositie wordt uitgevoerd
         required: true
       # relaties:
       door:
@@ -191,7 +190,7 @@ classes:
     class_uri: Deelafroep
     broad_mappings:
       - begrip:zjfey #bieding redispatch
-    description: afgebakend deel van een opdracht dat betrekking heeft op een specifieke leveringsperiode
+    description: inzet van een deel van de aangeboden capaciteit gedurende één leveringsperiode
     slots:
       - begin levering
       - einde levering
@@ -251,7 +250,7 @@ classes:
       - richting
     attributes:
       marktgebaseerd:
-        description: TODO
+        description: aanduiding dat de bieding is gebaseerd op een marktmechanisme
         range: Waarheidswaarde
         required: true
       prijs:
@@ -264,7 +263,7 @@ classes:
         description: aanduiding dat gedeeltelijke inzet is toegestaan (een getal tussen 0 en 1)
         range: Decimaal getal
       handelsplatform:
-        description: TODO
+        description: digitale marktplaats waar vraag en aanbod van capaciteit bijeenkomen
         range: Code
       # relaties:
       onder:
@@ -298,19 +297,19 @@ classes:
         range: Waarheidswaarde
         required: true
       vorm:
-        description: TODO
+        description: wijze waarop de capaciteit beschikbaar wordt gesteld
         range: Vorm
         required: true
       minimumtransport:
-        description: TODO
+        description: grenswaarde vanaf waar een hoeveelheid transportcapaciteit beschikbaar kan worden gesteld
         unit:
           ucum_code: MWh
       verhogingsstap:
-        description: TODO
+        description: hoeveelheid waarmee de beschikbare transportcapaciteit incrementaal kan worden aangepast
         unit:
           ucum_code: MWh
       maximumtransport:
-        description: TODO
+        description: grenswaarde tot aan waar een hoeveelheid transportcapaciteit beschikbaar kan worden gesteld
         unit:
           ucum_code: MWh
       # relaties:
@@ -404,18 +403,18 @@ classes:
     class_uri: Wijze-van-activering
     broad_mappings:
       - begrip:39t96 #capaciteitsdienst
-    description: TODO
+    description: vastgelegde methode waarmee een capaciteitsdienst wordt geactiveerd
     attributes:
       wijze:
-        description: TODO
+        description: toegepaste methode van activering
         range: Wijze
         required: true
       API-parameters:
-        description: TODO
+        description: benodigde gegevens voor activering via een programmeerinterface
         comments:
           - Verplicht bij API.
       e-mailadres:
-        description: TODO
+        description: adres voor elektronische post waarlangs activering plaatsvindt
         comments:
           - Verplicht bij GUI.
       # relaties:

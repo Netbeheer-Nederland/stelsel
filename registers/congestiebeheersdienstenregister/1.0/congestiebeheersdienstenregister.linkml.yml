@@ -42,7 +42,7 @@ classes:
     class_uri: Redispatchbehoefte
     broad_mappings:
       - begrip:zjfey #bieding redispatch
-    description: TODO
+    description: vastgestelde behoefte om transport op een netdeel tijdelijk aan te passen ter voorkoming of oplossing van congestie
     slots:
       - begin levering
       - richting
@@ -63,7 +63,7 @@ classes:
     class_uri: Biedingsverzoek
     broad_mappings:
       - begrip:zjfey #bieding redispatch
-    description: TODO
+    description: uitnodiging aan marktpartijen om capaciteit beschikbaar te stellen voor congestiebeheer
     attributes:
       begin biedperiode:
         description: TODO
@@ -89,19 +89,19 @@ classes:
     class_uri: Deelbehoefte
     broad_mappings:
       - begrip:zjfey #bieding redispatch
-    description: TODO
+    description: afgebakend deel van een behoefte dat betrekking heeft op een specifieke leveringsperiode
     slots:
       - begin levering
       - einde levering
     attributes:
       volume vereist:
-        description: TODO
+        description: benodigde hoeveelheid energie
         range: Decimaal getal
         required: true
         unit:
           ucum_code: MWh
       volume verholpen:
-        description: TODO
+        description: gerealiseerde hoeveelheid energie
         range: Reëel getal
         required: true
         unit:
@@ -122,7 +122,7 @@ classes:
     class_uri: Afroepadvies
     broad_mappings:
       - begrip:zjfey #bieding redispatch
-    description: TODO
+    description: voorstel voor de inzet van beschikbare capaciteit ter invulling van een behoefte
     attributes:
       # relaties:
       vanwege:
@@ -139,7 +139,7 @@ classes:
     class_uri: Deeladvies
     broad_mappings:
       - begrip:zjfey #bieding redispatch
-    description: TODO
+    description: afgebakend deel van een advies dat betrekking heeft op een specifieke leveringsperiode
     slots:
       - begin levering
       - einde levering
@@ -167,7 +167,7 @@ classes:
     class_uri: Afroep-van-redispatch
     broad_mappings:
       - begrip:zjfey #bieding redispatch
-    description: TODO
+    description: opdracht aan een marktpartij om aangeboden capaciteit beschikbaar te stellen
     attributes:
       identificatie:
         description: TODO
@@ -191,7 +191,7 @@ classes:
     class_uri: Deelafroep
     broad_mappings:
       - begrip:zjfey #bieding redispatch
-    description: TODO
+    description: afgebakend deel van een opdracht dat betrekking heeft op een specifieke leveringsperiode
     slots:
       - begin levering
       - einde levering
@@ -219,7 +219,7 @@ classes:
     class_uri: Redispatchrestrictie
     broad_mappings:
       - begrip:zjfey #bieding redispatch
-    description: TODO
+    description: beperking waaronder capaciteit voor congestiebeheer mag worden ingezet
     slots:
       - beginmoment
       - eindmoment
@@ -255,13 +255,13 @@ classes:
         range: Waarheidswaarde
         required: true
       prijs:
-        description: TODO
+        description: overeengekomen vergoeding per eenheid energie
         range: Decimaal getal
         required: true
         unit:
           ucum_code: EUR/MWh
       partiële afroepbaarheid:
-        description: TODO (een getal tussen 0 en 1)
+        description: aanduiding dat gedeeltelijke inzet is toegestaan (een getal tussen 0 en 1)
         range: Decimaal getal
       handelsplatform:
         description: TODO
@@ -282,7 +282,7 @@ classes:
     class_uri: Redispatchcapaciteit
     broad_mappings:
       - begrip:zjfey #bieding redispatch
-    description: TODO
+    description: beschikbare capaciteit die voor congestiebeheer kan worden ingezet
     comments:
       - Niet weergegeven zijn tijdsblokken en tarieven.
     annotations:
@@ -294,7 +294,7 @@ classes:
         multivalued: true
     attributes:
       marktgebaseerd:
-        description: TODO
+        description: aanduiding dat marktwerking de totstandkoming bepaalt
         range: Waarheidswaarde
         required: true
       vorm:
@@ -330,7 +330,7 @@ classes:
       - sce:hoofdstuk=9&paragraaf=9.2&artikel=9.17&g=2026-07-01
     broad_mappings:
       - begrip:zjfey #bieding redispatch
-    description: TODO
+    description: registratie van deelname aan congestiebeheer
     annotations:
       tijdlijn_geldigheid: true
     slots:
@@ -364,7 +364,7 @@ classes:
     class_uri: Capaciteitssturingsdienst
     broad_mappings:
       - begrip:39t96 #capaciteitsdienst
-    description: TODO
+    description: overeenkomst waarmee afspraken over het tijdelijk sturen van transportcapaciteit worden vastgelegd
     comments:
       - Niet weergegeven zijn tarieven, overige afspraken en de toestemming voor de operationele acceptatietest.
     annotations:
@@ -373,17 +373,17 @@ classes:
       - EAN-code
     attributes:
       basiscapaciteit:
-        description: TODO
+        description: beschikbare transportcapaciteit zonder aanvullende sturing
         range: Decimaal getal
         unit:
           ucum_code: MW
       maximale afnamecapaciteit:
-        description: TODO
+        description: hoogste toegestane afnamecapaciteit
         range: Decimaal getal
         unit:
           ucum_code: MW
       maximale invoedingscapaciteit:
-        description: TODO
+        description: hoogste toegestane invoedingscapaciteit
         range: Decimaal getal
         unit:
           ucum_code: MW
@@ -435,7 +435,7 @@ classes:
       - begrip:39t96 #capaciteitsdienst
     annotations:
       tijdlijn_geldigheid: true
-    description: TODO
+    description: afspraken over capaciteitssturing voor een specifieke energierichting
     slots:
       - richting
     attributes:
@@ -497,7 +497,7 @@ classes:
     class_uri: Capaciteitssturingspatroon
     broad_mappings:
       - begrip:39t96 #capaciteitsdienst
-    description: TODO
+    description: tijdgebonden afspraak over de beschikbare transportcapaciteit
     annotations:
       tijdlijn_geldigheid: true
     attributes:
@@ -545,19 +545,19 @@ classes:
     class_uri: Afroep-van-variabele-capaciteitssturing
     broad_mappings:
       - begrip:39t96 #capaciteitsdienst
-    description: TODO
+    description: opdracht om tijdelijk een overeengekomen transportcapaciteit toe te passen
     slots:
       - begin levering
       - einde levering
     attributes:
       capaciteitsgrens:
-        description: TODO
+        description: grens waarbinnen transportcapaciteit beschikbaar is
         range: Decimaal getal
         unit:
           ucum_code: MW
         required: true
       energierichting:
-        description: TODO
+        description: oriëntatie van het energietransport
         range: Energierichting
         required: true
       # relaties:
@@ -612,7 +612,7 @@ classes:
     class_uri: Wijze-van-vrijgave
     broad_mappings:
       - begrip:e8frg #transportvrijgave
-    description: TODO
+    description: vastgelegde methode waarmee een transportvrijgave wordt aangevraagd of geactiveerd
     attributes:
       wijze:
         description: TODO
@@ -676,19 +676,19 @@ slots:
     range: Tijdstip
     required: true
   begin levering:
-    description: TODO
+    description: eerste moment van een leveringsperiode
     required: true
     range: Tijdstip
   einde levering:
-    description: TODO
+    description: laatste moment van een leveringsperiode
     required: true
     range: Tijdstip
   richting:
-    description: TODO
+    description: oriëntatie van het energietransport
     required: true
     range: Sturingsrichting
   volume:
-    description: TODO (het gaat hier niet om een gemeten maar een toegezegd volume, vandaar als decimaal getal)
+    description: hoeveelheid energie (het gaat hier niet om een gemeten maar een toegezegd volume, vandaar als decimaal getal)
     range: Decimaal getal
     unit:
       ucum_code: MWh

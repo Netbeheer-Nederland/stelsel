@@ -255,9 +255,9 @@ classes:
       VAT-nummer:
         description: omzetbelastingnummer
         range: Code
-      afdrachtmethode:
-        description: De keuze van de marktpartij om de verbruiksafhankelijke systeemkosten, initieel, per kalendermaand, op basis van werkelijke verbruiksafhankelijke systeemkosten of op basis van, een evenredig deel van, de verwachte jaarlijkse systeemkosten af te dragen aan de distributiesysteembeheerder. 
-        range: Soort afdrachtmethode
+      gekozen afdrachtmethode:
+        description: manier waarop de marktpartij de verbruiksafhankelijke systeemkosten, initieel, per kalendermaand, op basis van werkelijke verbruiksafhankelijke systeemkosten of op basis van, een evenredig deel van, de verwachte jaarlijkse systeemkosten afdraagt aan de distributiesysteembeheerder
+        range: Afdrachtmethode
       # relaties:
       actor in:
         range: Activiteitencategorie
@@ -468,7 +468,7 @@ enums:
       beëindigd:
       geblokkeerd:
       inactief:
-  Soort afdrachtmethode:
+  Afdrachtmethode:
     permissible_values:
       Met basisafdracht:
       Zonder basisafdracht:

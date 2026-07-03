@@ -470,5 +470,5 @@ enums:
       inactief:
   Afdrachtmethode:
     permissible_values:
-      Met basisafdracht:
-      Zonder basisafdracht:
+      met basisafdracht:
+      zonder basisafdracht:

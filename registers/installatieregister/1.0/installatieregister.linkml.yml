@@ -22,44 +22,44 @@ imports:
 default_range: Tekst
 
 classes:
-  # Aanmelder:
-  #   class_uri: Aanmelder
-  #   annotations:
-  #     tijdlijn_registratie: true
-  #   description:  eigenschappen van een persoon of bedrijf die een installatie aanmeld
-  #   attributes:
-  #     soort:
-  #       description: categorie waartoe de aanmelder behoort
-  #       range: Soort aanmelder
-  #       required: true
-  #     naam:
-  #       description: de naam van de Aanmelder
-  #       range: 
-  #       required: false
-  #     bedrijfsnaam:
-  #       description: de naam van het bedrijf van de Aanmelder
-  #       range: 
-  #       required: false
-  #     straatnaam + huisnummer:
-  #       description: een combinatie van de straatnaam en het huisnummer
-  #       range: 
-  #       required: false
-  #     postcode:
-  #       description: een vastgestelde code behorende bij een bepaalde combinatie van een straatnaam en een huisnummer
-  #       range: 
-  #       required: false
-  #     woonplaats: 
-  #       description: een door de gemeente benoemd gebied
-  #       range: 
-  #       required: false
-  #     telefoonnummer: 
-  #       description: een identificatiecode van cijfers voor routering van verbindingen
-  #       range: 
-  #       required: false
-  #     e-mailadress: 
-  #       description: een elektronisch adres voor het verzenden/ontvangen van berichten
-  #       range: 
-  #       required: false
+  Aanmelder:
+    class_uri: Aanmelder
+    annotations:
+      tijdlijn_registratie: true
+    description:  eigenschappen van een persoon of bedrijf die een installatie aanmeld
+    attributes:
+      soort:
+        description: categorie waartoe de aanmelder behoort
+        range: Soort aanmelder
+        required: true
+      naam:
+        description: de naam van de Aanmelder
+        range: 
+        required: false
+      bedrijfsnaam:
+        description: de naam van het bedrijf van de Aanmelder
+        range: 
+        required: false
+      straatnaam + huisnummer:
+        description: een combinatie van de straatnaam en het huisnummer
+        range: 
+        required: false
+      postcode:
+        description: een vastgestelde code behorende bij een bepaalde combinatie van een straatnaam en een huisnummer
+        range: 
+        required: false
+      woonplaats: 
+        description: een door de gemeente benoemd gebied
+        range: 
+        required: false
+      telefoonnummer: 
+        description: een identificatiecode van cijfers voor routering van verbindingen
+        range: 
+        required: false
+      e-mailadress: 
+        description: een elektronisch adres voor het verzenden/ontvangen van berichten
+        range: 
+        required: false
   Beveiligingsinstelling:
     class_uri: Beveiligingsinstelling
     broad_mappings:

@@ -50,7 +50,7 @@ classes:
         required: true
       soort:
         description: categorie waartoe de tariefcomponent behoort
-        range: Soort tariefcomponent
+        range: Soort tarief
       # relaties:
       vastgesteld door:
         range: Marktpartijsubregistratie
@@ -108,7 +108,7 @@ enums:
         description: G16
       "20611":
         description: G25
-  Soort tariefcomponent:
+  Soort tarief:
     permissible_values:
       PAV:
         description: periodieke aansluitvergoeding

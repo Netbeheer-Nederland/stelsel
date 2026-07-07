@@ -30,8 +30,8 @@ imports:
 default_range: Tekst
 
 classes:
-  Tariefcomponent:
-    class_uri: Tariefcomponent
+  Tarief:
+    class_uri: Tarief
     related_mappings:
       - begrip:gnhiy #aansluiting
     description: deel van een periodieke vergoeding voor een aansluiting
@@ -51,66 +51,6 @@ classes:
       soort:
         description: categorie waartoe de tariefcomponent behoort
         range: Soort tariefcomponent
-      # relaties:
-      vastgesteld door:
-        range: Marktpartijsubregistratie
-        required: true
-        multivalued: false
-        annotations:
-          inverse_cardinality: "*"
-    unique_keys:
-      identificatie:
-        unique_key_slots:
-          - EAN-code
-  Totaaltarief:
-    class_uri: Totaaltarief
-    related_mappings:
-      - begrip:gnhiy #aansluiting
-    description: totale periodieke verdoeding voor een aansluiting
-    comments:
-      - Het totaaltarief wordt aangemaakt bij de eerste uitvraag van unieke combinatie van netbeheerder, afnemerscategorie en aantallen.
-      - De combinatie van netbeheerder, afnemerscategorie en soort is uniek.
-    annotations:
-      tijdlijn_geldigheid: true
-      tijdlijn_registratie: true
-    slots:
-      - afnemerscategorie
-      - EAN-code
-    attributes:
-      aantal PAV:
-        description: getal waarmee het bedrag van de periodieke aansluitvergoeding vermenigvuldigd moet worden
-        range: Geheel getal
-        required: true
-      aantal TAVT:
-        description: getal waarmee het bedrag van het transportafhankelijk transporttarief dan wel verbruikerstarief vermenigvuldigd moet worden
-        range: Geheel getal
-        required: true
-      aantal TOVT:
-        description: getal waarmee het bedrag van het transportonafhankelijk transporttarief dan wel verbruikerstarief vermenigvuldigd moet worden
-        range: Geheel getal
-        required: true
-      aantal MT:
-        description: getal waarmee het bedrag van het meettarief vermenigvuldigd moet worden
-        range: Geheel getal
-        required: true
-      subtotaal PAV:
-        description: totaalbedrag van de periodieke aansluitvergoeding na vermenigvuldiging met het aantal
-        comments:
-          - "Validatie: gelijk aan aantal PAV * bedrag van tariefcomponent waar soort = PAV."
-        range: Decimaal getal
-      subtotaal TOVT:
-        description: totaalbedrag van het transportonafhankelijk transporttarief dan wel verbruikerstarief na vermenigvuldiging met het aantal
-        comments:
-          - "Validatie: gelijk aan aantal TOVT * bedrag van tariefcomponent waar soort = TOVT."
-        range: Decimaal getal
-      subtotaal MT:
-        description: totaalbedrag van het meettarief na vermenigvuldiging met het aantal
-        comments:
-          - "Validatie: gelijk aan aantal MT * bedrag van tariefcomponent waar soort = MT."
-        range: Decimaal getal
-      totaalbedrag:
-        description: som van alle bedragen van onderliggende tariefcomponenten, na vermenigvuldiging met het aantal
-        range: Decimaal getal
       # relaties:
       vastgesteld door:
         range: Marktpartijsubregistratie

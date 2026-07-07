@@ -1,7 +1,7 @@
 id: https://modellen.netbeheernederland.nl/stelsel/registers/installatieregister
 name: installatieregister
 title: Installatieregister
-version: 1.0-draft
+version: 1.0
 description: Het installatieregister bevat informatie over installatie-eenheden achter aansluitingen op het energienet, voor zover deze door of namens aangeslotenen zijn aangemeld bij de netbeheerder.
 see_also:
   - nce:hoofdstuk=13&paragraaf=13.1&g=2025-09-01
@@ -33,32 +33,28 @@ classes:
         range: Soort aanmelder
         required: true
       naam:
-        description: de naam van de Aanmelder
-        range: 
+        description: statutaire naam van de niet-natuurlijke persoon of achternaam zonder voorvoegsel van de natuurlijke persoon
         required: false
       bedrijfsnaam:
         description: de naam van het bedrijf van de Aanmelder
-        range: 
+        required: false
+      kvk-nummer: 
+        description: Een uniek 8-cijferig registratienummer van de Nederlandse Kamer van Koophandel dat de officiële inschrijving van een bedrijf in het Handelsregister bewijst
         required: false
       straatnaam + huisnummer:
         description: een combinatie van de straatnaam en het huisnummer
-        range: 
         required: false
       postcode:
         description: een vastgestelde code behorende bij een bepaalde combinatie van een straatnaam en een huisnummer
-        range: 
         required: false
       woonplaats: 
         description: een door de gemeente benoemd gebied
-        range: 
         required: false
       telefoonnummer: 
-        description: een identificatiecode van cijfers voor routering van verbindingen
-        range: 
+        description: uniek nummer dat toegekend wordt om een aansluiting op het publieke telefoonnet te identificeren, bestaande uit het plusteken, een landnummer, een netnummer en een abonneenummer
         required: false
       e-mailadress: 
-        description: een elektronisch adres voor het verzenden/ontvangen van berichten
-        range: 
+        description: uniek adres voor digitaal, elektronisch postverkeer
         required: false
   Beveiligingsinstelling:
     class_uri: Beveiligingsinstelling
@@ -389,6 +385,9 @@ classes:
         range: Reëel getal
         unit:
           ucum_code: deg
+      oost-west opstelling:
+        description: indicatie of de groep van opwekkingseenheden in een oost-west opstelling staat 
+        range: 
       #relaties
       deel van:
         range: Elektriciteitsproductie-eenheid
@@ -568,29 +567,37 @@ enums:
         description: overdrachtspunt beneden 110 kV en maximumcapaciteit minimaal 50 MW en beneden 60 MW
       D:
         description: overdrachtspunt minimaal 110 kV of maximumcapaciteit minimaal 60 MW
-  # Soort aanmelder: # gebruik de natuurlijke schrijfwijze, eerste woord met een hoofdletter
-  #   permissible_values:
-  #     3RD:
-  #       description: professionele derde
-  #     DDM:
-  #       description: netbeheerder
-  #     UD:
-  #       description: aangeslotene
-  #     UNK: 
-  #       description: onbekend
-  #     anders:
-  #       description: onbekenmd
-  Gebruikte technologie:
+  Soort aanmelder: # gebruik de natuurlijke schrijfwijze, eerste woord met een hoofdletter
+    permissible_values:
+      3RD:
+        description: professionele derde
+      DDM:
+        description: netbeheerder
+      UD:
+        description: aangeslotene
+      UNK: 
+        description: onbekend
+      anders:
+        description: onbekend
+Gebruikte technologie:
     permissible_values:
       chemisch:
-        description: #to do
+        description: Energieopslag via chemische verbindingen en moleculaire structuren
       elektrochemisch:
-        description: #to do
+        description: Energieopslag via chemische reacties in een gesloten systeem
       mechanisch:
-        description: #to do
+        description: Energieopslag via kinetische of potentiële energie
       thermisch:
-        description: #to do
+        description: Energieopslag door het opwarmen of koelen van materialen
+Oost-west opstelling:
+  permissible_values:
+    true: 
+      description: De groep van opwekkingseenheden staan in oost-west opstelling
+    false:
+      description: De groep van opwekkingseenheden staan niet in oost-west opstelling
+    null: Onbekend of niet van toepassing
 types:
   Schakelgroep wikkelingen:
     typeof: Code
     pattern: ^(Y|D)(N?)(y|d)(n?)([0-9]|10|11)$
+

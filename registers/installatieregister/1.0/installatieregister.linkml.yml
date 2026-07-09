@@ -230,7 +230,7 @@ classes:
         required: true
       gebruikte technologie: #todo
         description: manier waarop energie is opgewekt
-        range: Gebruikte technologie
+        range: Gebruikte  technologie
         required: true
       maximaal bruikbare hoeveelheid energie:
         description: hoeveelheid elektrische energie die maximaal in een elektriciteitsopslageenheid kan worden geïnjecteerd en daaruit kan worden onttrokken voor het energienet
@@ -579,7 +579,7 @@ enums:
         description: onbekend
       anders:
         description: onbekend
-Gebruikte technologie:
+Gebruikte  technologie:
     permissible_values:
       chemisch:
         description: Energieopslag via chemische verbindingen en moleculaire structuren

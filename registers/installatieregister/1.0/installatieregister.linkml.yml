@@ -60,7 +60,7 @@ classes:
       woonplaatsnaam: 
         description: aanduiding van een gebied met bewoning zoals een stad of dorp
       telefoonnummer: 
-        description: uniek nummer dat toegekend wordt om een aansluiting op het publieke telefoonnet te identificeren, bestaande uit het plusteken, een landnummer, een netnummer en een abonneenummer
+        description: uniek nummer dat toegekend wordt om een aanmelder op het publieke telefoonnet te identificeren, bestaande uit het plusteken, een landnummer, een netnummer en een abonneenummer
         range: Code
       e-mailadress: 
         description: uniek adres voor digitaal, elektronisch postverkeer

@@ -41,9 +41,9 @@ classes:
       naam:
         description: statutaire naam van de niet-natuurlijke persoon of achternaam zonder voorvoegsel van de natuurlijke persoon
       bedrijfsnaam:
-        description: de naam van het bedrijf van de Aanmelder
+        description: naam van het bedrijf van de aanmelder
       KVK-nummer: 
-        description: Een uniek 8-cijferig registratienummer van de Nederlandse Kamer van Koophandel dat de officiële inschrijving van een bedrijf in het Handelsregister bewijst
+        description: uniek 8-cijferig registratienummer van de Nederlandse Kamer van Koophandel dat de officiële inschrijving van een bedrijf in het Handelsregister bewijst
         range: Code
       straatnaam:
         description: naam om openbare ruimten zoals straten, lanen, wegen en stegen mee aan te duiden, of 'antwoordnummer' of 'postbus'
@@ -53,11 +53,13 @@ classes:
       huisnummertoevoeging:
         description: aan een verblijfsobject, standplaats of ligplaats toegekende nadere toevoeging aan een huisnummer inclusief huisletter
       postcode:
-        description: een vastgestelde code behorende bij een bepaalde combinatie van een straatnaam en een huisnummer
+        description: reeks tekens die in een postadres wordt opgenomen om het automatisch sorteren van de post gemakkelijker te maken
+        range: Code
       woonplaatsnaam: 
-        description: een door de gemeente benoemd gebied
+        description: aanduiding van een gebied met bewoning zoals een stad of dorp
       telefoonnummer: 
-        description: uniek nummer dat toegekend wordt om een aansluiting op het publieke telefoonnet te identificeren, bestaande uit het plusteken, een landnummer, een netnummer en een abonneenummer
+        description: uniek nummer dat toegekend wordt om een aanmelder op het publieke telefoonnet te identificeren, bestaande uit het plusteken, een landnummer, een netnummer en een abonneenummer
+        range: Code
       e-mailadress: 
         description: uniek adres voor digitaal, elektronisch postverkeer
   Beveiligingsinstelling:
@@ -212,13 +214,6 @@ classes:
       identificatie:
         unique_key_slots:
           - EAN-code
-  # Elektriciteitslaadeenheid:
-  #   class_uri: Elektriciteitslaadeenheid
-  #   is_a: Elektriciteitsinstallatie-eenheid
-  #   exact_mappings:
-  #     - begrip:zebbw #elektriciteitslaadeenheid
-  #   comments:
-  #     - ⚠ Het is nog niet duidelijk hoe laadpunten gegroepeerd moeten worden in laadeenheden. Dit heeft namelijk direct effect op het type (A, B, C, D) en daarmee de aansluitvoorwaarden en verplichtingen die gelden voor de aangeslotene. Niet elke laadlocatie bestaat uit laadpalen, denk aan bogen, muren, etc.
   Elektriciteitsopslageenheid:
     class_uri: Elektriciteitsopslageenheid
     is_a: Elektriciteitsinstallatie-eenheid
@@ -380,7 +375,7 @@ classes:
       azimut:
         description: horizontale hoek, gemeten met de klok mee vanaf het geografische noorden
         comments:
-          - Bij een oost-westopstelling zijn er minimaal twee groepen, elk met een eigen azimut.
+          - Bij een oost-west opstelling zijn er minimaal twee groepen, elk met een eigen azimut.
         range: Reëel getal
         unit:
           ucum_code: deg
@@ -530,7 +525,7 @@ enums:
       maaiveld:
         description: aardoppervlak inclusief bestrating en aardwerken zoals een talud of dijk, maar zonder vegetatie en bouwwerken zoals huizen en viaducten
       NAP:
-        description: Normaal Amsterdams Pijl
+        description: normaal Amsterdams Pijl
   Onregelmatigheid:
     permissible_values:
       U<:
@@ -571,7 +566,7 @@ enums:
         description: overdrachtspunt beneden 110 kV en maximumcapaciteit minimaal 50 MW en beneden 60 MW
       D:
         description: overdrachtspunt minimaal 110 kV of maximumcapaciteit minimaal 60 MW
-  Soort aanmelder: # gebruik de natuurlijke schrijfwijze, eerste woord met een hoofdletter
+  Soort aanmelder:
     permissible_values:
       3RD:
         description: professionele derde
@@ -583,16 +578,16 @@ enums:
         description: onbekend
       anders:
         description: onbekend
-Gebruikte technologie:
+  Gebruikte technologie:
     permissible_values:
       chemisch:
-        description: Energieopslag via chemische verbindingen en moleculaire structuren
+        description: energieopslag via chemische verbindingen en moleculaire structuren
       elektrochemisch:
-        description: Energieopslag via chemische reacties in een gesloten systeem
+        description: energieopslag via chemische reacties in een gesloten systeem
       mechanisch:
-        description: Energieopslag via kinetische of potentiële energie
+        description: energieopslag via kinetische of potentiële energie
       thermisch:
-        description: Energieopslag door het opwarmen of koelen van materialen
+        description: energieopslag door het opwarmen of koelen van materialen
 types:
   Schakelgroep wikkelingen:
     typeof: Code

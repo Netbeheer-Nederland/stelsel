@@ -1,0 +1,601 @@
+id: https://modellen.netbeheernederland.nl/stelsel/registers/installatieregister
+name: installatieregister
+title: Installatieregister
+version: "1.1-draft"
+description: Het installatieregister bevat informatie over installatie-eenheden achter aansluitingen op het energienet, voor zover deze door of namens aangeslotenen zijn aangemeld bij de netbeheerder.
+comments:
+  - Het aansluitingenregister wordt gezamenlijk beheerd door de netbeheerders en bevat zowel fysieke als administratieve gegevens over aansluitingen. Het register is essentieel voor de werking van de energiemarkt omdat het de basis vormt voor processen zoals leverancierswisselingen, verhuizingen en facturatie.
+  - De verplichting tot het bijhouden van het aansluitingenregister is vastgelegd in de Informatiecode elektriciteit en gas, vastgesteld door de Autoriteit Consument en Markt (ACM).
+  - |
+    Wijzigingen:
+    
+    1. Het installatieregister is naar "1.1-draft" gebracht voor toekomstige aanpassingen voor het faciliteren van de entiteit `Elektriciteitslaadeenheid'
+see_also:
+  - nce:hoofdstuk=13&paragraaf=13.1&g=2025-09-01
+prefixes:
+  linkml: https://w3id.org/linkml/
+  begrip: https://begrippen.netbeheernederland.nl/id/
+  this: https://modellen.netbeheernederland.nl/stelsel/registers/installatieregister#
+  aansluitingenregister: https://modellen.netbeheernederland.nl/stelsel/registers/aansluitingenregister#
+  celex: "https://eur-lex.europa.eu/legal-content/NL/TXT/?uri=CELEX:"
+  nce: https://wetten.overheid.nl/jci1.3:c:BWBR0037940&
+  iceg: https://wetten.overheid.nl/jci1.3:c:BWBR0037934&
+  rgcvo: https://wetten.overheid.nl/jci1.3:c:BWBR0035971&
+  bce: https://wetten.overheid.nl/jci1.3:c:BWBR0037938&
+  rakveg: https://wetten.overheid.nl/jci1.3:c:BWBR0030164&
+default_prefix: this
+imports:
+  - ../../basiswaardesoorten
+default_range: Tekst
+
+classes:
+  Aanmelder:
+    class_uri: Aanmelder
+    annotations:
+      tijdlijn_registratie: true
+    description: eigenschappen van een persoon of bedrijf die een installatie aanmeld
+    attributes:
+      soort:
+        description: categorie waartoe de aanmelder behoort
+        range: Soort aanmelder
+        required: true
+      naam:
+        description: statutaire naam van de niet-natuurlijke persoon of achternaam zonder voorvoegsel van de natuurlijke persoon
+      bedrijfsnaam:
+        description: de naam van het bedrijf van de Aanmelder
+      KVK-nummer: 
+        description: Een uniek 8-cijferig registratienummer van de Nederlandse Kamer van Koophandel dat de officiële inschrijving van een bedrijf in het Handelsregister bewijst
+        range: Code
+      straatnaam:
+        description: naam om openbare ruimten zoals straten, lanen, wegen en stegen mee aan te duiden, of 'antwoordnummer' of 'postbus'
+      huisnummer:
+        description: aan een verblijfsobject, standplaats of ligplaats toegekend nummer, een antwoordnummer of een postbusnummer
+        range: Geheel getal
+      huisnummertoevoeging:
+        description: aan een verblijfsobject, standplaats of ligplaats toegekende nadere toevoeging aan een huisnummer inclusief huisletter
+      postcode:
+        description: een vastgestelde code behorende bij een bepaalde combinatie van een straatnaam en een huisnummer
+      woonplaatsnaam: 
+        description: een door de gemeente benoemd gebied
+      telefoonnummer: 
+        description: uniek nummer dat toegekend wordt om een aansluiting op het publieke telefoonnet te identificeren, bestaande uit het plusteken, een landnummer, een netnummer en een abonneenummer
+      e-mailadress: 
+        description: uniek adres voor digitaal, elektronisch postverkeer
+  Beveiligingsinstelling:
+    class_uri: Beveiligingsinstelling
+    broad_mappings:
+      - begrip:gtj7b #installatie
+    annotations:
+      tijdlijn_registratie: true
+    description: manier waarop door de elektriciteitsinstallatie-eenheid wordt beschermd tegen storingen
+    attributes:
+      onregelmatigheid:
+        description: afwijking van de normale bedrijfsomstandigheden
+        range: Onregelmatigheid
+        required: true
+      waarde:
+        range: Reëel getal
+        required: true
+      eenheid:
+        description: maat waarin een grootheid numeriek kan worden uitgedrukt
+        range: Eenheid onregelmatigheid
+        required: true
+      afschakeltijd:
+        description: tijd om iets buiten werking te stellen
+        required: true
+        range: Reëel getal
+        unit:
+          ucum_code: ms
+      #relaties
+      bij:
+        range: Overdrachtspunt
+        required: true
+        multivalued: false
+        annotations:
+          inverse_cardinality: "*"
+    unique_keys:
+      identificatie:
+        unique_key_slots:
+          - bij
+          - onregelmatigheid
+  Conformiteitscertificaat:
+    class_uri: Conformiteitscertificaat
+    broad_mappings:
+      - begrip:gtj7b #installatie
+    annotations:
+      tijdlijn_registratie: true
+    description: door een erkende certificerende instantie verstrekt document voor apparatuur die wordt gebruikt door een elektriciteitsproductie-eenheid, verbruikseenheid, distributiesysteem, verbruikersinstallatie of HVDC-systeem
+    source: celex:32016R0631
+    slots:
+      - fabrikant
+      - typeaanduiding
+    unique_keys:
+      identificatie:
+        unique_key_slots:
+          - fabrikant
+          - typeaanduiding
+  Elektriciteitsinstallatie-eenheid:
+    class_uri: Elektriciteitsinstallatie-eenheid
+    broad_mappings:
+      - begrip:gtj7b #installatie
+    annotations:
+      tijdlijn_registratie: true
+      levensduur: true
+      levensduur_begin: moment van inbedrijfname
+      levensduur_einde: moment van uitbedrijfname
+    description: ondeelbaar geheel van elektrisch materieel en leidingen die samen elektrische energie kunnen verbruiken, opwekken, opslaan, laden of ontladen
+    source: celex:32016R0631
+    slots:
+      - EAN-code
+    slot_usage:
+      EAN-code:
+        see_also:
+          - nce:hoofdstuk=2&paragraaf=2.1&artikel=2.4&g=2024-07-05
+    attributes:
+      aansluitspanning op het overdrachtspunt:
+        description: nominale spanning op het overdrachtspunt van de aansluiting
+        range: Reëel getal
+        unit:
+          ucum_code: kV
+        deprecated: Deze eigenschap hoort thuis in het aansluitingenregister.
+      absolute kortsluitbijdrage:
+        description: grootte van de stroomsterkte die de elektriciteitsinstallatie-eenheid injecteert op het overdrachtspunt gedurende een kortsluiting in het net
+        range: Reëel getal
+        unit:
+          ucum_code: kA
+      fabrikant van parkregelaar:
+        description: (merk)naam van een bedrijf dat perkregelaars vervaardigt
+      relatieve kortsluitbijdrage:
+        description: verhouding tussen de kortsluitstroombijdrage (Isc) en de nominale stroom (In) van de elektriciteitsinstallatie-eenheid op het overdrachtspunt
+        range: Reëel getal
+      maximumcapaciteit voor afname:
+        description: maximaal continu werkzame vermogen dat een elektricitsinstallatie-eenheid kan verbruiken, als gespecificeerd in de aansluitovereenkomst of overeengekomen tussen de netbeheerder en de eigenaar van de installatie
+        comments:
+          - "Validatieregel: verplicht bij opslageenheid en laadeenheid. Verplicht leeg bij productie-eenheid."
+        broad_mappings:
+          - begrip:gsewd #maximumcapaciteit
+        range: Reëel getal
+        unit:
+          ucum_code: kW
+      maximumcapaciteit voor invoeding:
+        description: maximaal continu werkzame vermogen dat een elektriciteitsinstallatie-eenheid kan produceren, verminderd met de vraag die uitsluitend verband houdt met het bedrijf van die eenheid zelf en die niet voor het energienet beschikbaar is, als gespecificeerd in de aansluitovereenkomst of overeengekomen tussen de netbeheerder en de eigenaar van de installatie
+        comments:
+          - "Validatieregel: verplicht bij productie-eenheid en opslageenheid."
+        broad_mappings:
+          - begrip:gsewd #maximumcapaciteit
+        range: Reëel getal
+        unit:
+          ucum_code: kW
+      maximale afregelsnelheid:
+        description: maximale vermogensafname per tijdeenheid, als deel van de maximumcapaciteit
+        range: Reëel getal
+        unit:
+          ucum_code: '%/s'
+      maximale opregelsnelheid:
+        description: maximale vermogenstoename per tijdeenheid, als deel van de maximumcapaciteit
+        range: Reëel getal
+        unit:
+          ucum_code: '%/s'
+      nominale arbeidsfactor:
+        description: verhouding tussen het werkelijke vermogen en het schijnbare vermogen onder nominale bedrijfsomstandigheden
+        range: Reëel getal
+      soort koppeling:
+        description: manier waarop de elektriciteitsinstallatie-eenheid is gekoppeld met het overdrachtspunt
+        range: Soort koppeling
+        required: true
+      subtransiënte reactantie:
+        description: kortstondige reactantie direct na een plotselinge storing zoals een kortsluiting, uitgedrukt in het per-unit systeem
+        range: Reëel getal
+      totale vermogen omvormers:
+        description: som van de vermogens van alle bij de elektriciteitinstallatie-eenheid behorende omvormers
+        comments:
+          - ⚠ Bij type A staat kW op het formulier, bij type B, C en D, MW. Is het oké om in het register enkel MW (of enkel kW) te hanteren?
+        range: Reëel getal
+        unit:
+          ucum_code: MW
+      type:
+        description: classificatie op basis van maximumcapaciteit en spanning op het overdrachtspunt
+        source: celex:32016R0631
+        range: Type elektriciteitsinstallatie-eenheid
+        required: true
+      typeaanduiding van parkregelaar:
+        description: naam die door een fabrikant aan een reeks parkregelaars wordt gegeven
+      #relaties
+      achter:
+        range: Overdrachtspunt
+        required: true
+        multivalued: false
+        annotations:
+          inverse_cardinality: "*"
+        comments:
+          - In de praktijk wordt er direct gekoppeld op aansluiting, totdat er EAN-codes zijn toegekend aan overdrachtspunten.
+    unique_keys:
+      identificatie:
+        unique_key_slots:
+          - EAN-code
+  # Elektriciteitslaadeenheid:
+  #   class_uri: Elektriciteitslaadeenheid
+  #   is_a: Elektriciteitsinstallatie-eenheid
+  #   exact_mappings:
+  #     - begrip:zebbw #elektriciteitslaadeenheid
+  #   comments:
+  #     - ⚠ Het is nog niet duidelijk hoe laadpunten gegroepeerd moeten worden in laadeenheden. Dit heeft namelijk direct effect op het type (A, B, C, D) en daarmee de aansluitvoorwaarden en verplichtingen die gelden voor de aangeslotene. Niet elke laadlocatie bestaat uit laadpalen, denk aan bogen, muren, etc.
+  Elektriciteitsopslageenheid:
+    class_uri: Elektriciteitsopslageenheid
+    is_a: Elektriciteitsinstallatie-eenheid
+    exact_mappings:
+      - begrip:97gd7 #elektriciteitsopslageenheid
+    attributes:
+      automatische invoeding bij frequentiedaling:
+        description: geeft aan of een opslageenheid automatisch kan wisselen tussen afname en invoeding in reactie op frequentiedalingen
+        range: Waarheidswaarde
+      energieherkomst:
+        description: aanduiding die aangeeft of de opgeslagen energie afkomstig is uit het energienet, die installatie of beide
+        range: Energieherkomst
+        required: true
+      gebruikte technologie: 
+        description: manier waarop energie is opgewekt
+        range: Gebruikte technologie
+        required: true
+      maximaal bruikbare hoeveelheid energie:
+        description: hoeveelheid elektrische energie die maximaal in een elektriciteitsopslageenheid kan worden geïnjecteerd en daaruit kan worden onttrokken voor het energienet
+        range: Reëel getal
+        unit:
+          ucum_code: kWh
+        required: true
+      opslagcapaciteit:
+        description: maximale hoeveel energie die de opslageenheid kan opslaan
+        range: Reëel getal
+        unit:
+          ucum_code: MWh
+  Elektriciteitsproductie-eenheid:
+    class_uri: Elektriciteitsproductie-eenheid
+    is_a: Elektriciteitsinstallatie-eenheid
+    exact_mappings:
+      - begrip:zr8ka #elektriciteitsproductie-eenheid
+    attributes:
+      primaire energiebron:
+        description: stof, object of natuurlijke plaats waaruit de meeste energie wordt gehaald
+        see_also:
+          - iceg:hoofdstuk=2&paragraaf=2.1&artikel=2.1.5&g=2025-01-01
+        range: Energiebron
+        required: true
+      totale vermogen opwekkingseenheden:
+        description: som van de vermogens van alle bij de elektriciteitsproductie-eenheid behorende opwekkingseenheden
+        comments:
+          - Alhoewel artikel 13.1 van de Netcode elektriciteit het totale vermogen van de elektriciteitsproductie-installatie noemt, gaat dit register uit van het totale vermogen per elektriciteitsproductie-eenheid.
+          - ⚠ Bij type A staat kW op het formulier, bij type B, C en D, MW. Is het oké om in het register enkel MW (of enkel kW) te hanteren?
+        range: Reëel getal
+        unit:
+          ucum_code: MW
+      x-coördinaat:
+        description: oost-westpositie van een punt in het Rijksdriehoeksstelsel (RD)
+        range: Reëel getal
+        unit:
+          ucum_code: m
+      y-coördinaat:
+        description: noord-zuidpositie van een punt in het Rijksdriehoeksstelsel (RD)
+        range: Reëel getal
+        unit:
+          ucum_code: m
+  GCvO-installatie:
+    class_uri: GCvO-installatie
+    broad_mappings:
+      - begrip:gtj7b #installatie
+    annotations:
+      tijdlijn_registratie: true
+      levensduur: true
+      levensduur_begin: moment van inbedrijfname
+      levensduur_einde: moment van uitbedrijfname
+    description: productie-installatie of een op grond van de criteria uit artikel 24 van de Regeling garanties van oorsprong en certificaten van oorsprong afgebakend deel daarvan, die of dat op grond van artikel 16, eerste lid, onderdeel h, van de Elektriciteitswet 1998, of artikel 10, vijfde lid, onderdeel c, van de Gaswet, wordt aangemerkt als een installatie voor de productie van energie als bedoeld in artikel 73, eerste lid van de Elektriciteitswet 1998, of artikel 66i, eerste lid van de Gaswet
+    source: bce:g=2025-05-08
+    see_also:
+      - rgcvo:g=2025-04-01
+    slots:
+      - EAN-code
+    attributes:
+      energiedrager:
+        exact_mappings:
+          begrip:bwjrm #energiedrager
+        range: Energiedrager
+        required: true
+      hoogrenderende warmtekrachtkoppeling:
+        description: geeft aan of sprake is van een installatie voor hoogrenderende warmtekrachtkoppeling (HR-WKK)
+        range: Waarheidswaarde
+      subsidie:
+        description: geeft aan of de GCvO-installatie overheidssteun ontvangt of geniet
+        range: Waarheidswaarde
+      primaire energiebron:
+        description: stof, object of natuurlijke plaats waaruit de meeste energie wordt gehaald
+      #relaties
+      achter:
+        range: Allocatiepunt bij aansluiting
+        required: true
+        multivalued: false
+        annotations:
+          inverse_cardinality: "*"
+    unique_keys:
+      identificatie:
+        unique_key_slots:
+          - EAN-code
+  Groep van omvormers:
+    class_uri: Groep-van-omvormers
+    broad_mappings:
+      - begrip:gtj7b #installatie
+    annotations:
+      tijdlijn_registratie: true
+    description: verzameling elektronische apparaten die de invoerspanning van een bepaalde spanning naar een andere spanning kunnen omvormen of elektrische energie in energie van een andere frequentie
+    comments:
+      - De ACM beschouwt een groep zonnepanelen achter één omvormer, samen met die omvormer als een elektriciteitsproductie-eenheid (ACM/18/033360). Aanmeldformulieren van netbeheerders staan echter meer omvormers per eenheid toe.
+    slots:
+      - fabrikant
+      - typeaanduiding
+    attributes:
+      #relaties
+      deel van:
+        range: Elektriciteitsinstallatie-eenheid
+        required: true
+        multivalued: false
+        annotations:
+          inverse_cardinality: "*"
+  Groep van opwekkingseenheden:
+    class_uri: Groep-van-opwekkingseenheden
+    broad_mappings:
+      - begrip:gtj7b #installatie
+    annotations:
+      tijdlijn_registratie: true
+    description: verzameling apparaten binnen één elektriciteitsproductie-eenheid die elektrische energie opwekken en identieke kenmerken delen
+    slots:
+      - fabrikant
+      - typeaanduiding
+    attributes:
+      aantal opwekkingseenheden:
+        description: hoeveelheid opwekkingseenheden in de groep
+        range: Geheel getal
+        required: true
+      nominaal vermogen per opwekkingseenheid:
+        description: door de fabrikant aangegeven maximale vermogen bij continu gebruik waarbij een maximaal rendement wordt behaald
+        range: Reëel getal
+        unit:
+          ucum_code: MVA
+      soort opwekkingseenheid:
+        description: aanduiding van een verzameling opwekkingseenheden die een gemeenschappelijk karakter hebben
+        range: Soort opwekkingseenheid
+        required: true
+      ashoogte:
+        description: verticale afstand in meters tot het middelpunt van de as waarop de wieken draaien
+        range: Reëel getal
+        unit:
+          ucum_code: m
+      hoogtereferentie:
+        description: nulpunt van waaraf de ashoogte is gemeten
+        range: Hoogtereferentie
+      massatraagheidsmoment:
+        description: maat voor de weerstand van de draaiende onderdelen tegen een verandering in hun rotatiesnelheid
+        comments:
+          - Traagheid (inertia) helpt het energienet te stabiliseren.
+          - Dit betreft de fysieke vorm van traagheid, ter onderscheiding van de synthetische variant die door omvormers wordt geleverd.
+        range: Reëel getal
+        unit:
+          ucum_code: kg.m2
+      azimut:
+        description: horizontale hoek, gemeten met de klok mee vanaf het geografische noorden
+        comments:
+          - Bij een oost-westopstelling zijn er minimaal twee groepen, elk met een eigen azimut.
+        range: Reëel getal
+        unit:
+          ucum_code: deg
+      hellingshoek:
+        description: hoek ten opzichte van het horizontale vlak
+        range: Reëel getal
+        unit:
+          ucum_code: deg
+      oost-west opstelling:
+        description: indicatie of de groep van opwekkingseenheden in een oost-west opstelling staat 
+        range: Waarheidswaarde
+      #relaties
+      deel van:
+        range: Elektriciteitsproductie-eenheid
+        required: true
+        multivalued: false
+        annotations:
+          inverse_cardinality: "*"
+  Soort transformator:
+    class_uri: Soort-transformator
+    broad_mappings:
+      - begrip:gtj7b #installatie
+    annotations:
+      tijdlijn_registratie: true
+    description: verzameling transformatoren die een gemeenschappelijk karakter hebben
+    attributes:
+      nominaal schijnbaar vermogen:
+        description: maximale totale vermogen dat de transformator onder normale bedrijfsomstandigheden kan verwerken zonder overbelasting
+        range: Reëel getal
+        unit:
+          ucum_code: MVA
+        required: true
+      nominale spanning primair:
+        description: standaardspanning waarvoor de transformator is ontworpen om optimaal te functioneren aan de primaire zijde
+        range: Reëel getal
+        unit:
+          ucum_code: kV
+        required: true
+      nominale spanning secundair:
+        description: standaardspanning waarvoor de transformator is ontworpen om optimaal te functioneren aan de secundaire zijde
+        range: Reëel getal
+        unit:
+          ucum_code: kV
+        required: true
+      nominale kortsluitspanning:
+        description: spanning die nodig is om de volledige nominale stroom door de transformator te laten vloeien bij een kortsluiting op de uitgang, wanneer er geen belasting is
+        range: Reëel getal
+        unit:
+          ucum_code: "%"
+        required: true
+      nominale koper- of kortsluitverliezen:
+        description: warmteverliezen die optreden in de wikkelingen van de transformator wanneer deze onder nominale belasting werkt
+        range: Reëel getal
+        unit:
+          ucum_code: kW
+        required: true
+      nominale ijzer- of nullastverliezen:
+        description: verliezen in de transformator die optreden wanneer deze onder nominale spanning werkt, maar zonder belasting
+        range: Reëel getal
+        unit:
+          ucum_code: kW
+        required: true
+      schakelgroep wikkelingen:
+        description: configuratie van de wikkelingen in de transformator die aangeeft hoe de spanningsfasen aan de primaire en secundaire zijde zich tot elkaar verhouden
+        range: Schakelgroep wikkelingen
+        comments:
+          - ⚠ Beperken tot een bepaalde waardelijst met items zoals 'Dyn5'?
+        required: true
+      hoogste trap:
+        description: hoogste spanningsniveau van de regelschakelaar
+        range: Reëel getal
+        unit:
+          ucum_code: kV
+      laagste trap:
+        description: laagste spanningsniveau van de regelschakelaar
+        range: Reëel getal
+        unit:
+          ucum_code: kV
+      stapgrootte:
+        description: spanningsverschil tussen opeenvolgende standen van de regelschakelaar
+        range: Decimaal getal
+        comments:
+          - Tot vier decimalen.
+        unit:
+          ucum_code: kV
+      #relaties
+      verbonden met:
+        range: Elektriciteitsinstallatie-eenheid
+        required: true
+        multivalued: false
+        annotations:
+          inverse_cardinality: "*"
+  #extern:
+  Allocatiepunt bij aansluiting:
+    class_uri: aansluitingenregister:Allocatiepunt-bij-aansluiting
+    annotations:
+      external_registry: Aansluitingenregister
+  Overdrachtspunt:
+    class_uri: aansluitingenregister:Overdrachtspunt
+    annotations:
+      external_registry: Aansluitingenregister
+
+slots:
+  EAN-code:
+    description: unieke cijfercombinatie volgens de Europese Artikelnummer-standaard
+    range: Code
+    required: true
+  fabrikant:
+    description: (merk)naam van een bedrijf dat industrieel goederen vervaardigt
+    required: true
+  typeaanduiding:
+    description: naam die door een fabrikant aan een reeks producten met vergelijkbare eigenschappen wordt gegeven
+    range: Code
+    required: true
+
+enums:
+  Eenheid onregelmatigheid:
+    permissible_values:
+      p.u.:
+      kA:
+      Hz:
+  Energiebron:
+    see_also:
+      - bce:g=2025-05-08
+    permissible_values:
+      zon:
+      wind:
+      water:
+      biomassa:
+      kolen:
+      gas:
+      olie:
+      nucleair:
+      overig hernieuwbaar:
+      overig niet-hernieuwbaar:
+  Energiedrager:
+    permissible_values:
+      elektriciteit:
+      gas:
+  Energieherkomst:
+    permissible_values:
+      combinatie:
+      energienet:
+      installatie:
+  Hoogtereferentie:
+    permissible_values:
+      maaiveld:
+        description: aardoppervlak inclusief bestrating en aardwerken zoals een talud of dijk, maar zonder vegetatie en bouwwerken zoals huizen en viaducten
+      NAP:
+        description: Normaal Amsterdams Pijl
+  Onregelmatigheid:
+    permissible_values:
+      U<:
+        description: onderspanning
+      U>:
+        description: overspanning
+      I>:
+        description: lichte overstroom
+      I>>:
+        description: ernstige overstroom
+      f<:
+        description: onderfrequentie
+      f>:
+        description: overfrequentie
+  Regelbaarheid:
+    permissible_values:
+      continu regelbaar (online):
+      spanningsloos instelbaar (offline):
+  Soort koppeling:
+    permissible_values:
+      synchroon:
+      asynchroon:
+      omvormer-gekoppeld:
+      dubbelgevoede inductiemachine:
+      direct drive:
+  Soort opwekkingseenheid:
+    permissible_values:
+      zonnepaneel:
+      windturbine:
+      overig:
+  Type elektriciteitsinstallatie-eenheid:
+    permissible_values:
+      A:
+        description: overdrachtspunt beneden 110 kV en maximumcapaciteit minimaal 0,8 kW en beneden 1 MW
+      B:
+        description: overdrachtspunt beneden 110 kV en maximumcapaciteit minimaal 1 MW en beneden 50 MW
+      C:
+        description: overdrachtspunt beneden 110 kV en maximumcapaciteit minimaal 50 MW en beneden 60 MW
+      D:
+        description: overdrachtspunt minimaal 110 kV of maximumcapaciteit minimaal 60 MW
+  Soort aanmelder: # gebruik de natuurlijke schrijfwijze, eerste woord met een hoofdletter
+    permissible_values:
+      3RD:
+        description: professionele derde
+      DDM:
+        description: netbeheerder
+      UD:
+        description: aangeslotene
+      UNK: 
+        description: onbekend
+      anders:
+        description: onbekend
+Gebruikte technologie:
+    permissible_values:
+      chemisch:
+        description: Energieopslag via chemische verbindingen en moleculaire structuren
+      elektrochemisch:
+        description: Energieopslag via chemische reacties in een gesloten systeem
+      mechanisch:
+        description: Energieopslag via kinetische of potentiële energie
+      thermisch:
+        description: Energieopslag door het opwarmen of koelen van materialen
+types:
+  Schakelgroep wikkelingen:
+    typeof: Code
+    pattern: ^(Y|D)(N?)(y|d)(n?)([0-9]|10|11)$
+

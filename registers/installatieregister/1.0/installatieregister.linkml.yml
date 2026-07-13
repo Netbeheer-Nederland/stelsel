@@ -3,6 +3,15 @@ name: installatieregister
 title: Installatieregister
 version: 1.0
 description: Het installatieregister bevat informatie over installatie-eenheden achter aansluitingen op het energienet, voor zover deze door of namens aangeslotenen zijn aangemeld bij de netbeheerder.
+comments:
+  - Het aansluitingenregister wordt gezamenlijk beheerd door de netbeheerders en bevat zowel fysieke als administratieve gegevens over aansluitingen. Het register is essentieel voor de werking van de energiemarkt omdat het de basis vormt voor processen zoals leverancierswisselingen, verhuizingen en facturatie.
+  - De verplichting tot het bijhouden van het aansluitingenregister is vastgelegd in de Informatiecode elektriciteit en gas, vastgesteld door de Autoriteit Consument en Markt (ACM).
+  - |
+    Wijzigingen:
+    
+    1. `aanmelder` is toegevoegd als entiteit
+    2. `KVK-nummer` is toegevoegd aan aanmelder omdat deze eigenschap nog gebruikt wordt 
+    3. `oost-west opstelling` is als eigenschap toegevoegd aan entiteit `Groep van opwekkingseenheden`
 see_also:
   - nce:hoofdstuk=13&paragraaf=13.1&g=2025-09-01
 prefixes:
@@ -26,7 +35,7 @@ classes:
     class_uri: Aanmelder
     annotations:
       tijdlijn_registratie: true
-    description:  eigenschappen van een persoon of bedrijf die een installatie aanmeld
+    description: eigenschappen van een persoon of bedrijf die een installatie aanmeld
     attributes:
       soort:
         description: categorie waartoe de aanmelder behoort
@@ -34,28 +43,28 @@ classes:
         required: true
       naam:
         description: statutaire naam van de niet-natuurlijke persoon of achternaam zonder voorvoegsel van de natuurlijke persoon
-        required: false
       bedrijfsnaam:
-        description: de naam van het bedrijf van de Aanmelder
-        required: false
-      kvk-nummer: 
-        description: Een uniek 8-cijferig registratienummer van de Nederlandse Kamer van Koophandel dat de officiële inschrijving van een bedrijf in het Handelsregister bewijst
-        required: false
-      straatnaam + huisnummer:
-        description: een combinatie van de straatnaam en het huisnummer
-        required: false
+        description: naam van het bedrijf van de aanmelder
+      KVK-nummer: 
+        description: uniek 8-cijferig registratienummer van de Nederlandse Kamer van Koophandel dat de officiële inschrijving van een bedrijf in het Handelsregister bewijst
+        range: Code
+      straatnaam:
+        description: naam om openbare ruimten zoals straten, lanen, wegen en stegen mee aan te duiden, of 'antwoordnummer' of 'postbus'
+      huisnummer:
+        description: aan een verblijfsobject, standplaats of ligplaats toegekend nummer, een antwoordnummer of een postbusnummer
+        range: Geheel getal
+      huisnummertoevoeging:
+        description: aan een verblijfsobject, standplaats of ligplaats toegekende nadere toevoeging aan een huisnummer inclusief huisletter
       postcode:
-        description: een vastgestelde code behorende bij een bepaalde combinatie van een straatnaam en een huisnummer
-        required: false
-      woonplaats: 
+        description: reeks tekens die in een postadres wordt opgenomen om het automatisch sorteren van de post gemakkelijker te maken
+        range: Code
+      woonplaatsnaam: 
         description: een door de gemeente benoemd gebied
-        required: false
       telefoonnummer: 
         description: uniek nummer dat toegekend wordt om een aansluiting op het publieke telefoonnet te identificeren, bestaande uit het plusteken, een landnummer, een netnummer en een abonneenummer
-        required: false
+        range: Code
       e-mailadress: 
         description: uniek adres voor digitaal, elektronisch postverkeer
-        required: false
   Beveiligingsinstelling:
     class_uri: Beveiligingsinstelling
     broad_mappings:
@@ -208,13 +217,6 @@ classes:
       identificatie:
         unique_key_slots:
           - EAN-code
-  # Elektriciteitslaadeenheid:
-  #   class_uri: Elektriciteitslaadeenheid
-  #   is_a: Elektriciteitsinstallatie-eenheid
-  #   exact_mappings:
-  #     - begrip:zebbw #elektriciteitslaadeenheid
-  #   comments:
-  #     - ⚠ Het is nog niet duidelijk hoe laadpunten gegroepeerd moeten worden in laadeenheden. Dit heeft namelijk direct effect op het type (A, B, C, D) en daarmee de aansluitvoorwaarden en verplichtingen die gelden voor de aangeslotene. Niet elke laadlocatie bestaat uit laadpalen, denk aan bogen, muren, etc.
   Elektriciteitsopslageenheid:
     class_uri: Elektriciteitsopslageenheid
     is_a: Elektriciteitsinstallatie-eenheid
@@ -228,9 +230,9 @@ classes:
         description: aanduiding die aangeeft of de opgeslagen energie afkomstig is uit het energienet, die installatie of beide
         range: Energieherkomst
         required: true
-      gebruikte technologie: #todo
+      gebruikte technologie: 
         description: manier waarop energie is opgewekt
-        range: Gebruikte  technologie
+        range: Gebruikte technologie
         required: true
       maximaal bruikbare hoeveelheid energie:
         description: hoeveelheid elektrische energie die maximaal in een elektriciteitsopslageenheid kan worden geïnjecteerd en daaruit kan worden onttrokken voor het energienet
@@ -376,7 +378,7 @@ classes:
       azimut:
         description: horizontale hoek, gemeten met de klok mee vanaf het geografische noorden
         comments:
-          - Bij een oost-westopstelling zijn er minimaal twee groepen, elk met een eigen azimut.
+          - Bij een oost-west opstelling zijn er minimaal twee groepen, elk met een eigen azimut.
         range: Reëel getal
         unit:
           ucum_code: deg
@@ -387,7 +389,7 @@ classes:
           ucum_code: deg
       oost-west opstelling:
         description: indicatie of de groep van opwekkingseenheden in een oost-west opstelling staat 
-        range: 
+        range: Waarheidswaarde
       #relaties
       deel van:
         range: Elektriciteitsproductie-eenheid
@@ -526,7 +528,7 @@ enums:
       maaiveld:
         description: aardoppervlak inclusief bestrating en aardwerken zoals een talud of dijk, maar zonder vegetatie en bouwwerken zoals huizen en viaducten
       NAP:
-        description: Normaal Amsterdams Pijl
+        description: normaal Amsterdams Pijl
   Onregelmatigheid:
     permissible_values:
       U<:
@@ -579,23 +581,16 @@ enums:
         description: onbekend
       anders:
         description: onbekend
-Gebruikte  technologie:
+  Gebruikte technologie:
     permissible_values:
       chemisch:
-        description: Energieopslag via chemische verbindingen en moleculaire structuren
+        description: energieopslag via chemische verbindingen en moleculaire structuren
       elektrochemisch:
-        description: Energieopslag via chemische reacties in een gesloten systeem
+        description: energieopslag via chemische reacties in een gesloten systeem
       mechanisch:
-        description: Energieopslag via kinetische of potentiële energie
+        description: energieopslag via kinetische of potentiële energie
       thermisch:
-        description: Energieopslag door het opwarmen of koelen van materialen
-Oost-west opstelling:
-  permissible_values:
-    true: 
-      description: De groep van opwekkingseenheden staan in oost-west opstelling
-    false:
-      description: De groep van opwekkingseenheden staan niet in oost-west opstelling
-    null: Onbekend of niet van toepassing
+        description: energieopslag door het opwarmen of koelen van materialen
 types:
   Schakelgroep wikkelingen:
     typeof: Code

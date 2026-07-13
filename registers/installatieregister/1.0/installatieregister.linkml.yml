@@ -59,7 +59,7 @@ classes:
         description: reeks tekens die in een postadres wordt opgenomen om het automatisch sorteren van de post gemakkelijker te maken
         range: Code
       woonplaatsnaam: 
-        description: een door de gemeente benoemd gebied
+        description: aanduiding van een gebied met bewoning zoals een stad of dorp
       telefoonnummer: 
         description: uniek nummer dat toegekend wordt om een aansluiting op het publieke telefoonnet te identificeren, bestaande uit het plusteken, een landnummer, een netnummer en een abonneenummer
         range: Code

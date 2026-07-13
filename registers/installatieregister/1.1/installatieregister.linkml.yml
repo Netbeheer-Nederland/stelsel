@@ -4,8 +4,7 @@ title: Installatieregister
 version: "1.1-draft"
 description: Het installatieregister bevat informatie over installatie-eenheden achter aansluitingen op het energienet, voor zover deze door of namens aangeslotenen zijn aangemeld bij de netbeheerder.
 comments:
-  - Het aansluitingenregister wordt gezamenlijk beheerd door de netbeheerders en bevat zowel fysieke als administratieve gegevens over aansluitingen. Het register is essentieel voor de werking van de energiemarkt omdat het de basis vormt voor processen zoals leverancierswisselingen, verhuizingen en facturatie.
-  - De verplichting tot het bijhouden van het aansluitingenregister is vastgelegd in de Informatiecode elektriciteit en gas, vastgesteld door de Autoriteit Consument en Markt (ACM).
+  - Het installatieregister wordt gezamenlijk beheerd door de netbeheerders en bevat zowel fysieke als administratieve gegevens over installaties.
   - |
     Wijzigingen:
     

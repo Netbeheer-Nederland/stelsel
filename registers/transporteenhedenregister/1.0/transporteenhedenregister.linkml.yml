@@ -87,15 +87,6 @@ classes:
         description: aantal routedelen dat onbeschikbaar moet kunnen zijn zonder (lange) onderbreking van het energietransport
         range: Geheel getal
         required: true
-      beoogde regelbare transportcapaciteit:
-        description: in het netontwerp voorziene transportcapaciteit die door toepassing van regelmiddelen kan worden benut om overschrijding van de aanwezige transportcapaciteit te voorkomen
-        source: bce:g=2026-04-25
-        comments:
-          - Regelmiddelen zijn onder andere het gecontroleerd afschakelen van zuivere invoeding, capaciteitssturing (inclusief statische capaciteitsbeperking) en redispatchbiedingen. Alternatieve transportrechten gelden niet als regelmiddel maar dragen bij aan de benodigde transportcapaciteit.
-        required: true
-        range: Decimaal getal
-        unit:
-          ucum_code: MW
       # relaties:
       op:
         range: Transporteenheid
@@ -123,7 +114,7 @@ classes:
           - De noodcapaciteit is doorgaans hoger dan de normale capaciteit omdat aangenomen wordt dat alternatieve bedieningssituaties kort duren.
           - Doorgaans gelijk aan de kleinste noodcapaciteit van de netelementen waaruit het routedeel bestaat.
         required: true
-        range: Reëel getal
+        range: Decimaal getal
         unit:
           ucum_code: MVA
       normale capaciteit:
@@ -132,7 +123,7 @@ classes:
           - Doorgaans gelijk aan de kleinste normale capaciteit van de netelementen waaruit het routedeel bestaat.
           - In elektriciteitsnetten is op het niveau van het netelement alleen de thermische limiet van toepassing. Dit is de maximale hoeveelheid stroom (I-max) die het fysieke materiaal (koper of aluminium) continu kan verdragen zonder te smelten of te beschadigen. Factoren als spanningsschommelingen of redundantie spelen op dit individuele-elementniveau nog geen rol.
         required: true
-        range: Reëel getal
+        range: Decimaal getal
         unit:
           ucum_code: MVA
       # relaties:
@@ -214,7 +205,7 @@ classes:
       noodcapaciteit:
         description: transportcapaciteit in alternatieve bedieningssituaties
         required: true
-        range: Reëel getal
+        range: Decimaal getal
         unit:
           ucum_code: MVA
       normale capaciteit:
@@ -222,9 +213,19 @@ classes:
         comments:
           - De capaciteit van een routedeel in een elektriciteitsnet wordt in eerste instantie bepaald door de thermische zwakste schakel van de onderliggende netelementen. Omdat een routedeel echter een specifieke lengte en impedantie heeft, is dit ook het niveau waarop spanningsval en spanningsopdrijving (als ontwerpaannamen) voor het eerst ontstaan.
         required: true
-        range: Reëel getal
+        range: Decimaal getal
         unit:
           ucum_code: MVA
+      beoogde regelbare transportcapaciteit:
+        description: in het netontwerp voorziene transportcapaciteit die door toepassing van regelmiddelen kan worden benut om overschrijding van de aanwezige transportcapaciteit te voorkomen
+        see_also:
+          - bce:g=2026-04-25
+        comments:
+          - Regelmiddelen zijn onder andere het gecontroleerd afschakelen van zuivere invoeding, capaciteitssturing (inclusief statische capaciteitsbeperking) en redispatchbiedingen. Alternatieve transportrechten gelden niet als regelmiddel maar dragen bij aan de benodigde transportcapaciteit.
+        required: true
+        range: Decimaal getal
+        unit:
+          ucum_code: MW
       # relaties:
       naar:
         range: Knooppunt

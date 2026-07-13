@@ -5,7 +5,7 @@ version: 1.0
 description: Het installatieregister bevat informatie over installatie-eenheden achter aansluitingen op het energienet, voor zover deze door of namens aangeslotenen zijn aangemeld bij de netbeheerder.
 comments:
   - Het installatieregister wordt gezamenlijk beheerd door de netbeheerders en bevat zowel fysieke als administratieve gegevens over installaties.
-
+  - |
     Wijzigingen:
     
     1. `aanmelder` is toegevoegd als entiteit

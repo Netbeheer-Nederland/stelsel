@@ -5,12 +5,11 @@ version: 1.0
 description: Het installatieregister bevat informatie over installatie-eenheden achter aansluitingen op het energienet, voor zover deze door of namens aangeslotenen zijn aangemeld bij de netbeheerder.
 comments:
   - Het installatieregister wordt gezamenlijk beheerd door de netbeheerders en bevat zowel fysieke als administratieve gegevens over installaties.
-  - |
+
     Wijzigingen:
     
     1. `aanmelder` is toegevoegd als entiteit
-    2. `KVK-nummer` is toegevoegd aan aanmelder omdat deze eigenschap nog gebruikt wordt 
-    3. `oost-west opstelling` is als eigenschap toegevoegd aan entiteit `Groep van opwekkingseenheden`
+    2. `oost-west opstelling` is als eigenschap toegevoegd aan entiteit `Groep van opwekkingseenheden`
 see_also:
   - nce:hoofdstuk=13&paragraaf=13.1&g=2025-09-01
 prefixes:
@@ -34,7 +33,7 @@ classes:
     class_uri: Aanmelder
     annotations:
       tijdlijn_registratie: true
-    description: eigenschappen van een persoon of bedrijf die een installatie aanmeld
+    description: natuurlijke persoon of organisatie die een elektriciteitsinstallatie ter registratie opgeeft
     attributes:
       soort:
         description: categorie waartoe de aanmelder behoort

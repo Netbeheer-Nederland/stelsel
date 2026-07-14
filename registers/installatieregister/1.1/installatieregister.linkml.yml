@@ -273,11 +273,13 @@ classes:
         range: Reëel getal
         unit:
           ucum_code: m
-  Elektriciteitslaadeenheid: #todo
+  Elektriciteitslaadeenheid: #todo en nog te checken
     class_uri: Elektriciteitslaadeenheid
     is_a: Elektriciteitsinstallatie-eenheid
     exact_mappings: 
-      - begrip: zebbw #elektriciteitslaadeenheid of kwdt2 laadinstallatie 
+      - begrip:zebbw #elektriciteitslaadeenheid
+    see_also:
+      - https://www.rvo.nl/files/file/2021/06/Laden%20van%20Elektrische%20Voertuigen%20-%20Definities%20en%20Toelichting%20januari%202021.pdf
     attributes:
   GCvO-installatie:
     class_uri: GCvO-installatie

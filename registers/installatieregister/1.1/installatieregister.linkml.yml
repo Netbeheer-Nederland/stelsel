@@ -308,10 +308,10 @@ classes:
       toegangelijkheidscategorie:
         description: categorie die aangeeft welke groep van personen toegang heeft tot de laadpunten
         range: Toegankelijkheidscategorie
-      stuurbaarheid: #todo enum toeveogen en nog te checken
+      stuurbaarheid: 
         description: categorie die aangeeft op welke manier de laadpunten op afstand kunnen worden aangestuurd
         range: Stuurbaarheid
-      sturingsprotocol: #todo enum toeveogen en nog te checken
+      sturingsprotocol:
         description: protocol dat wordt gebruikt om de laadpunten op afstand aan te sturen
         range: Sturingsprotocol
       #relaties

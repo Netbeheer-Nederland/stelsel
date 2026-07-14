@@ -661,8 +661,7 @@ enums:
         description: Open Automated Demand Response, een open protocol dat wordt gebruikt voor het automatiseren van vraagrespons in energienetwerken, inclusief het aansturen van laadpunten voor elektrische voertuigen
       andere:
         description: elk ander protocol dat wordt gebruikt om laadpunten op afstand aan te sturen, zoals bijvoorbeeld MQTT of RESTful API's
-      OpenADR:
-        description: Open Automated Demand Response, een open protocol dat wordt gebruikt voor het automatiseren van vraagrespons in energienetwerken, inclusief het aansturen van laadpunten voor elektrische voertuigen
+
 types:
   Schakelgroep wikkelingen:
     typeof: Code

@@ -84,21 +84,22 @@ for file_path in files:
         # B. Attributen (slots) BINNEN de Class
         attributes = class_def.get('attributes', {})
 
-        for attr_name, attr_def in attributes.items():
-            # Veiligheid: soms is een attribuutdefinitie leeg of een string
-            if not isinstance(attr_def, dict): continue
+        if attributes:
+            for attr_name, attr_def in attributes.items():
+                # Veiligheid: soms is een attribuutdefinitie leeg of een string
+                if not isinstance(attr_def, dict): continue
 
-            attr_mappings = []
-            attr_mappings.extend(attr_def.get('exact_mappings', []))
-            attr_mappings.extend(attr_def.get('close_mappings', []))
-            attr_mappings.extend(attr_def.get('related_mappings', []))
-            attr_mappings.extend(attr_def.get('narrow_mappings', []))
-            attr_mappings.extend(attr_def.get('broad_mappings', []))
-            
-            for m in attr_mappings:
-                full_map_uri = expand_curie(m, prefixes)
-                display_name = f"{class_name}: {attr_name}"
-                add_usage(usages, full_map_uri, model_title, model_id, display_name, "eigenschap", None)
+                attr_mappings = []
+                attr_mappings.extend(attr_def.get('exact_mappings', []))
+                attr_mappings.extend(attr_def.get('close_mappings', []))
+                attr_mappings.extend(attr_def.get('related_mappings', []))
+                attr_mappings.extend(attr_def.get('narrow_mappings', []))
+                attr_mappings.extend(attr_def.get('broad_mappings', []))
+                
+                for m in attr_mappings:
+                    full_map_uri = expand_curie(m, prefixes)
+                    display_name = f"{class_name}: {attr_name}"
+                    add_usage(usages, full_map_uri, model_title, model_id, display_name, "eigenschap", None)
 
     # 2. SLOTS (losse definities van eigenschappen)
     for slot_name, slot_def in data.get('slots', {}).items():

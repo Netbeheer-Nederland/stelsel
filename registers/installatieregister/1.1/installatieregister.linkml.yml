@@ -8,8 +8,8 @@ comments:
   - |
     Wijzigingen:
     
-    1.  `Elektriciteitslaadeenheid' is toegevoegd als entiteit
-    2. `Groep van laadpunten' is toegevoegd als entiteit
+    1. `Elektriciteitslaadeenheid` is toegevoegd als entiteit
+    2. `Groep van laadpunten` is toegevoegd als entiteit
     
 see_also:
   - nce:hoofdstuk=13&paragraaf=13.1&g=2025-09-01

@@ -8,7 +8,7 @@ comments:
   - |
     Wijzigingen:
     
-    1. Het installatieregister is naar "1.1-draft" gebracht voor toekomstige aanpassingen voor het faciliteren van de entiteit `Elektriciteitslaadeenheid'
+    1.  `Elektriciteitslaadeenheid' is toegevoegd als entiteit
     
 see_also:
   - nce:hoofdstuk=13&paragraaf=13.1&g=2025-09-01
@@ -273,6 +273,54 @@ classes:
         range: Reëel getal
         unit:
           ucum_code: m
+  Elektriciteitslaadeenheid: #todo en nog te checken
+    class_uri: Elektriciteitslaadeenheid
+    is_a: Elektriciteitsinstallatie-eenheid
+    exact_mappings: 
+      - begrip:zebbw #elektriciteitslaadeenheid
+    see_also:
+      - https://www.rvo.nl/files/file/2021/06/Laden%20van%20Elektrische%20Voertuigen%20-%20Definities%20en%20Toelichting%20januari%202021.pdf
+    attributes:
+  Groep van laadpunten:
+    class_uri: Groep-van-laadpunten
+    narrow_mappings:
+      - begrip:qffcy #laadpunt
+    description: verzameling van laadpunten die een gemeenschappelijk karakter hebben
+    slots:
+      - fabrikant
+      - typeaanduiding
+    attributes:
+      aantal laadpunten:
+        description: hoeveelheid laadpunten in de groep
+        range: Geheel getal
+        required: true
+      nominaal afnamevermogen per laadpunt:
+        description: door de fabrikant aangegeven maximale vermogen bij continu gebruik waarbij een maximaal rendement wordt behaald
+        range: Decimaal getal
+        required: true
+        unit:
+          ucum_code: kW
+      nominaal invoedvermogen per laadpunt:
+        description: door de fabrikant aangegeven maximale vermogen bij continu gebruik waarbij een maximaal rendement wordt behaald
+        range: Decimaal getal
+        unit:
+          ucum_code: kW
+      toegangelijkheidscategorie:
+        description: categorie die aangeeft welke groep van personen toegang heeft tot de laadpunten
+        range: Toegankelijkheidscategorie
+      stuurbaarheid: 
+        description: categorie die aangeeft op welke manier de laadpunten op afstand kunnen worden aangestuurd
+        range: Stuurbaarheid
+      sturingsprotocol:
+        description: protocol dat wordt gebruikt om de laadpunten op afstand aan te sturen
+        range: Sturingsprotocol
+      #relaties
+      deel van:
+        range: Elektriciteitslaadeenheid
+        required: true
+        multivalued: false
+        annotations:
+          inverse_cardinality: "1..*"
   GCvO-installatie:
     class_uri: GCvO-installatie
     broad_mappings:
@@ -589,6 +637,31 @@ enums:
         description: energieopslag via kinetische of potentiële energie
       thermisch:
         description: energieopslag door het opwarmen of koelen van materialen
+  Toegankelijkheidscategorie:
+    permissible_values:
+      openbaar:
+        description: voor iedereen toegankelijk
+      particulier:
+        description: alleen toegankelijk voor een specifieke groep van personen
+      zakelijk:
+        description: alleen toegankelijk voor een specifieke groep van personen die een zakelijke relatie hebben met de eigenaar van de laadpunten
+  Stuurbaarheid:
+    permissible_values:
+      volledig stuurbaar:
+        description: laadpunten kunnen op afstand volledig worden aangestuurd, inclusief het starten en stoppen van het laadproces en het aanpassen van de laadsnelheid
+      beperkt stuurbaar:
+        description: laadpunten kunnen op afstand beperkt worden aangestuurd, bijvoorbeeld alleen het starten en stoppen van het laadproces, maar niet het aanpassen van de laadsnelheid
+      niet stuurbaar:
+        description: laadpunten kunnen niet op afstand worden aangestuurd, alleen lokaal bediend door de gebruiker
+  Sturingsprotocol:
+    permissible_values:
+      OCPP:
+        description: Open Charge Point Protocol, een open communicatieprotocol dat wordt gebruikt voor het beheren en monitoren van laadpunten voor elektrische voertuigen
+      OpenADR:
+        description: Open Automated Demand Response, een open protocol dat wordt gebruikt voor het automatiseren van vraagrespons in energienetwerken, inclusief het aansturen van laadpunten voor elektrische voertuigen
+      andere:
+        description: elk ander protocol dat wordt gebruikt om laadpunten op afstand aan te sturen, zoals bijvoorbeeld MQTT of RESTful API's
+
 types:
   Schakelgroep wikkelingen:
     typeof: Code

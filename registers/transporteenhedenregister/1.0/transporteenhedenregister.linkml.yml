@@ -64,6 +64,50 @@ classes:
       identificatie:
         unique_key_slots:
           - tussen
+  Geleidend netelement:
+    class_uri: Geleidend-netelement
+    broad_mappings:
+      - begrip:a4ejc #netfunctie
+    description: elementaire functionaliteit op een bepaalde plek in het energienet dat tenminste de (potentiële) geleiding van een energiedrager omvat
+    annotations:
+      tijdlijn_geldigheid: true
+    slots:
+      - identificatie
+    attributes:
+      noodcapaciteit:
+        description: transportcapaciteit in alternatieve bedieningssituaties
+        comments:
+          - De noodcapaciteit is doorgaans hoger dan de normale capaciteit omdat aangenomen wordt dat alternatieve bedieningssituaties kort duren.
+          - Doorgaans gelijk aan de kleinste noodcapaciteit van de netelementen waaruit het routedeel bestaat.
+        required: true
+        range: Decimaal getal
+        unit:
+          ucum_code: MVA
+      nominale capaciteit:
+        description: door de fabrikant aangegeven maximale capaciteit bij continu gebruik onder ideale omstandigheden
+        required: true
+        range: Decimaal getal
+        unit:
+          ucum_code: MVA
+      normale capaciteit:
+        description: transportcapaciteit in de standaardbedieningssituatie
+        comments:
+          - In elektriciteitsnetten is op het niveau van het netelement alleen de thermische limiet van toepassing. Dit is de maximale hoeveelheid stroom (I-max) die het fysieke materiaal (koper of aluminium) continu kan verdragen zonder te smelten of te beschadigen. Factoren als spanningsschommelingen of redundantie spelen op dit individuele-elementniveau nog geen rol.
+        required: true
+        range: Decimaal getal
+        unit:
+          ucum_code: MVA
+      # relaties:
+      verbonden met:
+        range: Geleidend netelement
+        required: false
+        multivalued: true
+        annotations:
+          inverse_cardinality: "*"
+    unique_keys:
+      identificatie:
+        unique_key_slots:
+          - identificatie
   Gelijktijdigheidsbeperking:
     class_uri: gelijktijdigheidsbeperking
     broad_mappings:

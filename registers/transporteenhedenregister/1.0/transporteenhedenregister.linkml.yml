@@ -69,6 +69,8 @@ classes:
     broad_mappings:
       - begrip:a4ejc #netfunctie
     description: elementaire functionaliteit op een bepaalde plek in het energienet dat tenminste de (potentiële) geleiding van een energiedrager omvat
+    comments:
+      - Komt overeen met een [TopologicalNode](https://modellen.netbeheernederland.nl/tc57cim/cim17/schema/class/TopologicalNode.html) in CIM.
     annotations:
       tijdlijn_geldigheid: true
     slots:
@@ -189,6 +191,8 @@ classes:
           inverse_cardinality: "*"
       toegang voor:
         description: geeft aan dat het knooppunt fungeert als de functionele toegangspoort tot het energienet voor het overdrachtspunt (het contractuele gebruiksrecht van de klant)
+        comments:
+          - Sommige overdrachtspunten zijn een bron van (gecontracteerde) transportcapaciteit zoals overdrachtspunten van netkoppelingen, interconnectoren of grote energieproducenten.
         range: Overdrachtspunt
         required: false
         multivalued: true
@@ -241,7 +245,7 @@ classes:
         required: true
         range: Toestand
       # relaties:
-      begrensd door:
+      samengesteld uit:
         range: Geleidend netelement
         required: true
         multivalued: true
@@ -274,7 +278,7 @@ classes:
         required: true
         range: Begrenzingstopologie
       # relaties:
-      begrensd door:
+      op:
         range: Routedeel
         required: true
         multivalued: true
@@ -283,7 +287,7 @@ classes:
     unique_keys:
       identificatie:
         unique_key_slots:
-          - begrensd door
+          - op
           - identificatie
   Transporteenheid:
     class_uri: Transporteenheid
@@ -312,20 +316,8 @@ classes:
         multivalued: false
         annotations:
           inverse_cardinality: "*"
-      beschikbaar door:
-        description: overdrachtspunt via welke de transportcapaciteit wordt ontsloten (herkomst)
-        comments:
-          - Bijvoorbeeld het overdrachtspunt van een energieproducent of bovenliggende netkoppeling.
-        range: Overdrachtspunt
-        required: false
-        multivalued: true
-        annotations:
-          inverse_cardinality: "*"
-      gezamenlijke bovengrens voor:
-        description: geeft aan dat de transporteenheid de maximale transportcapaciteit begrenst voor de betreffende knooppunten gezamenlijk
-        comments:
-          - Dit is een afgeleide relatie waarbij de som van de benodigde transportcapaciteiten op deze knooppunten de aanwezige transportcapaciteit van de transporteenheid niet mag overschrijden (tenzij er regelbaar vermogen wordt ingezet).
-        range: Knooppunt
+      samengesteld uit:
+        range: Routedeel
         required: true
         multivalued: true
         annotations:
@@ -352,20 +344,6 @@ slots:
     required: true
 
 enums:
-  Begrenzingstopologie:
-    permissible_values:
-      parallel:
-        description: begrenzing van direct parallelle verbindingen
-        comments:
-          - De zone bestaat uitsluitend uit de begrenzende routedelen zélf.
-      ring:
-        description: begrenzing van een lusvormige netwerkstructuur
-        comments:
-          - De zone bestaat uit het kortste pad tussen de begrenzende routedelen, inclusief die routedelen.
-      vermaasd:
-        description: begrenzing van een complexe netwerkstructuur met meer dan twee grenzen
-        comments:
-          - De zone bestaat uit álle paden die volledig besloten liggen binnen de 3, 4 of meer opgegeven grens-routedelen (de gesloten snede).
   Netvlak:
     description: deel van het energienet waarvoor geldt dat de netgebruikers aangesloten op dit deel van het net eenzelfde tarief in rekening krijgen
     source: bce:g=2026-07-09

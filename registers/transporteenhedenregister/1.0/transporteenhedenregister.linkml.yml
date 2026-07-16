@@ -273,10 +273,6 @@ classes:
           - Waarde 0 staat voor geen reserve (N-0). Waarde 1 staat voor enkelvoudige storingsreserve (N-1). Waarde 2 staat voor tweevoudige storingsreserve (N-2).
         range: Geheel getal
         required: true
-      topologie:
-        description: manier waarop de begrenzende routedelen topologisch met elkaar samenhangen
-        required: true
-        range: Begrenzingstopologie
       # relaties:
       op:
         range: Routedeel

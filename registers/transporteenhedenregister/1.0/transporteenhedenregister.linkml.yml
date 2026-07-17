@@ -69,8 +69,6 @@ classes:
     broad_mappings:
       - begrip:a4ejc #netfunctie
     description: elementaire functionaliteit op een bepaalde plek in het energienet dat tenminste de (potentiële) geleiding van een energiedrager omvat
-    comments:
-      - Komt overeen met een [TopologicalNode](https://modellen.netbeheernederland.nl/tc57cim/cim17/schema/class/TopologicalNode.html) in CIM.
     annotations:
       tijdlijn_geldigheid: true
     slots:

@@ -253,36 +253,6 @@ classes:
       identificatie:
         unique_key_slots:
           - identificatie
-  Storingsreservegroep:
-    class_uri: Storingsreservegroep
-    broad_mappings:
-      - begrip:a4ejc #netfunctie
-    description: verzameling routedelen die elkaar bij uitval kunnen opvangen om de transportzekerheid te garanderen
-    annotations:
-      tijdlijn_geldigheid: true
-    attributes:
-      richting:
-        description: ontwerprichting waarop de storingsreserve van toepassing is
-        range: Ontwerprichting
-        required: true
-      niveau:
-        description: aantal routedelen dat onbeschikbaar moet kunnen zijn zonder (lange) onderbreking van de transportdienst
-        comments:
-          - Waarde 0 staat voor geen reserve (N-0). Waarde 1 staat voor enkelvoudige storingsreserve (N-1). Waarde 2 staat voor tweevoudige storingsreserve (N-2).
-        range: Geheel getal
-        required: true
-      # relaties:
-      samengesteld uit:
-        range: Routedeel
-        required: true
-        multivalued: true
-        annotations:
-          inverse_cardinality: "*"
-    unique_keys:
-      identificatie:
-        unique_key_slots:
-          - samengesteld uit
-          - richting
   Transporteenheid:
     class_uri: Transporteenheid
     broad_mappings:
@@ -304,9 +274,9 @@ classes:
         range: Ontwerprichting
         required: true
       storingsreserveniveau:
-        description: mate van transportzekerheid waarmee de aanwezige transportcapaciteit is bepaald
+        description: aantal routedelen dat onbeschikbaar moet kunnen zijn zonder (lange) onderbreking van de transportdienst
         comments:
-          - Alfeidbaar uit de storingsreservegroep.
+          - Waarde 0 staat voor geen reserve (N-0). Waarde 1 staat voor enkelvoudige storingsreserve (N-1). Waarde 2 staat voor tweevoudige storingsreserve (N-2).
         range: Geheel getal
         required: true
       # relaties:

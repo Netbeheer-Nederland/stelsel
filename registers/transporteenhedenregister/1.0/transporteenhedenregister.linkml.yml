@@ -44,13 +44,13 @@ classes:
       noodcapaciteit:
         description: transportcapaciteit in alternatieve bedieningssituaties
         required: true
-        range: Reëel getal
+        range: Decimaal getal
         unit:
           ucum_code: MVA
       normale capaciteit:
         description: transportcapaciteit in de standaardbedieningssituatie
         required: true
-        range: Reëel getal
+        range: Decimaal getal
         unit:
           ucum_code: MVA
       # relaties:
@@ -253,11 +253,11 @@ classes:
       identificatie:
         unique_key_slots:
           - identificatie
-  Storingsreserve:
-    class_uri: Storingsreserve
+  Storingsreservegroep:
+    class_uri: Storingsreservegroep
     broad_mappings:
       - begrip:a4ejc #netfunctie
-    description: groepering van routedelen die elkaar bij uitval kunnen opvangen om de transportzekerheid te garanderen
+    description: verzameling routedelen die elkaar bij uitval kunnen opvangen om de transportzekerheid te garanderen
     annotations:
       tijdlijn_geldigheid: true
     attributes:
@@ -272,7 +272,7 @@ classes:
         range: Geheel getal
         required: true
       # relaties:
-      op:
+      samengesteld uit:
         range: Routedeel
         required: true
         multivalued: true
@@ -281,8 +281,8 @@ classes:
     unique_keys:
       identificatie:
         unique_key_slots:
-          - op
-          - identificatie
+          - samengesteld uit
+          - richting
   Transporteenheid:
     class_uri: Transporteenheid
     broad_mappings:
@@ -302,6 +302,12 @@ classes:
       richting:
         description: geeft aan of de transporteenheid stroomafwaarts dan wel stroomopwaarts wordt beschouwd
         range: Ontwerprichting
+        required: true
+      storingsreserveniveau:
+        description: mate van transportzekerheid waarmee de aanwezige transportcapaciteit is bepaald
+        comments:
+          - Alfeidbaar uit de storingsreservegroep.
+        range: Geheel getal
         required: true
       # relaties:
       beheerd door:
@@ -362,6 +368,8 @@ enums:
         description: transport vanaf een centrale invoeder naar decentrale afnemers
       stroomopwaarts:
         description: transport vanaf decentrale invoeders naar een bovenliggend energienet
+      bidirectioneel:
+        description: stroomafwaarts en stroomopwaarts (ongericht)
   Standaard toestand:
     permissible_values:
       onderbroken:

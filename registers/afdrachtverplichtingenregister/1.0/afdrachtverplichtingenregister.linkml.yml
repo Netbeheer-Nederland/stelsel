@@ -2,9 +2,9 @@ id: https://modellen.netbeheernederland.nl/stelsel/registers/afdrachtverplichtin
 name: afdrachtverplichtingenregister # kebab-case
 title: Afdrachtverplichtingenregister # natuurlijke schrijfwijze
 version: 1.0-draft # geen 'draft' in de mapnaam
-description: Het afdrachtverplichtingenregister beschrijft het conceptuele informatiemodel dat ten grondslag ligt aan het afdrachtproces. # definieer de verzameling dingen die geregistreerd moeten worden en waarom
+description: Het afdrachtverplichtingenregister bevat de verklaringen van netbeheerders aan energieleveranciers **[alleen elektriciteit?]** over de verwachte en daadwerkelijk uitgewisselde energie zodat de energieleveranciers de transportkosten **[netbeheerkosten?]** hiervan kunnen verrekenen met hun afnemers **[alleen KA?]**. # definieer de verzameling dingen die geregistreerd moeten worden en waarom
 comments:
-  - Voorbeelden helpen modelleurs.
+  - Het afdrachtverplichtingenregister faciliteert het afdrachtproces.
 see_also: # verwijzing naar gerelateerde externe informatie (voor context of het waarom achter de registratie)
   - iceg:hoofdstuk=2&paragraaf=2.1&z=2025-01-01&g=2025-01-01 # verwijs naar regelgeving met Juriconnect
 prefixes:

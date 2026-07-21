@@ -30,6 +30,18 @@ imports:
 default_range: Tekst
 
 classes:
+  Transporttariefperiode:
+    class_uri: Transporttariefperiode
+#    related_mappings:
+#      - begrip:gnhiy #aansluiting
+    description: periode waarin energie is getransporteerd
+    comments:
+      - Een transporttariefperiode is een blok van een uur, beginnende op het uur, van een maand. Transporttariefperiodes kunnen samengevoegd worden tot langere, maar wel aaneengesloten, periode.
+    annotations:
+      tijdlijn_geldigheid: true
+    slots:
+      - uur (0-23) 
+      - maand (1-12)
   Tarief:
     class_uri: Tarief
     related_mappings:
@@ -77,6 +89,14 @@ slots:
   EAN-code:
     description: unieke cijfercombinatie volgens de Europese Artikelnummer-standaard
     range: Code
+    required: true
+  maand (1-12):
+    description: maand
+    range: Geheel getal
+    required: true
+  uur (0-23):
+    description: uur
+    range: Geheel getal
     required: true
 
 enums:

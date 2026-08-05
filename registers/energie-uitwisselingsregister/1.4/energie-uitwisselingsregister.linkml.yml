@@ -294,11 +294,10 @@ classes:
       - begrip:y4yex #standaardjaarvolume
     comments:
       - Ook wel bekend als standaardjaarafname elektriciteit (SJA), standaardjaarinvoeding elektriciteit (SJI) en standaardjaarverbruik gas (SJV).
-    annotations:
-      tijdlijn_geldigheid: true
     see_also:
       - iceg:hoofdstuk=2&paragraaf=2.1&artikel=2.1.3&g=2025-01-01
     annotations:
+      tijdlijn_geldigheid: true
       tijdlijn_registratie: true
     slots:
       - energierichting

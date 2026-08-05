@@ -30,6 +30,8 @@ classes:
     related_mappings:
       - begrip:tibcm #energie-uitwisseling
     description: etmaalgemiddelde effectieve temperatuur, berekend op basis van de gemiddelde temperatuur en windsnelheid, die wordt gebruikt voor gasallocatieprocessen
+    annotations:
+      tijdlijn_registratie: true
     slots:
       - beginmoment
       - eindmoment
@@ -43,6 +45,8 @@ classes:
     related_mappings:
       - begrip:tibcm #energie-uitwisseling
     description: maandgemiddelde correctiefactor die de hoeveelheid verbruikt gas (in m3) omzet naar energie (in kWh), op basis van de calorische waarde van het gas in een specifiek netgebied
+    annotations:
+      tijdlijn_registratie: true
     slots:
       - beginmoment
       - eindmoment
@@ -92,6 +96,8 @@ classes:
     related_mappings:
       - begrip:tibcm #energie-uitwisseling
     description: per netgebied gewogen gemiddelde hoeveelheid energie die vrijkomt bij verbranding per eenheid van volume
+    annotations:
+      tijdlijn_registratie: true
     slots:
       - beginmoment
       - eindmoment
@@ -114,6 +120,8 @@ classes:
     broad_mappings:
       - begrip:tibcm #energie-uitwisseling
     description: werkelijk voorgekomen maximale belasting van het net door een aangeslotene op een netaansluiting
+    annotations:
+      tijdlijn_registratie: true
     slots:
       - beginmoment
       - eindmoment
@@ -151,6 +159,8 @@ classes:
     broad_mappings:
       - begrip:tibcm #energie-uitwisseling
     description: door een GCvO-installatie ontstane energie
+    annotations:
+      tijdlijn_registratie: true
     slots:
       - beginmoment
       - eindmoment
@@ -181,6 +191,8 @@ classes:
     related_mappings:
       - begrip:tibcm #energie-uitwisseling
     description: relatief deel van uitgewisseld volume in een kalenderjaar
+    annotations:
+      tijdlijn_registratie: true
   Profielfractie gas:
     class_uri: Profielfractie-gas
     is_a: Profielfractie
@@ -224,6 +236,8 @@ classes:
       - Niet te verwarren met restantvolume.
     see_also:
       - mcg:hoofdstuk=5&paragraaf=5.2&artikel=5.2.3&g=2025-05-08
+    annotations:
+      tijdlijn_registratie: true
     slots:
       - beginmoment
       - eenheid
@@ -284,6 +298,8 @@ classes:
       tijdlijn_geldigheid: true
     see_also:
       - iceg:hoofdstuk=2&paragraaf=2.1&artikel=2.1.3&g=2025-01-01
+    annotations:
+      tijdlijn_registratie: true
     slots:
       - energierichting
       - tariefperiode
@@ -312,6 +328,8 @@ classes:
       - eenheid
       - herkomstindicatie
       - waarde
+    annotations:
+      tijdlijn_registratie: true
     attributes:
       moment:
         description: tijdstip
@@ -382,6 +400,8 @@ classes:
     narrow_mappings:
       - begrip:tibcm #energie-uitwisseling
     description: hoeveelheid energie dat is getransporteerd via een bepaald punt
+    annotations:
+      tijdlijn_registratie: true
     slots:
       - beginmoment
       - eindmoment
@@ -437,6 +457,8 @@ classes:
     related_mappings:
       - begrip:tibcm #energie-uitwisseling
     description: verwachting van VertiCer omtrent opgewekte volumes
+    annotations:
+      tijdlijn_registratie: true
     slots:
       - beginmoment
       - eindmoment

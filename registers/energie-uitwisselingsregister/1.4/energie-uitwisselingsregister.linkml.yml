@@ -4,7 +4,7 @@ title: Energie-uitwisselingsregister
 version: 1.4-draft
 description: Het energie-uitwisselingsregister bevat de uitgewisselde energie zoals vastgesteld door een energieleverancier, meetverantwoordelijke partij of netbeheerder (systeembeheerder).
 comments:
-  - Dit register bevat enkel **vastgestelde** standen en volumes, geschikt om te worden **verrekend** met aangeslotenen en **toegewezen** of **toegerekend** aan marktdeelnemers.
+  - Dit register bevat enkel **vastgestelde** standen en volumes, geschikt om te worden **verrekend** met aangeslotenen en **toegewezen**/**toegerekend** aan marktdeelnemers.
   - |
     Voor de berekening van vergoedingen op basis van tijdsafhankelijke transporttarieven zijn relevant:
     

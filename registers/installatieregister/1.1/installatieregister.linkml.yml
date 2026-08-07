@@ -40,25 +40,11 @@ classes:
         description: categorie waartoe de aanmelder behoort
         range: Soort aanmelder
         required: true
-      naam:
-        description: statutaire naam van de niet-natuurlijke persoon of achternaam zonder voorvoegsel van de natuurlijke persoon
-      bedrijfsnaam:
-        description: naam van het bedrijf van de aanmelder
+      persoonsnaam:
+        description: naam van een natuurlijk persoon
       KVK-nummer: 
         description: uniek 8-cijferig registratienummer van de Nederlandse Kamer van Koophandel dat de officiële inschrijving van een bedrijf in het Handelsregister bewijst
         range: Code
-      straatnaam:
-        description: naam om openbare ruimten zoals straten, lanen, wegen en stegen mee aan te duiden, of 'antwoordnummer' of 'postbus'
-      huisnummer:
-        description: aan een verblijfsobject, standplaats of ligplaats toegekend nummer, een antwoordnummer of een postbusnummer
-        range: Geheel getal
-      huisnummertoevoeging:
-        description: aan een verblijfsobject, standplaats of ligplaats toegekende nadere toevoeging aan een huisnummer inclusief huisletter
-      postcode:
-        description: reeks tekens die in een postadres wordt opgenomen om het automatisch sorteren van de post gemakkelijker te maken
-        range: Code
-      woonplaatsnaam: 
-        description: aanduiding van een gebied met bewoning zoals een stad of dorp
       telefoonnummer: 
         description: uniek nummer dat toegekend wordt om een aanmelder op het publieke telefoonnet te identificeren, bestaande uit het plusteken, een landnummer, een netnummer en een abonneenummer
         range: Code
@@ -625,8 +611,6 @@ enums:
       UD:
         description: aangeslotene
       UNK: 
-        description: onbekend
-      anders:
         description: onbekend
   Gebruikte technologie:
     permissible_values:

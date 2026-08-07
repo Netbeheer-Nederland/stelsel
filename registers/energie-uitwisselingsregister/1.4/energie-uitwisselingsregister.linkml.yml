@@ -2,11 +2,31 @@ id: https://modellen.netbeheernederland.nl/stelsel/registers/energie-uitwisselin
 name: energie-uitwisselingsregister
 title: Energie-uitwisselingsregister
 version: 1.4-draft
-description: Het energie-uitwisselingsregister bevat de uitgewisselde energie zoals vastgesteld door een energieleverancier, meetverantwoordelijke of netbeheerder.
+description: Het energie-uitwisselingsregister bevat de uitgewisselde energie zoals vastgesteld door een energieleverancier, meetverantwoordelijke partij of netbeheerder (systeembeheerder).
+comments:
+  - Dit register bevat enkel **vastgestelde** standen en volumes, geschikt om te worden **verrekend** met aangeslotenen en **toegewezen** of **toegerekend** aan marktdeelnemers.
+  - |
+    Voor de berekening van vergoedingen op basis van tijdsafhankelijke transporttarieven zijn relevant:
+    
+    - [Meterstand](#Meterstand)
+    - [Uitgewisseld volume](#Uitgewisseld-volume)
+    - [Restvolume](#Restvolume)
+    - [Standaardjaarvolume](#Standaardjaarvolume)
+    - [Dynamische profielfractie elektriciteit](#Dynamische-profielfractie-elektriciteit)
+    - [Standaard profielfractie elektriciteit](#Standaard-profielfractie-elektriciteit)
+  - |
+    Wijzigingen:
+    
+    1. `profielcategorie` bij gas --> `aansluitingcategorie` (nieuwe regelgeving).
+    2. `profielcategorie` en `vastgesteld afnametype` bij elektriciteit --> `profielcategoriecode` en `profielcategorietype` (nieuwe regelgeving).
+    3. `Allocatiepunt bij aansluiting` vervangen door `Allocatiepunt` (zodat naast aansluitingen ook netgebieden meedoen).
+    4. `Tellerstand` --> `Meterstand` (voorkeursterm in regelgeving).
+    5. `gereconcilieerd` verwijderd (hoort thuis in het reconciliatieproces).
+    6. `resolutie` toegevoegd aan `Uitgewisseld volume` (ontbrak), daarom tevens `interval` op `kWmax` gewijzigd naar `resolutie`.
+    7. ISO 3610-tijdlijnen correct toegepast (geen `tijdlijn geldigheid` bij gebeurtenissen).
 see_also:
   - iceg:g=2025-01-01
-  - bce:g=2025-12-01
-  - bcg:g=2021-06-01
+  - rge:#
 prefixes:
   linkml: https://w3id.org/linkml/
   begrip: https://begrippen.netbeheernederland.nl/id/
@@ -14,11 +34,14 @@ prefixes:
   aansluitingenregister: https://modellen.netbeheernederland.nl/stelsel/registers/aansluitingenregister#
   installatieregister: https://modellen.netbeheernederland.nl/stelsel/registers/installatieregister#
   marktpartijenregister: https://modellen.netbeheernederland.nl/stelsel/registers/marktpartijenregister#
+  asg: https://wetten.overheid.nl/jci1.3:c:BWBR0052342&
   bce: https://wetten.overheid.nl/jci1.3:c:BWBR0037938&
   bcg: https://wetten.overheid.nl/jci1.3:c:BWBR0037923&
+  bcg2026: https://wetten.overheid.nl/jci1.3:c:BWBR0052329&
   iceg: https://wetten.overheid.nl/jci1.3:c:BWBR0037934&
   mcg: https://wetten.overheid.nl/jci1.3:c:BWBR0037925&
   nce: https://wetten.overheid.nl/jci1.3:c:BWBR0037940&
+  rge: https://www.internetconsultatie.nl/regeling_gegevensuitwisseling_energiewet/b1
 default_prefix: this
 imports:
   - ../../basiswaardesoorten
@@ -64,16 +87,16 @@ classes:
         unique_key_slots:
           - beginmoment
           - per
-  Dynamische profielfactie elektriciteit:
-    class_uri: Dynamische-profielfactie-elektriciteit
+  Dynamische profielfractie elektriciteit:
+    class_uri: Dynamische-profielfractie-elektriciteit
     is_a: Profielfractie
     description: per netgebied vastgestelde quotiënt van uitgewisselde elektriciteit in een onbalansverrekeningsperiode en uitgewisselde elektriciteit in het bijbehorende kalenderjaar
     slots:
       - beginmoment
       - eindmoment
       - energierichting
-      - profielcategorie
-      - vastgesteld afnametype
+      - profielcategoriecode
+      - profielcategorietype
       - waarde
     attributes:
       # relaties:
@@ -89,8 +112,8 @@ classes:
           - beginmoment
           - energierichting
           - per
-          - profielcategorie
-          - vastgesteld afnametype
+          - profielcategoriecode
+          - profielcategorietype
   Gewogen gemiddelde calorische waarde:
     class_uri: Gewogen-gemiddelde-calorische-waarde
     related_mappings:
@@ -127,12 +150,9 @@ classes:
       - eindmoment
       - eenheid
       - energierichting
+      - resolutie
       - waarde
     attributes:
-      interval:
-        description: voorgenomen tijdsduur tussen beginmoment en eindmoment
-        range: Tijdsduur
-        required: true
       # relaties:
       op:
         range: Overdrachtspunt
@@ -202,7 +222,7 @@ classes:
     slots:
       - beginmoment
       - eindmoment
-      - profielcategorie
+      - aansluitingcategorie
     attributes:
       regressiecoëfficiënt:
         description: fractie van een (jaar)verbruik dat het temperatuurafhankelijke verbruik per graad Celsius van het desbetreffende uur weergeeft
@@ -226,7 +246,7 @@ classes:
       identificatie:
         unique_key_slots:
           - beginmoment
-          - profielcategorie
+          - aansluitingcategorie
   Restvolume:
     class_uri: Restvolume
     broad_mappings:
@@ -268,8 +288,8 @@ classes:
           - eenheid
           - energierichting
           - op
-  Standaard profielfactie elektriciteit:
-    class_uri: Standaard-profielfactie-elektriciteit
+  Standaard profielfractie elektriciteit:
+    class_uri: Standaard-profielfractie-elektriciteit
     is_a: Profielfractie
     description: verwachte energie-uitwisseling op een allocatiepunt bij gestandaardiseerde condities en op basis van een genormaliseerd jaar
     see_also:
@@ -278,16 +298,16 @@ classes:
       - beginmoment
       - eindmoment
       - energierichting
-      - profielcategorie
-      - vastgesteld afnametype
+      - profielcategoriecode
+      - profielcategorietype
       - waarde
     unique_keys:
       identificatie:
         unique_key_slots:
           - beginmoment
           - energierichting
-          - profielcategorie
-          - vastgesteld afnametype
+          - profielcategoriecode
+          - profielcategorietype
   Standaardjaarvolume:
     class_uri: Standaardjaarvolume
     exact_mappings:
@@ -317,8 +337,8 @@ classes:
           - energierichting
           - op
           - tariefperiode
-  Tellerstand:
-    class_uri: Tellerstand
+  Meterstand:
+    class_uri: Meterstand
     broad_mappings:
       - begrip:tibcm #energie-uitwisseling
     description: cumulatieve energie-uitwisseling
@@ -378,8 +398,8 @@ classes:
           - op
           - tariefzone
           - telwerkindicatie
-  Temperatuur gecorrigeerde profielfactie gas:
-    class_uri: Temperatuur-gecorrigeerde-profielfactie-gas
+  Temperatuur gecorrigeerde profielfractie gas:
+    class_uri: Temperatuur-gecorrigeerde-profielfractie-gas
     is_a: Profielfractie
     description: quotiënt van uitgewisseld gas in een uur en uitgewisseld gas in het bijbehorende kalenderjaar, gecorrigeerd voor temperatuur
     see_also:
@@ -387,13 +407,13 @@ classes:
     slots:
       - beginmoment
       - eindmoment
-      - profielcategorie
+      - aansluitingcategorie
       - waarde
     unique_keys:
       identificatie:
         unique_key_slots:
           - beginmoment
-          - profielcategorie
+          - aansluitingcategorie
   Uitgewisseld volume:
     class_uri: Uitgewisseld-volume
     narrow_mappings:
@@ -407,15 +427,10 @@ classes:
       - eenheid
       - energierichting
       - herkomstindicatie
+      - resolutie
       - tariefperiode
       - waarde
     attributes:
-      gereconcilieerd:
-        description: geeft aan of het volume reeds is gereconcilieerd
-        see_also:
-          - nce:bijlage=2&g=2025-12-01
-        range: boolean
-        required: true
       reparatiemethodiek:
         description: wijze waarop de waarde is gecorrigeerd of berekend
         source: bce:g=2025-12-20
@@ -508,6 +523,13 @@ classes:
       external_registry: Aansluitingenregister
 
 slots:
+  aansluitingcategorie:
+    description: classificering van allocatiepunten bij gasaansluitingen op grond van objectief vast te stellen kenmerken, zoals in de Allocatiecode systeembeheerders gas nader vastgesteld
+    source: bcg2026:g=2026-02-21
+    comments:
+      - Voorheen `profielcategorie`.
+    range: Aansluitingcategorie
+    required: true
   beginmoment:
     description: eerste tijdstip waarop iets geldt
     range: Tijdstip
@@ -534,17 +556,26 @@ slots:
     description: geeft aan of het volume is ingevoed op het energienet
     range: boolean
     required: true
-  profielcategorie:
-    description: categorie van allocatiepunten op basis van objectief vast te stellen kenmerken en waarbij voor elk van deze categorieën een eigen, voor de desbetreffende categorie kenmerkende reeks profielfracties wordt vastgesteld
-    range: Profielcategorie
+  profielcategoriecode:
+    description: classificering van allocatiepunten bij elektriciteitsaansluitingen op grond van objectief vast te stellen kenmerken, exclusief het het profielcategorietype
+    comments:
+      - Voorheen bekend als `profielcategorie`.
+      - De combinatie van `profielcategoriecode` en `profielcategorietype` (voorheen `vastgesteld afnametype`) identificeert een profielcategorie.
+    range: Profielcategoriecode
+    required: true
+  profielcategorietype:
+    description: bepaling of op een allocatiepunt sprake is van afname met invoeding of afname zonder invoeding
+    comments:
+      - Ook bekend als `vastgesteld afnametype`.
+    range: Profielcategorietype
+    required: true
+  resolutie:
+    description: voorgenomen tijdsduur tussen beginmoment en eindmoment
+    range: Tijdsduur
     required: true
   tariefperiode:
     description: aaneengesloten periode van normaaluren of laaguren
     range: Tariefperiode
-    required: true
-  vastgesteld afnametype:
-    description: bepaling of op een allocatiepunt sprake is van afname met invoeding of afname zonder invoeding
-    range: Vastgesteld afnametype
     required: true
   waarde:
     description: hoeveelheid eenheden
@@ -552,7 +583,7 @@ slots:
     required: true
 
 enums:
-  Eenheid: # TODO
+  Eenheid:
     permissible_values:
       kvar:
       kvarh:
@@ -583,7 +614,7 @@ enums:
       1.8.2:
       2.8.1:
       2.8.2:
-  Profielcategorie:
+  Profielcategoriecode:
     permissible_values:
       E1A:
       E1B:
@@ -591,6 +622,18 @@ enums:
       E2A:
       E2B:
       E4A:
+  Profielcategorietype:
+    permissible_values:
+      AMI:
+        description: afname met invoeding
+      AZI:
+        description: afname zonder invoeding
+      n.v.t.:
+        description: niet van toepassing
+  Aansluitingcategorie:
+    see_also:
+      - asg:hoofdstuk=1&g=2026-02-21
+    permissible_values:
       G1A:
       G2A:
       G2C:
@@ -625,11 +668,6 @@ enums:
       handmatig goedgekeurd:
       niet valide:
       valide:
-  Vastgesteld afnametype:
-    permissible_values:
-      afname met invoeding:
-      afname zonder invoeding:
-      niet van toepassing:
 
 types:
   Cijfer:

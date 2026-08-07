@@ -152,6 +152,9 @@ classes:
       - energierichting
       - resolutie
       - waarde
+    slot_usage:
+      resolutie:
+        required: true
     attributes:
       # relaties:
       op:
@@ -172,7 +175,7 @@ classes:
           - beginmoment
           - eenheid
           - energierichting
-          - interval
+          - resolutie
           - op
   Opgewekt volume:
     class_uri: Opgewekt-volume
@@ -465,6 +468,7 @@ classes:
           - eenheid
           - energierichting
           - op
+          - resolutie
           - tariefperiode
   Verwachte opwekking:
     class_uri: Verwachte-opwekking
@@ -572,7 +576,6 @@ slots:
   resolutie:
     description: voorgenomen tijdsduur tussen beginmoment en eindmoment
     range: Tijdsduur
-    required: true
   tariefperiode:
     description: aaneengesloten periode van normaaluren of laaguren
     range: Tariefperiode

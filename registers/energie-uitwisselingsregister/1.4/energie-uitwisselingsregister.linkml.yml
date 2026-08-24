@@ -467,7 +467,7 @@ classes:
     class_uri: Uitgewisseld-volume
     narrow_mappings:
       - begrip:tibcm #energie-uitwisseling
-    description: hoeveelheid of kwaliteit van energie, getransporteerd via een bepaald punt
+    description: hoeveelheid of kwaliteit van energie, uitgewisseld met een energienet
     annotations:
       tijdlijn_registratie: true
     slots:
@@ -493,14 +493,11 @@ classes:
         range: Any
         exactly_one_of:
           - range: Allocatiepunt
-          - range: GCvO-installatie
           - range: Overdrachtspunt
         required: true
         multivalued: false
         annotations:
           inverse_cardinality: "*"
-        comments:
-          - Uit het uitgewisselde volume met een GCvO-installatie wordt het daardoor opgewekte volume berekend. Dit betreft de uitgewisselde energie op de plaats waar de GCvO-installatie met de rest van de elektrische installatie is verbonden en wordt bemeten door een productiemeetinrichting.
       vastgesteld door:
         range: Marktpartijsubregistratie
         required: true

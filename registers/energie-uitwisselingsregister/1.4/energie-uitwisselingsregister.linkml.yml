@@ -94,7 +94,7 @@ classes:
     class_uri: Dispuut
     related_mappings:
       - begrip:tibcm #energie-uitwisseling
-    description: formele betwisting van een vastgestelde meterstand
+    description: formele betwisting van de juistheid van een vastgestelde meterstand
     comments:
       - De partij die de originele meterstand heeft vastgesteld heet de 'initiërende partij'. De partij die een dispuutmelding indient, heet de 'wederpartij'.
     annotations:
@@ -206,7 +206,7 @@ classes:
         required: true
         multivalued: false
         annotations:
-          inverse_cardinality: "*"
+          inverse_cardinality: "0..1"
     unique_keys:
       identificatie:
         unique_key_slots:
@@ -215,7 +215,7 @@ classes:
     class_uri: Meterstand
     broad_mappings:
       - begrip:tibcm #energie-uitwisseling
-    description: cumulatieve energie-uitwisseling
+    description: stand van een specifiek telwerk op een bepaald moment
     slots:
       - eenheid
       - herkomstindicatie

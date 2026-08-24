@@ -4,9 +4,9 @@ title: Energie-uitwisselingsregister
 version: 1.4-draft
 description: Het energie-uitwisselingsregister bevat de uitgewisselde energie zoals vastgesteld door een energieleverancier, meetverantwoordelijke partij of netbeheerder (systeembeheerder).
 comments:
-  - Dit register bevat enkel **vastgestelde** standen en volumes, geschikt om te worden **verrekend** met aangeslotenen en **toegewezen**/**toegerekend** aan marktdeelnemers.
+  - Dit register beschrijft de *vastgestelde* energie-uitwisseling. Het *toewijzen* en *toerekenen* ervan valt buiten de context van dit register.
   - |
-    Voor de berekening van vergoedingen op basis van tijdsafhankelijke transporttarieven zijn relevant:
+    Voor de berekening van verbruiksafhankelijke transportkosten zijn relevant:
     
     - [Meterstand](#Meterstand)
     - [Uitgewisseld volume](#Uitgewisseld-volume)
@@ -18,12 +18,14 @@ comments:
     Wijzigingen:
     
     1. `profielcategorie` bij gas --> `aansluitingcategorie` (nieuwe regelgeving).
-    2. `profielcategorie` en `vastgesteld afnametype` bij elektriciteit --> `profielcategoriecode` en `profielcategorietype` (nieuwe regelgeving).
+    2. `profielcategorie` bij elektriciteit --> `profielcategoriecode` (nieuwe regelgeving, vormt samen met `vastgesteld afnametype` de profielcategorie).
     3. `Allocatiepunt bij aansluiting` vervangen door `Allocatiepunt` (zodat naast aansluitingen ook netgebieden meedoen).
     4. `Tellerstand` --> `Meterstand` (voorkeursterm in regelgeving).
-    5. `gereconcilieerd` verwijderd (hoort thuis in het reconciliatieproces).
-    6. `resolutie` toegevoegd aan `Uitgewisseld volume` (ontbrak), daarom tevens `interval` op `kWmax` gewijzigd naar `resolutie`.
-    7. ISO 3610-tijdlijnen correct toegepast (geen `tijdlijn geldigheid` bij gebeurtenissen).
+    5. `Meterstand` onderscheiden naar groot en klein, met een relatie naar het meetinrichtingenregister.
+    6. `gereconcilieerd` verwijderd (hoort thuis in het reconciliatieproces).
+    7. `kWmax` --> `Piekbelasting` (energiedrageragnostische terminologie)
+    8. `resolutie` toegevoegd aan `Uitgewisseld volume` (ontbrak), daarom tevens `interval` op `Piekbelasting` gewijzigd naar `resolutie`.
+    9. ISO 3610-tijdlijnen correct toegepast (geen `tijdlijn geldigheid` bij gebeurtenissen).
 see_also:
   - iceg:g=2025-01-01
   - rge:#
@@ -34,6 +36,7 @@ prefixes:
   aansluitingenregister: https://modellen.netbeheernederland.nl/stelsel/registers/aansluitingenregister#
   installatieregister: https://modellen.netbeheernederland.nl/stelsel/registers/installatieregister#
   marktpartijenregister: https://modellen.netbeheernederland.nl/stelsel/registers/marktpartijenregister#
+  meetinrichtingenregister: https://modellen.netbeheernederland.nl/stelsel/registers/meetinrichtingenregister#
   asg: https://wetten.overheid.nl/jci1.3:c:BWBR0052342&
   bce: https://wetten.overheid.nl/jci1.3:c:BWBR0037938&
   bcg: https://wetten.overheid.nl/jci1.3:c:BWBR0037923&
@@ -67,7 +70,7 @@ classes:
     class_uri: Calorische-omrekenfactor
     related_mappings:
       - begrip:tibcm #energie-uitwisseling
-    description: maandgemiddelde correctiefactor die de hoeveelheid verbruikt gas (in m3) omzet naar energie (in kWh), op basis van de calorische waarde van het gas in een specifiek netgebied
+    description: maandgemiddelde correctiefactor die de hoeveelheid verbruikt gas (in m3) omzet naar energie (m3(n;35;17)), op basis van de calorische waarde van het gas in een specifiek netgebied
     annotations:
       tijdlijn_registratie: true
     slots:
@@ -87,6 +90,49 @@ classes:
         unique_key_slots:
           - beginmoment
           - per
+  Dispuut:
+    class_uri: Dispuut
+    related_mappings:
+      - begrip:tibcm #energie-uitwisseling
+    description: formele betwisting van een vastgestelde meterstand
+    comments:
+      - De partij die de originele meterstand heeft vastgesteld heet de 'initiërende partij'. De partij die een dispuutmelding indient, heet de 'wederpartij'.
+    annotations:
+      tijdlijn_registratie: true
+    slots:
+      - herkomstindicatie
+    attributes:
+      alternatieve meterstand:
+        description: door de wederpartij aangedragen vervangende meterstandwaarde
+        range: Decimaal getal
+        required: true
+      referentie:
+        description: kenmerk van het dispuut bij de wederpartij
+        range: Code
+      toelichting:
+        description: onderbouwing van de betwisting door de wederpartij
+      resultaat:
+        description: formele uitkomst van de beoordeling door de initiërende partij
+        range: Resultaat
+      toelichting op resultaat:
+        description: onderbouwing van het besluit door de initiërende partij
+      # relaties:
+      gestart door:
+        range: Marktpartijsubregistratie
+        required: true
+        multivalued: false
+        annotations:
+          inverse_cardinality: "*"
+      over:
+        range: Meterstand
+        required: true
+        multivalued: false
+        annotations:
+          inverse_cardinality: "0..1"
+    unique_keys:
+      identificatie:
+        unique_key_slots:
+          - over
   Dynamische profielfractie elektriciteit:
     class_uri: Dynamische-profielfractie-elektriciteit
     is_a: Profielfractie
@@ -96,9 +142,13 @@ classes:
       - eindmoment
       - energierichting
       - profielcategoriecode
-      - profielcategorietype
+      - vastgesteld afnametype
       - waarde
     attributes:
+      bepalingsmethode:
+        description: manier waarop de waarde van de profielfractie is bepaald
+        range: Bepalingsmethode
+        required: true
       # relaties:
       per:
         range: Netgebied
@@ -113,7 +163,7 @@ classes:
           - energierichting
           - per
           - profielcategoriecode
-          - profielcategorietype
+          - vastgesteld afnametype
   Gewogen gemiddelde calorische waarde:
     class_uri: Gewogen-gemiddelde-calorische-waarde
     related_mappings:
@@ -138,27 +188,48 @@ classes:
         unique_key_slots:
           - beginmoment
           - per
-  kWmax:
-    class_uri: kWmax
+  Jaarverbruik telemetrieverbruikers:
+    class_uri: Jaarverbruik-telemetrieverbruikers
     broad_mappings:
       - begrip:tibcm #energie-uitwisseling
-    description: werkelijk voorgekomen maximale belasting van het net door een aangeslotene op een netaansluiting
+    description: werkelijk gemeten gasafname in m3(n;35,17) in de meest recente 12 volledige gasmaanden voor telemetrieverbruikers
+    source: bcg2026:g=2026-02-21
     annotations:
+      tijdlijn_geldigheid: true
       tijdlijn_registratie: true
     slots:
-      - beginmoment
-      - eindmoment
-      - eenheid
-      - energierichting
-      - resolutie
       - waarde
-    slot_usage:
-      resolutie:
-        required: true
     attributes:
       # relaties:
       op:
-        range: Overdrachtspunt
+        range: Allocatiepunt
+        required: true
+        multivalued: false
+        annotations:
+          inverse_cardinality: "*"
+    unique_keys:
+      identificatie:
+        unique_key_slots:
+          - op
+  Meterstand:
+    class_uri: Meterstand
+    broad_mappings:
+      - begrip:tibcm #energie-uitwisseling
+    description: cumulatieve energie-uitwisseling
+    slots:
+      - eenheid
+      - herkomstindicatie
+      - waarde
+    annotations:
+      tijdlijn_registratie: true
+    attributes:
+      moment:
+        description: tijdstip
+        range: Tijdstip
+        required: true
+      # relaties:
+      van:
+        range: Telwerk
         required: true
         multivalued: false
         annotations:
@@ -172,11 +243,8 @@ classes:
     unique_keys:
       identificatie:
         unique_key_slots:
-          - beginmoment
-          - eenheid
-          - energierichting
-          - resolutie
-          - op
+          - moment
+          - van
   Opgewekt volume:
     class_uri: Opgewekt-volume
     broad_mappings:
@@ -209,6 +277,44 @@ classes:
           - beginmoment
           - met
           - netlevering
+  Piekbelasting:
+    class_uri: Piekbelasting
+    broad_mappings:
+      - begrip:tibcm #energie-uitwisseling
+    description: werkelijk voorgekomen maximale belasting van het net door een aangeslotene op een netaansluiting
+    comments:
+      - Bij elektriciteit bekend als kWmax.
+    annotations:
+      tijdlijn_registratie: true
+    slots:
+      - beginmoment
+      - eindmoment
+      - eenheid
+      - energierichting
+      - resolutie
+      - waarde
+    attributes:
+      # relaties:
+      op:
+        range: Overdrachtspunt
+        required: true
+        multivalued: false
+        annotations:
+          inverse_cardinality: "*"
+      vastgesteld door:
+        range: Marktpartijsubregistratie
+        required: true
+        multivalued: false
+        annotations:
+          inverse_cardinality: "*"
+    unique_keys:
+      identificatie:
+        unique_key_slots:
+          - beginmoment
+          - eenheid
+          - energierichting
+          - resolutie
+          - op
   Profielfractie:
     class_uri: Profielfractie
     related_mappings:
@@ -254,7 +360,7 @@ classes:
     class_uri: Restvolume
     broad_mappings:
       - begrip:tibcm #energie-uitwisseling
-    description: geconstateerde verschil tussen de op afstand bepaalde standen en de ter plaatse uit- of afgelezen standen door de meetverantwoordelijke
+    description: verschil tussen een cumulatief gemeten volume en de som van de onderliggende deelvolumes over dezelfde periode
     comments:
       - Niet te verwarren met restantvolume.
     see_also:
@@ -302,7 +408,7 @@ classes:
       - eindmoment
       - energierichting
       - profielcategoriecode
-      - profielcategorietype
+      - vastgesteld afnametype
       - waarde
     unique_keys:
       identificatie:
@@ -310,13 +416,14 @@ classes:
           - beginmoment
           - energierichting
           - profielcategoriecode
-          - profielcategorietype
+          - vastgesteld afnametype
   Standaardjaarvolume:
     class_uri: Standaardjaarvolume
     exact_mappings:
       - begrip:y4yex #standaardjaarvolume
     comments:
-      - Ook wel bekend als standaardjaarafname elektriciteit (SJA), standaardjaarinvoeding elektriciteit (SJI) en standaardjaarverbruik gas (SJV).
+      - Ook wel bekend als standaardjaarafname (SJA) elektriciteit, standaardjaarinvoeding (SJI) elektriciteit, standaardjaarverbruik (SJV) gas of jaarverbruik gas.
+      - Niet te verwarren met jaarverbruik telemetrieverbruikers.
     see_also:
       - iceg:hoofdstuk=2&paragraaf=2.1&artikel=2.1.3&g=2025-01-01
     annotations:
@@ -340,67 +447,6 @@ classes:
           - energierichting
           - op
           - tariefperiode
-  Meterstand:
-    class_uri: Meterstand
-    broad_mappings:
-      - begrip:tibcm #energie-uitwisseling
-    description: cumulatieve energie-uitwisseling
-    slots:
-      - energierichting
-      - eenheid
-      - herkomstindicatie
-      - waarde
-    annotations:
-      tijdlijn_registratie: true
-    attributes:
-      moment:
-        description: tijdstip
-        range: Tijdstip
-        required: true
-      meternummer:
-        description: identificatie van de meetinrichting van het telwerk
-      tariefzone:
-        description: geeft weer tijdens welke tariefperiode(n) het telwerk de energie-uitwisseling registreert
-        range: Tariefzone
-        required: true
-      telwerkindicatie:
-        description: identificatie van de onderscheiden telwerken op een meetinrichting
-        comments:
-          - Bij een handopgenomen meetinrichting zoals zichtbaar op de meter zelf. Bij een meetinrichting die op afstand uitleesbaar is door middel van de OBIS-code.
-        range: Any
-        exactly_one_of:
-          - range: Cijfer
-          - range: OBIS-code
-        required: true
-      vermenigvuldigingsfactor:
-        description: getal waarmee vermenigvuldigd moet worden om de daadwerkelijke hoeveelheid met het net uitgewisselde energie te kunnen vaststellen of om tot een normaalvolume te komen
-        range: Reëel getal
-        required: true
-      # relaties:
-      op:
-        range: Any
-        exactly_one_of:
-          - range: Allocatiepunt
-          - range: Overdrachtspunt
-        required: true
-        multivalued: false
-        annotations:
-          inverse_cardinality: "*"
-      vastgesteld door:
-        range: Marktpartijsubregistratie
-        required: true
-        multivalued: false
-        annotations:
-          inverse_cardinality: "*"
-    unique_keys:
-      identificatie:
-        unique_key_slots:
-          - eenheid
-          - energierichting
-          - moment
-          - op
-          - tariefzone
-          - telwerkindicatie
   Temperatuur gecorrigeerde profielfractie gas:
     class_uri: Temperatuur-gecorrigeerde-profielfractie-gas
     is_a: Profielfractie
@@ -421,7 +467,7 @@ classes:
     class_uri: Uitgewisseld-volume
     narrow_mappings:
       - begrip:tibcm #energie-uitwisseling
-    description: hoeveelheid energie dat is getransporteerd via een bepaald punt
+    description: hoeveelheid of kwaliteit van energie, getransporteerd via een bepaald punt
     annotations:
       tijdlijn_registratie: true
     slots:
@@ -517,6 +563,10 @@ classes:
     class_uri: marktpartijenregister:Marktpartijsubregistratie
     annotations:
       external_registry: Marktpartijenregister
+  Meetinrichtingenregister:
+    class_uri: meetinrichtingenregister:Telwerk
+    annotations:
+      external_registry: Meetinrichtingenregister
   Netgebied:
     class_uri: aansluitingenregister:Netgebied
     annotations:
@@ -561,31 +611,39 @@ slots:
     range: boolean
     required: true
   profielcategoriecode:
-    description: classificering van allocatiepunten bij elektriciteitsaansluitingen op grond van objectief vast te stellen kenmerken, exclusief het het profielcategorietype
+    description: classificering van allocatiepunten bij elektriciteitsaansluitingen op grond van objectief vast te stellen kenmerken, exclusief het vastgesteld afnametype
     comments:
       - Voorheen bekend als `profielcategorie`.
-      - De combinatie van `profielcategoriecode` en `profielcategorietype` (voorheen `vastgesteld afnametype`) identificeert een profielcategorie.
+      - De combinatie van `profielcategoriecode` en `vastgesteld afnametype` identificeert een profielcategorie.
     range: Profielcategoriecode
     required: true
-  profielcategorietype:
+  vastgesteld afnametype:
     description: bepaling of op een allocatiepunt sprake is van afname met invoeding of afname zonder invoeding
     comments:
       - Ook bekend als `vastgesteld afnametype`.
-    range: Profielcategorietype
+    range: Vastgesteld afnametype
     required: true
   resolutie:
     description: voorgenomen tijdsduur tussen beginmoment en eindmoment
     range: Tijdsduur
+    required: true
   tariefperiode:
     description: aaneengesloten periode van normaaluren of laaguren
+    comments:
+      - Van toepassing op elektriciteit bij tijdsperioden langer dan een dag.
     range: Tariefperiode
-    required: true
   waarde:
     description: hoeveelheid eenheden
     range: Reëel getal
     required: true
 
 enums:
+  Bepalingsmethode:
+    permissible_values:
+      DYN:
+        description: dynamisch berekend
+      FBR:
+        description: fallback regime
   Eenheid:
     permissible_values:
       kvar:
@@ -611,12 +669,6 @@ enums:
       klantstand:
       overeengekomen:
       P4-stand:
-  OBIS-code:
-    permissible_values:
-      1.8.1:
-      1.8.2:
-      2.8.1:
-      2.8.2:
   Profielcategoriecode:
     permissible_values:
       E1A:
@@ -625,7 +677,7 @@ enums:
       E2A:
       E2B:
       E4A:
-  Profielcategorietype:
+  Vastgesteld afnametype:
     permissible_values:
       AMI:
         description: afname met invoeding
@@ -656,16 +708,16 @@ enums:
       reclamatie PV:
       reclamatie NB:
       geschat:
+  Resultaat:
+    permissible_values:
+      geaccepteerd:
+      niet geaccepteerd:
+
   Tariefperiode:
     permissible_values:
       laaguren:
         meaning: begrip:6hz4b #laaguren
       normaaluren:
-  Tariefzone:
-    permissible_values:
-      laag:
-      normaal:
-      totaal:
   Validatiestatus:
     permissible_values:
       handmatig goedgekeurd:

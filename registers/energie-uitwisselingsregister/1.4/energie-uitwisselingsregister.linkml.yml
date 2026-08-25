@@ -17,15 +17,17 @@ comments:
   - |
     Wijzigingen:
     
-    1. `profielcategorie` bij gas --> `aansluitingcategorie` (nieuwe regelgeving).
-    2. `profielcategorie` bij elektriciteit --> `profielcategoriecode` (nieuwe regelgeving, vormt samen met `vastgesteld afnametype` de profielcategorie).
-    3. `Allocatiepunt bij aansluiting` vervangen door `Allocatiepunt` (zodat naast aansluitingen ook netgebieden meedoen).
-    4. `Tellerstand` --> `Meterstand` (voorkeursterm in regelgeving).
-    5. `Meterstand` onderscheiden naar groot en klein, met een relatie naar het meetinrichtingenregister.
-    6. `gereconcilieerd` verwijderd (hoort thuis in het reconciliatieproces).
-    7. `kWmax` --> `Piekbelasting` (energiedrageragnostische terminologie)
-    8. `resolutie` toegevoegd aan `Uitgewisseld volume` (ontbrak), daarom tevens `interval` op `Piekbelasting` gewijzigd naar `resolutie`.
-    9. ISO 3610-tijdlijnen correct toegepast (geen `tijdlijn geldigheid` bij gebeurtenissen).
+    1. `Dispuut` toegevoegd.
+    2. `Jaarverbruik telemetrieverbruikers` toegevoegd.
+    3. `profielcategorie` bij gas --> `aansluitingcategorie` (nieuwe regelgeving).
+    4. `profielcategorie` bij elektriciteit --> `profielcategoriecode` (nieuwe regelgeving, vormt samen met `vastgesteld afnametype` de profielcategorie).
+    5. `Allocatiepunt bij aansluiting` vervangen door `Allocatiepunt` (zodat naast aansluitingen ook netgebieden meedoen).
+    6. `Tellerstand` --> `Meterstand` (voorkeursterm in regelgeving).
+    7. `Meterstand` onderscheiden naar groot en klein, met een relatie naar het meetinrichtingenregister.
+    8. `gereconcilieerd` verwijderd (hoort thuis in het reconciliatieproces).
+    9. `kWmax` --> `Piekbelasting` (energiedrageragnostische terminologie)
+    10. `resolutie` toegevoegd aan `Uitgewisseld volume` (ontbrak), daarom tevens `interval` op `Piekbelasting` gewijzigd naar `resolutie`.
+    11. ISO 3610-tijdlijnen correct toegepast (geen `tijdlijn geldigheid` bij gebeurtenissen).
 see_also:
   - iceg:g=2025-01-01
   - rge:#
@@ -622,8 +624,7 @@ slots:
     required: true
   resolutie:
     description: voorgenomen tijdsduur tussen beginmoment en eindmoment
-    range: Tijdsduur
-    required: true
+    range: Resolutie
   tariefperiode:
     description: aaneengesloten periode van normaaluren of laaguren
     comments:
@@ -705,6 +706,24 @@ enums:
       reclamatie PV:
       reclamatie NB:
       geschat:
+  Resolutie:
+    comments:
+      - Conform ISO 8601.
+    permissible_values:
+      PT1M:
+        description: 1 minuut
+      PT5M:
+        description: 5 minuten
+      PT15M:
+        description: 15 minuten
+      PT1H:
+        description: 1 uur
+      P1D:
+        description: 1 dag
+      P1M:
+        description: 1 maand
+      P1Y:
+        description: 1 jaar
   Resultaat:
     permissible_values:
       geaccepteerd:

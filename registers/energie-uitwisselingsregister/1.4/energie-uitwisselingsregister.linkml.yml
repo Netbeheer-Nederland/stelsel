@@ -28,6 +28,8 @@ comments:
     9. `kWmax` --> `Piekbelasting` (energiedrageragnostische terminologie)
     10. `resolutie` toegevoegd aan `Uitgewisseld volume` (ontbrak), daarom tevens `interval` op `Piekbelasting` gewijzigd naar `resolutie`.
     11. ISO 3610-tijdlijnen correct toegepast (geen `tijdlijn geldigheid` bij gebeurtenissen).
+    12. `Uitgewisseld volume` relateert niet langer aan GCvO-installatie (publiceren we niet als zodanig).
+    13. `eindmoment` is deel van de identificatie bij gebeurtenissen die elkaar in principe kunnen overlappen (`Uitgewisseld volume`, `Restvolume`, `Piekbelasting`, `Verwachte opwekking`, `Opgewekt volume`).
 see_also:
   - iceg:g=2025-01-01
   - rge:#
@@ -277,6 +279,7 @@ classes:
       identificatie:
         unique_key_slots:
           - beginmoment
+          - eindmoment
           - met
           - netlevering
   Piekbelasting:
@@ -313,9 +316,9 @@ classes:
       identificatie:
         unique_key_slots:
           - beginmoment
+          - eindmoment
           - eenheid
           - energierichting
-          - resolutie
           - op
   Profielfractie:
     class_uri: Profielfractie
@@ -396,6 +399,7 @@ classes:
       identificatie:
         unique_key_slots:
           - beginmoment
+          - eindmoment
           - eenheid
           - energierichting
           - op
@@ -478,7 +482,6 @@ classes:
       - eenheid
       - energierichting
       - herkomstindicatie
-      - resolutie
       - tariefperiode
       - waarde
     attributes:
@@ -545,8 +548,8 @@ classes:
       identificatie:
         unique_key_slots:
           - beginmoment
+          - eindmoment
           - met
-
   # externe entiteiten:
   Allocatiepunt:
     class_uri: aansluitingenregister:Allocatiepunt

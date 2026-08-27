@@ -6,14 +6,18 @@ description: Het energie-uitwisselingsregister bevat de uitgewisselde energie zo
 comments:
   - Dit register beschrijft de *vastgestelde* energie-uitwisseling. Het *toewijzen* en *toerekenen* ervan valt buiten de context van dit register.
   - |
-    Voor de berekening van verbruiksafhankelijke transportkosten zijn relevant:
+    Voor de berekening en communicatie van verbruiksafhankelijke transportkosten voor grootverbruikers zijn relevant:
     
-    - [Meterstand](#Meterstand)
-    - [Uitgewisseld volume](#Uitgewisseld-volume)
-    - [Restvolume](#Restvolume)
+    - [Meterstand](#Meterstand) (onder aanname dat dit op de factuur vermeld moet worden)
+    - [Uitgewisseld volume](#Uitgewisseld-volume) met een `resolutie`
+    - [Restvolume](#Restvolume) (onder aanname dat ook dit een wegingsfactor kent)
+    - [Piekbelasting](#Piekbelasting)
+
+    Voor kleinverbruikers zijn daarnaast relevant:
+
     - [Standaardjaarvolume](#Standaardjaarvolume)
-    - [Dynamische profielfractie elektriciteit](#Dynamische-profielfractie-elektriciteit)
-    - [Standaard profielfractie elektriciteit](#Standaard-profielfractie-elektriciteit)
+    - [Dynamische profielfractie elektriciteit](#Dynamische profielfractie elektriciteit)
+    - [Standaard profielfractie elektriciteit](#Standaard profielfractie elektriciteit)
   - |
     Wijzigingen:
     

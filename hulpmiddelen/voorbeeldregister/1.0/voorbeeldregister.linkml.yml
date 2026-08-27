@@ -18,6 +18,10 @@ default_prefix: this
 imports:
   - ../../basiswaardesoorten
 default_range: Tekst
+annotations:
+  changes: |
+    - Dit is een wijziging aan het model. En dit is de reden.
+    - Dit is nog een wijziging, met weer een reden.
 
 # Overal kun je de volgende elementen gebruiken:
 # - mappings (exact_mappings, etc.): voor mappings op begrippen

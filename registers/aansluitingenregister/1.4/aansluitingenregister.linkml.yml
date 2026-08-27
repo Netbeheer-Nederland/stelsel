@@ -7,12 +7,6 @@ comments:
   - Het aansluitingenregister wordt gezamenlijk beheerd door de netbeheerders en bevat zowel fysieke als administratieve gegevens over aansluitingen. Het register is essentieel voor de werking van de energiemarkt omdat het de basis vormt voor processen zoals leverancierswisselingen, verhuizingen en facturatie.
   - De verplichting tot het bijhouden van het aansluitingenregister is vastgelegd in de Informatiecode elektriciteit en gas, vastgesteld door de Autoriteit Consument en Markt (ACM).
   - Zie deze [uitlegvideo](https://www.youtube.com/watch?v=z7eVPSKf8l8) over de 'anatomie' van een aansluiting.
-  - |
-    Wijzigingen:
-    
-    1. `administratieve status van meetinrichting` is verplicht, omdat er semantisch geen verschil bestaat tussen `aan` en leeg.
-    2. `soort` toegevoegd aan `Aansluiting` omdat deze eigenschap nog in gebruik is.
-    3. `levensduur` toegevoegd aan `Aansluiting` en `Allocatiepunt` zodat beëindigingen expliciet zijn en betrouwbaar marktprocessen triggeren.
 see_also:
   - iceg:hoofdstuk=2&paragraaf=2.1&g=2025-01-01
 prefixes:
@@ -41,6 +35,11 @@ default_prefix: this
 imports:
   - ../../basiswaardesoorten
 default_range: Tekst
+annotations:
+  changes: |
+    - `administratieve status van meetinrichting` is verplicht, omdat er semantisch geen verschil bestaat tussen `aan` en leeg.
+    - `soort` toegevoegd aan `Aansluiting` omdat deze eigenschap nog in gebruik is.
+    - `levensduur` toegevoegd aan `Aansluiting` en `Allocatiepunt` zodat beëindigingen expliciet zijn en betrouwbaar marktprocessen triggeren.
 
 classes:
   Aansluiting:

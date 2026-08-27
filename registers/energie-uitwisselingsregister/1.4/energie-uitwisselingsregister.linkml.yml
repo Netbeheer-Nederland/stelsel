@@ -9,7 +9,7 @@ comments:
     Voor de berekening en communicatie van verbruiksafhankelijke transportkosten voor grootverbruikers zijn relevant:
     
     - [Meterstand](#Meterstand) (onder aanname dat dit op de factuur vermeld moet worden)
-    - [Uitgewisseld volume](#Uitgewisseld-volume) met een `resolutie`
+    - [Uitgewisseld volume](#Uitgewisseld-volume)
     - [Restvolume](#Restvolume) (onder aanname dat ook dit een wegingsfactor kent)
     - [Piekbelasting](#Piekbelasting)
 
@@ -18,22 +18,6 @@ comments:
     - [Standaardjaarvolume](#Standaardjaarvolume)
     - [Dynamische profielfractie elektriciteit](#Dynamische profielfractie elektriciteit)
     - [Standaard profielfractie elektriciteit](#Standaard profielfractie elektriciteit)
-  - |
-    Wijzigingen:
-    
-    1. `Dispuut` toegevoegd.
-    2. `Jaarverbruik telemetrieverbruikers` toegevoegd.
-    3. `profielcategorie` bij gas --> `aansluitingcategorie` (nieuwe regelgeving).
-    4. `profielcategorie` bij elektriciteit --> `profielcategoriecode` (nieuwe regelgeving, vormt samen met `vastgesteld afnametype` de profielcategorie).
-    5. `Allocatiepunt bij aansluiting` vervangen door `Allocatiepunt` (zodat naast aansluitingen ook netgebieden meedoen).
-    6. `Tellerstand` --> `Meterstand` (voorkeursterm in regelgeving).
-    7. `Meterstand` onderscheiden naar groot en klein, met een relatie naar het meetinrichtingenregister.
-    8. `gereconcilieerd` verwijderd (hoort thuis in het reconciliatieproces).
-    9. `kWmax` --> `Piekbelasting` (energiedrageragnostische terminologie)
-    10. `resolutie` toegevoegd aan `Uitgewisseld volume` (ontbrak), daarom tevens `interval` op `Piekbelasting` gewijzigd naar `resolutie`.
-    11. ISO 3610-tijdlijnen correct toegepast (geen `tijdlijn geldigheid` bij gebeurtenissen).
-    12. `Uitgewisseld volume` relateert niet langer aan GCvO-installatie (publiceren we niet als zodanig).
-    13. `eindmoment` is deel van de identificatie bij gebeurtenissen die elkaar in principe kunnen overlappen (`Uitgewisseld volume`, `Restvolume`, `Piekbelasting`, `Verwachte opwekking`, `Opgewekt volume`).
 see_also:
   - iceg:g=2025-01-01
   - rge:#
@@ -57,6 +41,21 @@ default_prefix: this
 imports:
   - ../../basiswaardesoorten
 default_range: Tekst
+annotations:
+  changes: |
+    - `Dispuut` toegevoegd.
+    - `Jaarverbruik telemetrieverbruikers` toegevoegd.
+    - `profielcategorie` bij gas --> `aansluitingcategorie` (nieuwe regelgeving).
+    - `profielcategorie` bij elektriciteit --> `profielcategoriecode` (nieuwe regelgeving, vormt samen met `vastgesteld afnametype` de profielcategorie).
+    - `Allocatiepunt bij aansluiting` vervangen door `Allocatiepunt` (zodat naast aansluitingen ook netgebieden meedoen).
+    - `Tellerstand` --> `Meterstand` (voorkeursterm in regelgeving).
+    - `Meterstand` onderscheiden naar groot en klein, met een relatie naar het meetinrichtingenregister.
+    - `gereconcilieerd` verwijderd (hoort thuis in het reconciliatieproces).
+    - `kWmax` --> `Piekbelasting` (energiedrageragnostische terminologie)
+    - `resolutie` toegevoegd aan `Uitgewisseld volume` (ontbrak), daarom tevens `interval` op `Piekbelasting` gewijzigd naar `resolutie`.
+    - ISO 3610-tijdlijnen correct toegepast (geen `tijdlijn geldigheid` bij gebeurtenissen).
+    - `Uitgewisseld volume` relateert niet langer aan GCvO-installatie (publiceren we niet als zodanig).
+    - `eindmoment` is deel van de identificatie bij gebeurtenissen die elkaar in principe kunnen overlappen (`Uitgewisseld volume`, `Restvolume`, `Piekbelasting`, `Verwachte opwekking`, `Opgewekt volume`).
 
 classes:
   Actuele temperatuurcoëfficiënt:

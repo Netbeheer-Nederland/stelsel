@@ -194,6 +194,11 @@
         {%- set _ = parts.items.append(details_block) -%}
     {%- endif -%}
 
+    {# changes #}
+    {%- if element.annotations.changes -%}
+        {%- set _ = parts.items.append('{::nomarkdown}<details><summary class="text-delta">Wijzigingen</summary><ol>{:/}\n' ~ element.annotations.changes.value ~ '\n{::nomarkdown}</ol></details>{:/}') -%}
+    {%- endif -%}
+
     {{parts.items | join(newline)}}
 {%- endmacro -%}
 

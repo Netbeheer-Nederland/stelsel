@@ -9,3 +9,4 @@ Gemfile.lock
 .bundle/
 /.devcontainer.json
 /.venv/
+.vscode/

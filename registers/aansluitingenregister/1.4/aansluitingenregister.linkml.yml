@@ -20,6 +20,7 @@ prefixes:
   mce: https://wetten.overheid.nl/jci1.3:c:BWBR0037946&
   nce: https://wetten.overheid.nl/jci1.3:c:BWBR0037940&
   iceg: https://wetten.overheid.nl/jci1.3:c:BWBR0037934&
+  rge: https://www.internetconsultatie.nl/regeling_gegevensuitwisseling_energiewet/b1
   acg: https://wetten.overheid.nl/jci1.3:c:BWBR0037931&
   tce: https://wetten.overheid.nl/jci1.3:c:BWBR0037951&
   tcg: https://wetten.overheid.nl/jci1.3:c:BWBR0037948&
@@ -40,6 +41,7 @@ annotations:
     - `administratieve status van meetinrichting` is verplicht, omdat er semantisch geen verschil bestaat tussen `aan` en leeg.
     - `soort` toegevoegd aan `Aansluiting` omdat deze eigenschap nog in gebruik is.
     - `levensduur` toegevoegd aan `Aansluiting` en `Allocatiepunt` zodat beëindigingen expliciet zijn en betrouwbaar marktprocessen triggeren.
+    - `verzoek verlengde bewaartermijn` toegevoegd vanwege nieuwe regelgeving.
 
 classes:
   Aansluiting:
@@ -360,6 +362,11 @@ classes:
         description: geeft weer of het allocatiepunt primair of secundair is
         source: bce:hoofdstuk=1&artikel=1.1&g=2022-11-25
         range: Type allocatiepunt bij aansluiting
+      verzoek verlengde bewaartermijn:
+        description: geeft weer of de aangeslotene heeft verzocht om de kwartierwaarden van elektriciteit voor dit allocatiepunt gedurende de wettelijk verlengde termijn van 24 maanden te bewaren in plaats van de standaardtermijn van tien werkdagen
+        source: rge:#artikel-2.26
+        range: Waarheidswaarde
+        required: true
       wijze uit bedrijf:
         description: manier waarop één of meer onderdelen uit bedrijf zijn genomen zodat energie-uitwisseling op het allocatiepunt onmogelijk is
         range: Wijze uit bedrijf

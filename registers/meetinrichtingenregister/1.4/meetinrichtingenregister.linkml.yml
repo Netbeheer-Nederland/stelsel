@@ -5,6 +5,7 @@ version: 1.4-draft
 description: Het meetinrichtingenregister bevat gegevens over meetapparatuur bij gas- en elektriciteitsaansluitingen in Nederland, ten behoeve van marktprocessen.
 comments:
   - De gegevens over kleinverbruikmeetinrichtingen zijn afgeleid van het meetcomponentenregister.
+  - "De afbeelding en tekst zijn tijdelijk inconsitent. (Te doen: meeteenheid --> grootheid; vermenigvuldigingsfactor --> alleen afleidbaar bij KV; tijdlijnen.)"
 prefixes:
   linkml: https://w3id.org/linkml/
   begrip: https://begrippen.netbeheernederland.nl/id/

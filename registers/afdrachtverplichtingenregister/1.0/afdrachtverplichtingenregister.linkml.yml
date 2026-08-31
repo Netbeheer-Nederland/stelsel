@@ -1,0 +1,23 @@
+id: https://modellen.netbeheernederland.nl/stelsel/registers/afdrachtverplichtingenregister
+name: afdrachtverplichtingenregister
+title: Afdrachtverplichtingenregister
+version: 1.0-draft
+description: Het afdrachtverplichtingenregister bevindt zich in een vroege fase van ontwikkeling en bevat daarom nog geen definities.
+comments:
+  - "Vragen aan domeinexperts die tijdens de volgende reviewsessie zullen worden toegelicht:"
+  - Modelleren we de formele doelsituatie uit de Energieregeling (geïntegreerde voorlopige afdracht en eindafdracht conform Art. 2.39a/c), of volgen we de implementatiestandaard uit Topic TS098/TS099 waarin de afdracht van vaste systeemkosten (dag 3) en variabele systeemkosten (dag 16) als twee separate processen worden ontkoppeld?
+  - '"Aanduiding van de tarieven": is dat [transporttariefperiode] en eventueel [profielcategoriecode] en [vastgesteld afnametype]? Of voegen we elke mogelijke combinatie daarvan toe aan het Tarievenregister als [Tariefcategorie]?'
+  - "Tijdlijn registratie: hiermee vangen we alle correctiescenario's af?"
+  - 'De "verwachte verbruiksafhankelijke transportkosten voor elektriciteit voor een periode van twaalf maanden": in het Systeemkostenregister. Bezwaar?'
+see_also:
+  - rge:#
+prefixes:
+  linkml: https://w3id.org/linkml/
+  begrip: https://begrippen.netbeheernederland.nl/id/
+  this: https://modellen.netbeheernederland.nl/stelsel/registers/afdrachtverplichtingenregister#
+  aansluitingenregister: https://modellen.netbeheernederland.nl/stelsel/registers/aansluitingenregister#
+  rge: https://www.internetconsultatie.nl/regeling_gegevensuitwisseling_energiewet/b1
+default_prefix: this
+# imports:
+#   - ../../basiswaardesoorten
+default_range: Tekst

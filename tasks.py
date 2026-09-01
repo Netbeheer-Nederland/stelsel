@@ -220,6 +220,12 @@ def build(c):
     update_all(c)
     c.run(f"{JEKYLL} build -s {STAGING_DIR} -d {SITE_DIR}")
 
+@task
+def update_all_and_serve(c):
+    """Alles verversen en website starten."""
+    update_all(c)
+    serve(c)
+    
 # ==============================================================================
 # INTERACTIEF MENU
 # ==============================================================================
@@ -230,7 +236,8 @@ def menu(c):
         ("Alles verversen", update_all),
         ("Eén register verversen", update_single_register),
         ("Statische inhoud verversen", update_static_content),
-        ("Website starten", serve)
+        ("Website starten", serve),
+        ("Alles verversen en website starten", update_all_and_serve)
     ]
 
     if not running_in_docker():

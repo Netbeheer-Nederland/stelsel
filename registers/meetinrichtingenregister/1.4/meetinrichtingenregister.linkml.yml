@@ -220,8 +220,6 @@ classes:
     class_uri: aansluitingenregister:Primair-deel-meetinrichting
     annotations:
       external_registry: Aansluitingenregister
-  Any: # speciaal geval voor gebruik in OF-bogen
-    class_uri: linkml:Any
 
 enums:
   Capaciteit:

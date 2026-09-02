@@ -148,8 +148,8 @@ def copy_content():
 def generate_indices(c):
     """Draai aanvullende Python scripts voor indexen en usages."""
     print("📑 Indexen genereren...")
-    c.run(f"\"{PYTHON}\" scripts/generate_model_landing_pages.py {STAGING_DIR}", hide=True)
-    c.run(f"\"{PYTHON}\" scripts/concept_usages.py {STAGING_DIR}", hide=True)
+    c.run(f"{PYTHON} scripts/generate_model_landing_pages.py {STAGING_DIR}", hide=True)
+    c.run(f"{PYTHON} scripts/concept_usages.py {STAGING_DIR}", hide=True)
 
 # ==============================================================================
 # HOOFDTAKEN (MENU)
@@ -159,7 +159,7 @@ def generate_indices(c):
 def setup(c):
     """Installeren: Zet alle dependencies klaar."""
     print("📦 Dependencies installeren...")
-    c.run(f"\"{PYTHON}\" -m pip install -r requirements.txt")
+    c.run(f"{PYTHON} -m pip install -r requirements.txt")
     
     print("💎 Ruby dependencies...")
     c.run("bundle config set path 'vendor/bundle'")
@@ -220,6 +220,12 @@ def build(c):
     update_all(c)
     c.run(f"{JEKYLL} build -s {STAGING_DIR} -d {SITE_DIR}")
 
+@task
+def update_all_and_serve(c):
+    """Alles verversen en website starten."""
+    update_all(c)
+    serve(c)
+    
 # ==============================================================================
 # INTERACTIEF MENU
 # ==============================================================================
@@ -230,7 +236,8 @@ def menu(c):
         ("Alles verversen", update_all),
         ("Eén register verversen", update_single_register),
         ("Statische inhoud verversen", update_static_content),
-        ("Website starten", serve)
+        ("Website starten", serve),
+        ("Alles verversen en website starten", update_all_and_serve)
     ]
 
     if not running_in_docker():

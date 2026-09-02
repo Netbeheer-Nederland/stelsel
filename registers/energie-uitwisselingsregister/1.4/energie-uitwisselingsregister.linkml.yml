@@ -18,6 +18,12 @@ comments:
     - [Standaardjaarvolume](#Standaardjaarvolume)
     - [Dynamische profielfractie elektriciteit](#Dynamische profielfractie elektriciteit)
     - [Standaard profielfractie elektriciteit](#Standaard profielfractie elektriciteit)
+  - |
+    Vragen aan de inhoudelijke experts:
+
+    - Goed om `resolutiecategorie` toe te voegen? Mogelijke waarden zijn `MDT` (meetdata telemetrie) en `MDP` (meetdata periodiek).
+    - De `Piekbelasting`: die krijgen wij van de MV per overdrachtspunt binnen maar ontsluiten we vervolgens per aansluiting? Hoe werkt dit bij de `kWmaxgewogen`? Die bepalen we eerst per allocatiepunt, daarn ontsluiten per aansluiting?
+    - Kan een aangslotene zijn eigen meetdata vaststellen?
 see_also:
   - iceg:g=2025-01-01
   - rge:#
@@ -56,6 +62,7 @@ annotations:
     - ISO 3610-tijdlijnen correct toegepast (geen `tijdlijn geldigheid` bij gebeurtenissen).
     - `Uitgewisseld volume` relateert niet langer aan GCvO-installatie (publiceren we niet als zodanig).
     - `eindmoment` is deel van de identificatie bij gebeurtenissen die elkaar in principe kunnen overlappen (`Uitgewisseld volume`, `Restvolume`, `Piekbelasting`, `Verwachte opwekking`, `Opgewekt volume`).
+    - `bepalingsmethode` toegevoegd aan dynamische profielfracties.
 
 classes:
   Actuele temperatuurcoëfficiënt:

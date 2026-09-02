@@ -6,6 +6,11 @@ description: Het meetinrichtingenregister bevat gegevens over meetapparatuur bij
 comments:
   - De gegevens over kleinverbruikmeetinrichtingen zijn afgeleid van het meetcomponentenregister.
   - "De afbeelding en tekst zijn tijdelijk inconsitent. (Te doen: meeteenheid --> grootheid; vermenigvuldigingsfactor --> alleen afleidbaar bij KV; tijdlijnen.)"
+  - |
+    Vragen aan inhoudelijke experts:
+
+    - Gedlt er voor meetinrichtingen een dagelijks effectueringsmoment, om 0.00 of 6.00 uur?
+    - Hebben we de juiste lijst met grootheden?
 prefixes:
   linkml: https://w3id.org/linkml/
   begrip: https://begrippen.netbeheernederland.nl/id/
@@ -18,6 +23,10 @@ default_prefix: this
 imports:
   - ../../basiswaardesoorten
 default_range: Tekst
+annotations:
+  changes: |
+    - `Telwerk` heeft nu ook een relatie naar `Grootverbruikmeetinrichting`.
+    - Telwerken hebben geen `meeteenheid` meer maar een `grootheid`. De eenheid geldt per meting of meetserie.
 
 classes:
   Grootverbruikmeetinrichting:
@@ -145,11 +154,11 @@ classes:
           - begrip:yn3hb #energierichting
         range: Energierichting
         required: true
-      meeteenheid:
+      grootheid:
         description: maat waarin natuurkundige grootheden numeriek kunnen worden uitgedrukt
         comments:
           - "Validatie: bij elektriciteit kWh; bij gas of waterstof EN vermenigvuldigingsfactor = 1 EN temperatuurgecorrigeerd = ja dan m3(n), anders m3."
-        range: Meeteenheid
+        range: Grootheid
         required: true
       tariefzone:
         description: geeft weer tijdens welke tariefperiode(n) het telwerk de energie-uitwisseling registreert
@@ -169,12 +178,15 @@ classes:
       vermenigvuldigingsfactor:
         description: samenstel van alle specifiek voor de meetinrichting van toepassing zijnde correctiefactoren, met uitzondering van de volumeherleidingsfactor, die nodig zijn om uit de tellerstanden de daadwerkelijke hoeveelheid met het net uitgewisselde energie te kunnen vaststellen of om tot een normaalvolume te komen
         comments:
-          - "Validatie: product van de correctiefactoren voor hoogteligging, leveringsdruk en indirecte meting."
+          - "Validatie bij telwerk van kleinverbruikmeetinrichting: product van de correctiefactoren voor hoogteligging, leveringsdruk en indirecte meting."
         range: Reëel getal
         required: true
       # relaties:
       deel van:
-        range: Kleinverbruikmeetinrichting
+        range: Any # omdat we de range pas later bepalen:
+        exactly_one_of: # bij een en/of-boog gebruiken we any_of
+          - range: Grootverbruikmeetinrichting
+          - range: Kleinverbruikmeetinrichting
         required: true
         multivalued: false
         annotations:
@@ -208,6 +220,8 @@ classes:
     class_uri: aansluitingenregister:Primair-deel-meetinrichting
     annotations:
       external_registry: Aansluitingenregister
+  Any: # speciaal geval voor gebruik in OF-bogen
+    class_uri: linkml:Any
 
 enums:
   Capaciteit:
@@ -233,11 +247,13 @@ enums:
         meaning: begrip:3j33z #afnmame
       invoeding:
         meaning: begrip:j8cpp #invoeding
-  Meeteenheid:
+  Grootheid:
     permissible_values:
-      kWh:
-      m3:
-      m3(n):
+      actieve energie:
+      reactieve energie:
+      actief vermogen:
+      reactief vermogen:
+      volume:
   Reden technisch niet op afstand uitleesbaar:
     permissible_values:
       "39.1":

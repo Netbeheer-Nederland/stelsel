@@ -6,7 +6,7 @@ description: Het afdrachtverplichtingenregister bevindt zich in een vroege fase 
 comments:
   - "Vragen aan domeinexperts die tijdens de volgende reviewsessie zullen worden toegelicht:"
   - Modelleren we de formele doelsituatie uit de Energieregeling (geïntegreerde voorlopige afdracht en eindafdracht conform Art. 2.39a/c), of volgen we de implementatiestandaard uit Topic TS098/TS099 waarin de afdracht van vaste systeemkosten (dag 3) en variabele systeemkosten (dag 16) als twee separate processen worden ontkoppeld?
-  - '"Aanduiding van de tarieven": is dat [transporttariefperiode] en eventueel [profielcategoriecode] en [vastgesteld afnametype]? Of voegen we elke mogelijke combinatie daarvan toe aan het Tarievenregister als [Tariefcategorie]?'
+  - '"Aanduiding van de tarieven": is dat de combi van [transporttariefcategorie] en [transporttariefperiode]? Kosten uitgesplitst naar perioden?'
   - "Tijdlijn registratie: hiermee vangen we alle correctiescenario's af?"
   - 'De "verwachte verbruiksafhankelijke transportkosten voor elektriciteit voor een periode van twaalf maanden": in het Systeemkostenregister. Bezwaar?'
 see_also:

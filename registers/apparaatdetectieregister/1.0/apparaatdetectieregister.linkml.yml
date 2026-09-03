@@ -4,9 +4,8 @@ title: Apparaatdetectieregister
 version: 1.0-draft # geen 'draft' in de mapnaam
 description: Het apparaatdetectieregister
 comments:
-  - Het apparaatdetectieregister is nog in opbouw.
-# see_also: # verwijzing naar gerelateerde externe informatie (voor context of het waarom achter de registratie)
-#   - iceg:hoofdstuk=2&paragraaf=2.1&z=2025-01-01&g=2025-01-01 # verwijs naar regelgeving met Juriconnect
+  - "Dit register is nog in opbouw. Er zijn nog vragen, zoals:"
+  - "Een waarschijnlijkheidsprofiel is een profiel van een type electriciteitsinstallatie-eenheid, dus niet die eenheid zelf. En het kan dus niet verwijzen naar die eenheid in het Installatieregister. Maar ik wil wel de eigenschappen van die eenheid. Lukt dat met 'passend bij'?"
 prefixes:
   linkml: https://w3id.org/linkml/
   begrip: https://begrippen.netbeheernederland.nl/id/

@@ -21,7 +21,7 @@ classes:
     class_uri: Apparaatdetectie
     related_mappings:
       - begrip:installatie
-    description: vermoeden, op basis van een analyse van een profielmeting, van een apparaat op een overdrachtspunt van een aansluiting
+    description: vaststelling dat een of meer apparaten van een bepaalde soort waarschijnlijk aanwezig zijn achter het overdrachtspunt van een aansluiting gedurende een bepaalde periode
     attributes: 
       beginmoment:
         description: eerste tijdstip waarop iets geldt
@@ -32,19 +32,30 @@ classes:
         range: Tijdstip
         required: true
       apparaatsoort:
-        description: soort apparaat dat gedetecteerd wordt
+        description: functionele categorie waartoe de gedetecteerde apparaten behoren
+        range: Code
         required: true
       betrouwbaarheid:
-        description: betrouwbaarheid van de detectie ⚠️ (%) ⚠️
-        range: Decimaal getal
+        description: mate van zekerheid dat de apparaatdetectie correct is ⚠️ (%) ⚠️
+        range: Reëel getal
+        comments: 
+          - "Uitgedrukt als een waarde tussen 0 en 1."
         required: true
       geschat vermogen:
-        description: het geschatte vermogen van het gedetecteerde apparaat in ⚠️ kW(p) ⚠️
-        range: Decimaal getal
+        description: vermoedelijke maximale vermogen van de gedetecteerde apparaten gezamenlijk ⚠️ kW ⚠️
+        range: Reëel getal
+        comments:
+          - "Validatie: de waarde mag niet kleiner zijn dan 0."
+        unit:
+          ucum_code: kW
         required: true
       geschatte opslagcapaciteit:
-        description: de geschatte opslagcapaciteit van het gedetecteerde apparaat in ⚠️ kWh ⚠️
-        range: Decimaal getal
+        description: vermoedelijke maximale hoeveelheid energie die de gedetecteerde apparaten gezamenlijk kunnen opslaan in ⚠️ kWh ⚠️
+        range: Reëel getal
+        comments:
+          - "Validatie: de waarde mag niet kleiner zijn dan 0."
+        unit:
+          ucum_code: kWh
         required: false
       # relaties:
       op:
@@ -66,16 +77,16 @@ classes:
     annotations:
       external_registry: Aansluitingenregister
 
-enums:
-  Apparaatsoort:
-    permissible_values:
-      PV:
-        description: PhotoVoltaic panel (zonnepaneel)
-      BESS:
-        description: Battery Energy Storage System (thuisbatterij)
-      HP:
-        description: Heat Pump (warmtepomp)
-      EV:
-        description: Electric Vehicle (laadpaal)
-      EH:
-        description: Electronic Heating (Airco, Hybride Heat Pump or Full Electric Heat Pump)
+# enums:
+#   Apparaatsoort:
+#     permissible_values:
+#       PV:
+#         description: PhotoVoltaic panel (zonnepaneel)
+#       BESS:
+#         description: Battery Energy Storage System (thuisbatterij)
+#       HP:
+#         description: Heat Pump (warmtepomp)
+#       EV:
+#         description: Electric Vehicle (laadpaal)
+#       EH:
+#         description: Electronic Heating (Airco, Hybride Heat Pump or Full Electric Heat Pump)

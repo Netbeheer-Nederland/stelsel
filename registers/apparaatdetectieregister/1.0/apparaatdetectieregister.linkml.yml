@@ -1,18 +1,81 @@
 id: https://modellen.netbeheernederland.nl/stelsel/registers/apparaatdetectieregister
 name: apparaatdetectieregister
 title: Apparaatdetectieregister
-version: 1.0-draft # geen 'draft' in de mapnaam
-description: Het apparaatdetectieregister
+version: 1.0-draft
+description: Het apparaatdetectieregister bevat gegevens over apparaten die, op basis van een profielmeting, vermoed worden op een overdrachtspunt van een aansluiting. Deze gegevens zijn schattingen met een bepaalde betrouwbaarheid. Zo'n vermoeden op basis van een profielmeting wordt een detectie genoemd. En het vermoeden van een apparaat wordt een apparaatdetectie genoemd.
 comments:
-  - "Dit register is nog in opbouw. Er zijn nog vragen, zoals:"
-  - "Een waarschijnlijkheidsprofiel is een profiel van een type electriciteitsinstallatie-eenheid, dus niet die eenheid zelf. En het kan dus niet verwijzen naar die eenheid in het Installatieregister. Maar ik wil wel de eigenschappen van die eenheid. Lukt dat met 'passend bij'?"
+  - "⚠️ Dit register is in opbouw. De definities en eenheden worden nog geverifieerd."
 prefixes:
   linkml: https://w3id.org/linkml/
   begrip: https://begrippen.netbeheernederland.nl/id/
   this: https://modellen.netbeheernederland.nl/stelsel/registers/apparaatdetectieregister#
   aansluitingenregister: https://modellen.netbeheernederland.nl/stelsel/registers/aansluitingenregister#
-  iceg: https://wetten.overheid.nl/jci1.3:c:BWBR0037934& # gebruik Juriconnect bij verwijzing naar regelgeving
+  iceg: https://wetten.overheid.nl/jci1.3:c:BWBR0037934&
 default_prefix: this
-# imports:
-#   - ../../basiswaardesoorten
+imports:
+  - ../../basiswaardesoorten
 default_range: Tekst
+
+classes: 
+  Apparaatdetectie:
+    class_uri: Apparaatdetectie
+    related_mappings:
+      - begrip:installatie
+    description: vermoeden, op basis van een analyse van een profielmeting, van een apparaat op een overdrachtspunt van een aansluiting
+    attributes: 
+      beginmoment:
+        description: eerste tijdstip waarop iets geldt
+        range: Tijdstip
+        required: true
+      eindmoment:
+        description: eerste tijdstip waarop iets niet meer geldt
+        range: Tijdstip
+        required: true
+      apparaatsoort:
+        description: soort apparaat dat gedetecteerd wordt
+        required: true
+      betrouwbaarheid:
+        description: betrouwbaarheid van de detectie ⚠️ (%) ⚠️
+        range: Decimaal getal
+        required: true
+      geschat vermogen:
+        description: het geschatte vermogen van het gedetecteerde apparaat in ⚠️ kW(p) ⚠️
+        range: Decimaal getal
+        required: true
+      geschatte opslagcapaciteit:
+        description: de geschatte opslagcapaciteit van het gedetecteerde apparaat in ⚠️ kWh ⚠️
+        range: Decimaal getal
+        required: false
+      # relaties:
+      op:
+        range: Overdrachtspunt
+        required: true
+        multivalued: false
+        annotations:
+          inverse_cardinality: "*"
+    unique_keys:
+      identificatie: # de sleutel heet altijd identificatie
+        unique_key_slots:
+          - beginmoment
+          - eindmoment
+          - apparaatsoort
+
+  # externe entiteiten:
+  Overdrachtspunt:
+    class_uri: aansluitingenregister:Overdrachtspunt
+    annotations:
+      external_registry: Aansluitingenregister
+
+enums:
+  Apparaatsoort:
+    permissible_values:
+      PV:
+        description: PhotoVoltaic panel (zonnepaneel)
+      BESS:
+        description: Battery Energy Storage System (thuisbatterij)
+      HP:
+        description: Heat Pump (warmtepomp)
+      EV:
+        description: Electric Vehicle (laadpaal)
+      EH:
+        description: Electronic Heating (Airco, Hybride Heat Pump or Full Electric Heat Pump)

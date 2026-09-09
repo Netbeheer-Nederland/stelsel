@@ -5,7 +5,7 @@ parent: Modelleurs
 
 # Rollen
 
-Het werken aan conceptuele modellen binnen het stelsel is een specialistisch vak. We bouwen niet aan losstaande modellen, maar aan een samenhangend stelsel van registers met een helder uitgangspunt: **ieder gegeven heeft exact één bron**.
+Het werken aan conceptuele modellen binnen het stelsel is een specialistisch vak. We bouwen niet aan losstaande modellen, maar aan een samenhangend stelsel van registers met een helder uitgangspunt: ieder gegeven heeft één bron.
 
 Consistentie ontstaat niet vanzelf. Het vereist enerzijds diep begrip van de domeinen in de sector, en anderzijds strakke bewaking van de onderlinge samenhang en stelselgrenzen. Omdat niemand alle talenten en tijd tegelijk bezit, combineren we verschillende rollen: van modelleurs die met domeinexperts de diepte in duiken tot modelleurs die zich focussen op de stelselbrede samenhang.
 

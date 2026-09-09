@@ -4,7 +4,8 @@ title: Energie-uitwisselingsregister
 version: 1.4-draft
 description: Het energie-uitwisselingsregister bevat de uitgewisselde energie zoals vastgesteld door een energieleverancier, meetverantwoordelijke partij of netbeheerder (systeembeheerder).
 comments:
-  - Dit register beschrijft de *vastgestelde* energie-uitwisseling. Het *toewijzen* en *toerekenen* ervan valt buiten de context van dit register.
+  - Dit register beschrijft de vastgestelde energie-uitwisseling, geschikt om te worden toegewezen/toegerekend aan partijen in de energiemarkt. De meterstanden in dit register betreffen uitsluitend officieel *vastgestelde* standen.
+  - "Vanwege de verschillende doelen die ze dienen, onderscheiden we energie-uitwisselingen naar resolutiecategorieën 'interval' (met hoge resolutie, ook wel bekend als 'telemetrie') en 'periodiek' (met lage resolutie)."
   - |
     Voor de berekening en communicatie van verbruiksafhankelijke transportkosten voor grootverbruikers zijn relevant:
     
@@ -18,12 +19,6 @@ comments:
     - [Standaardjaarvolume](#Standaardjaarvolume)
     - [Dynamische profielfractie elektriciteit](#Dynamische profielfractie elektriciteit)
     - [Standaard profielfractie elektriciteit](#Standaard profielfractie elektriciteit)
-  - |
-    Vragen aan de inhoudelijke experts:
-
-    - Goed om `resolutiecategorie` toe te voegen? Mogelijke waarden zijn `MDT` (meetdata telemetrie) en `MDP` (meetdata periodiek).
-    - De `Piekbelasting`: die krijgen wij van de MV per overdrachtspunt binnen maar ontsluiten we vervolgens per aansluiting? Hoe werkt dit bij de `kWmaxgewogen`? Die bepalen we eerst per allocatiepunt, daarn ontsluiten per aansluiting?
-    - Kan een aangslotene zijn eigen meetdata vaststellen?
 see_also:
   - iceg:g=2025-01-01
   - rge:#
@@ -492,6 +487,7 @@ classes:
       - eenheid
       - energierichting
       - herkomstindicatie
+      - resolutie
       - tariefperiode
       - waarde
     attributes:
@@ -499,6 +495,11 @@ classes:
         description: wijze waarop de waarde is gecorrigeerd of berekend
         source: bce:g=2025-12-20
         range: Reparatiemethodiek
+      resolutiecategorie:
+        description: classificatie van resoluties
+        comments:
+          - Afleidbaar van de resolutie.
+        range: Resolutiecategorie
       validatiestatus:
         description: resultaat van de validatie van de waarde
         source: bce:g=2025-12-20
@@ -737,11 +738,18 @@ enums:
         description: 1 maand
       P1Y:
         description: 1 jaar
+  Resolutiecategorie:
+    permissible_values:
+      interval:
+        description: kleiner dan een dag
+        comments:
+          - Ook bekend als telemetrie.
+      periodiek:
+        description: een dag of langer
   Resultaat:
     permissible_values:
       geaccepteerd:
       niet geaccepteerd:
-
   Tariefperiode:
     permissible_values:
       laaguren:

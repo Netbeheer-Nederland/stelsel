@@ -173,6 +173,9 @@ classes:
       subtransiënte reactantie:
         description: kortstondige reactantie direct na een plotselinge storing zoals een kortsluiting, uitgedrukt in het per-unit systeem
         range: Reëel getal
+      toegangelijkheidscategorie:
+        description: categorie die aangeeft welke groep van personen toegang heeft tot de elektriciteitsinstallatie-eenheid
+        range: Toegankelijkheidscategorie
       totale vermogen omvormers:
         description: som van de vermogens van alle bij de elektriciteitinstallatie-eenheid behorende omvormers
         comments:
@@ -187,6 +190,12 @@ classes:
         required: true
       typeaanduiding van parkregelaar:
         description: naam die door een fabrikant aan een reeks parkregelaars wordt gegeven
+      kan slim regelen:
+        description: geeft aan of de elektriciteitsinstallatie-eenheid op afstand kan worden aangestuurd
+        range: Waarheidswaarde
+      voldoen EMS aan NEN standaarden:
+        description: geeft aan of de energiebeheersystemen van de elektriciteitsinstallatie-eenheid voldoen aan de NEN-standaarden
+        range: Waarheidswaarde
       #relaties
       achter:
         range: Overdrachtspunt
@@ -258,7 +267,7 @@ classes:
         range: Reëel getal
         unit:
           ucum_code: m
-  Elektriciteitslaadeenheid: #todo en nog te checken
+  Elektriciteitslaadeenheid: 
     class_uri: Elektriciteitslaadeenheid
     is_a: Elektriciteitsinstallatie-eenheid
     exact_mappings: 
@@ -290,9 +299,6 @@ classes:
         range: Decimaal getal
         unit:
           ucum_code: kW
-      toegangelijkheidscategorie:
-        description: categorie die aangeeft welke groep van personen toegang heeft tot de laadpunten
-        range: Toegankelijkheidscategorie
       stuurbaarheid: 
         description: categorie die aangeeft op welke manier de laadpunten op afstand kunnen worden aangestuurd
         range: Stuurbaarheid
@@ -502,6 +508,65 @@ classes:
         multivalued: false
         annotations:
           inverse_cardinality: "*"
+  Verbruikseenheid: #TODO
+    class_uri: Verbruikseenheid
+    is_a: Elektriciteitsinstallatie-eenheid
+    exact_mappings:
+      - begrip:rehzn #verbruikseenheid
+    attributes:
+      communicatieprotocol:
+        description: protocol dat wordt gebruikt om de verbruikseenheid op afstand aan te sturen
+        range: Communicatieprotocol9
+  Groep van verbruikselementen: #TODO
+    class_uri: Groep-van-verbruikselementen
+    broad_mappings:
+      - begrip:gtj7b #installatie
+    annotations:
+      tijdlijn_registratie: true
+    description: verzameling apparaten binnen één verbruikseenheid die elektrische energie verbruiken en identieke kenmerken delen
+    slots:
+      - fabrikant
+      - typeaanduiding
+    attributes:
+      gebruiksdoel: #geen enum nodig maar hoe weerleggen wij dat richting EDSN?
+        description: 
+        range: Gebruiksdoel
+        required: true
+      aantal verbruikselementen:
+        description: hoeveelheid verbruikselementen in de groep
+        range: Geheel getal
+      nominaal vermogen per verbruikselement:
+        description: door de fabrikant aangegeven maximale vermogen bij continu gebruik waarbij een maximaal rendement wordt behaald
+        range: Reëel getal
+        unit:
+          ucum_code: kW
+      technologie:
+        description: aanduiding van de technologie die wordt gebruikt om elektrische energie te verbruiken
+        range: Gebruikte technologie
+        required: true
+      warmtapwater opslagcapaciteit:
+        description: maximale hoeveelheid warmtapwater die de verbruikseenheid kan bevatten
+        range: Reëel getal
+        unit:
+          ucum_code: L
+      backupvewrwarming aanwezig:
+        description: geeft aan of er een back-up verwarmingssysteem aanwezig is in de verbruikseenheid
+        range: Waarheidswaarde
+      soort backupverwarming:
+        description: aanduiding van de technologie die wordt gebruikt in het back-up verwarmingssysteem van de verbruikseenheid
+        range: Soort backupverwarming
+      maximumvermogen backupverwarming:
+        description: maximaal continu werkzame vermogen dat het back-up verwarmingssysteem kan verbruiken
+        range: Reëel getal
+        unit:
+          ucum_code: kW
+      #relaties
+      deel van:
+        range: Verbruikseenheid
+        required: true
+        multivalued: false
+        annotations:
+          inverse_cardinality: "*"
   #extern:
   Allocatiepunt bij aansluiting:
     class_uri: aansluitingenregister:Allocatiepunt-bij-aansluiting
@@ -627,7 +692,7 @@ enums:
       particulier:
         description: alleen toegankelijk voor een specifieke groep van personen
       zakelijk:
-        description: alleen toegankelijk voor een specifieke groep van personen die een zakelijke relatie hebben met de eigenaar van de laadpunten
+        description: alleen toegankelijk voor een specifieke groep van personen die een zakelijke relatie hebben met de eigenaar van de elektriciteitsinstallatie-eenheid
   Stuurbaarheid:
     permissible_values:
       volledig stuurbaar:
@@ -644,6 +709,58 @@ enums:
         description: Open Automated Demand Response, een open protocol dat wordt gebruikt voor het automatiseren van vraagrespons in energienetwerken, inclusief het aansturen van laadpunten voor elektrische voertuigen
       andere:
         description: elk ander protocol dat wordt gebruikt om laadpunten op afstand aan te sturen, zoals bijvoorbeeld MQTT of RESTful API's
+  Communicatieprotocol:  #TODO
+    permissible_values:
+      Modbus:
+        description: een seriële communicatiestandaard die veel wordt gebruikt in industriële automatisering en energiebeheer, inclusief het aansturen van verbruikseenheden
+      EEBUS:
+        description: een open communicatieprotocol dat wordt gebruikt voor het integreren van energie- en gebouwbeheersystemen, inclusief het aansturen van verbruikseenheden
+      S2:
+        description: een communicatieprotocol dat wordt gebruikt voor het aansturen van slimme apparaten en verbruikseenheden in een energiebeheersysteem
+      SG-Ready:
+        description: een communicatieprotocol dat wordt gebruikt voor het integreren van slimme apparaten en verbruikseenheden in een energiebeheersysteem
+      andere:
+        description: elk ander protocol dat wordt gebruikt om verbruikseenheden op afstand aan te sturen, zoals bijvoorbeeld MQTT of RESTful API's
+  Gebruiksdoel: #TODO
+    permissible_values:
+      ruimteverwarming:
+        description: het verbruikselement wordt gebruikt voor het verwarmen van een ruimte
+      ruimtekoeling:
+        description: het verbruikselement wordt gebruikt voor het koelen van een ruimte
+      bijverwarming:
+        description: het verbruikselement wordt gebruikt als aanvullende verwarming
+      hoofdverwarming:
+        description: het verbruikselement wordt gebruikt als primaire verwarming
+      warmtapwaterproductie:
+        description: het verbruikselement wordt gebruikt voor het verwarmen van tapwater
+  Gebruikte technologie: #TODO
+    permissible_values:
+      hybride warmtepomp lucht/lucht:
+        description: een warmtepomp die warmte uit de buitenlucht haalt en gebruikt voor verwarming of koeling, waarbij een secundaire warmtebron (zoals gas) wordt gebruikt om de efficiëntie te verbeteren
+      hybride warmtepomp lucht/water:
+        description: een warmtepomp die warmte uit de buitenlucht en water haalt en gebruikt voor verwarming of koeling, waarbij een secundaire warmtebron (zoals gas) wordt gebruikt om de efficiëntie te verbeteren
+      hybride warmtepomp water/water:
+        description: een warmtepomp die warmte uit het water haalt en gebruikt voor verwarming of koeling, waarbij een secundaire warmtebron (zoals gas) wordt gebruikt om de efficiëntie te verbeteren
+      all-electric warmtepomp lucht/lucht:
+        description: een all-electric warmtepomp die warmte uit de buitenlucht haalt en gebruikt voor verwarming of koeling
+      all-electric warmtepomp lucht/water:
+        description: een all-electric warmtepomp die warmte uit de buitenlucht haalt en gebruikt voor verwarming of koeling
+      all-electric warmtepomp water/water:
+        description: een all-electric warmtepomp die warmte uit het water haalt en gebruikt voor verwarming of koeling
+      directe elektrische hoofdverwarming:
+        description: directe elektrische verwarming die wordt gebruikt als primaire verwarming
+      directe elektrische bijverwarming:
+        description: directe elektrische verwarming die wordt gebruikt als aanvullende verwarming 
+      accumulatieverwarming hoofdverwarming:  
+        description: accumulatieverwarming die wordt gebruikt als primaire verwarming
+      accumulatieverwarming bijverwarming:
+        description: accumulatieverwarming die wordt gebruikt als aanvullende verwarming
+  Soort backupverwarming: #TODO
+    permissible_values:
+      intern:
+        description: het back-up verwarmingssysteem is geïntegreerd in de verbruikseenheid zelf
+      extern:
+        description: het back-up verwarmingssysteem is een apart systeem dat extern is verbonden met de verbruikseenheid
 
 types:
   Schakelgroep wikkelingen:

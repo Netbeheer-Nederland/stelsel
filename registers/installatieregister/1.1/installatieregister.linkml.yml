@@ -27,8 +27,7 @@ annotations:
     - `Elektriciteitslaadeenheid` is toegevoegd als entiteit
     - `Groep van laadpunten` is toegevoegd als entiteit
     - `verbruikseenheid`, `groep van verbruikselementen` zijn toegevoegd als entiteiten 
-    - `toegangelijkheidscategorie` atribuut is verplaatst naar `elektriceitsinstallatie-eenheid`
-
+    - `toegangelijkheidscategorie` attribuut is verplaatst naar `elektriceitsinstallatie-eenheid`
 classes:
   Aanmelder:
     class_uri: Aanmelder

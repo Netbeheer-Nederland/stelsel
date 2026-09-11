@@ -720,7 +720,7 @@ enums:
       SG-Ready:
         description: een communicatieprotocol dat wordt gebruikt voor het integreren van slimme apparaten en verbruikseenheden in een energiebeheersysteem
       andere:
-        description: elk ander protocol dat wordt gebruikt om verbruikseenheden op afstand aan te sturen, zoals bijvoorbeeld MQTT of RESTful API's
+        description: elk ander protocol dat wordt gebruikt om verbruikseenheden op afstand aan te sturen
   Gebruiksdoel: #TODO
     permissible_values:
       ruimteverwarming:

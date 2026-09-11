@@ -529,8 +529,9 @@ classes:
       - typeaanduiding
     attributes:
       gebruiksdoel: #geen enum nodig maar hoe weerleggen wij dat richting EDSN?
-        description: 
-        range: Gebruiksdoel
+        description: doel waarvoor de verbruikseenheid is ontworpen en wordt gebruikt
+        comment: voorbeeld van waarden zijn ruimteverwarming, ruimtekoeling, warmtapwaterproductie, bijverwarming en hoofdverwarming
+          - ⚠ In de praktijk kan een verbruikseenheid meerdere gebruiksdoelen hebben
         required: true
       aantal verbruikselementen:
         description: hoeveelheid verbruikselementen in de groep
@@ -549,7 +550,7 @@ classes:
         range: Reëel getal
         unit:
           ucum_code: L
-      backupvewrwarming aanwezig:
+      backupverwarming aanwezig:
         description: geeft aan of er een back-up verwarmingssysteem aanwezig is in de verbruikseenheid
         range: Waarheidswaarde
       soort backupverwarming:
@@ -721,18 +722,6 @@ enums:
         description: een communicatieprotocol dat wordt gebruikt voor het integreren van slimme apparaten en verbruikseenheden in een energiebeheersysteem
       andere:
         description: elk ander protocol dat wordt gebruikt om verbruikseenheden op afstand aan te sturen
-  Gebruiksdoel: #TODO
-    permissible_values:
-      ruimteverwarming:
-        description: het verbruikselement wordt gebruikt voor het verwarmen van een ruimte
-      ruimtekoeling:
-        description: het verbruikselement wordt gebruikt voor het koelen van een ruimte
-      bijverwarming:
-        description: het verbruikselement wordt gebruikt als aanvullende verwarming
-      hoofdverwarming:
-        description: het verbruikselement wordt gebruikt als primaire verwarming
-      warmtapwaterproductie:
-        description: het verbruikselement wordt gebruikt voor het verwarmen van tapwater
   Gebruikte technologie: #TODO
     permissible_values:
       hybride warmtepomp lucht/lucht:

@@ -26,6 +26,8 @@ annotations:
   changes: |
     - `Elektriciteitslaadeenheid` is toegevoegd als entiteit
     - `Groep van laadpunten` is toegevoegd als entiteit
+    - `verbruikseenheid`, `groep van verbruikselementen` zijn toegevoegd als entiteiten 
+    - `toegangelijkheidscategorie` is verplaatst naar `elektriceitsinstallatie-eenheid`
 
 classes:
   Aanmelder:

@@ -3,8 +3,6 @@ name: apparaatdetectieregister
 title: Apparaatdetectieregister
 version: 1.0-draft
 description: Het apparaatdetectieregister bevat gegevens over apparaten die, op basis van een profielmeting, vermoed worden op een overdrachtspunt van een aansluiting. Deze gegevens zijn schattingen met een bepaalde betrouwbaarheid. Zo'n vermoeden op basis van een profielmeting wordt een detectie genoemd. En het vermoeden van een apparaat wordt een apparaatdetectie genoemd.
-comments:
-  - "⚠️ Dit register is in opbouw. De definities en eenheden worden nog geverifieerd."
 prefixes:
   linkml: https://w3id.org/linkml/
   begrip: https://begrippen.netbeheernederland.nl/id/

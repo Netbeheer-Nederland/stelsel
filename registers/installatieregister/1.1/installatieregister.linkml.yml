@@ -523,7 +523,7 @@ classes:
       - begrip:gtj7b #installatie
     annotations:
       tijdlijn_registratie: true
-    description: verzameling apparaten binnen één verbruikseenheid die elektrische energie verbruiken en identieke kenmerken delen
+    description: verzameling apparaten binnen één verbruikseenheid die elektrische energie verbruiken en specifieke kenmerken delen
     slots:
       - fabrikant
       - typeaanduiding
@@ -710,7 +710,7 @@ enums:
         description: Open Automated Demand Response, een open protocol dat wordt gebruikt voor het automatiseren van vraagrespons in energienetwerken, inclusief het aansturen van laadpunten voor elektrische voertuigen
       andere:
         description: elk ander protocol dat wordt gebruikt om laadpunten op afstand aan te sturen, zoals bijvoorbeeld MQTT of RESTful API's
-  Communicatieprotocol:  #TODO
+  Communicatieprotocol: 
     permissible_values:
       Modbus:
         description: een seriële communicatiestandaard die veel wordt gebruikt in industriële automatisering en energiebeheer, inclusief het aansturen van verbruikseenheden
@@ -722,7 +722,7 @@ enums:
         description: een communicatieprotocol dat wordt gebruikt voor het integreren van slimme apparaten en verbruikseenheden in een energiebeheersysteem
       andere:
         description: elk ander protocol dat wordt gebruikt om verbruikseenheden op afstand aan te sturen
-  Technologie: #TODO
+  Technologie: 
     permissible_values:
       hybride warmtepomp lucht/lucht:
         description: een warmtepomp die warmte uit de buitenlucht haalt en gebruikt voor verwarming of koeling, waarbij een secundaire warmtebron (zoals gas) wordt gebruikt om de efficiëntie te verbeteren
@@ -733,7 +733,7 @@ enums:
       all-electric warmtepomp lucht/lucht:
         description: een all-electric warmtepomp die warmte uit de buitenlucht haalt en gebruikt voor verwarming of koeling
       all-electric warmtepomp lucht/water:
-        description: een all-electric warmtepomp die warmte uit de buitenlucht haalt en gebruikt voor verwarming of koeling
+        description: een all-electric warmtepomp die warmte uit de buitenlucht en water haalt en gebruikt voor verwarming of koeling
       all-electric warmtepomp water/water:
         description: een all-electric warmtepomp die warmte uit het water haalt en gebruikt voor verwarming of koeling
       directe elektrische hoofdverwarming:
@@ -741,10 +741,10 @@ enums:
       directe elektrische bijverwarming:
         description: directe elektrische verwarming die wordt gebruikt als aanvullende verwarming 
       accumulatieverwarming hoofdverwarming:  
-        description: accumulatieverwarming die wordt gebruikt als primaire verwarming
+        description: een elektrisch verwarmingssysteem dat 's nachts elektriciteit omzet in warmte, deze opslaat en de warmte overdag geleidelijk aan de ruimte afgeeft die wordt gebruikt als primaire verwarming
       accumulatieverwarming bijverwarming:
-        description: accumulatieverwarming die wordt gebruikt als aanvullende verwarming
-  Soort backupverwarming: #TODO
+        description: een elektrisch verwarmingssysteem dat 's nachts elektriciteit omzet in warmte, deze opslaat en de warmte overdag geleidelijk aan de ruimte afgeeft die wordt gebruikt als aanvullende verwarming
+  Soort backupverwarming:
     permissible_values:
       intern:
         description: het back-up verwarmingssysteem is geïntegreerd in de verbruikseenheid zelf

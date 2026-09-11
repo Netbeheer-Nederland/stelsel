@@ -530,7 +530,7 @@ classes:
     attributes:
       gebruiksdoel: #geen enum nodig maar hoe weerleggen wij dat richting EDSN?
         description: doel waarvoor de verbruikseenheid is ontworpen en wordt gebruikt
-        comment: voorbeeld van waarden zijn ruimteverwarming, ruimtekoeling, warmtapwaterproductie, bijverwarming en hoofdverwarming
+        comments: voorbeeld van waarden zijn ruimteverwarming, ruimtekoeling, warmtapwaterproductie, bijverwarming en hoofdverwarming
           - ⚠ In de praktijk kan een verbruikseenheid meerdere gebruiksdoelen hebben
         required: true
       aantal verbruikselementen:

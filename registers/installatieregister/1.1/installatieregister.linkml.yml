@@ -543,7 +543,7 @@ classes:
           ucum_code: kW
       technologie:
         description: aanduiding van de technologie die wordt gebruikt om elektrische energie te verbruiken
-        range: Gebruikte technologie
+        range: Technologie
         required: true
       warmtapwater opslagcapaciteit:
         description: maximale hoeveelheid warmtapwater die de verbruikseenheid kan bevatten
@@ -722,7 +722,7 @@ enums:
         description: een communicatieprotocol dat wordt gebruikt voor het integreren van slimme apparaten en verbruikseenheden in een energiebeheersysteem
       andere:
         description: elk ander protocol dat wordt gebruikt om verbruikseenheden op afstand aan te sturen
-  Gebruikte technologie: #TODO
+  Technologie: #TODO
     permissible_values:
       hybride warmtepomp lucht/lucht:
         description: een warmtepomp die warmte uit de buitenlucht haalt en gebruikt voor verwarming of koeling, waarbij een secundaire warmtebron (zoals gas) wordt gebruikt om de efficiëntie te verbeteren

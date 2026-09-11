@@ -516,8 +516,8 @@ classes:
     attributes:
       communicatieprotocol:
         description: protocol dat wordt gebruikt om de verbruikseenheid op afstand aan te sturen
-        range: Communicatieprotocol9
-  Groep van verbruikselementen: #TODO
+        range: Communicatieprotocol
+  Groep van verbruikselementen:
     class_uri: Groep-van-verbruikselementen
     broad_mappings:
       - begrip:gtj7b #installatie

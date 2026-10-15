@@ -55,7 +55,7 @@ def expand_curie(curie, prefixes):
 files = glob.glob(os.path.join(MODELS_DIR, "**/*.linkml.yml"), recursive=True)
 
 for file_path in files:
-    with open(file_path, 'r') as f:
+    with open(file_path, 'r', encoding='utf-8') as f:
         data = yaml.safe_load(f)
     
     if not data or 'classes' not in data: continue
@@ -151,7 +151,7 @@ for file_path in files:
                     None
                 )
 
-with open(OUTPUT_FILE, 'w') as f:
+with open(OUTPUT_FILE, 'w', encoding='utf-8') as f:
     json.dump(usages, f, indent=2)
 
 print(f"Index gegenereerd: {len(usages)} begrippen gevonden in modellen.")

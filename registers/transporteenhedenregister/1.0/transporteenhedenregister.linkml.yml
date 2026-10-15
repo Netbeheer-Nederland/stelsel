@@ -32,6 +32,18 @@ imports:
   - ../../basiswaardesoorten
 default_range: Tekst
 
+# Phase2Phase-software:
+
+# belastinggraad
+# spanning
+# spanningsval/-opdrijving
+# aanrakingsveiligheid
+# netveiligheid
+# impedantie
+
+# kortsluitruimte
+# kortsluitvastheid
+
 classes:
   Capaciteitsdeling:
     class_uri: Capaciteitsdeling

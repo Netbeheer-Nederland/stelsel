@@ -16,6 +16,132 @@ default_prefix: this
 imports:
   - ../../basiswaardesoorten
 
+# Available date (van processtap/bericht) = effectueringsdatum (van deelproces)?
+# berichtidentificatie (voorheen 'technisch-berichtidentificatie') optioneel gemaakt: vanwege berichten die nog opgehaald moeten worden. Klopt?
+# Registratiemoment/beginmoment als eigenschap van Deelproces vervallen: staat al in het model: is MIN van gerelateerde Processtappen.
+
+# fun getStatus(): TransactionDossierStatus {
+#     return when {
+#         cancelled == true -> {
+#             TransactionDossierStatus.CAN
+#         }
+
+#         validFromDate.isInTheFuture() &&
+#             dossierSteps.any { it.code !in setOf(REJECT, REQUEST) }
+#         -> {
+#             TransactionDossierStatus.PEN
+#         }
+
+#         dossierSteps.any { !it.getStatus().endState } -> {
+#             TransactionDossierStatus.RDY
+#         }
+
+#         else -> {
+#             TransactionDossierStatus.CLD
+#         }
+#     }
+# }
+
+
+# // BERICHT
+# fun getStatus(): TransactionDossierStepStatus {
+#     return when {
+#         cancelled == true -> {
+#             TransactionDossierStepStatus.CAN
+#         }
+
+#         code == REQUEST -> {
+#             TransactionDossierStepStatus.RCV
+#         }
+
+#         validFromDate.isInTheFuture() && code != REJECT
+#         -> {
+#             TransactionDossierStepStatus.SCH
+#         }
+
+#         // if there was a step set to be retrieved in the future, or that could be retrieved immediately, and it
+#         // never received an ean13 to send the step to then, once that step's due date passed, it became NA
+#         !validFromDate.isInTheFuture()
+#             && code != REJECT
+#             && receiverMarketParty?.ean13?.isEmpty() ?: true
+#             && receiverMarketParty?.organisationEan13?.isEmpty() ?: true
+#         -> {
+#             TransactionDossierStepStatus.NA
+#         }
+
+#         retrievedAt == null -> {
+#             TransactionDossierStepStatus.AVL
+#         }
+
+#         else -> {
+#             TransactionDossierStepStatus.RTV
+#         }
+#     }
+# }
+
+# PROCESSOORT:
+
+# ADMSTAT 
+# ALLMTCHG
+# BBBAGUPD
+# BBCOCUPD
+# BBEACUPD
+# BBGRUPD 
+# BBMTRUPD
+# BBSCDEM 
+# BLKCUPD 
+# BBSWIUPD
+# BLKGOSR 
+# CONNACT 
+# CONNCRE 
+# CONNDACT
+# CONNEND 
+# CONNRELA
+# CONNRELE
+# CONNUPD 
+# CONSR14 
+# CONSR16 
+# CONVR4 =
+# EACUPDGV
+# EACUPDKV
+# ENDOFMV 
+# EOSUPPLY
+# FUTUPCON
+# MOVEIN =
+# MOVEOUT 
+# MTREND =
+# MTRENSMP
+# MTRINSMP
+# MTRINST 
+# MTRUPD =
+# MTRUPSMP
+# NAMECHG 
+# RESCOMP 
+# SCONNCRE
+# SCONNEND
+# SCONNUPD
+# SJVSR16 
+# SWITCHLV
+# SWITCHMV
+# SWITCHNB
+# SWITCHPV
+# SWTCHUPD
+
+
+# Stap/berichtsoort
+
+# const val REQUEST = "REQUEST"
+# const val CONFIRM = "CONFIRM"
+# const val REJECT = "REJECT"
+# const val UPDATE = "UPDATE"
+# const val CONNECTION_DATA = "CONNDATA"
+# const val GAIN = "GAIN"
+# const val LOSS = "LOSS"
+# const val MASTER_DATA = "MSTRDATA"
+# const val MASTER_DATA_GAIN = "MSTDGAIN"
+# const val CONNECTION_DATA_MARKET_PROCESS = "CDMPDATA"
+# const val SYSTEM = "SYSTEM" - afvalbakje
+
 classes:
   Marktproces:
     class_uri: Marktproces

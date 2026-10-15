@@ -1,0 +1,25 @@
+id: https://modellen.netbeheernederland.nl/stelsel/registers/tarievenregister
+name: tarievenregister
+title: Tarievenregister
+version: 1.1-draft
+description: Dit model bevindt zich in een vroege fase van ontwikkeling en bevat daarom nog geen definities.
+comments:
+  - |
+    Vragen aan domeinexperts die tijdens de volgende reviewsessie zullen worden toegelicht:
+    - Gelden tarieven per `Marktpartijregistratie` (netbeheerder) of per `Marktpartijsubregistratie` (administratieve marktpartij)?
+    - Logisch om netbeheerders te vragen om `Tariefcomponent` te vullen, terwijl `Verbruiksonafhankelijk systeemtarief` automatisch door het systeem wordt berekend?
+    - Kent `Transporttariefperiode` inderdaad het onderscheid naar `werkdag`?
+    - Klopt het dat we bij elektriciteit spreken van `afnemerscategorie` en bij gas van `aansluitcategorie`?
+    - Werken de entiteitnamen ook voor gas?
+    - Verwijzen we vanuit het aansluitingenregister enkel naar het `Verbruiksonafhankelijk systeemtarief`? Of naar elk van toepassing zijnde `Systeemtarief`?
+    - Gebruiken we nog steeds de afkoringen `PAV`, `TOVT` en `MT`?
+prefixes:
+  linkml: https://w3id.org/linkml/
+  begrip: https://begrippen.netbeheernederland.nl/id/
+  this: https://modellen.netbeheernederland.nl/stelsel/registers/tarievenregister#
+  marktpartijenregister: https://modellen.netbeheernederland.nl/stelsel/registers/marktpartijenregister#
+  rge: https://www.internetconsultatie.nl/regeling_gegevensuitwisseling_energiewet/b1
+default_prefix: this
+# imports:
+#   - ../../basiswaardesoorten
+default_range: Tekst

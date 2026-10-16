@@ -6,13 +6,12 @@ description: Dit model bevindt zich in een vroege fase van ontwikkeling en bevat
 comments:
   - |
     Vragen aan domeinexperts die tijdens de volgende reviewsessie zullen worden toegelicht:
+    - Systeembeheerders kunnen enkel de `Tariefcomponent` bewerken. Het `Systeemtarief` wordt daaruit centraal (namens de netbeheerders) berekend. Goed idee?
+    - Krijgt elk `VA-TA`-tarief een eigen EAN-code per transporttariefperiode?
     - Gelden tarieven per `Marktpartijregistratie` (netbeheerder) of per `Marktpartijsubregistratie` (administratieve marktpartij)?
-    - Logisch om netbeheerders te vragen om `Tariefcomponent` te vullen, terwijl `Verbruiksonafhankelijk systeemtarief` automatisch door het systeem wordt berekend?
     - Kent `Transporttariefperiode` inderdaad het onderscheid naar `werkdag`?
-    - Klopt het dat we bij elektriciteit spreken van `afnemerscategorie` en bij gas van `aansluitcategorie`?
-    - Werken de entiteitnamen ook voor gas?
-    - Verwijzen we vanuit het aansluitingenregister enkel naar het `Verbruiksonafhankelijk systeemtarief`? Of naar elk van toepassing zijnde `Systeemtarief`?
-    - Gebruiken we nog steeds de afkoringen `PAV`, `TOVT` en `MT`?
+    - Werken de entiteitnamen en eigenschappen ook voor gas? Spreken we daar bijvoorbeeld ook van `afnemerscategorie`?
+    - Verwijzen we vanuit het aansluitingenregister enkel naar het `VO`-tarief?
 prefixes:
   linkml: https://w3id.org/linkml/
   begrip: https://begrippen.netbeheernederland.nl/id/
